@@ -4,6 +4,9 @@
 
 main(_) ->
 	io:format("Publisher connect treehouse OTP release erlang escript.\n",[]),
+
+    Name = uuid:get_v4(),
+    Aaa = uuid:uuid_to_string(Name),
     application:start(chumak),
 
     {ok, Socket} = chumak:socket(pub),
@@ -16,11 +19,13 @@ main(_) ->
         X ->
             io:format("Unhandled reply for connect ~p \n", [X])
     end,
-    loop(Socket).
+    loop(Socket, Aaa).
 
-loop(Socket) ->
+loop(Socket, Aaa) ->
+    io:format("heartbeat ~p\n", [Aaa]),
     ok = chumak:send(Socket, <<"logging ", "Hello world">>),
-    ok = chumak:send(Socket, <<"heartbeat ", "Sup bro!">>),
+    Bin = list_to_binary(Aaa),
+    ok = chumak:send(Socket, Bin),
     timer:sleep(1000),
-    loop(Socket),
+    loop(Socket, Aaa),
     erlang:halt(0).
