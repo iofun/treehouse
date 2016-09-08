@@ -4,12 +4,9 @@
 
 main(_) ->
 	io:format("Publisher connect treehouse OTP release erlang escript.\n",[]),
-
+    application:start(chumak),
     Uuid = uuid:get_v4(),
     UuidString = uuid:uuid_to_string(Uuid),
-
-    application:start(chumak),
-
     {ok, Socket} = chumak:socket(pub),
 
     case chumak:connect(Socket, tcp, "localhost", 8135) of

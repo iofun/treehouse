@@ -16,7 +16,6 @@ local args = parser:parse()
 function get_options(conf_file)
     local file = io.open(conf_file, "r")
     local content = file:read("*all")
-    -- close the external conf file
     file:close()
     local options = lyaml.load(content)
     return options
