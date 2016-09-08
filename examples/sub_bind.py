@@ -1,20 +1,15 @@
 #!/usr/bin/env python
 
-import zmq
+import logging, uuid, zmq
 
 from zmq.eventloop import ioloop
 from zmq.eventloop.future import Context, Poller
 
-import logging
-
 from tornado import httpclient as _http_client
 from tornado import gen
 import ujson as json
-import uuid
-
 
 ioloop.install()
-
 
 @gen.coroutine
 def subscriber(port=8135):
