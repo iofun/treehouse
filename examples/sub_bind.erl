@@ -4,10 +4,25 @@
 
 main(_) ->
 	io:format("Subscriber bind treehouse OTP release erlang escript.\n",[]),
-    application:start(chumak),
-	{ok, Socket} = chumak:socket(sub),
+    application:ensure_all_started(chumak),
+    {ok, Socket} = chumak:socket(sub),
+
+    %% List of topics, put them on a list!
     Topic = <<" ">>,
+    Heartbeat = <<"heartbeat">>,
+    Asterisk = <<"asterisk">>,
+    Currency = <<"currency">>,
+    Beam = <<"beam">>,
+    Logging = <<"logging">>,
+    Upload = <<"upload">>,
+    %% Erlang zmq subscribe socket and topics!
     chumak:subscribe(Socket, Topic),
+    chumak:subscribe(Socket, Heartbeat),
+    chumak:subscribe(Socket, Asterisk),
+    chumak:subscribe(Socket, Currency),
+    chumak:subscribe(Socket, Logging),
+    chumak:subscribe(Socket, Upload),
+    
     case chumak:bind(Socket, tcp, "localhost", 8135) of
         {ok, _BindPid} ->
             io:format("Binding OK with Pid: ~p\n", [Socket]);

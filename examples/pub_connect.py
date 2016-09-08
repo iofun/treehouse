@@ -33,7 +33,7 @@ def publisher(port=8135):
     while True:
         topic = 'heartbeat'
         utc = arrow.utcnow()
-        raw = json.dumps({"time":utc.timestamp, "uuid": pub_uuid})
+        raw = json.dumps({"timestamp":utc.timestamp, "uuid": pub_uuid})
         message = '{0} {1}'.format(topic, raw)
 
         yield pub.send(message)

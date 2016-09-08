@@ -12,8 +12,7 @@
 -export([terminate/2]).
 -export([code_change/3]).
 
--record(state, {
-}).
+-record(state, {state}).
 
 %% API.
 

@@ -1,12 +1,13 @@
 #!/usr/bin/env escript
 %% -*- erlang -*-
-%%! -smp enable -sname pub_connect -pa ../_rel/treehouse_release/lib/stdlib-3.0/ebin ../_rel/treehouse_release/lib/kernel-5.0/ebin ../_rel/treehouse_release/lib/chumak-1.1.1/ebin ../_rel/treehouse_release/lib/uuid-1.5.2-rc1/ebin ../_rel/treehouse_release/lib/luerl-0.3/ebin
+%%! -smp enable -sname pub_connect -pa ../_rel/treehouse_release/lib/stdlib-3.0/ebin ../_rel/treehouse_release/lib/kernel-5.0/ebin ../_rel/treehouse_release/lib/chumak-1.1.1/ebin ../_rel/treehouse_release/lib/uuid-1.5.2-rc1/ebin ../_rel/treehouse_release/lib/jsx-2.8.0/ebin ../_rel/treehouse_release/lib/luerl-0.3/ebin
 
 main(_) ->
 	io:format("Publisher connect treehouse OTP release erlang escript.\n",[]),
 
-    Name = uuid:get_v4(),
-    Aaa = uuid:uuid_to_string(Name),
+    Uuid = uuid:get_v4(),
+    UuidString = uuid:uuid_to_string(Uuid),
+
     application:start(chumak),
 
     {ok, Socket} = chumak:socket(pub),
@@ -19,13 +20,21 @@ main(_) ->
         X ->
             io:format("Unhandled reply for connect ~p \n", [X])
     end,
-    loop(Socket, Aaa).
+    loop(Socket, UuidString).
 
-loop(Socket, Aaa) ->
-    io:format("heartbeat ~p\n", [Aaa]),
-    ok = chumak:send(Socket, <<"logging ", "Hello world">>),
-    Bin = list_to_binary(Aaa),
-    ok = chumak:send(Socket, Bin),
+loop(Socket, UuidString) ->
+    Timestamp0 = erlang:timestamp(),
+    Timestamp1 = [element(1,Timestamp0), element(2,Timestamp0)],
+    Timestamp2 = [integer_to_binary(X) || X <- Timestamp1, integer(X)],
+    Timestamp = list_to_binary(Timestamp2),
+
+    Json = jsx:encode([{<<"timestamp">>, list_to_integer(binary_to_list(Timestamp))},
+        {<<"uuid">>, iolist_to_binary(UuidString)}]),
+    Message = list_to_binary(["heartbeat ", Json]),
+
+    ok = chumak:send(Socket, Message),
+
+    io:format("~p~n", [Message]),
     timer:sleep(1000),
-    loop(Socket, Aaa),
+    loop(Socket, UuidString),
     erlang:halt(0).
