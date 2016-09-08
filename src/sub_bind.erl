@@ -1,2 +1,0 @@
--module(sub_bind).
--export([]).

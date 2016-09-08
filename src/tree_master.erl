@@ -24,7 +24,28 @@ start_link() ->
 %% gen_server.
 
 init([]) ->
-	{ok, #state{}}.
+	process_flag(trap_exit, true),
+	LuaState = init_lua(),
+	{ok, _} = sub_bind:start_link(),
+	{ok, #state{state=LuaState}}.
+
+%% init_lua() -> LuaState.
+%% Initialise a LuaState to be used for each imp process.
+
+init_lua() ->
+	Lua0 = luerl:init(),
+	Lua1 = lists:foldl(fun({Name,Mod}, L) -> load([Name], Mod, L) end, Lua0,
+		[{tree_dht,luerl_dht,
+		  tree_sub,luerl_sub}]),
+	%% Set the default imp
+	{_,Lua2} = luerl:do("this_imp = require 'default_imp'", Lua1),
+	Lua2.
+
+load(Key, Module, State0) ->
+	{Lk,State1} = luerl:encode_list(Key, State0),
+	{T,State2} = Module:install(State1),
+	luerl:set_table1(Lk, T, State2).
+
 
 handle_call(_Request, _From, State) ->
 	{reply, ignored, State}.
