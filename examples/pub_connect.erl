@@ -33,8 +33,6 @@ loop(Socket, UuidString) ->
     Message = list_to_binary(["heartbeat ", Json]),
 
     ok = chumak:send(Socket, Message),
-
-    io:format("~p~n", [Message]),
-    timer:sleep(1000),
+    timer:sleep(500),
     loop(Socket, UuidString),
     erlang:halt(0).

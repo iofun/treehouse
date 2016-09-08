@@ -9,19 +9,27 @@ require "sys"
 require "zhelpers"
 
 local zmq = require "lzmq"
+local socket = require "socket"  -- gettime() has higher precision than os.time()
+local uuid = require "uuid"
+local json = require "cjson"
+
+local struct = {}
+
+-- time in seconds, relative to the origin of the universe. 
+struct['timestamp'] = socket.gettime()
+
+-- see also example at uuid.seed()
+uuid.randomseed(socket.gettime()*10000)
+struct['uuid'] = uuid()
+
 local context = zmq.context()
 local publisher, err = context:socket{zmq.PUB, connect = "tcp://localhost:8135"}
 zassert(publisher, err)
 
 while true do
-  -- Get values that will fool the boss
-  local zipcode     = randof(100000)
-  local temperature = randof(215) - 80
-  local relhumidity = randof(50) + 10
-
-  -- Send message to all subscribers
-  local message = sprintf("logging %05d %d %d", zipcode, temperature, relhumidity)
+  struct['timestamp'] = socket.gettime()
+  -- Send message to the subscriber
+  local message = "heartbeat " .. json.encode(struct)
   publisher:send(message)
-  sys.sleep(0.1)
-  print(message)
+  sys.sleep(0.500)
 end
