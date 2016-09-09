@@ -1,0 +1,20 @@
+{application, treehouse, [
+    {description, "Hello Erlang!"},
+    {vsn, "0.0.1"},
+    {modules, []},
+    {registered, []},
+    {applications, [
+        kernel,
+        stdlib,
+        cowboy,
+        uuid,
+        chumak,
+        dht,
+        jsx,
+        lager,
+        msgpack,
+        gun
+    ]},
+    {mod, {treehouse_app, []}},
+    {env, []}
+]}.
