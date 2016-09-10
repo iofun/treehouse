@@ -4,7 +4,6 @@
 -export([init/0]).
 -export([send_hash_message/1]).
 
-
 %% Management API.
 
 start() ->
@@ -16,11 +15,9 @@ start_link() ->
 stop() ->
     cast(stop).
 
-
 %% Server state.
 
 -record(state, {}).
-
 
 %% User API.
 
@@ -34,10 +31,10 @@ cast(Message) ->
     hash_server ! {cast,self(),Message},
     ok.
 
-
 %% Initialise it all.
 
 init() ->
+    io:format("~p ~n", [<<"Donde donde donde">>]),
     application:ensure_all_started(dht),
     % Val = "Carepetch",
     % ID = crypto:hash(sha, Val),

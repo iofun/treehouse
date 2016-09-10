@@ -1,9 +1,8 @@
--module(tree_sub).
+-module(sub_bind).
 
 -export([start_link/0,start/0,stop/0]).
 -export([init/0]).
 -export([send_message/1]).
-
 
 %% Management API.
 
@@ -16,24 +15,20 @@ start_link() ->
 stop() ->
     cast(stop).
 
-
 %% Server state.
 
 -record(state, {}).
-
 
 %% User API.
 
 send_message(Message) ->
     cast({send_message,Message}).
 
-
 %% Internal protocol functions.
 
 cast(Message) ->
     sub_server ! {cast,self(),Message},
     ok.
-
 
 %% Initialise it all.
 

@@ -11,6 +11,7 @@ start(_Type, _Args) ->
     cowboy:start_http(trehouse_http_listener, 100, [{port, 8080}],
         [{env, [{dispatch, Dispatch}]}]
     ),
+    tree_master:start_link(),
 	treehouse_sup:start_link().
 
 stop(_State) ->
