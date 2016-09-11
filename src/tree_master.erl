@@ -12,7 +12,7 @@
 -export([terminate/2]).
 -export([code_change/3]).
 
--record(state, {state}).
+-record(state, {}).
 
 %% API.
 
@@ -24,31 +24,8 @@ start_link() ->
 
 init([]) ->
 	process_flag(trap_exit, true),
-	io:format("~p~n",[<<"Tons que mae!">>]),
-	LuaState = init_lua(),
-	io:format("~p~n",[<<"QuQue Disdisde mae Termino???">>]),
 	{ok, _} = sub_bind:start_link(),
-	io:format("~p~n",[<<"Que mae Termino???">>]),
-	{ok, #state{state=LuaState}}.
-
-%% init_lua() -> LuaState.
-%% Initialise a LuaState to be used for each imp process.
-
-init_lua() ->
-	Lua0 = luerl:init(),
-	Lua1 = lists:foldl(fun({Name,Mod}, L) -> load([Name], Mod, L) end, Lua0,
-		[{tree_dht,luerl_dht,
-		  sub_bind,luerl_sub}]),
-	%% Set the default imp
-	%% {_,Lua2} = luerl:do("this_imp = require 'default_imp'", Lua1),
-	%% Lua2,
-	Lua1.
-
-load(Key, Module, State0) ->
-	{Lk,State1} = luerl:encode_list(Key, State0),
-	{T,State2} = Module:install(State1),
-	luerl:set_table1(Lk, T, State2).
-
+	{ok, #state{}}.
 
 handle_call(_Request, _From, State) ->
 	{reply, ignored, State}.
