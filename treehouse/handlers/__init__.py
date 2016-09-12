@@ -146,7 +146,7 @@ class BaseHandler(web.RequestHandler):
         raise gen.Return(message)
 
 
-class TreehouseHandler(BaseHandler):
+class TreeHandler(BaseHandler):
     '''
         Treehouse Handler with Quote experiment
     '''

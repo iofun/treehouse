@@ -38,7 +38,7 @@ from tornado import websocket
 
 from treehouse.tools import options, indexes, periodic, new_resource
 
-from treehouse.handlers import OverlordHandler, imps, nodes
+from treehouse.handlers import TreehouseHandler, imps, nodes
 
 from zmq.eventloop import ioloop
 
@@ -67,7 +67,7 @@ kvalue = False
 cache = False
 
 
-class OverlordWSHandler(websocket.WebSocketHandler):
+class TreeWSHandler(websocket.WebSocketHandler):
     '''
         Websocket Handler
     '''
@@ -110,12 +110,6 @@ def periodic_ws_send():
     ws_send(message)
 
 def main():
-    '''
-        Overlords allow control of additional CPU and GPU units.
-
-        Overlords provide control for your cloud forest. 
-        As your forces grow in number, you must spawn more Overlords to control them.
-    '''
     # daemon options
     opts = options.options()
 
@@ -193,10 +187,10 @@ def main():
 
         [
             # Overlord system knowledge (quotes) and realtime events.
-            (r'/tree/?', OverlordHandler),
+            (r'/tree/?', TreeHandler),
 
             # experiment with WS
-            (r'/ws/alerts', OverlordWSHandler),
+            (r'/ws/alerts', TreeWSHandler),
 
             # Imps resource
             (r'/imps/(?P<imp_uuid>.+)/?', imps.Handler),
