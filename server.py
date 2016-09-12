@@ -1,12 +1,14 @@
 # -*- coding: utf-8 -*-
 '''
-    Overlords allow control of additional CPU and GPU units.
+    The treehouse spontaneously generates imps, which are used to spawn your resources.
 
-    Overlords provide control for your cloud forest. 
-    As your forces grow in number, you must spawn more Overlords to control them.
+    Nodes allow control of additional CPU and GPU units.
+
+    Nodes provide control for your cloud forest. 
+    As your forces grow in number, you must spawn more nodes to control them.
 '''
 
-# This file is part of overlord.
+# This file is part of treehouse.
 
 # Distributed under the terms of the last AGPL License.
 # The full license is in the file LICENCE, distributed as part of this software.
@@ -22,28 +24,21 @@ import itertools
 import ujson as json
 import logging
 import arrow
-import motor
 import queries
 import pylibmc as mc
 
 from tornado.ioloop import PeriodicCallback as PeriodicCast
 
-from tornado import gen
-from tornado import web
+from tornado import gen, web
 
-# from overlord.system.client import publisher
-# from overlord.system.server import subscriber
+# from treehouse.system.client import publisher
+# from treehouse.system.server import subscriber
 
 from tornado import websocket
 
-from overlord.tools import options
-from overlord.tools import indexes
-from overlord.tools import periodic
-from overlord.tools import new_resource
+from treehouse.tools import options, indexes, periodic, new_resource
 
-from overlord.handlers import OverlordHandler
-from overlord.handlers import imps
-from overlord.handlers import nodes
+from treehouse.handlers import OverlordHandler, imps, nodes
 
 from zmq.eventloop import ioloop
 
@@ -60,19 +55,14 @@ ioloop.install()
 
 # iofun testing box
 iofun = []
-
 # e_tag
 e_tag = False
-
 # db global variable
 db = False
-
 # sql global variable
 sql = False
-
 # kvalue global variable
 kvalue = False
-
 # cache glogbal variable
 cache = False
 
@@ -140,7 +130,7 @@ def main():
         raise gen.Return(results)
 
     # Set document database
-    document = motor.MotorClient(opts.mongo_host, opts.mongo_port).overlord
+    # document = motor.MotorClient(opts.mongo_host, opts.mongo_port).overlord
 
     # Set memcached backend
     memcache = mc.Client(
@@ -203,7 +193,7 @@ def main():
 
         [
             # Overlord system knowledge (quotes) and realtime events.
-            (r'/system/?', OverlordHandler),
+            (r'/tree/?', OverlordHandler),
 
             # experiment with WS
             (r'/ws/alerts', OverlordWSHandler),
