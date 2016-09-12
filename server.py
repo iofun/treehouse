@@ -122,6 +122,8 @@ def main():
     # daemon options
     opts = options.options()
 
+    count = 0
+
     @gen.coroutine
     def check_tree():
         process = Popen([treehouse_rel, "ping", "."], stdout=PIPE)
@@ -132,10 +134,9 @@ def main():
             process = Popen([treehouse_rel, "start", "."], stdout=PIPE)
             (output, err) = process.communicate()
             exit_code = process.wait()
-        
-        if 'HOME must be set' in str(output):
-            
-            logging.error('que mop')
+        else:
+            von_count += 1
+            logging.error(von_count)
         
         logging.warning(output)
 
