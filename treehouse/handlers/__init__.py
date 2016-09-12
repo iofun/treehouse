@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
 '''
-    Overlord HTTP base handlers.
+    Treehouse HTTP base handlers
 '''
 
-# This file is part of overlord.
+# This file is part of treehouse.
 
 # Distributed under the terms of the last AGPL License.
 # The full license is in the file LICENCE, distributed as part of this software.
@@ -18,15 +18,9 @@ import logging
 from tornado import gen
 from tornado import web
 
-from overlord.tools import errors
+from treehouse.tools import errors
 
-from overlord.tools.quotes import PeopleQuotes
-
-
-# DHT means distributed hash table
-
-# missing cebus integration, cebus being analogous to a roman centurion 
-# in this analogy the overlord unit is in charge of a single node.
+from treehouse.tools.quotes import PeopleQuotes
 
 
 class BaseHandler(web.RequestHandler):
@@ -84,7 +78,7 @@ class BaseHandler(web.RequestHandler):
 
     def set_default_headers(self):
         '''
-            Overlord default headers
+            Treehouse default headers
         '''
         self.set_header("Access-Control-Allow-Origin", self.settings.get('domain', '*'))
 
@@ -152,9 +146,9 @@ class BaseHandler(web.RequestHandler):
         raise gen.Return(message)
 
 
-class OverlordHandler(BaseHandler):
+class TreehouseHandler(BaseHandler):
     '''
-        Overlord Handler Continue with Quote experiment
+        Treehouse Handler with Quote experiment
     '''
 
     @gen.coroutine
