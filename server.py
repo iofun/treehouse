@@ -70,6 +70,8 @@ kvalue = False
 # cache glogbal variable
 cache = False
 
+von_count = 0
+
 # system uuid
 system_uuid = uuid.uuid4()
 # treehouse _rel
@@ -122,7 +124,8 @@ def main():
     # daemon options
     opts = options.options()
 
-    von_count = 0
+    global von_count
+    von_count = von_count
 
     @gen.coroutine
     def check_tree():
