@@ -122,7 +122,7 @@ def main():
     # daemon options
     opts = options.options()
 
-    count = 0
+    von_count = 0
 
     @gen.coroutine
     def check_tree():
