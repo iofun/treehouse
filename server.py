@@ -128,6 +128,7 @@ def main():
         (output, err) = process.communicate()
         exit_code = process.wait()
         if 'not responding to pings' in output:
+            logging.error(output)
             process = Popen([treehouse_rel, "start", "."], stdout=PIPE)
             (output, err) = process.communicate()
             exit_code = process.wait()
