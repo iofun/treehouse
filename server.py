@@ -72,6 +72,8 @@ cache = False
 
 # system uuid
 system_uuid = uuid.uuid4()
+# treehouse _rel
+treehouse_rel = "/home/overlord/treehouse/_rel/treehouse_release/bin/treehouse_release"
 
 
 class TreeWSHandler(websocket.WebSocketHandler):
@@ -122,9 +124,13 @@ def main():
 
     @gen.coroutine
     def check_tree():
-        process = Popen(["ls", "-la", "."], stdout=PIPE)
+        process = Popen([treehouse_rel, "ping", "."], stdout=PIPE)
         (output, err) = process.communicate()
         exit_code = process.wait()
+        if 'not responding to pings' in output:
+            process = Popen([treehouse_rel, "start", "."], stdout=PIPE)
+            (output, err) = process.communicate()
+            exit_code = process.wait()
         logging.warning(output)
 
     @gen.coroutine
@@ -162,19 +168,18 @@ def main():
     # Set system uuid
     global system_uuid
     system_uuid = system_uuid
-
+    # Set treehouse release
+    global treehouse_rel
+    treehouse_rel = treehouse_rel
     # Set kvalue database
     global kvalue
     kvalue = kvalue
-
     # Set default cache
     global cache
     cache = memcache
-
     # Set SQL session
     global sql
     sql = queries.TornadoSession(uri=postgresql_uri)
-
     # Set default database
     global db
     db = document
