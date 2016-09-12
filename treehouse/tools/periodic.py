@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 '''
-    Overlord tools system periodic functions.
+    Treehouse tools system periodic functions.
 '''
 
 # This file is part of treehouse.

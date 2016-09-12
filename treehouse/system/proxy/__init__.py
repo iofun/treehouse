@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 '''
-    Overlord proxy logic
+    Treehouse proxy logic
 '''
 
 # This file is part of treehouse.
@@ -39,7 +39,7 @@ def split_address(message):
 
 class OverlordProxy(object):
     '''
-        The Overlord proxy class.
+        The Treehouse proxy class.
 
         The proxy routes messages from clients to appropriate workers based on the
         requested service.

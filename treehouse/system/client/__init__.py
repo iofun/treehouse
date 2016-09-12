@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 '''
-    Overlord client logic
+    Treehouse client logic
 '''
 
 # This file is part of treehouse.
@@ -62,7 +62,7 @@ def op_request(socket, service, message, timeout=None):
     '''
         Synchronous OP request.
 
-        This function sends a overlord protocol request 
+        This function sends a Treehouse protocol request 
         to the given service and waits for a reply.
 
         If timeout is set and no reply received in the given time
@@ -110,7 +110,7 @@ class RequestTimeout(UserWarning):
 
 class OverlordClient(object):
     '''
-        Class for the Overlord client side.
+        Class for the Treehouse client side.
 
         Thin asynchronous encapsulation of a zmq.REQ socket.
         Provides a :func:'request' method with optional timeout.

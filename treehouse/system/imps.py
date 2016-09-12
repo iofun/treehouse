@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 '''
-    overlord Imps system logic.
+    Treehouse Imps system logic.
 '''
 
 # This file is part of treehouse.
@@ -26,7 +26,7 @@ from treehouse.tools import clean_structure, clean_results
 
 class Imps(object):
     '''
-        Overlord Imps
+        Treehouse Imps
 
         You thought an imp was a cute little dude in a red suit with a pitchfork. 
         Where did these bastards come from? They heave balls o' fire down 

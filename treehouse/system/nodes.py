@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 '''
-    Overlord nodes system logic.
+    Treehouse nodes system logic.
 '''
 
 # This file is part of treehouse.
@@ -45,7 +45,7 @@ def check_exist(db, node_uuid):
 
 class Nodes(object):
     '''
-        Overlord nodes
+        Treehouse nodes
     '''
 
     @gen.coroutine

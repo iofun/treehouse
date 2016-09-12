@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 '''
-    Overlord system models and messages.
+    Treehouse system models and messages.
 '''
 
 # This file is part of treehouse.

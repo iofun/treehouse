@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 '''
-    Overlord node message models.
+    Treehouse node message models.
 '''
 
 # This file is part of treehouse.

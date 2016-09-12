@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 '''
-    Overlord HTTP node handlers.
+    Treehouse HTTP node handlers.
 '''
 
 # This file is part of treehouse.

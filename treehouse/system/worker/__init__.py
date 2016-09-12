@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 '''
-    Overlord worker logic
+    Treehouse worker logic
 '''
 
 # This file is part of treehouse.
@@ -40,7 +40,7 @@ def split_address(message):
 class OverlordWorker(object):
 
     '''
-        Class for the Overlord worker side.
+        Class for the Treehouse worker side.
 
         Thin encapsulation of a zmq.DEALER socket.
         Provides a send method with optional timeout parameter.
@@ -48,7 +48,7 @@ class OverlordWorker(object):
         Will use a timeout to indicate a proxy failure.
     '''
 
-    _proto_version = b'OPW01' # Overlord Protocol Worker 01
+    _proto_version = b'OPW01' # Treehouse Protocol Worker 01
 
     HB_INTERVAL = 1000  # in milliseconds
     HB_LIVENESS = 3    # HBs to miss before connection counts as dead

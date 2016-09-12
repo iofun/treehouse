@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 '''
-    Overlord HTTP IMP handlers.
+    Treehouse HTTP IMP handlers.
 '''
 
 # This file is part of treehouse.
@@ -17,7 +17,7 @@ from tornado import gen, web
 
 import logging
 
-# overlord system imps
+# treehouse system imps
 from treehouse.system import imps
 
 # errors, string to boolean, check JSON, new resource, content type validation.

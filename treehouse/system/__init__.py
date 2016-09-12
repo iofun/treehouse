@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 '''
-    Overlord system logic functions.
+    Treehouse system logic functions.
 '''
 
 # This file is part of treehouse.

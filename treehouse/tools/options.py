@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 '''
-    Overlord daemon configuration options.
+    Treehouse daemon configuration options.
 '''
 
 # This file is part of treehouse.
@@ -27,7 +27,7 @@ config_path = 'treehouse.conf'
 
 def options():
     '''
-        Overlord configuration options
+        Treehouse configuration options
     '''
     # Startup options
     tornado.options.define(
@@ -64,12 +64,12 @@ def options():
     tornado.options.define('port', default=8888, type=int,
                            help=('Server port'))
 
-    # Overlord node settings
+    # Treehouse node settings
     tornado.options.define('overlord_host', default='127.0.0.1', type=str,
-                            help=('Overlord hostname or ip address'))
+                            help=('Treehouse hostname or ip address'))
 
     tornado.options.define('overlord_port', default=8899, type=int,
-                            help=('Overlord port'))
+                            help=('Treehouse port'))
     
     # MongoDB database settings
     tornado.options.define('mongo_host', type=str,

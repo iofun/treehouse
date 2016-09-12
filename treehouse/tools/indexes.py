@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 '''
-    Overlord database indexes.
+    Treehouse database indexes.
 '''
 
 # This file is part of treehouse.

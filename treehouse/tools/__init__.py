@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 '''
-    Overlord tools system logic functions.
+    Treehouse tools system logic functions.
 '''
 
 # This file is part of treehouse.
@@ -152,7 +152,7 @@ def new_resource(db, struct, collection=None, scheme=None):
     # please put some love on record analogies.
     class OverlordResource(_models.Model):
         '''
-            Overlord resource
+            Treehouse resource
         '''
         uuid = _types.UUIDType(default=_uuid.uuid4)
         imps = _types.StringType(required=False)

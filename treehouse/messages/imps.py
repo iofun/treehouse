@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 '''
-    Overlord Imps message models.
+    Treehouse Imps message models.
 '''
 
 # This file is part of treehouse.
@@ -19,7 +19,7 @@ from schematics import types
 
 class Imp(models.Model):
     '''
-        Overlord Imp
+        Treehouse Imp
     '''
     uuid = types.UUIDType(default=uuid.uuid4)
     account = types.StringType(required=True)

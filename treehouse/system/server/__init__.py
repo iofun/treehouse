@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 '''
-    Overlord server logic
+    Treehouse server logic
 '''
 
 # This file is part of treehouse.
@@ -218,7 +218,7 @@ def publisher(port="5558"):
         sss = psutil.cpu_percent(interval=None, percpu=True)
 
         topic = 0
-        messagedata = '{0} overlord#{1} Overlord CPU {2} Memory {3} Times {4}'.format(wut,spawn_uuid,sss,mem,ctm)
+        messagedata = '{0} overlord#{1} Treehouse CPU {2} Memory {3} Times {4}'.format(wut,spawn_uuid,sss,mem,ctm)
         message = "{0} {1}".format(topic, messagedata)
         socket.send(message)
         time.sleep(1)
