@@ -27,6 +27,8 @@ import arrow
 import queries
 import pylibmc as mc
 
+from subprocess import Popen, PIPE
+
 from tornado.ioloop import PeriodicCallback as PeriodicCast
 
 from tornado import gen, web
@@ -120,12 +122,10 @@ def main():
 
     @gen.coroutine
     def check_tree():
-        from subprocess import Popen, PIPE
         process = Popen(["ls", "-la", "."], stdout=PIPE)
         (output, err) = process.communicate()
         exit_code = process.wait()
         logging.warning(output)
-        raise output
 
     @gen.coroutine
     def email_notifications():
