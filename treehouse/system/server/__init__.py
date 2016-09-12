@@ -3,7 +3,7 @@
     Overlord server logic
 '''
 
-# This file is part of overlord.
+# This file is part of treehouse.
 
 # Distributed under the terms of the last AGPL License.
 # The full license is in the file LICENCE, distributed as part of this software.
@@ -25,7 +25,7 @@ from zmq.eventloop.zmqstream import ZMQStream
 from zmq.eventloop.future import Context, Poller
 from zmq.log.handlers import PUBHandler
 
-from overlord.system import process_message
+from treehouse.system import process_message
 
 @gen.coroutine
 def subscriber(port=8899):

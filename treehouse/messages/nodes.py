@@ -3,7 +3,7 @@
     Overlord node message models.
 '''
 
-# This file is part of overlord.
+# This file is part of treehouse.
 
 # Distributed under the terms of the last AGPL License.
 # The full license is in the file LICENCE, distributed as part of this software.
@@ -17,7 +17,7 @@ from schematics import models
 from schematics import types
 from schematics.types import compound
 
-from overlord.messages import Resource
+from treehouse.messages import Resource
 
 
 class Node(models.Model):

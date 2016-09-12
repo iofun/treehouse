@@ -3,7 +3,7 @@
     Overlord tools system logic functions.
 '''
 
-# This file is part of overlord.
+# This file is part of treehouse.
 
 # Distributed under the terms of the last AGPL License. 
 # The full license is in the file LICENCE, distributed as part of this software.
@@ -19,9 +19,9 @@ import ujson as json
 import logging
 
 from tornado import gen
-from overlord import errors
+from treehouse import errors
 
-from overlord.messages import imps
+from treehouse.messages import imps
 
 
 def get_average(total, marks):

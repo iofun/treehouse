@@ -3,7 +3,7 @@
     Overlord HTTP node handlers.
 '''
 
-# This file is part of overlord.
+# This file is part of treehouse.
 
 # Distributed under the terms of the last AGPL License.
 # The full license is in the file LICENCE, distributed as part of this software.
@@ -17,14 +17,14 @@ from tornado import gen, web
 
 import logging
 
-from overlord.system import nodes
+from treehouse.system import nodes
 
-from overlord.tools import content_type_validation
-from overlord.tools import str2bool, check_json
+from treehouse.tools import content_type_validation
+from treehouse.tools import str2bool, check_json
 
-from overlord.tools import errors
+from treehouse.tools import errors
 
-from overlord.handlers import BaseHandler
+from treehouse.handlers import BaseHandler
 
 
 @content_type_validation

@@ -3,7 +3,7 @@
     overlord Imps system logic.
 '''
 
-# This file is part of overlord.
+# This file is part of treehouse.
 
 # Distributed under the terms of the last AGPL License.
 # The full license is in the file LICENCE, distributed as part of this software.
@@ -19,9 +19,9 @@ import logging
 
 from tornado import gen
 
-from overlord.messages import imps, nodes
+from treehouse.messages import imps, nodes
 
-from overlord.tools import clean_structure, clean_results
+from treehouse.tools import clean_structure, clean_results
 
 
 class Imps(object):

@@ -3,7 +3,7 @@
     Overlord tools system periodic functions.
 '''
 
-# This file is part of overlord.
+# This file is part of treehouse.
 
 # Distributed under the terms of the last AGPL License. 
 # The full license is in the file LICENCE, distributed as part of this software.
@@ -20,7 +20,7 @@ import queries
 
 from tornado import gen
 
-from overlord.system import imps
+from treehouse.system import imps
 
 
 httpclient.AsyncHTTPClient.configure('tornado.curl_httpclient.CurlAsyncHTTPClient')

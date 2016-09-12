@@ -3,7 +3,7 @@
     Overlord daemon configuration options.
 '''
 
-# This file is part of overlord.
+# This file is part of treehouse.
 
 # Distributed under the terms of the last AGPL License. 
 # The full license is in the file LICENCE, distributed as part of this software.
@@ -22,7 +22,7 @@ from tornado.options import parse_config_file
 
 #secret = base64.b64encode(uuid.uuid4().bytes + uuid.uuid4().bytes)
 secret = base64.b64encode("I've said before that I'm a remarkably unsentimental monkey.")
-config_path = 'overlord.conf'
+config_path = 'treehouse.conf'
 
 
 def options():
