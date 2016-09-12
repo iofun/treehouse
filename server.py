@@ -132,6 +132,8 @@ def main():
             process = Popen([treehouse_rel, "start", "."], stdout=PIPE)
             (output, err) = process.communicate()
             exit_code = process.wait()
+        elif 'HOME must be set' in output:
+            logging.error('que mop')
         logging.warning(output)
 
     @gen.coroutine
