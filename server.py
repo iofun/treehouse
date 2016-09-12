@@ -171,7 +171,7 @@ def main():
     db = document
 
     # logging system spawned
-    logging.info('Treehouse system {0} spawned'.format(system_uuid)
+    logging.info('Treehouse system {0} spawned'.format(system_uuid))
 
     # logging database hosts
     logging.info('MongoDB server: {0}:{1}'.format(opts.mongo_host, opts.mongo_port))
