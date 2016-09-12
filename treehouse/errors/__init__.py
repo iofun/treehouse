@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 '''
-    Overlord system errors.
+    Treehouse system errors.
 '''
 
 # This file is part of treehouse.
@@ -11,23 +11,9 @@
 __author__ = 'Jean Chassoul'
 
 
-'''
-    A supervisor is created to watch the servers and the servers 
-    itself acts as monitors for the supervisor daemon.
-
-    Most watchdog/supervisor type systems start two processes 
-    that watch each other in addition to the target process(es).
-
-    Monit and supervisor watch each other in addition to the system process(es).
-'''
-
-# it's cool and all to have a errors module and a Error class but we're missing the point of the hole error thing
-# the out-of-band error channel is missing from the system.
-
-
 class ConnectionNotReadyError(RuntimeError):
     '''
-        Exception raised when attempting to use the Overlord Worker before the handshake took place.
+        Exception raised when attempting to use some Worker before the handshake took place.
     '''
     pass
 
@@ -41,7 +27,7 @@ class MissingHeartbeat(UserWarning):
 
 class Error(object):
     '''
-        Overlord custom error class
+        Treehouse custom error class
     '''
     
     def __init__(self, error):

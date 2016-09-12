@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 '''
-    Overlord system.
+    Treehouse system.
 '''
 
 # This file is part of treehouse.
