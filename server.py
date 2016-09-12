@@ -61,6 +61,8 @@ e_tag = False
 db = False
 # sql global variable
 sql = False
+# document global variable
+document = False
 # kvalue global variable
 kvalue = False
 # cache glogbal variable
