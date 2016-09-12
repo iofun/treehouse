@@ -119,6 +119,15 @@ def main():
     opts = options.options()
 
     @gen.coroutine
+    def check_tree():
+        from subprocess import Popen, PIPE
+        process = Popen(["ls", "-la", "."], stdout=PIPE)
+        (output, err) = process.communicate()
+        exit_code = process.wait()
+        logging.warning(output)
+        raise output
+
+    @gen.coroutine
     def email_notifications():
         key = opts.mailgun_key
         url = opts.mailgun_api_url
@@ -248,6 +257,10 @@ def main():
         login_url='/login/'
     )
     # Treehouse periodic cast callbacks
+
+    check_node_tree = PeriodicCast(check_tree, 5000)
+    check_node_tree.start()
+
     #check_alerts = PeriodicCast(email_notifications, 3000)
     #check_alerts.start()
 
