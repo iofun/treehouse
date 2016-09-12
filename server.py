@@ -68,6 +68,9 @@ kvalue = False
 # cache glogbal variable
 cache = False
 
+# system uuid
+system_uuid = uuid.uuid4()
+
 
 class TreeWSHandler(websocket.WebSocketHandler):
     '''
@@ -147,6 +150,10 @@ def main():
         password=None
     )
 
+    # Set system uuid
+    global system_uuid
+    system_uuid = system_uuid
+
     # Set kvalue database
     global kvalue
     kvalue = kvalue
@@ -164,7 +171,7 @@ def main():
     db = document
 
     # logging system spawned
-    logging.info('Overlord system {0} spawned'.format(uuid.uuid4()))
+    logging.info('Treehouse system {0} spawned'.format(system_uuid)
 
     # logging database hosts
     logging.info('MongoDB server: {0}:{1}'.format(opts.mongo_host, opts.mongo_port))
@@ -184,11 +191,11 @@ def main():
     if cache_enabled:
         logging.info('Memcached server: {0}:{1}'.format(opts.memcached_host, opts.memcached_port))
 
-    # overlord web application daemon
+    # treehouse web application daemon
     application = web.Application(
 
         [
-            # Overlord system knowledge (quotes) and realtime events.
+            # Treehouse system knowledge (quotes) and realtime events.
             (r'/tree/?', TreeHandler),
 
             # experiment with WS
@@ -240,21 +247,21 @@ def main():
         # login url
         login_url='/login/'
     )
-    # Overlord periodic cast callbacks
+    # Treehouse periodic cast callbacks
     #check_alerts = PeriodicCast(email_notifications, 3000)
     #check_alerts.start()
 
     #periodic_ws = PeriodicCast(periodic_ws_send, 3000)
     #periodic_ws.start()
 
-    # Setting up overlord processor
+    # Setting up treehouse processor
     application.listen(opts.port)
     logging.info('Listening on http://%s:%s' % (opts.host, opts.port))
     loop = ioloop.IOLoop.instance()
 
     # Process heartbeat SUB/PUB
     #loop.add_callback(subscriber)
-    #loop.add_callback(publisher, opts.overlord_host)
+    #loop.add_callback(publisher, opts.treehouse_host)
 
     loop.start()
 

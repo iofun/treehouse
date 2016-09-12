@@ -34,7 +34,7 @@ PROTO_VERSION = b'OPC01'
 
 
 @gen.coroutine
-def publisher(port=8899):
+def publisher(port=8135):
     '''
         Please make the publisher the client (connect)
 
@@ -50,7 +50,7 @@ def publisher(port=8899):
     while True:
         topic = 'heartbeat'
         hb_time = arrow.utcnow()
-        data = json.dumps({"heartbeat":{"time":hb_time.timestamp, "info": "overlord_uuid"}})
+        data = json.dumps({"heartbeat ":{"time":hb_time.timestamp, "info": "overlord_uuid"}})
 
         message = '{0} {1}'.format(topic,data)
         yield pub.send(message)
