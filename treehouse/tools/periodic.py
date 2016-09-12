@@ -16,10 +16,7 @@ from tornado import httpclient
 import ujson as json
 import uuid
 import urllib
-import motor
 import queries
-
-import requests
 
 from tornado import gen
 

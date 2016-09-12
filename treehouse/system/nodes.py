@@ -12,15 +12,14 @@ __author__ = 'Jean Chassoul'
 
 
 import arrow
-import motor
+
 import uuid
 
 import logging
 
 from tornado import gen
 
-from overlord.messages import imps
-from overlord.messages import nodes 
+from overlord.messages import imps, nodes 
 
 from overlord.tools import clean_structure, clean_results, str2bool
 

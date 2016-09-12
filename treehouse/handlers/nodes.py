@@ -12,10 +12,8 @@ __author__ = 'Jean Chassoul'
 
 
 import ujson as json
-import motor
 
-from tornado import gen
-from tornado import web
+from tornado import gen, web
 
 import logging
 

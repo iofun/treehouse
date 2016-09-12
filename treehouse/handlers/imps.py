@@ -12,21 +12,13 @@ __author__ = 'Jean Chassoul'
 
 
 import ujson as json
-import motor
 
-from tornado import gen
-from tornado import web
+from tornado import gen, web
 
 import logging
 
 # overlord system imps
 from overlord.system import imps
-
-
-# for imps directories are like nodes using this kind of bad analogy.
-
-# system directories check directory exist.
-#from overlord.system.directories import check_exist as check_dir_exist # WTF? move it on tools or wut?
 
 # errors, string to boolean, check JSON, new resource, content type validation.
 from overlord.tools import errors, str2bool, check_json, new_resource, content_type_validation

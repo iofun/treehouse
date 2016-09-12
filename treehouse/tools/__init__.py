@@ -15,7 +15,6 @@ import time
 import arrow
 import datetime
 import ujson as json
-import motor
 
 import logging
 
@@ -77,61 +76,6 @@ def check_json(struct):
         return
 
     raise gen.Return(struct)
-
-@gen.coroutine
-def check_account_type(db, account, account_type):
-    '''
-        check account type
-    '''
-    try:
-        check_type = yield db.accounts.find_one({'account': account,
-                                                 'type':account_type},
-                                                {'type':1, '_id':0})
-    except Exception, e:
-        logging.exception(e)
-        raise e
-
-        return
-
-    raise gen.Return(check_type)
-
-@gen.coroutine
-def check_account_authorization(db, account, password):
-    '''
-        Check account authorization
-    '''
-    try:
-        message = yield db.accounts.find_one({'account': account,
-                                              'password': password})
-
-    except Exception, e:
-        logging.exception(e)
-        raise e
-
-        return
-
-    raise gen.Return(message)
-
-@gen.coroutine
-def check_aggregation_pipeline(struct):
-    '''
-        Check aggregation pipeline
-
-        Return mongodb aggregation report
-    '''
-    try:
-        aggregation = reports.Aggregate(**struct).validate()
-    except Exception, e:
-        logging.exception(e)
-        raise e
-
-        return
-
-    message = aggregation
-
-    # TODO: test this in action
-    
-    raise gen.Return(message)
     
 @gen.coroutine
 def check_times(start, end):
