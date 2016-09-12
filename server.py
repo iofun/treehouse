@@ -38,7 +38,7 @@ from tornado import websocket
 
 from treehouse.tools import options, indexes, periodic, new_resource
 
-from treehouse.handlers import TreehouseHandler, imps, nodes
+from treehouse.handlers import TreeHandler, imps, nodes
 
 from zmq.eventloop import ioloop
 
