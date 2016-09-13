@@ -124,9 +124,6 @@ def main():
     # daemon options
     opts = options.options()
 
-    global von_count
-    von_count = von_count
-
     @gen.coroutine
     def check_tree():
         process = Popen([treehouse_rel, "ping", "."], stdout=PIPE)
@@ -138,6 +135,7 @@ def main():
             (output, err) = process.communicate()
             exit_code = process.wait()
         else:
+            global von_count
             von_count += 1
             logging.error(von_count)
         
