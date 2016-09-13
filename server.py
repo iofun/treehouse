@@ -126,6 +126,7 @@ def main():
 
     @gen.coroutine
     def check_tree():
+        os.environ['HOME'] = '/home/overlord/'
         process = Popen([treehouse_rel, "ping", "."], stdout=PIPE)
         (output, err) = process.communicate()
         exit_code = process.wait()
