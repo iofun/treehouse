@@ -16,6 +16,7 @@
 __author__ = 'Jean Chassoul'
 
 
+import os
 import time
 import zmq
 import sys
