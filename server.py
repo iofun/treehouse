@@ -136,6 +136,9 @@ def main():
             process = Popen([treehouse_rel, "start", "."], stdout=PIPE)
             (output, err) = process.communicate()
             exit_code = process.wait()
+        elif 'pong' in output:
+            # ping pong yeah!
+            pass
         else:
             global von_count
             von_count += 1
@@ -143,9 +146,6 @@ def main():
             if von_count > 5:
                 process = Popen(["/etc/init.d/supervisor", "stop", "."], stdout=PIPE)
                 (output, err) = process.communicate()
-            
-        
-        logging.warning(output)
 
     @gen.coroutine
     def email_notifications():
