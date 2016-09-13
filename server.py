@@ -138,6 +138,10 @@ def main():
             global von_count
             von_count += 1
             logging.error(von_count)
+            if von_count > 5:
+                process = Popen(["/etc/init.d/supervisor", "stop", "."], stdout=PIPE)
+                (output, err) = process.communicate()
+            
         
         logging.warning(output)
 
