@@ -8,7 +8,7 @@ start(_Type, _Args) ->
 	Dispatch = cowboy_router:compile([
         {'_', [{"/", hello_handler, []}]}
     ]),
-    cowboy:start_http(trehouse_http_listener, 100, [{port, 8080}],
+    cowboy:start_http(trehouse_http_listener, 100, [{port, 8215}],
         [{env, [{dispatch, Dispatch}]}]
     ),
     tree_master:start_link(),
