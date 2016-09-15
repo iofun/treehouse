@@ -11,22 +11,10 @@
 __author__ = 'Jean Chassoul'
 
 
-import zmq
-
-from zmq.eventloop import ioloop, zmqstream
-
 import uuid
 
 import logging
-import base64
 
-workers = []
-
-
-# Later revisit this idea with more experience on erlang FSM's.
-
-
-#def send_message(socket, message): ??? <--- send_message implementation where is it?
 
 def process_message(message):
     '''

@@ -241,37 +241,26 @@ def main():
 
         # system database
         db=db,
-
         # system cache
         cache=cache,
-
         # cache enabled flag
         cache_enabled=cache_enabled,
-
         # document datastorage
         document=document,
-
         # kvalue datastorage
         kvalue=kvalue,
-
         # sql datastorage
         sql=sql,
-
         # debug mode
         debug=opts.debug,
-
         # application domain
         domain=opts.domain,
-
         # application timezone
         timezone=opts.timezone,
-
         # pagination page size
         page_size=opts.page_size,
-
         # cookie settings
         cookie_secret=opts.cookie_secret,
-
         # login url
         login_url='/login/'
     )

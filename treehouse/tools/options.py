@@ -118,11 +118,6 @@ def options():
         default='127.0.0.1', type=str,
         help=('Memcached host'))
 
-    # ZMQ external PUB logger
-    tornado.options.define('external_log',
-        default=False, type=bool,
-        help=('External logger'))
-
     tornado.options.define('memcached_port',
         default=11211, type=int,
         help=('Memcached port'))
