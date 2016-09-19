@@ -1,4 +1,4 @@
--module(luerl_dht).
+-module(luerl_dht_c).
 
 %% The basic entry point to set up the function table.
 -export([install/1]).

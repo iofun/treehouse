@@ -25,6 +25,10 @@ start_link() ->
 init([]) ->
 	process_flag(trap_exit, true),
 	{ok, _} = sub_bind:start_link(),
+	{ok, _} = tree_dht_a:start_link(),
+	{ok, _} = tree_dht_b:start_link(),
+	{ok, _} = tree_dht_c:start_link(),
+	io:format("hit when is ~p hot~n", ["hot"]),
 	{ok, #state{}}.
 
 handle_call(_Request, _From, State) ->
