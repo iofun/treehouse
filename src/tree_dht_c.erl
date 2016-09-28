@@ -37,9 +37,10 @@ init() ->
     application:load(dht),
     application:set_env(dht, port, 1731),
     application:ensure_all_started(dht),
-    dht:ping({{127,0,0,1}, 1730}),
-    Self = dht:node_id(),
-    io:format("~p~n",[Self]),
+    %% now node c and b join node a
+    dht:ping({{127, 0, 0, 1}, 1729}),
+    Selx = dht:lookup(456),
+    io:format("~p~n",[Selx]),
     % Val = "Carepetch",
     % ID = crypto:hash(sha, Val),
     register(hash_c_server, self()),

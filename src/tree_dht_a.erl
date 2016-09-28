@@ -37,6 +37,7 @@ init() ->
     application:load(dht),
     application:set_env(dht, port, 1729),
     application:ensure_all_started(dht),
+    dht:enter(456, 5000),
     % Val = "Carepetch",
     % ID = crypto:hash(sha, Val),
     register(hash_a_server, self()),
