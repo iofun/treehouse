@@ -76,7 +76,7 @@ von_count = 0
 # system uuid
 system_uuid = uuid.uuid4()
 # treehouse _rel
-treehouse_rel = "/home/overlord/treehouse/_rel/treehouse_release/bin/treehouse_release"
+treehouse_rel = "/opt/treehouse/_rel/treehouse_release/bin/treehouse_release"
 
 
 class TreeWSHandler(websocket.WebSocketHandler):
@@ -127,7 +127,7 @@ def main():
 
     @gen.coroutine
     def check_tree():
-        os.environ['HOME'] = '/home/overlord/'
+        os.environ['HOME'] = '/opt/treehouse/'
         process = Popen([treehouse_rel, "ping", "."], stdout=PIPE)
         (output, err) = process.communicate()
         exit_code = process.wait()
