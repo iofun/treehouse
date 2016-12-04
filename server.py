@@ -122,15 +122,6 @@ def main():
     # daemon options
     opts = options.options()
 
-    # THE IDEA IS GOOD BUT MOVE THIS STUFF FROM TREEHOUSE TO SOMEWHERE ELSE
-    @gen.coroutine
-    def check_salt():
-        pass
-    # MOVE CHECK SALT AND CHECK APT FROM HERE, FOR NOW STUFF CONTINUES ON CRON
-    @gen.coroutine
-    def check_apt():
-        pass
-
     @gen.coroutine
     def check_tree():
         os.environ['HOME'] = '/opt/treehouse/'
@@ -150,24 +141,9 @@ def main():
             von_count += 1
             logging.error(von_count)
             if von_count > 5:
-                supervisor = Popen(["/etc/init.d/supervisor", "stop", "."], stdout=PIPE)
-                (output, err) = supervisor.communicate()
-                # try to crash supervisord and circusd
+                # Crash circusd monitor
                 circus = Popen(["/etc/init.d/circusd", "stop", "."], stdout=PIPE)
                 (output, err) = circus.communicate()
-
-    @gen.coroutine
-    def email_notifications():
-        key = opts.mailgun_key
-        url = opts.mailgun_api_url
-
-        results = yield [
-            periodic.consume_alert_callback(db, key, url)
-        ]
-        raise gen.Return(results)
-
-    # Set document database
-    # document = motor.MotorClient(opts.mongo_host, opts.mongo_port).overlord
 
     # Set memcached backend
     memcache = mc.Client(
@@ -211,7 +187,6 @@ def main():
     logging.info('Treehouse system {0} spawned'.format(system_uuid))
 
     # logging database hosts
-    logging.info('MongoDB server: {0}:{1}'.format(opts.mongo_host, opts.mongo_port))
     logging.info('PostgreSQL server: {0}:{1}'.format(opts.sql_host, opts.sql_port))
 
     # Ensure 
@@ -254,8 +229,6 @@ def main():
         cache=cache,
         # cache enabled flag
         cache_enabled=cache_enabled,
-        # document datastorage
-        document=document,
         # kvalue datastorage
         kvalue=kvalue,
         # sql datastorage
@@ -277,12 +250,6 @@ def main():
 
     check_node_tree = PeriodicCast(check_tree, 5000)
     check_node_tree.start()
-
-    #check_alerts = PeriodicCast(email_notifications, 3000)
-    #check_alerts.start()
-
-    #periodic_ws = PeriodicCast(periodic_ws_send, 3000)
-    #periodic_ws.start()
 
     # Setting up treehouse processor
     application.listen(opts.port)
