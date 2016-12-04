@@ -31,10 +31,10 @@ def options():
     '''
     # Startup options
     tornado.options.define(
-        'ensure_indexes',
+        'ensure_schemas',
         default=True,
         type=bool,
-        help=('Ensure collection indexes before starting')
+        help=('Ensure SQL schemas before starting')
     )
 
     # Set config and stuff
@@ -70,13 +70,6 @@ def options():
 
     tornado.options.define('overlord_port', default=8899, type=int,
                             help=('Treehouse port'))
-    
-    # MongoDB database settings
-    tornado.options.define('mongo_host', type=str,
-                            help=('MongoDB hostname or ip address'))
-
-    tornado.options.define('mongo_port', default=27017, type=int,
-                            help=('MongoDB port'))
 
     # PostgreSQL database settings
     tornado.options.define('sql_host', type=str,
@@ -102,16 +95,6 @@ def options():
     tornado.options.define('riak_port',
         default=8087, type=int,
         help=('Riak cluster port'))
-
-    tornado.options.define('mailgun_key',
-        default='key-348c3d4a39568cd19c1c7e41ff6944d4',
-        type=str,
-        help=('Secure mailgun key'))
-
-    tornado.options.define('mailgun_api_url',
-        default="https://api.mailgun.net/v3/codemachine.io/messages",
-        type=str,
-        help=('Mailgun API URL'))
 
     # Memcached cache datastorage settings
     tornado.options.define('memcached_host',

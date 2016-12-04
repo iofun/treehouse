@@ -34,12 +34,9 @@ from tornado.ioloop import PeriodicCallback as PeriodicCast
 
 from tornado import gen, web
 
-# from treehouse.system.client import publisher
-# from treehouse.system.server import subscriber
-
 from tornado import websocket
 
-from treehouse.tools import options, indexes, schemas, periodic, new_resource
+from treehouse.tools import options, schemas, periodic, new_resource
 
 from treehouse.handlers import TreeHandler, imps, nodes
 
@@ -218,9 +215,8 @@ def main():
     logging.info('PostgreSQL server: {0}:{1}'.format(opts.sql_host, opts.sql_port))
 
     # Ensure 
-    if opts.ensure_indexes:
-        logging.info('Ensuring indexes...')
-        indexes.ensure_indexes(db)
+    if opts.ensure_schemas:
+        logging.info('Ensuring SQL schemas...')
         schemas.ensure_schemas(sql)
         logging.info('DONE.')
 
