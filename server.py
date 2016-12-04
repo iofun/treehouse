@@ -39,7 +39,7 @@ from tornado import gen, web
 
 from tornado import websocket
 
-from treehouse.tools import options, indexes, periodic, new_resource
+from treehouse.tools import options, indexes, schemas, periodic, new_resource
 
 from treehouse.handlers import TreeHandler, imps, nodes
 
@@ -125,6 +125,15 @@ def main():
     # daemon options
     opts = options.options()
 
+    # THE IDEA IS GOOD BUT MOVE THIS STUFF FROM TREEHOUSE TO SOMEWHERE ELSE
+    @gen.coroutine
+    def check_salt():
+        pass
+    # MOVE CHECK SALT AND CHECK APT FROM HERE, FOR NOW STUFF CONTINUES ON CRON
+    @gen.coroutine
+    def check_apt():
+        pass
+
     @gen.coroutine
     def check_tree():
         os.environ['HOME'] = '/opt/treehouse/'
@@ -144,8 +153,11 @@ def main():
             von_count += 1
             logging.error(von_count)
             if von_count > 5:
-                process = Popen(["/etc/init.d/supervisor", "stop", "."], stdout=PIPE)
-                (output, err) = process.communicate()
+                supervisor = Popen(["/etc/init.d/supervisor", "stop", "."], stdout=PIPE)
+                (output, err) = supervisor.communicate()
+                # try to crash supervisord and circusd
+                circus = Popen(["/etc/init.d/circusd", "stop", "."], stdout=PIPE)
+                (output, err) = circus.communicate()
 
     @gen.coroutine
     def email_notifications():
@@ -209,6 +221,7 @@ def main():
     if opts.ensure_indexes:
         logging.info('Ensuring indexes...')
         indexes.ensure_indexes(db)
+        schemas.ensure_schemas(sql)
         logging.info('DONE.')
 
     # base url
