@@ -45,18 +45,21 @@ class Index(object):
             raise e
 
         try:
-            results = yield self.sql.query('SELECT * FROM indexes')
+            index_uuid = uuid.uuid4()
+
+            query = "INSERT INTO indexes(uuid, name, type) VALUES ('{0}', '{1}', '{2}')".format(index_uuid, struct['name'], struct['index_type'])
+
+            results = yield self.sql.query(query)
+
             message = results.items()
 
             logging.warning(message)
 
-            message = 'ok'
-            
             results.free()
         except Exception, e:
             logging.error(e)
             message = str(e)
 
-        raise gen.Return(message)
+        raise gen.Return(index_uuid)
 
     
