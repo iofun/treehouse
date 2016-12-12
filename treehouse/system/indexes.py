@@ -47,6 +47,11 @@ class Index(object):
         try:
             results = yield self.sql.query('SELECT * FROM indexes')
             message = results.items()
+
+            logging.warning(message)
+
+            message = 'ok'
+            
             results.free()
         except Exception, e:
             logging.error(e)
