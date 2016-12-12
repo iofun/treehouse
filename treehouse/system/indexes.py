@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 '''
-    Treehouse Imps system logic.
+    Treehouse Indexes system logic.
 '''
 
 # This file is part of treehouse.
@@ -24,7 +24,7 @@ from treehouse.messages import indexes
 from treehouse.tools import clean_structure, clean_results
 
 
-class Indexes(object):
+class Index(object):
     '''
         Treehouse Indexes
 
