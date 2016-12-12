@@ -45,7 +45,7 @@ class Index(object):
             raise e
 
         try:
-            index_uuid = uuid.uuid4()
+            index_uuid = str(uuid.uuid4())
 
             query = "INSERT INTO indexes(uuid, name, type) VALUES ('{0}', '{1}', '{2}')".format(index_uuid, struct['name'], struct['index_type'])
 
