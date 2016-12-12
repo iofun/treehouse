@@ -35,11 +35,7 @@ class Index(object):
     def new_index(self, struct):
         '''
             New Index
-        '''
-        # if check dir fail remove directory uuid
-        if not struct.get('has_directory', False):
-            struct.pop('directory_uuid', None)
-            
+        ''' 
         try:
             index = indexes.Index(struct)
             index.validate()

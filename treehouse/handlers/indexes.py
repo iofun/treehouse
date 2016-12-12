@@ -70,20 +70,15 @@ class Handler(indexes.Index, BaseHandler):
         if not struct.get('account'):
             struct['account'] = account
 
+        new_index = yield self.new_index(struct)
 
-        logging.info(account)
-
-        logging.error(struct)
-
-        new_imp = yield self.new_imp(struct)
-
-        if 'error' in new_imp:
-            scheme = 'imp'
+        if 'error' in new_index:
+            scheme = 'index'
             reason = {'duplicates': [
-                (scheme, 'account'),
-                (scheme, 'phone_number')
+                (scheme, 'name'),
+                (scheme, 'index_type')
             ]}
-            message = yield self.let_it_crash(struct, scheme, new_imp, reason)
+            message = yield self.let_it_crash(struct, scheme, new_index, reason)
 
             logging.warning(message)
             self.set_status(400)
@@ -91,4 +86,4 @@ class Handler(indexes.Index, BaseHandler):
             return
 
         self.set_status(201)
-        self.finish({'uuid':new_imp})
+        self.finish({'uuid':new_index})
