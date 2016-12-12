@@ -23,7 +23,7 @@ class Index(models.Model):
     '''
     uuid = types.UUIDType(default=uuid.uuid4)
     name = types.StringType(required=True)
-    account = types.StringType(required=True)
+    account = types.StringType(required=False)
     index_type = types.IntType(required=False)
     file = types.StringType()
     created_at = types.StringType()
@@ -44,7 +44,7 @@ class ModifyIndex(models.Model):
     '''
     uuid = types.UUIDType(default=uuid.uuid4)
     name = types.StringType(required=True)
-    account = types.StringType(required=True)
-    index_type = types.IntType(required=False)
+    account = types.StringType(required=False)
+    index_type = types.SringType(required=False)
     file = types.StringType()
     created_at = types.StringType()
