@@ -38,7 +38,7 @@ from tornado import websocket
 
 from treehouse.tools import options, schemas, periodic, new_resource
 
-from treehouse.handlers import TreeHandler, imps, nodes
+from treehouse.handlers import TreeHandler, imps, nodes, indexes
 
 from zmq.eventloop import ioloop
 
@@ -189,12 +189,6 @@ def main():
     # logging database hosts
     logging.info('PostgreSQL server: {0}:{1}'.format(opts.sql_host, opts.sql_port))
 
-    # Ensure 
-    if opts.ensure_schemas:
-        logging.info('Ensuring SQL schemas...')
-        schemas.ensure_schemas(sql)
-        logging.info('DONE.')
-
     # base url
     base_url = opts.base_url
 
@@ -216,6 +210,10 @@ def main():
             # Imps resource
             (r'/imps/(?P<imp_uuid>.+)/?', imps.Handler),
             (r'/imps/?', imps.Handler),
+
+             # Indexes resource
+            (r'/indexes/(?P<index_uuid>.+)/?', indexes.Handler),
+            (r'/indexes/?', indexes.Handler),
 
             # Nodes resource
             (r'/nodes/(?P<node_uuid>.+)/?', nodes.Handler),
