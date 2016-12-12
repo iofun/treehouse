@@ -45,8 +45,10 @@ class Index(object):
             raise e
 
         try:
-            result = yield self.db.imps.insert(imp)
-            message = imp.get('uuid')
+
+            results = yield self.db.query('SELECT * FROM indexes')
+            message = results.items()
+            results.free()
         except Exception, e:
             logging.error(e)
             message = str(e)
