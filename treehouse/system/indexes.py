@@ -45,8 +45,7 @@ class Index(object):
             raise e
 
         try:
-
-            results = yield self.db.query('SELECT * FROM indexes')
+            results = yield self.sql.query('SELECT * FROM indexes')
             message = results.items()
             results.free()
         except Exception, e:

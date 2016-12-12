@@ -159,7 +159,7 @@ def main():
     postgresql_uri = queries.uri(
         host=opts.sql_host,
         port=opts.sql_port,
-        dbname=opts.sql_database,
+        dbname='forge',
         user=opts.sql_user,
         password=None
     )
