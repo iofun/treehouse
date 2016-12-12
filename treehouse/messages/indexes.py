@@ -45,6 +45,6 @@ class ModifyIndex(models.Model):
     uuid = types.UUIDType(default=uuid.uuid4)
     name = types.StringType(required=True)
     account = types.StringType(required=False)
-    index_type = types.SringType(required=False)
+    index_type = types.StringType(required=False)
     file = types.StringType()
     created_at = types.StringType()
