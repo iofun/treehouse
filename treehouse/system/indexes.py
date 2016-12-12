@@ -46,15 +46,12 @@ class Index(object):
 
         try:
             index_uuid = str(uuid.uuid4())
-
-            query = "INSERT INTO indexes(uuid, name, type) VALUES ('{0}', '{1}', '{2}')".format(index_uuid, struct['name'], struct['index_type'])
-
+            query = "INSERT INTO indexes(uuid, name, type) VALUES ('{0}', '{1}', '{2}')".format(
+                index_uuid,
+                struct['name'],
+                struct['index_type']
+            )
             results = yield self.sql.query(query)
-
-            message = results.items()
-
-            logging.warning(message)
-
             results.free()
         except Exception, e:
             logging.error(e)
