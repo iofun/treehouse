@@ -13,7 +13,7 @@
 # Distributed under the terms of the last AGPL License.
 # The full license is in the file LICENCE, distributed as part of this software.
 
-__author__ = 'Jean Chassoul'
+__author__ = 'Team Machine'
 
 
 import os
@@ -53,21 +53,24 @@ httpclient.AsyncHTTPClient.configure('tornado.curl_httpclient.CurlAsyncHTTPClien
 # ioloop
 ioloop.install()
 
+# 2017... are we going to do something with the general variables this year???
+
 # iofun testing box
 iofun = []
-# e_tag
+
 e_tag = False
-# db global variable
+
 db = False
-# sql global variable
+
 sql = False
-# document global variable
+
 document = False
-# kvalue global variable
+
 kvalue = False
-# cache glogbal variable
+
 cache = False
 
+# general count if this grows we crash the tree
 von_count = 0
 
 # system uuid
@@ -128,6 +131,7 @@ def main():
         process = Popen([treehouse_rel, "ping", "."], stdout=PIPE)
         (output, err) = process.communicate()
         exit_code = process.wait()
+        max_count = 5
         if 'not responding to pings' in output:
             logging.error(output)
             process = Popen([treehouse_rel, "start", "."], stdout=PIPE)
@@ -140,10 +144,11 @@ def main():
             global von_count
             von_count += 1
             logging.error(von_count)
-            if von_count > 5:
+            if von_count > max_count:
                 # Crash circusd monitor
                 circus = Popen(["/etc/init.d/circusd", "stop", "."], stdout=PIPE)
                 (output, err) = circus.communicate()
+                logging.error('we crash the circus after trying {0} times!'.format(max_count))
 
     # Set memcached backend
     memcache = mc.Client(
