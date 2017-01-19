@@ -34,21 +34,19 @@ cast(Message) ->
 
 init() ->
     application:ensure_all_started(chumak),
-    %%Val = "Carepetch",
-    %%ID = crypto:hash(sha, Val),
-    %%io:format("~p ~p ~n", [Val, ID]),
     {ok, Socket} = chumak:socket(sub),
     %% List of topics, put them in a list or something.
     Topic = <<" ">>,
     Heartbeat = <<"heartbeat">>,
-    Asterisk = <<"asterisk">>,
+    Telephony = <<"telephony">>,
     Currency = <<"currency">>,
     Logging = <<"logging">>,
     Upload = <<"upload">>,
+    
     %% Erlang zmq subscribe socket and topics!
     chumak:subscribe(Socket, Topic),
     chumak:subscribe(Socket, Heartbeat),
-    chumak:subscribe(Socket, Asterisk),
+    chumak:subscribe(Socket, Telephony),
     chumak:subscribe(Socket, Currency),
     chumak:subscribe(Socket, Logging),
     chumak:subscribe(Socket, Upload),
