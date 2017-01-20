@@ -11,7 +11,7 @@ import uuid
 ioloop.install()
 
 @gen.coroutine
-def publisher(port=8135):
+def publisher(port=5813):
     context = Context()
     pub_uuid = str(uuid.uuid4())
     pub = context.socket(zmq.PUB)

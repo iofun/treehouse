@@ -6,14 +6,22 @@
     {applications, [
         kernel,
         stdlib,
+        lager,
         cowboy,
+        gun,
         uuid,
         chumak,
         dht,
         jsx,
-        lager,
-        msgpack,
-        gun
+        msgpack
+    ]},
+    {lager, [
+        {log_root, "/var/log/"},
+        {handlers, [
+            {lager_console_backend, info},
+            {lager_file_backend, [{file, "treehouse_error.log"}, {level, error}]},
+            {lager_file_backend, [{file, "treehouse_console.log"}, {level, info}]}
+        ]}
     ]},
     {mod, {treehouse_app, []}},
     {env, []}
