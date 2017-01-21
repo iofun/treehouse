@@ -15,6 +15,7 @@ main(_) ->
     Beam = <<"beam">>,
     Logging = <<"logging">>,
     Upload = <<"upload">>,
+
     %% Erlang zmq subscribe socket and topics!
     chumak:subscribe(Socket, Topic),
     chumak:subscribe(Socket, Heartbeat),

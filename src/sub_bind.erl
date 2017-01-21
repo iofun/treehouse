@@ -51,8 +51,9 @@ init() ->
     chumak:subscribe(Socket, Currency),
     chumak:subscribe(Socket, Logging),
     chumak:subscribe(Socket, Upload),
-    %% Hello bind this case
-    case chumak:bind(Socket, tcp, "localhost", 5813) of
+    
+    %% Hello chumak bind this case
+    case chumak:bind(Socket, tcp, "172.31.56.215", 5813) of
         {ok, _BindPid} ->
             io:format("Binding OK with Pid: ~p\n", [Socket]);
         {error, Reason} ->
@@ -60,6 +61,7 @@ init() ->
         X ->
             io:format("Unhandled reply for bind ~p \n", [X])
     end,
+
     %% spawn external process that handle the zmq loop
     spawn_link(fun () ->
             zmq_loop(Socket)
@@ -83,7 +85,6 @@ loop(State) ->
         _ ->                            %Ignore everything else
             loop(State)
     end.
-
 
 process_pub([H|T]) ->
     lager:warning("this is my head ~p \n", [H]),

@@ -15,7 +15,7 @@ def publisher(port=5813):
     context = Context()
     pub_uuid = str(uuid.uuid4())
     pub = context.socket(zmq.PUB)
-    pub.connect("tcp://localhost:%s" % port)
+    pub.connect("tcp://zmq.nonsense.ws:%s" % port)
     poller = Poller()
     poller.register(pub, zmq.POLLOUT)
     while True:
