@@ -9,7 +9,7 @@ main(_) ->
     UuidString = uuid:uuid_to_string(Uuid),
     {ok, Socket} = chumak:socket(pub),
 
-    case chumak:connect(Socket, tcp, "localhost", 8135) of
+    case chumak:connect(Socket, tcp, "localhost", 5813) of
         {ok, _BindPid} ->
             io:format("Connection OK with Pid: ~p\n", [Socket]);
         {error, Reason} ->

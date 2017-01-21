@@ -23,7 +23,7 @@ main(_) ->
     chumak:subscribe(Socket, Logging),
     chumak:subscribe(Socket, Upload),
     
-    case chumak:bind(Socket, tcp, "localhost", 8135) of
+    case chumak:bind(Socket, tcp, "localhost", 5813) of
         {ok, _BindPid} ->
             io:format("Binding OK with Pid: ~p\n", [Socket]);
         {error, Reason} ->

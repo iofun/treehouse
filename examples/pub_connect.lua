@@ -23,7 +23,7 @@ uuid.randomseed(socket.gettime()*10000)
 struct['uuid'] = uuid()
 
 local context = zmq.context()
-local publisher, err = context:socket{zmq.PUB, connect = "tcp://localhost:8135"}
+local publisher, err = context:socket{zmq.PUB, connect = "tcp://localhost:5813"}
 zassert(publisher, err)
 
 while true do
