@@ -90,15 +90,12 @@ process_pub([H|T]) ->
 
     Payload = jiffy:decode([T], [return_maps]),
 
-    lager:info("and the Payload ~p \n", [Payload]),
+    lager:info("and the Payload ~p \n", [Payload]).
 
+    %%http_client(),
 
-    http_client(),
-
-    
-    lager:warning(maps:get(<<"uuidc">>, Payload, uuid:uuid_to_string(uuid:get_v4()))),
-    lager:warning(maps:get(<<"timestamp">>, Payload, "0000000000")),
-    lager:warning(maps:get(<<"uuid">>, Payload, uuid:uuid_to_string(uuid:get_v4()))).
+    %lager:warning(maps:get(<<"timestamp">>, Payload, "0000000000")),
+    %lager:warning(maps:get(<<"uuid">>, Payload, uuid:uuid_to_string(uuid:get_v4()))).
 
     %%case binary:split(Stuff, [<<" ">>], []) of
     %%    [<<"heartbeat">>, _] -> lager:error(_);
@@ -106,17 +103,17 @@ process_pub([H|T]) ->
     %%end.
 
 
-http_client() ->
+%%http_client() ->
     %% so hackney is our http erlang client and we like it very much!
-    URL = <<"https://iofun.io">>,
-    Headers = [],
-    Payload = <<>>,
-    Options = [],
+    %%URL = <<"https://iofun.io">>,
+    %%Headers = [],
+    %%Payload = <<>>,
+    %%Options = [],
 
     %%{ok, StatusCode, _, _} = hackney:request(Method, URL, Headers, Payload, Options),
 
-    {ok, StatusCode, _, _} = hackney:get(URL, Headers, Payload, Options),
+    %%{ok, StatusCode, _, _} = hackney:get(URL, Headers, Payload, Options),
 
     %%{ok, StatusCode, RespHeaders, ClientRef} = hackney:get(URL, Headers, Payload, Options),
 
-    lager:warning("rare? ~p \n", [StatusCode]).
+    %%lager:warning("rare? ~p \n", [StatusCode]).
