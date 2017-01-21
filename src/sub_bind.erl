@@ -35,6 +35,7 @@ cast(Message) ->
 init() ->
     application:ensure_all_started(chumak),
     {ok, Socket} = chumak:socket(sub),
+    
     %% List of topics, put them in a list or something.
     Topic = <<" ">>,
     Heartbeat = <<"heartbeat">>,
@@ -65,11 +66,11 @@ init() ->
     end),
     register(sub_server, self()),
     proc_lib:init_ack({ok,self()}),
-    loop(#state{}).
+    loop(#state{}).  
 
 zmq_loop(Socket) ->
     {ok, Data1} = chumak:recv(Socket),
-    io:format("Received ~p\n", [Data1]),
+    process_pub(binary:split(Data1, [<<" ">>], [])),
     zmq_loop(Socket).
 
 loop(State) ->
@@ -82,3 +83,19 @@ loop(State) ->
         _ ->                            %Ignore everything else
             loop(State)
     end.
+
+process_pub([H|T]) ->
+    lager:warning("this is my head ~p \n", [H]),
+
+    Payload = jiffy:decode([T], [return_maps]),
+
+    lager:info("and the Payload ~p \n", [Payload]),
+    
+    lager:warning(maps:get(<<"uuidc">>, Payload, uuid:uuid_to_string(uuid:get_v4()))),
+    lager:warning(maps:get(<<"timestamp">>, Payload, "0000000000")),
+    lager:warning(maps:get(<<"uuid">>, Payload, uuid:uuid_to_string(uuid:get_v4()))).
+
+    %%case binary:split(Stuff, [<<" ">>], []) of
+    %%    [<<"heartbeat">>, _] -> lager:error(_);
+    %%    [<<"">>, _] -> lager:error("wut")
+    %%end.

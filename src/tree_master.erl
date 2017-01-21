@@ -23,12 +23,10 @@ start_link() ->
 %% gen_server.
 init([]) ->
 	process_flag(trap_exit, true),
-	lager:start(),
 	{ok, _} = sub_bind:start_link(),
 	{ok, _} = tree_dht_a:start_link(),
 	{ok, _} = tree_dht_b:start_link(),
 	{ok, _} = tree_dht_c:start_link(),
-	lager:error("hit when is ~p hot~n", ["hot"]),
 	{ok, #state{}}.
 
 handle_call(_Request, _From, State) ->

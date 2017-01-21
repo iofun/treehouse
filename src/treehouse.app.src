@@ -1,5 +1,5 @@
 {application, treehouse, [
-    {description, "Hello Erlang!"},
+    {description, "Hello BEAM you beautiful bastard!"},
     {vsn, "0.0.1"},
     {modules, []},
     {registered, []},
@@ -7,21 +7,14 @@
         kernel,
         stdlib,
         lager,
+        econfig,
         cowboy,
-        gun,
+        hackney,
         uuid,
         chumak,
         dht,
-        jsx,
+        jiffy,
         msgpack
-    ]},
-    {lager, [
-        {log_root, "/var/log/"},
-        {handlers, [
-            {lager_console_backend, info},
-            {lager_file_backend, [{file, "treehouse_error.log"}, {level, error}]},
-            {lager_file_backend, [{file, "treehouse_console.log"}, {level, info}]}
-        ]}
     ]},
     {mod, {treehouse_app, []}},
     {env, []}
