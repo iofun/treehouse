@@ -5,7 +5,7 @@
 
 # This file is part of simon.
 
-__author__ = 'Jean Chassoul'
+__author__ = 'Team Machine'
 
 
 import random
