@@ -74,14 +74,14 @@ class Index(object):
 
         try:
             query = "SELECT uuid FROM indexes where name = '{0}'".format(struct['name'])
-            items = yield self.sql.query(query)
-            logging.info(items.items())
-            results.free()
+            result = yield self.sql.query(query)            
+            message = (result.items()[0] if result.items() else False)
+            result.free()
         except Exception, e:
             logging.error(e)
             message = str(e)
 
-        raise gen.Return(True)
+        raise gen.Return(message)
 
 
 
