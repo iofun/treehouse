@@ -75,7 +75,9 @@ class Handler(indexes.Index, BaseHandler):
 
         if check_index:
             self.set_status(200)
-            check_index['message'] = 'index already exists' 
+            check_index['message'] = 'index already exists'
+            # this next line it's a quick fix for the JSON / UUID stuff.
+            check_index['uuid'] =  str(check_index['uuid'])
             self.finish(check_index)
             return
 
