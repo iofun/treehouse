@@ -59,4 +59,30 @@ class Index(object):
 
         raise gen.Return(index_uuid)
 
+    @gen.coroutine
+    def check_index(self, struct):
+        '''
+            Check Index
+        '''
+        try:
+            index = indexes.Index(struct)
+            index.validate()
+            index = clean_structure(index)
+        except Exception, e:
+            logging.error(e)
+            raise e
+
+        try:
+            query = "SELECT uuid FROM indexes where name = '{0}'".format(struct['name'])
+            results = yield self.sql.query(query)
+            logging.info(results)
+            results.free()
+        except Exception, e:
+            logging.error(e)
+            message = str(e)
+
+        raise gen.Return(True)
+
+
+
     

@@ -70,6 +70,14 @@ class Handler(indexes.Index, BaseHandler):
         if not struct.get('account'):
             struct['account'] = account
 
+        # we're asking the database if the index already exists, if not yield new_index
+        check_index = yield self.check_index(struct)
+
+        if check_index:
+            self.set_status(200)
+            self.finish({'message':'index already exists'})
+            return
+
         new_index = yield self.new_index(struct)
 
         if 'error' in new_index:
