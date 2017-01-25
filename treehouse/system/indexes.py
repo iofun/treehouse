@@ -74,8 +74,8 @@ class Index(object):
 
         try:
             query = "SELECT uuid FROM indexes where name = '{0}'".format(struct['name'])
-            results = yield self.sql.query(query)
-            logging.info(results)
+            items = yield self.sql.query(query)
+            logging.info(items.items())
             results.free()
         except Exception, e:
             logging.error(e)
