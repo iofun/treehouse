@@ -52,7 +52,7 @@ class Handler(indexes.Index, BaseHandler):
         logging.info('new index structure {0}'.format(str(struct)))
 
         # logging request query arguments
-        logging.info(self.request.arguments)
+        logging.info('query arguments received {0}'.format(self.request.arguments))
 
         # request query arguments
         query_args = self.request.arguments
@@ -72,6 +72,8 @@ class Handler(indexes.Index, BaseHandler):
 
         # we're asking the database if the index already exists, if not yield new_index
         check_index = yield self.check_index(struct)
+
+        logging.info('at least tell you that we have a duplicate!')
 
         if check_index:
             self.set_status(200)
