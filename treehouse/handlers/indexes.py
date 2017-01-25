@@ -73,7 +73,7 @@ class Handler(indexes.Index, BaseHandler):
         # we're asking the database if the index already exists, if not yield new_index
         check_index = yield self.check_index(struct)
 
-        logging.info('at least tell you that we have a duplicate!')
+        logging.info("at least i'm tell you that we have a duplicate! {0}".format(check_index))
 
         if check_index:
             self.set_status(200)
