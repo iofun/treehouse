@@ -14,15 +14,12 @@ __author__ = 'Team Machine'
 import logging
 import ujson as json
 from tornado import gen, web
-# treehouse system imps
+from treehouse import errors
 from treehouse.system import imps
-# errors, string to boolean, check JSON, new resource
-from treehouse.tools import errors, str2bool, check_json, new_resource
-# system base handler
+from treehouse.tools import str2bool, check_json, new_resource
 from treehouse.handlers import BaseHandler
 
 
-@content_type_validation
 class Handler(imps.Imps, BaseHandler):
     '''
         Imp HTTP request handlers

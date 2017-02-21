@@ -12,15 +12,10 @@ __author__ = 'Team Machine'
 
 
 import sys
-
 import logging
-
 from tornado import gen
 from tornado import web
-
 from treehouse.tools import errors
-
-from treehouse.tools.quotes import PeopleQuotes
 
 
 class BaseHandler(web.RequestHandler):
@@ -144,20 +139,3 @@ class BaseHandler(web.RequestHandler):
             }
 
         raise gen.Return(message)
-
-
-class TreeHandler(BaseHandler):
-    '''
-        Treehouse Handler with Quote experiment
-    '''
-
-    @gen.coroutine
-    def get(self):
-        '''
-            Get some quotes
-        '''
-        quotes = PeopleQuotes()
-
-        self.finish(
-            {'quote': quotes.get()}
-        )

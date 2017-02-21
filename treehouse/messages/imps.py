@@ -21,32 +21,13 @@ class Imp(models.Model):
     '''
         Treehouse Imp
     '''
-    uuid = types.UUIDType(default=uuid.uuid4)
-    account = types.StringType(required=True)
-    number_type = types.IntType(required=False)
-    
-    first_name = types.StringType()
-    last_name = types.StringType()
-    
-    phone_number = types.StringType(required=True)
-    number_type = types.IntType()
-    description = types.StringType()
-    
-    country = types.StringType()
-    location = types.StringType()
-    timezone = types.StringType()
-
-    email = types.EmailType()
-    address = types.StringType()
-    city = types.StringType()
-    state = types.StringType()
-    zip_code = types.StringType()
-
-    checked = types.BooleanType(default=False)
-    do_not_disturb = types.BooleanType(default=False)
-
-    has_directory = types.BooleanType(default=False)
-    directory_uuid = types.UUIDType(required=False)
+    uuid
+    account
+    models
+    features
+    status
+    centers
+    labels
 
 
 class ModifyImp(models.Model):
@@ -62,16 +43,10 @@ class ModifyImp(models.Model):
         this we prevent users from using PATCH to create fields 
         outside the scope of the resource.
     '''
-    email = types.EmailType()
-    first_name = types.StringType()
-    last_name = types.StringType()
-    country = types.StringType()
-    address = types.StringType()
-    city = types.StringType()
-    state = types.StringType()
-    zip_code = types.StringType()
-    phone_number = types.StringType()
-    checked = types.BooleanType()
-    do_not_disturb = types.BooleanType()
-    has_directory = types.BooleanType()
-    directory_uuid = types.UUIDType()
+    uuid
+    account
+    models
+    features
+    status
+    centers
+    labels
