@@ -22,57 +22,45 @@ import zmq
 import sys
 import uuid
 import itertools
-import ujson as json
 import logging
 import arrow
+import riak
 import queries
 import pylibmc as mc
-
+import ujson as json
 from subprocess import Popen, PIPE
-
-from tornado.ioloop import PeriodicCallback as PeriodicCast
-
+from tornado.ioloop import PeriodicCallback as Cast
 from tornado import gen, web
-
 from tornado import websocket
-
-from treehouse.tools import options, schemas, periodic, new_resource
-
-from treehouse.handlers import TreeHandler, imps, nodes, indexes
-
-from zmq.eventloop import ioloop
-
+from treehouse.tools import options, periodic, new_resource
+from treehouse.handlers import imps
+from treehouse.handlers import nodes
+from treehouse.handlers import indexes
 from zmq.eventloop.future import Context, Poller
-
+from zmq.eventloop import ioloop
 from tornado import httpclient
 
 
+# hack ioloop for zmq y'all <3
+ioloop.install()
 # curl async http client
 httpclient.AsyncHTTPClient.configure('tornado.curl_httpclient.CurlAsyncHTTPClient')
-
-# ioloop
-ioloop.install()
-
-# 2017... are we going to do something with the general variables this year???
-
 # iofun testing box
 iofun = []
-
+# e_tag
 e_tag = False
-
+# standard db
 db = False
-
+# sql flag
 sql = False
-
+# document flag
 document = False
-
+# key-value falg
 kvalue = False
-
+# cache flag
 cache = False
-
-# general count if this grows we crash the tree
+# count von count
 von_count = 0
-
 # system uuid
 system_uuid = uuid.uuid4()
 # treehouse _rel
@@ -96,6 +84,7 @@ class TreeWSHandler(websocket.WebSocketHandler):
         if self in iofun:
             iofun.remove(self)
 
+
 def ws_send(message):
     '''
         Websocket send message
@@ -106,10 +95,9 @@ def ws_send(message):
             iofun.remove(ws)
         else:
             ws.write_message(message)
-    
     if not iofun:
-        pass
         # logging.info('there are no ws connections at this time')
+        pass
 
 @gen.coroutine
 def periodic_ws_send():
@@ -124,7 +112,7 @@ def periodic_ws_send():
 def main():
     # daemon options
     opts = options.options()
-
+    # what if it works?
     @gen.coroutine
     def check_tree():
         os.environ['HOME'] = '/opt/treehouse/'
@@ -149,7 +137,6 @@ def main():
                 circus = Popen(["/etc/init.d/circusd", "stop", "."], stdout=PIPE)
                 (output, err) = circus.communicate()
                 logging.error('we crash the circus after trying {0} times!'.format(max_count))
-
     # Set memcached backend
     memcache = mc.Client(
         [opts.memcached_host],
@@ -159,7 +146,6 @@ def main():
             "ketama": opts.memcached_ketama
         }
     )
-
     # Set SQL URI
     postgresql_uri = queries.uri(
         host=opts.sql_host,
@@ -168,7 +154,6 @@ def main():
         user=opts.sql_user,
         password=None
     )
-
     # Set system uuid
     global system_uuid
     system_uuid = system_uuid
@@ -187,45 +172,31 @@ def main():
     # Set default database
     global db
     db = document
-
     # logging system spawned
     logging.info('Treehouse system {0} spawned'.format(system_uuid))
-
     # logging database hosts
     logging.info('PostgreSQL server: {0}:{1}'.format(opts.sql_host, opts.sql_port))
-
     # base url
     base_url = opts.base_url
-
     # system cache
     cache_enabled = opts.cache_enabled
     if cache_enabled:
         logging.info('Memcached server: {0}:{1}'.format(opts.memcached_host, opts.memcached_port))
-
     # treehouse web application daemon
     application = web.Application(
-
         [
-            # Treehouse system knowledge (quotes) and realtime events.
-            (r'/tree/?', TreeHandler),
-
-            # experiment with WS
+            # experiment with websockets and messaging backbone.
             (r'/ws/alerts', TreeWSHandler),
-
-            # Imps resource
+            # Units resource
             (r'/imps/(?P<imp_uuid>.+)/?', imps.Handler),
             (r'/imps/?', imps.Handler),
-
-             # Indexes resource
-            (r'/indexes/(?P<index_uuid>.+)/?', indexes.Handler),
-            (r'/indexes/?', indexes.Handler),
-
             # Nodes resource
             (r'/nodes/(?P<node_uuid>.+)/?', nodes.Handler),
-            (r'/nodes/?', nodes.Handler)
-            
+            (r'/nodes/?', nodes.Handler),
+            # Indexes resource
+            (r'/indexes/(?P<index_uuid>.+)/?', indexes.Handler),
+            (r'/indexes/?', indexes.Handler),
         ],
-
         # system database
         db=db,
         # system cache
@@ -240,31 +211,20 @@ def main():
         debug=opts.debug,
         # application domain
         domain=opts.domain,
-        # application timezone
-        timezone=opts.timezone,
         # pagination page size
         page_size=opts.page_size,
-        # cookie settings
-        cookie_secret=opts.cookie_secret,
-        # login url
-        login_url='/login/'
     )
     # Treehouse periodic cast callbacks
-
     check_node_tree = PeriodicCast(check_tree, 5000)
     check_node_tree.start()
-
     # Setting up treehouse processor
     application.listen(opts.port)
     logging.info('Listening on http://%s:%s' % (opts.host, opts.port))
     loop = ioloop.IOLoop.instance()
-
     # Process heartbeat SUB/PUB
     #loop.add_callback(subscriber)
     #loop.add_callback(publisher, opts.treehouse_host)
-
     loop.start()
-
 
 if __name__ == '__main__':
     main()

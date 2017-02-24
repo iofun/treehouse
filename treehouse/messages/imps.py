@@ -18,7 +18,7 @@ from schematics import types
 
 class Unit(models.Model):
     '''
-        Treehouse Imp
+        Treehouse unit (IMP)
     '''
     uuid
     hash
@@ -38,11 +38,11 @@ class Unit(models.Model):
     url
 
 
-class ModifyImp(models.Model):
+class ModifyUnit(models.Model):
     '''
-        Modify Imp
+        Modify unit
 
-        This model is similar to Imp.
+        This model is similar to Unit.
 
         It lacks of require and default values on it's fields.
 
