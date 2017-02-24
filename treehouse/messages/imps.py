@@ -11,23 +11,31 @@
 __author__ = 'Team Machine'
 
 
-import uuid
-
+import uuid as _uuid
 from schematics import models
 from schematics import types
 
 
-class Imp(models.Model):
+class Unit(models.Model):
     '''
         Treehouse Imp
     '''
     uuid
+    hash
     account
-    models
-    features
+    resources
     status
-    centers
+    loss
+    gradients
     labels
+    centers
+    public
+    checked
+    checked_by
+    created_at
+    updatedt_by
+    updatedt_at
+    url
 
 
 class ModifyImp(models.Model):
@@ -44,9 +52,18 @@ class ModifyImp(models.Model):
         outside the scope of the resource.
     '''
     uuid
+    hash
     account
-    models
-    features
+    resources
     status
-    centers
+    loss
+    gradients
     labels
+    centers
+    public
+    checked
+    checked_by
+    created_at
+    updatedt_by
+    updatedt_at
+    url
