@@ -33,7 +33,6 @@ class UnitMap(object):
         bucket = client.bucket_type(bucket_type).bucket('{0}'.format(bucket_name))
         bucket.set_properties({'search_index': search_index})
         self.map = Map(bucket, None)
-        # start of map structure
         self.map.registers['uuid'].assign(struct.get('uuid', ''))
         self.map.registers['hash'].assign(struct.get('hash', ''))
         self.map.registers['account'].assign(struct.get('account', ''))
@@ -52,7 +51,6 @@ class UnitMap(object):
         self.map.registers['updated_by'].assign(struct.get('updated_by', ''))
         self.map.registers['updated_at'].assign(struct.get('updated_at', ''))
         self.map.registers['url'].assign(struct.get('url', ''))
-        # end of the map stuff
         self.map.store()
 
     @property

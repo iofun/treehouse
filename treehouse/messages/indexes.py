@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 '''
-    Treehouse Index message models.
+    Treehouse index message models.
 '''
 
 # This file is part of treehouse.
