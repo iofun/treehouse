@@ -17,7 +17,6 @@ __author__ = 'Team Machine'
 
 
 import os
-import time
 import zmq
 import sys
 import uuid
@@ -38,33 +37,12 @@ from treehouse.handlers import nodes
 from treehouse.handlers import indexes
 from zmq.eventloop.future import Context, Poller
 from zmq.eventloop import ioloop
-from tornado import httpclient
 
 
 # hack ioloop for zmq y'all <3
 ioloop.install()
-# curl async http client
-httpclient.AsyncHTTPClient.configure('tornado.curl_httpclient.CurlAsyncHTTPClient')
 # iofun testing box
 iofun = []
-# e_tag
-e_tag = False
-# standard db
-db = False
-# sql flag
-sql = False
-# document flag
-document = False
-# key-value falg
-kvalue = False
-# cache flag
-cache = False
-# count von count
-von_count = 0
-# system uuid
-system_uuid = uuid.uuid4()
-# treehouse _rel
-treehouse_rel = "/opt/treehouse/_rel/treehouse_release/bin/treehouse_release"
 
 
 class TreeWSHandler(websocket.WebSocketHandler):
@@ -112,33 +90,36 @@ def periodic_ws_send():
 def main():
     # daemon options
     opts = options.options()
+    system_uuid = uuid.uuid4()
+    # Set treehouse release
+    otp_rel = opts.otp_rel
+    # count von count
+    von_count = 0
     # what if it works?
     @gen.coroutine
     def check_tree():
         os.environ['HOME'] = '/opt/treehouse/'
-        process = Popen([treehouse_rel, "ping", "."], stdout=PIPE)
+        process = Popen([otp_rel, "ping", "."], stdout=PIPE)
         (output, err) = process.communicate()
         exit_code = process.wait()
         max_count = 5
         if 'not responding to pings' in output:
             logging.error(output)
-            process = Popen([treehouse_rel, "start", "."], stdout=PIPE)
+            process = Popen([otp_rel, "start", "."], stdout=PIPE)
             (output, err) = process.communicate()
             exit_code = process.wait()
         elif 'pong' in output:
-            # ping pong yeah!
+            # pong!
             pass
         else:
-            global von_count
             von_count += 1
-            logging.error(von_count)
             if von_count > max_count:
                 # Crash circusd monitor
                 circus = Popen(["/etc/init.d/circusd", "stop", "."], stdout=PIPE)
                 (output, err) = circus.communicate()
-                logging.error('we crash the circus after trying {0} times!'.format(max_count))
+                logging.error('we crash circusd after trying {0} times!'.format(max_count))
     # Set memcached backend
-    memcache = mc.Client(
+    cache = mc.Client(
         [opts.memcached_host],
         binary=opts.memcached_binary,
         behaviors={
@@ -154,24 +135,8 @@ def main():
         user=opts.sql_user,
         password=None
     )
-    # Set system uuid
-    global system_uuid
-    system_uuid = system_uuid
-    # Set treehouse release
-    global treehouse_rel
-    treehouse_rel = treehouse_rel
-    # Set kvalue database
-    global kvalue
-    kvalue = kvalue
-    # Set default cache
-    global cache
-    cache = memcache
     # Set SQL session
-    global sql
     sql = queries.TornadoSession(uri=postgresql_uri)
-    # Set default database
-    global db
-    db = document
     # logging system spawned
     logging.info('Treehouse system {0} spawned'.format(system_uuid))
     # logging database hosts
