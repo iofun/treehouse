@@ -181,7 +181,7 @@ def main():
         page_size=opts.page_size,
     )
     # Treehouse periodic cast callbacks
-    check_node_tree = PeriodicCast(check_tree, 5000)
+    check_node_tree = Cast(check_tree, 5000)
     check_node_tree.start()
     # Setting up treehouse processor
     application.listen(opts.port)
