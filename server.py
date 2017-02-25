@@ -154,7 +154,7 @@ def main():
     # treehouse application daemon
     application = web.Application(
         [
-            # Experiment with WebSockets and BEAM as message backbone.
+            # Experiment with WebSockets and the BEAM vm as message backbone.
             (r'/ws/alerts', TreeWSHandler),
             # Units resource
             (r'/imps/(?P<imp_uuid>.+)/?', imps.Handler),
