@@ -20,22 +20,22 @@ class Unit(models.Model):
     '''
         Treehouse unit (IMP)
     '''
-    uuid
-    hash
-    account
-    resources
-    status
-    loss
-    gradients
-    labels
-    centers
-    public
-    checked
-    checked_by
-    created_at
-    updatedt_by
-    updatedt_at
-    url
+    uuid = types.UUIDType(default=_uuid.uuid4)
+    hash = types.StringType()
+    account = types.StringType(required=True)
+    resources = types.StringType()
+    status = types.StringType()
+    loss = types.StringType()
+    gradients = types.StringType()
+    labels = types.StringType()
+    centers = types.StringType()
+    public = types.StringType()
+    checked = types.StringType()
+    checked_by = types.StringType()
+    created_at = types.StringType()
+    updatedt_by = types.StringType()
+    updatedt_at = types.StringType()
+    url = types.StringType()
 
 
 class ModifyUnit(models.Model):
@@ -51,19 +51,19 @@ class ModifyUnit(models.Model):
         this we prevent users from using PATCH to create fields 
         outside the scope of the resource.
     '''
-    uuid
-    hash
-    account
-    resources
-    status
-    loss
-    gradients
-    labels
-    centers
-    public
-    checked
-    checked_by
-    created_at
-    updatedt_by
-    updatedt_at
-    url
+    uuid = types.UUIDType(default=_uuid.uuid4)
+    hash = types.StringType()
+    account = types.StringType()
+    resources = types.StringType()
+    status = types.StringType()
+    loss = types.StringType()
+    gradients = types.StringType()
+    labels = types.StringType()
+    centers = types.StringType()
+    public = types.StringType()
+    checked = types.StringType()
+    checked_by = types.StringType()
+    created_at = types.StringType()
+    updatedt_by = types.StringType()
+    updatedt_at = types.StringType()
+    url = types.StringType()

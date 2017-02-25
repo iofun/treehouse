@@ -31,6 +31,7 @@ from subprocess import Popen, PIPE
 from tornado.ioloop import PeriodicCallback as Cast
 from tornado import gen, web
 from tornado import websocket
+from tornado import queues                                          # <---------------------------------------
 from treehouse.tools import options, periodic, new_resource
 from treehouse.handlers import imps
 from treehouse.handlers import nodes
