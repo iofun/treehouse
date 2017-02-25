@@ -30,8 +30,6 @@ class Handler(imps.Imps, BaseHandler):
         '''
             Head Imps
         '''
-        # logging request query arguments
-        logging.info('request query arguments {0}'.format(self.request.arguments))
         # request query arguments
         query_args = self.request.arguments
         # get the current frontend logged username
@@ -75,20 +73,21 @@ class Handler(imps.Imps, BaseHandler):
             self.finish(message)
         if not done and imp_uuid:
             # try to get stuff from cache first
-            logging.info('imp_uuid {0}'.format(imp_uuid.rstrip('/')))
+            imp_uuid = imp_uuid.rstrip('/')
+            # get cache data
             data = self.cache.get('units:{0}'.format(imp_uuid))
             if data is not None:
                 logging.info('units:{0} done retrieving!'.format(imp_uuid))
                 result = data
             else:
-                data = yield self.get_imp(account, imp_uuid.rstrip('/'))
+                data = yield self.get_imp(account, imp_uuid)
                 if self.cache.add('units:{0}'.format(imp_uuid), data, 1):
                     logging.info('new cache entry {0}'.format(str(imp_uuid)))
                     result = data
             if not result:
                 self.set_status(400)
                 self.finish({'missing account {0} imp_uuid {1} page_num {2} checked {3}'.format(
-                    account, imp_uuid.rstrip('/'), page_num, checked):result})
+                    account, imp_uuid, page_num, checked):result})
             else:
                 self.set_status(200)
                 self.finish(result)
@@ -100,8 +99,6 @@ class Handler(imps.Imps, BaseHandler):
         '''
             Get imps
         '''
-        # logging request query arguments
-        logging.info('request query arguments {0}'.format(self.request.arguments))
         # request query arguments
         query_args = self.request.arguments
         # get the current frontend logged username
@@ -145,20 +142,21 @@ class Handler(imps.Imps, BaseHandler):
             self.finish(message)
         if not done and imp_uuid:
             # try to get stuff from cache first
-            logging.info('imp_uuid {0}'.format(imp_uuid.rstrip('/')))
+            imp_uuid = imp_uuid.rstrip('/')
+            # get cache data
             data = self.cache.get('units:{0}'.format(imp_uuid))
             if data is not None:
                 logging.info('units:{0} done retrieving!'.format(imp_uuid))
                 result = data
             else:
-                data = yield self.get_imp(account, imp_uuid.rstrip('/'))
+                data = yield self.get_imp(account, imp_uuid)
                 if self.cache.add('units:{0}'.format(imp_uuid), data, 1):
                     logging.info('new cache entry {0}'.format(str(imp_uuid)))
                     result = data
             if not result:
                 self.set_status(400)
                 self.finish({'missing account {0} imp_uuid {1} page_num {2} checked {3}'.format(
-                    account, imp_uuid.rstrip('/'), page_num, checked):result})
+                    account, imp_uuid, page_num, checked):result})
             else:
                 self.set_status(200)
                 self.finish(result)
@@ -168,47 +166,37 @@ class Handler(imps.Imps, BaseHandler):
     @gen.coroutine
     def post(self):
         '''
-            Create email
+            Create (IMP) unit
         '''
-        struct = self.request.body
-        if not struct.startswith('{'):
-            # Hi there! we receive a query string
-            data = urlparse.parse_qs(struct)
-            struct = {k.lower(): data[k][0] for k in data}
-            struct['account'] = 'spartaadmin'
-        else:
-            struct = yield check_json(self.request.body)
+        struct = yield check_json(self.request.body)
         format_pass = (True if struct and not struct.get('errors') else False)
         if not format_pass:
             self.set_status(400)
             self.finish({'JSON':format_pass})
             return
-        # settings database
-        db = self.settings.get('db')
-        # logging new email structure
-        logging.info('new email structure {0}'.format(str(format_pass)))
         # request query arguments
         query_args = self.request.arguments
-        # get account from new email struct
+        # get account from new unit struct
         account = struct.get('account', None)
         # get the current frontend logged username
         username = self.get_current_username()
         # if the user don't provide an account we use the frontend username as last resort
         account = (query_args.get('account', [username])[0] if not account else account)
-        new_email = yield self.new_email(struct)
-        if 'error' in new_email:
-            scheme = 'email'
+        # execute new imp struct
+        new_unit = yield self.new_imp(struct)
+        if 'error' in new_unit:
+            scheme = 'unit'
             reason = {'duplicates': [
                 (scheme, 'account'),
-                (scheme, 'phone_number')
+                (scheme, 'uuid')
             ]}
-            message = yield self.let_it_crash(struct, scheme, new_email, reason)
+            message = yield self.let_it_crash(struct, scheme, new_unit, reason)
             logging.warning(message)
             self.set_status(400)
             self.finish(message)
             return
         self.set_status(201)
-        self.finish({'uuid':new_email})
+        self.finish({'uuid':new_unit})
 
     @gen.coroutine
     def patch(self, email_uuid):
