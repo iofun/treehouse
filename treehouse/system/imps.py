@@ -17,12 +17,11 @@ import logging
 import ujson as json
 from tornado import gen
 from schematics.types import compound
-from cas.messages import queries
-from cas.messages import BaseResult
-from cas.structures.queries import QueryMap
+from treehouse.messages import imps
+from treehouse.messages import BaseResult
+from treehouse.structures.imps import UnitMap
 from riak.datatypes import Map
-from cas.tools import clean_structure, clean_results
-from tornado.httputil import url_concat
+from treehouse.tools import clean_structure
 from tornado import httpclient as _http_client
 
 
@@ -34,7 +33,7 @@ class UnitsResult(BaseResult):
     '''
         List result
     '''
-    results = compound.ListType(compound.ModelType(queries.Query))
+    results = compound.ListType(compound.ModelType(imps.Unit))
 
 
 class Units(object):
@@ -47,10 +46,11 @@ class Units(object):
         '''
             Process grouped values from Solr
         '''
-        process_list = []
+        message_box = []
         def handle_request(response):
             '''
-                Request Async Handler
+                asynchronous
+                Request Handler
             '''
             if response.error:
                 logging.error(response.error)
@@ -58,33 +58,27 @@ class Units(object):
                 result = json.loads(response.body)
                 content = {}
                 options = []
-                # gunter grass penguin powers
                 for stuff in result['grouped']:
                     content['value'] = stuff[0:-9]
                     for g in result['grouped'][stuff]['groups']:
                         options.append(g['groupValue'])
                     content['options'] = options
                 # append the final content
-                process_list.append(content)
+                message_box.append(content)
         try:
             for url in urls:
-                http_client.fetch(
-                    url,
-                    callback=handle_request
-                )
+                http_client.fetch(url,callback=handle_request)
             while True:
-                # this probably make no sense
-                # we're just trying to sleep for a nano second in here...
-                # or maybe just a millisecond?, I don't know man.
+                # We're just trying to sleep, I don't know man.
                 yield gen.sleep(0.0001)
-                if len(process_list) == len(urls):
+                if len(message_box) == len(urls):
                     break
-                # who fucking cares.. 
+                # who fucking cares...
         except Exception, e:
             logging.exception(e)
             raise gen.Return(e)
         finally:
-            raise gen.Return(process_list)
+            raise gen.Return(message_box)
 
     @gen.coroutine
     def get_unique_querys(self, struct):
@@ -94,7 +88,7 @@ class Units(object):
         search_index = 'treehouse_imps_index'
         query = 'uuid_register:*'
         filter_query = 'uuid_register:*'
-        unique_list = []
+        message_box = []
         if 'unique' in struct.keys():
             del struct['unique']
         try:
@@ -110,8 +104,15 @@ class Units(object):
                         'group':'true',
                         'group.field':group_field,
                     }
-                    url = "https://api.cloudforest.ws/search/query/{0}?wt=json&q=uuid_register:*&fl={1}_register&fq=uuid_register:*&group=true&group.field={2}_register".format(search_index, key, key)
-                    unique_list.append(url)
+                    url = ''.join((
+                        'https://api.cloudforest.ws/search/query/',
+                        search_index,
+                        '?wt=json&q=uuid_register:*&fl=',
+                        key,
+                        '_register&fq=uuid_register:*&group=true&group.field=',
+                        key,
+                        '_register'))
+                    message_box.append(url)
             else:
                 for key in struct.keys():
                     field_list = key
@@ -124,13 +125,20 @@ class Units(object):
                         'group':'true',
                         'group.field':group_field,
                     }
-                    url = "https://api.cloudforest.ws/search/query/{0}?wt=json&q=uuid_register:*&fl={1}_register&fq=uuid_register:*&group=true&group.field={2}_register".format(search_index, key, key)
-                    unique_list.append(url)
+                    url = ''.join((
+                        'https://api.cloudforest.ws/search/query/',
+                        search_index,
+                        '?wt=json&q=uuid_register:*&fl=',
+                        key,
+                        '_register&fq=uuid_register:*&group=true&group.field=',
+                        key,
+                        '_register'))
+                    message_box.append(url)
         except Exception, e:
             logging.exception(e)
             raise gen.Return(e)
         finally:
-            raise gen.Return(unique_list)
+            raise gen.Return(message_box)
 
     @gen.coroutine
     def get_imp(self, account, query_uuid):
@@ -184,12 +192,12 @@ class Units(object):
         '''
             Get imp list
         '''
-        search_index = 'cas_query_index'
+        search_index = 'treehouse_imps_index'
         query = 'uuid_register:*'
         filter_query = 'account_register:{0}'.format(account)
         page_num = int(page_num)
         page_size = self.settings['page_size']
-        url = "https://iofun.io/search/query/{0}?wt=json&q={1}&fq={2}".format(
+        url = "https://api.cloudforest.ws/search/query/{0}?wt=json&q={1}&fq={2}".format(
             search_index, query, filter_query
         )
         von_count = 0
@@ -263,17 +271,17 @@ class Units(object):
             Modify query
         '''
         # riak search index
-        search_index = 'cas_query_index'
+        search_index = 'treehouse_imp_index'
         # riak bucket type
-        bucket_type = 'cas_query'
+        bucket_type = 'treehouse_imp'
         # riak bucket name
-        bucket_name = 'queries'
+        bucket_name = 'imps'
         # solr query
         query = 'uuid_register:{0}'.format(query_uuid.rstrip('/'))
         # filter query
         filter_query = 'account_register:{0}'.format(account)
         # search query url
-        url = "https://iofun.io/search/query/{0}?wt=json&q={1}&fq={2}".format(
+        url = "https://api.cloudforest.ws/search/query/{0}?wt=json&q={1}&fq={2}".format(
             search_index, query, filter_query
         )
         # pretty please, ignore this list of fields from database.
@@ -314,15 +322,15 @@ class Units(object):
             raise gen.Return(update_complete)
 
     @gen.coroutine
-    def replace_imp(self, account, query_uuid, struct):
+    def replace_imp(self, account, imp_uuid, struct):
         '''
-            Replace query
+            Replace imp
         '''
         pass
 
     @gen.coroutine
-    def remove_imp(self, account, query_uuid):
+    def remove_imp(self, account, imp_uuid):
         '''
-            Remove query
+            Remove imp
         '''
         pass
