@@ -199,9 +199,9 @@ class Handler(imps.Units, BaseHandler):
         self.finish({'uuid':new_unit})
 
     @gen.coroutine
-    def patch(self, email_uuid):
+    def patch(self, imp_uuid):
         '''
-            Modify email
+            Modify unit
         '''
         struct = yield check_json(self.request.body)
         format_pass = (True if not dict(struct).get('errors', False) else False)
@@ -213,35 +213,35 @@ class Handler(imps.Units, BaseHandler):
         if not account:
             # if not account we try to get the account from struct
             account = struct.get('account', None)
-        result = yield self.modify_email(account, email_uuid, struct)
+        result = yield self.modify_unit(account, imp_uuid, struct)
         if not result:
             self.set_status(400)
             system_error = errors.Error('missing')
-            error = system_error.missing('email', email_uuid)
+            error = system_error.missing('unit', imp_uuid)
             self.finish(error)
             return
         self.set_status(200)
         self.finish({'message': 'update completed successfully'})
 
     @gen.coroutine
-    def delete(self, email_uuid):
+    def delete(self, imp_uuid):
         '''
-            Delete email
+            Delete unit
         '''
         account = query_args.get('account', [None])[0]
-        logging.info('account {0} uuid {1}'.format(account, email_uuid))
-        result = yield self.remove_email(account, email_uuid)
+        logging.info('account {0} uuid {1}'.format(account, imp_uuid))
+        result = yield self.remove_unit(account, imp_uuid)
         if not result:
             self.set_status(400)
             system_error = errors.Error('missing')
-            error = system_error.missing('email', email_uuid)
+            error = system_error.missing('unit', imp_uuid)
             self.finish(error)
             return
         self.set_status(204)
         self.finish()
 
     @gen.coroutine
-    def options(self, email_uuid=None):
+    def options(self, imp_uuid=None):
         '''
             Resource options
         '''
@@ -258,7 +258,7 @@ class Handler(imps.Units, BaseHandler):
         # resource parameters
         parameters = {}
         # mock your stuff
-        stuff = models.Email.get_mock_object().to_primitive()
+        stuff = models.unit.get_mock_object().to_primitive()
         for k, v in stuff.items():
             if v is None:
                 parameters[k] = str(type('none'))
@@ -271,11 +271,11 @@ class Handler(imps.Units, BaseHandler):
         parameters['labels'] = 'array/string'
         # end of manual cleaning
         POST = {
-            "description": "Send email",
+            "description": "Send unit",
             "parameters": parameters
         }
         # filter single resource
-        if not email_uuid:
+        if not imp_uuid:
             message['POST'] = POST
         else:
             message['Allow'].remove('POST')
