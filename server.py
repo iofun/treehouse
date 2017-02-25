@@ -161,8 +161,6 @@ def main():
             (r'/indexes/(?P<index_uuid>.+)/?', indexes.Handler),
             (r'/indexes/?', indexes.Handler),
         ],
-        # system database
-        db=db,
         # system cache
         cache=cache,
         # cache enabled flag
