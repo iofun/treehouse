@@ -142,8 +142,6 @@ def main():
     logging.info('Treehouse system {0} spawned'.format(system_uuid))
     # logging database hosts
     logging.info('PostgreSQL server: {0}:{1}'.format(opts.sql_host, opts.sql_port))
-    # base url
-    base_url = opts.base_url
     # system cache
     cache_enabled = opts.cache_enabled
     if cache_enabled:
