@@ -138,10 +138,14 @@ def main():
     )
     # Set SQL session
     sql = queries.TornadoSession(uri=postgresql_uri)
+    # key-value
+    kvalue = riak.RiakClient(host=opts.riak_host, pb_port=8087)
     # logging system spawned
     logging.info('Treehouse system {0} spawned'.format(system_uuid))
     # logging database hosts
     logging.info('PostgreSQL server: {0}:{1}'.format(opts.sql_host, opts.sql_port))
+    # logging riak settings
+    logging.info('Riak server: {0}:{1}'.format(opts.riak_host, opts.riak_port))
     # system cache
     cache_enabled = opts.cache_enabled
     if cache_enabled:
