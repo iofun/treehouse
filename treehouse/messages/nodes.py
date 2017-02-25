@@ -11,22 +11,19 @@
 __author__ = 'Team Machine'
 
 
-import uuid
-
+import uuid as _uuid
 from schematics import models
 from schematics import types
 from schematics.types import compound
-
 from treehouse.messages import Resource
 
 
 class Node(models.Model):
-    uuid = types.UUIDType(default=uuid.uuid4)
+    uuid = types.UUIDType(default=_uuid.uuid4)
     account = types.StringType(required=True)
     name = types.StringType(required=True)
     description = types.StringType()
     checked = types.BooleanType(default=False)
-
     # -- resources
     resources = compound.ModelType(Resource)
 

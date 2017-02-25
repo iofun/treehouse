@@ -11,8 +11,7 @@
 __author__ = 'Team Machine'
 
 
-import uuid
-
+import uuid as _uuid
 from schematics import models
 from schematics import types
 
@@ -21,7 +20,7 @@ class Index(models.Model):
     '''
         Treehouse Imp
     '''
-    uuid = types.UUIDType(default=uuid.uuid4)
+    uuid = types.UUIDType(default=_uuid.uuid4)
     name = types.StringType(required=True)
     account = types.StringType(required=False)
     index_type = types.StringType(required=False)
@@ -42,7 +41,7 @@ class ModifyIndex(models.Model):
         this we prevent users from using PATCH to create fields 
         outside the scope of the resource.
     '''
-    uuid = types.UUIDType(default=uuid.uuid4)
+    uuid = types.UUIDType(default=_uuid.uuid4)
     name = types.StringType(required=True)
     account = types.StringType(required=False)
     index_type = types.StringType(required=False)

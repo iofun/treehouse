@@ -40,29 +40,60 @@ class Handler(imps.Imps, BaseHandler):
         account = (query_args.get('account', [username])[0] if not account else account)
         # query string checked from string to boolean
         checked = str2bool(str(query_args.get('checked', [False])[0]))
-        if not imp_uuid:
-            # get list of imps
-            imps = yield self.get_imp_list(account, checked, page_num)
+        # getting pagination ready
+        page_num = int(query_args.get('page', [page_num])[0])
+        # not unique
+        unique = query_args.get('unique', False)
+        # status ?! ... rage against the finite state machine
+        status = 'all'
+        # are we done yet?
+        done = False
+        # some random that crash this shit
+        message = {'crashing': True}
+        if unique:
+            unique_stuff = {key:query_args[key][0] for key in query_args}
+            query_list = yield self.get_unique_querys(unique_stuff)
+            unique_list = yield self.get_query_values(query_list)
+            done = True
             self.set_status(200)
-            self.finish({'imps':imps})
-        else:
+            # finish the request and return a list.
+            self.finish({'units':unique_list})
+        if not done and not imp_uuid:
+            unit_list = yield self.get_imp_list(account, start, end, lapse, status, page_num)
+            message = {
+                'count': unit_list.get('response')['numFound'],
+                'page': page_num,
+                'results': []
+            }
+            for doc in unit_list.get('response')['docs']:
+                IGNORE_ME = ["_yz_id","_yz_rk","_yz_rt","_yz_rb"]
+                message['results'].append(
+                    dict((key.split('_register')[0], value) 
+                    for (key, value) in doc.items() if key not in IGNORE_ME)
+                )
+            self.set_status(200)
+            self.finish(message)
+        if not done and imp_uuid:
             # try to get stuff from cache first
-            logging.info('Getting imps:{0} from cache'.format(imp_uuid))
-            data = self.cache.get('imps:{0}'.format(imp_uuid))
+            logging.info('imp_uuid {0}'.format(imp_uuid.rstrip('/')))
+            data = self.cache.get('units:{0}'.format(imp_uuid))
             if data is not None:
-                logging.info('imps:{0} done retrieving!'.format(imp_uuid))
+                logging.info('units:{0} done retrieving!'.format(imp_uuid))
                 result = data
             else:
-                data = yield self.get_imp(account, imp_uuid)
-                if self.cache.add('imps:{0}'.format(imp_uuid), data, 1):
-                    logging.info('new cache entry {0}'.format(str(data)))
+                data = yield self.get_imp(account, imp_uuid.rstrip('/'))
+                if self.cache.add('units:{0}'.format(imp_uuid), data, 1):
+                    logging.info('new cache entry {0}'.format(str(imp_uuid)))
                     result = data
             if not result:
                 self.set_status(400)
-                self.finish({'missing':account})
+                self.finish({'missing account {0} imp_uuid {1} page_num {2} checked {3}'.format(
+                    account, imp_uuid.rstrip('/'), page_num, checked):result})
             else:
                 self.set_status(200)
                 self.finish(result)
+        else:
+            logging.warning('let it crash')
 
     @gen.coroutine
     def get(self, account=None, imp_uuid=None, page_num=0):
@@ -79,22 +110,50 @@ class Handler(imps.Imps, BaseHandler):
         account = (query_args.get('account', [username])[0] if not account else account)
         # query string checked from string to boolean
         checked = str2bool(str(query_args.get('checked', [False])[0]))
-        if not imp_uuid:
-            # get list of directories
-            imps = yield self.get_imp_list(account, checked, page_num)
+        # getting pagination ready
+        page_num = int(query_args.get('page', [page_num])[0])
+        # not unique
+        unique = query_args.get('unique', False)
+        # status ?! ... rage against the finite state machine
+        status = 'all'
+        # are we done yet?
+        done = False
+        # some random that crash this shit
+        message = {'crashing': True}
+        if unique:
+            unique_stuff = {key:query_args[key][0] for key in query_args}
+            query_list = yield self.get_unique_querys(unique_stuff)
+            unique_list = yield self.get_query_values(query_list)
+            done = True
             self.set_status(200)
-            self.finish({'imps':imps})
-        else:
+            # finish the request and return a list.
+            self.finish({'units':unique_list})
+        if not done and not imp_uuid:
+            unit_list = yield self.get_imp_list(account, start, end, lapse, status, page_num)
+            message = {
+                'count': unit_list.get('response')['numFound'],
+                'page': page_num,
+                'results': []
+            }
+            for doc in unit_list.get('response')['docs']:
+                IGNORE_ME = ["_yz_id","_yz_rk","_yz_rt","_yz_rb"]
+                message['results'].append(
+                    dict((key.split('_register')[0], value) 
+                    for (key, value) in doc.items() if key not in IGNORE_ME)
+                )
+            self.set_status(200)
+            self.finish(message)
+        if not done and imp_uuid:
             # try to get stuff from cache first
             logging.info('imp_uuid {0}'.format(imp_uuid.rstrip('/')))
-            data = self.cache.get('imps:{0}'.format(imp_uuid))
+            data = self.cache.get('units:{0}'.format(imp_uuid))
             if data is not None:
-                logging.info('imps:{0} done retrieving!'.format(imp_uuid))
+                logging.info('units:{0} done retrieving!'.format(imp_uuid))
                 result = data
             else:
                 data = yield self.get_imp(account, imp_uuid.rstrip('/'))
-                if self.cache.add('imps:{0}'.format(imp_uuid), data, 1):
-                    logging.info('new cache entry {0}'.format(str(data)))
+                if self.cache.add('units:{0}'.format(imp_uuid), data, 1):
+                    logging.info('new cache entry {0}'.format(str(imp_uuid)))
                     result = data
             if not result:
                 self.set_status(400)
@@ -103,15 +162,22 @@ class Handler(imps.Imps, BaseHandler):
             else:
                 self.set_status(200)
                 self.finish(result)
+        else:
+            logging.warning('let it crash')
 
     @gen.coroutine
     def post(self):
         '''
-            Create imp
+            Create email
         '''
-        # post structure
-        struct = yield check_json(self.request.body)
-        # format pass ().
+        struct = self.request.body
+        if not struct.startswith('{'):
+            # Hi there! we receive a query string
+            data = urlparse.parse_qs(struct)
+            struct = {k.lower(): data[k][0] for k in data}
+            struct['account'] = 'spartaadmin'
+        else:
+            struct = yield check_json(self.request.body)
         format_pass = (True if struct and not struct.get('errors') else False)
         if not format_pass:
             self.set_status(400)
@@ -119,197 +185,113 @@ class Handler(imps.Imps, BaseHandler):
             return
         # settings database
         db = self.settings.get('db')
-        # logging new imp structure
-        logging.info('new imp structure {0}'.format(str(struct)))
-        # logging request query arguments
-        logging.info(self.request.arguments)
+        # logging new email structure
+        logging.info('new email structure {0}'.format(str(format_pass)))
         # request query arguments
         query_args = self.request.arguments
-        # get account from new imp struct
+        # get account from new email struct
         account = struct.get('account', None)
         # get the current frontend logged username
         username = self.get_current_username()
         # if the user don't provide an account we use the frontend username as last resort
         account = (query_args.get('account', [username])[0] if not account else account)
-        # we use the front-end username as last resort
-        if not struct.get('account'):
-            struct['account'] = account
-        logging.warning(account)
-        #if 'directory_uuid' in struct:
-        #    struct['has_directory'] = yield check_dir_exist(
-        #        db,
-        #        struct.get('directory_uuid')
-        #    )
-        new_imp = yield self.new_imp(struct)
-        if 'error' in new_imp:
-            scheme = 'imp'
+        new_email = yield self.new_email(struct)
+        if 'error' in new_email:
+            scheme = 'email'
             reason = {'duplicates': [
                 (scheme, 'account'),
                 (scheme, 'phone_number')
             ]}
-            message = yield self.let_it_crash(struct, scheme, new_imp, reason)
+            message = yield self.let_it_crash(struct, scheme, new_email, reason)
             logging.warning(message)
             self.set_status(400)
             self.finish(message)
             return
-        if struct.get('has_directory'):
-            resource = {
-                'directory': struct.get('directory_uuid'),
-                'resource': 'imps',
-                'uuid': new_imp
-            }
-            update = yield new_resource(db, resource, 'directories', 'directory')
-            logging.info('update {0}'.format(update))
         self.set_status(201)
-        self.finish({'uuid':new_imp})
+        self.finish({'uuid':new_email})
 
     @gen.coroutine
-    def patch(self, imp_uuid):
+    def patch(self, email_uuid):
         '''
-            Modify imp
+            Modify email
         '''
-        logging.info('request.arguments {0}'.format(self.request.arguments))
-        logging.info('request.body {0}'.format(self.request.body))
         struct = yield check_json(self.request.body)
-        logging.info('patch received struct {0}'.format(struct))
         format_pass = (True if not dict(struct).get('errors', False) else False)
         if not format_pass:
             self.set_status(400)
             self.finish({'JSON':format_pass})
             return
         account = self.request.arguments.get('account', [None])[0]
-        result = yield self.modify_imp(account, imp_uuid, struct)
+        if not account:
+            # if not account we try to get the account from struct
+            account = struct.get('account', None)
+        result = yield self.modify_email(account, email_uuid, struct)
         if not result:
             self.set_status(400)
             system_error = errors.Error('missing')
-            error = system_error.missing('imp', imp_uuid)
+            error = system_error.missing('email', email_uuid)
             self.finish(error)
             return
         self.set_status(200)
         self.finish({'message': 'update completed successfully'})
 
     @gen.coroutine
-    def put(self, imp_uuid):
+    def delete(self, email_uuid):
         '''
-            Replace imp
+            Delete email
         '''
-        logging.info('request.arguments {0}'.format(self.request.arguments))
-        logging.info('request.body {0}'.format(self.request.body))
-        struct = yield check_json(self.request.body)
-        logging.info('put received struct {0}'.format(struct))
-        format_pass = (True if not struct.get('errors') else False)
-        if not format_pass:
-            self.set_status(400)
-            self.finish({'JSON':format_pass})
-            return
-        account = self.request.arguments.get('account', [None])[0]
-        result = yield self.replace_imp(account, imp_uuid, struct)
-        if not result:
-            self.set_status(400)
-            system_error = errors.Error('missing')
-            error = system_error.missing('imp', imp_uuid)
-            self.finish(error)
-            return
-        self.set_status(200)
-        self.finish({'message': 'replace completed successfully'})
-
-    @gen.coroutine
-    def delete(self, imp_uuid):
-        '''
-            Delete imp
-        '''
-        logging.info(self.request.arguments)
-        query_args = self.request.arguments
         account = query_args.get('account', [None])[0]
-        logging.info('account {0} uuid {1}'.format(account, imp_uuid))
-        result = yield self.remove_imp(account, imp_uuid)
+        logging.info('account {0} uuid {1}'.format(account, email_uuid))
+        result = yield self.remove_email(account, email_uuid)
         if not result:
             self.set_status(400)
             system_error = errors.Error('missing')
-            error = system_error.missing('imp', imp_uuid)
+            error = system_error.missing('email', email_uuid)
             self.finish(error)
             return
         self.set_status(204)
         self.finish()
 
     @gen.coroutine
-    def options(self, imp_uuid=None):
+    def options(self, email_uuid=None):
         '''
             Resource options
         '''
-        self.set_header('Allow', 'HEAD, GET, POST, PATCH, PUT, DELETE, OPTIONS')
-        self.set_status(200)
+        self.set_header('Access-Control-Allow-Origin', '*')
+        self.set_header('Access-Control-Allow-Methods', 'HEAD, GET, POST, PATCH, DELETE, OPTIONS')
+        self.set_header('Access-Control-Allow-Headers', ''.join((
+                        'DNT,Keep-Alive,User-Agent,X-Requested-With',
+                        'If-Modified-Since,Cache-Control,Content-Type',
+                        'Content-Range,Range,Date,Etag')))
+        # allowed http methods
         message = {
-            'Allow': ['HEAD', 'GET', 'POST', 'OPTIONS']
+            'Allow': ['HEAD', 'GET', 'POST', 'PATCH', 'DELETE', 'OPTIONS']
         }
-        # return resource documentation examples?
+        # resource parameters
+        parameters = {}
+        # mock your stuff
+        stuff = models.Email.get_mock_object().to_primitive()
+        for k, v in stuff.items():
+            if v is None:
+                parameters[k] = str(type('none'))
+            elif isinstance(v, unicode):
+                parameters[k] = str(type('unicode'))
+            else:
+                parameters[k] = str(type(v))
+        # after automatic madness return description and parameters
+        # we now have the option to clean a little bit.
+        parameters['labels'] = 'array/string'
+        # end of manual cleaning
         POST = {
-            "POST": {
-                "description": "Create Imp",
-                "parameters": {
-
-                    "email": {
-                        "type": "string",
-                        "description": "Email",
-                        "required": False
-                    },
-
-                    "phone_number": {
-                        "type": "string",
-                        "description": "Phone number",
-                        "required": True
-                    },
-
-                    "first_name": {
-                        "type": "string",
-                        "description": "First name",
-                        "required": True
-                    },
-                
-                    "last_name": {
-                        "type": "string",
-                        "description": "Last name",
-                    },
-                    "country": {
-                        "type": "string",
-                        "description": "Country"
-                    },
-                    "city": {
-                        "type": "string",
-                        "description": "City"
-                    },
-                    "state": {
-                        "type": "string",
-                        "description": "State"
-                    },
-                    "zip_code": {
-                        "type": "string",
-                        "description": "Zip code"
-                    },
-                    "labels": {
-                        "type": "array/string",
-                        "description": "Labels to associate with this task."
-                    }
-                },
-
-                "example": {
-                    "title": "Found a error, bug, inconsistency, your system is under attack.",
-                    "body": "I'm having a problem with this.",
-                    "assignee": "cebus",
-                    "alert": 1,
-                    "labels": [
-                        "Imps are under attack",
-                        "Imps are been eaten by random tird party."
-                    ]
-                }
-            }
+            "description": "Send email",
+            "parameters": parameters
         }
-        if not imp_uuid:
+        # filter single resource
+        if not email_uuid:
             message['POST'] = POST
         else:
             message['Allow'].remove('POST')
-            message['Allow'].append('PUT')
             message['Allow'].append('PATCH')
             message['Allow'].append('DELETE')
-
+        self.set_status(200)
         self.finish(message)
