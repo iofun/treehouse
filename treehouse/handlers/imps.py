@@ -16,6 +16,7 @@ import ujson as json
 from tornado import gen, web
 from treehouse import errors
 from treehouse.system import imps
+from treehouse.message import imps as models
 from treehouse.tools import str2bool, check_json, new_resource
 from treehouse.handlers import BaseHandler
 
@@ -34,7 +35,7 @@ class Handler(imps.Units, BaseHandler):
         query_args = self.request.arguments
         # get the current frontend logged username
         username = self.get_current_username()
-        # if the user don't provide an account we use the frontend username as last resort
+        # if the user don't provide an account we use the username
         account = (query_args.get('account', [username])[0] if not account else account)
         # query string checked from string to boolean
         checked = str2bool(str(query_args.get('checked', [False])[0]))
@@ -103,7 +104,7 @@ class Handler(imps.Units, BaseHandler):
         query_args = self.request.arguments
         # get the current frontend logged username
         username = self.get_current_username()
-        # if the user don't provide an account we use the frontend username as last resort
+        # if the user don't provide an account we use the username
         account = (query_args.get('account', [username])[0] if not account else account)
         # query string checked from string to boolean
         checked = str2bool(str(query_args.get('checked', [False])[0]))
@@ -258,7 +259,7 @@ class Handler(imps.Units, BaseHandler):
         # resource parameters
         parameters = {}
         # mock your stuff
-        stuff = models.unit.get_mock_object().to_primitive()
+        stuff = models.Unit.get_mock_object().to_primitive()
         for k, v in stuff.items():
             if v is None:
                 parameters[k] = str(type('none'))
@@ -271,7 +272,7 @@ class Handler(imps.Units, BaseHandler):
         parameters['labels'] = 'array/string'
         # end of manual cleaning
         POST = {
-            "description": "Send unit",
+            "description": "Spawn unit",
             "parameters": parameters
         }
         # filter single resource
