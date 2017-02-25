@@ -48,7 +48,7 @@ iofun = []
 
 class TreeWSHandler(websocket.WebSocketHandler):
     '''
-        Websocket Handler
+        WebSocket Handler
     '''
 
     def get_compression_options(self):
@@ -66,7 +66,7 @@ class TreeWSHandler(websocket.WebSocketHandler):
 
 def ws_send(message):
     '''
-        Websocket send message
+        WebSocket Send
     '''
     for ws in iofun:
         if not ws.ws_connection.stream.socket:
@@ -81,7 +81,7 @@ def ws_send(message):
 @gen.coroutine
 def periodic_ws_send():
     '''
-        Periodic websocket send
+        Periodic WebSocket Send
     '''
     hb_time = arrow.utcnow()
     heartbeat = {"heartbeat":{"time":hb_time.timestamp, "info": "periodic_ws_send"}}
@@ -91,6 +91,7 @@ def periodic_ws_send():
 def main():
     # daemon options
     opts = options.options()
+    # System uuid
     system_uuid = uuid.uuid4()
     # Set treehouse release
     otp_rel = opts.otp_rel
@@ -150,10 +151,10 @@ def main():
     cache_enabled = opts.cache_enabled
     if cache_enabled:
         logging.info('Memcached server: {0}:{1}'.format(opts.memcached_host, opts.memcached_port))
-    # treehouse web application daemon
+    # treehouse application daemon
     application = web.Application(
         [
-            # experiment with websockets and messaging backbone.
+            # Experiment with WebSockets and BEAM as message backbone.
             (r'/ws/alerts', TreeWSHandler),
             # Units resource
             (r'/imps/(?P<imp_uuid>.+)/?', imps.Handler),
@@ -180,10 +181,10 @@ def main():
         # pagination page size
         page_size=opts.page_size,
     )
-    # Treehouse periodic cast callbacks
+    # Periodic Cast Functions
     check_node_tree = Cast(check_tree, 5000)
     check_node_tree.start()
-    # Setting up treehouse processor
+    # Setting up daemon process
     application.listen(opts.port)
     logging.info('Listening on http://%s:%s' % (opts.host, opts.port))
     loop = ioloop.IOLoop.instance()
