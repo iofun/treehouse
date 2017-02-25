@@ -16,9 +16,17 @@ from schematics import types
 from schematics.types import compound
 
 
+class BaseResult(models.Model):
+    '''
+        Base Result
+    '''
+    count = types.IntType()
+    page = types.IntType()
+
+
 class SimpleResource(models.Model):
     '''
-        Simple resource
+        Simple Resource
     '''
     contains = compound.ListType(types.UUIDType())
     total = types.IntType()
