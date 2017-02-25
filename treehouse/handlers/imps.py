@@ -20,7 +20,7 @@ from treehouse.tools import str2bool, check_json, new_resource
 from treehouse.handlers import BaseHandler
 
 
-class Handler(imps.Imps, BaseHandler):
+class Handler(imps.Units, BaseHandler):
     '''
         Imp HTTP request handlers
     '''

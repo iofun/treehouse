@@ -85,7 +85,7 @@ class Units(object):
         '''
             Get unique list from Solr
         '''
-        search_index = 'treehouse_imps_index'
+        search_index = 'tree_unit_index'
         query = 'uuid_register:*'
         filter_query = 'uuid_register:*'
         message_box = []
@@ -141,12 +141,12 @@ class Units(object):
             raise gen.Return(message_box)
 
     @gen.coroutine
-    def get_imp(self, account, query_uuid):
+    def get_imp(self, account, imp_uuid):
         '''
             Get query
         '''
-        search_index = 'treehouse_imps_index'
-        query = 'uuid_register:{0}'.format(query_uuid)
+        search_index = 'tree_unit_index'
+        query = 'uuid_register:{0}'.format(imp_uuid)
         filter_query = 'account_register:{0}'.format(account)
         # build the url
         url = "https://api.cloudforest.ws/search/query/{0}?wt=json&q={1}&fq={2}".format(
@@ -192,7 +192,7 @@ class Units(object):
         '''
             Get imp list
         '''
-        search_index = 'treehouse_imps_index'
+        search_index = 'tree_unit_index'
         query = 'uuid_register:*'
         filter_query = 'account_register:{0}'.format(account)
         page_num = int(page_num)
@@ -230,20 +230,20 @@ class Units(object):
             New query event
         '''
         # currently we are changing this in two steps, first create de index with a structure file
-        search_index = 'cas_query_index'
+        search_index = 'tree_unit_index'
         # on the riak database with riak-admin bucket-type create `bucket_type`
         # remember to activate it with riak-admin bucket-type activate
-        bucket_type = 'cas_query'
+        bucket_type = 'tree_unit'
         # the bucket name can be dynamic
-        bucket_name = 'queries'
+        bucket_name = 'units'
         try:
-            event = queries.Query(struct)
+            event = imps.Unit(struct)
             event.validate()
             event = clean_structure(event)
         except Exception, e:
             raise e
         try:
-            message = event.get('uuid') #uuid, account, name, limit, filters, sorts
+            message = event.get('uuid')
             structure = {
                 "uuid": str(event.get('uuid', str(uuid.uuid4()))),
                 "account": str(event.get('account', 'pebkac')),
@@ -253,7 +253,7 @@ class Units(object):
                 "sorts":str(event.get('sorts', '')),
                 "labels":str(event.get('labels', '')),
             }
-            result = QueryMap(
+            result = UnitMap(
                 self.kvalue,
                 bucket_name,
                 bucket_type,
@@ -266,18 +266,18 @@ class Units(object):
         raise gen.Return(message)
 
     @gen.coroutine
-    def modify_imp(self, account, query_uuid, struct):
+    def modify_imp(self, account, imp_uuid, struct):
         '''
             Modify query
         '''
         # riak search index
-        search_index = 'treehouse_imp_index'
+        search_index = 'tree_unit_index'
         # riak bucket type
-        bucket_type = 'treehouse_imp'
+        bucket_type = 'tree_unit'
         # riak bucket name
-        bucket_name = 'imps'
+        bucket_name = 'units'
         # solr query
-        query = 'uuid_register:{0}'.format(query_uuid.rstrip('/'))
+        query = 'uuid_register:{0}'.format(imp_uuid.rstrip('/'))
         # filter query
         filter_query = 'account_register:{0}'.format(account)
         # search query url
