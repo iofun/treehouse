@@ -88,27 +88,20 @@ def options():
     tornado.options.define('cache_enabled',
         default=False, type=bool,
         help=('Enable cache'))
-    # Requests with return settings
-    # Pagination - Requests that return multiple items will be paginated
-    # to 30 items by default.
+    # Pagination to 30 items by default.
     tornado.options.define('page_size', default=30, type=int,
                            help=('Set a custom page size up to 100'))
-    # Parse config file, then command line, so command line switches take
-    # precedence
+    # Parse config file, then command line, so command line switches
     if os.path.exists(config_path):
         print('Loading %s' % (config_path))
-
         tornado.options.parse_config_file(config_path)
     else:
         print('No config file at %s' % (config_path))
-               
     tornado.options.parse_command_line()
     result = tornado.options.options
-
     for required in (
         'domain', 'host', 'port',
     ):
         if not result[required]:
             raise Exception('%s required' % required)
-
     return result
