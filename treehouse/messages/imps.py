@@ -51,7 +51,7 @@ class ModifyUnit(models.Model):
         this we prevent users from using PATCH to create fields 
         outside the scope of the resource.
     '''
-    uuid = types.UUIDType(default=_uuid.uuid4)
+    uuid = types.UUIDType()
     hash = types.StringType()
     account = types.StringType()
     resources = types.StringType()
