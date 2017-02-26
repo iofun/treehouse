@@ -35,12 +35,16 @@ class UnitMap(object):
         self.map = Map(bucket, None)
         self.map.registers['uuid'].assign(struct.get('uuid', ''))
         self.map.registers['hash'].assign(struct.get('hash', ''))
+        self.map.registers['image'].assign(struct.get('image', ''))
+        self.map.registers['secret'].assign(struct.get('secret', ''))
+        self.map.registers['config'].assign(struct.get('config', ''))
         self.map.registers['account'].assign(struct.get('account', ''))
         self.map.registers['model_uuid'].assign(struct.get('model_uuid', ''))
         self.map.registers['feature_uuid'].assign(struct.get('feature_uuid', ''))
         self.map.registers['status'].assign(struct.get('status', ''))
         self.map.registers['loss'].assign(struct.get('loss', ''))
         self.map.registers['gradients'].assign(struct.get('gradients', ''))
+        self.map.registers['resources'].assign(struct.get('resources', ''))
         self.map.registers['labels'].assign(struct.get('labels', ''))
         self.map.registers['centers'].assign(struct.get('centers', ''))
         self.map.registers['unique_labels'].assign(struct.get('unique_labels', ''))
@@ -66,12 +70,16 @@ class UnitMap(object):
         struct = {
             "uuid": event.registers['uuid'].value,
             "hash": event.registers['hash'].value,
+            "image": event.registers['image'].value,
+            "secret": event.registers['secret'].value,
+            "config": event.registers['config'].value,
             "account": event.registers['account'].value,
             "model_uuid": event.registers['model_uuid'].value,
             "feature_uuid": event.registers['feature_uuid'].value,
             "status": event.registers['status'].value,
             "loss": event.registers['loss'].value,
             "gradients": event.registers['gradients'].value,
+            "resources": event.registers['resources'].value,
             "labels": event.registers['labels'].value,
             "centers": event.registers['centers'].value,
             "unique_labels": event.registers['unique_labels'].value,
@@ -96,6 +104,7 @@ class UnitMap(object):
             "status": event.registers['status'].value,
             "loss": event.registers['loss'].value,
             "gradients": event.registers['gradients'].value,
+            "resources": event.registers['resources'].value,
             "labels": event.registers['labels'].value,
             "centers": event.registers['centers'].value,
             "unique_labels": event.registers['unique_labels'].value,

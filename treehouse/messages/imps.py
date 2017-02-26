@@ -22,6 +22,10 @@ class Unit(models.Model):
     '''
     uuid = types.UUIDType(default=_uuid.uuid4)
     hash = types.StringType()
+    image = types.StringType()
+    address = types.StringType()
+    config = types.StringType()
+    secret = types.StringType()
     account = types.StringType(required=True)
     resources = types.StringType()
     status = types.StringType()
@@ -53,6 +57,10 @@ class ModifyUnit(models.Model):
     '''
     uuid = types.UUIDType()
     hash = types.StringType()
+    image = types.StringType()
+    address = types.StringType()
+    config = types.StringType()
+    secret = types.StringType()
     account = types.StringType()
     resources = types.StringType()
     status = types.StringType()

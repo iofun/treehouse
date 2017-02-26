@@ -247,6 +247,9 @@ class Units(object):
             structure = {
                 "uuid": str(event.get('uuid', str(uuid.uuid4()))),
                 "hash": str(event.get('hash', '')),
+                "image": str(event.get('image', '')),
+                "config": str(event.get('config', '')),
+                "secret": str(event.get('secret', '')),
                 "account": str(event.get('account', 'pebkac')),
                 "resources": str(event.get('resources', '')),
                 "status": str(event.get('status', '')),
