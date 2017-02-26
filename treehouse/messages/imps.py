@@ -33,8 +33,8 @@ class Unit(models.Model):
     checked = types.StringType()
     checked_by = types.StringType()
     created_at = types.StringType()
-    updatedt_by = types.StringType()
-    updatedt_at = types.StringType()
+    updated_by = types.StringType()
+    updated_at = types.StringType()
     url = types.StringType()
 
 

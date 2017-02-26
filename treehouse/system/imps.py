@@ -246,12 +246,21 @@ class Units(object):
             message = event.get('uuid')
             structure = {
                 "uuid": str(event.get('uuid', str(uuid.uuid4()))),
+                "hash": str(event.get('hash', '')),
                 "account": str(event.get('account', 'pebkac')),
-                "name": str(event.get('name', '')),
-                "limit":str(event.get('limit', '')),
-                "filters":str(event.get('filters', '')),
-                "sorts":str(event.get('sorts', '')),
-                "labels":str(event.get('labels', '')),
+                "resources": str(event.get('resources', '')),
+                "status": str(event.get('status', '')),
+                "loss": str(event.get('loss', '')),
+                "gradients": str(event.get('gradients', '')),
+                "labels": str(event.get('labels', '')),
+                "centers": str(event.get('centers', '')),
+                "public": str(event.get('public', '')),
+                "checked": str(event.get('checked', '')),
+                "checked_by": str(event.get('checked_by', '')),
+                "created_at": str(event.get('created_at', '')),
+                "updated_by": str(event.get('updated_by', '')),
+                "updated_at": str(event.get('updated_at', '')),
+                "url": str(event.get('url', '')),
             }
             result = UnitMap(
                 self.kvalue,
