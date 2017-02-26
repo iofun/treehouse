@@ -217,8 +217,7 @@ class Nodes(object):
                 callback=handle_request
             )
             while len(got_response) == 0:
-                # don't be careless with the time.
-                yield gen.sleep(0.0020)
+                yield gen.sleep(0.0020) # don't be careless with the time.
         except Exception, e:
             logging.exception(e)
             raise gen.Return(e)
@@ -312,8 +311,7 @@ class Nodes(object):
                 callback=handle_request
             )
             while len(got_response) == 0:
-                # don't be careless with the time.
-                yield gen.sleep(0.0010) 
+                yield gen.sleep(0.0010) # don't be careless with the time.
             response_doc = got_response[0].get('response')['docs'][0]
             riak_key = str(response_doc['_yz_rk'])
             bucket = self.kvalue.bucket_type(bucket_type).bucket('{0}'.format(bucket_name))

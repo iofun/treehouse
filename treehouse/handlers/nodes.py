@@ -188,7 +188,6 @@ class Handler(nodes.Nodes, BaseHandler):
                 (scheme, 'uuid')
             ]}
             message = yield self.let_it_crash(struct, scheme, new_node, reason)
-            logging.warning(message)
             self.set_status(400)
             self.finish(message)
             return
@@ -226,7 +225,6 @@ class Handler(nodes.Nodes, BaseHandler):
             Delete node
         '''
         account = query_args.get('account', [None])[0]
-        logging.info('account {0} uuid {1}'.format(account, node_uuid))
         result = yield self.remove_node(account, node_uuid)
         if not result:
             self.set_status(400)

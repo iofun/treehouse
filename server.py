@@ -206,17 +206,17 @@ def main():
     # treehouse application daemon
     application = web.Application(
         [
-            # Experiment with WebSockets and the BEAM vm as message backbone.
-            (r'/ws/alerts', TreeWSHandler),
             # Units resource
             (r'/imps/(?P<imp_uuid>.+)/?', imps.Handler),
             (r'/imps/?', imps.Handler),
             # Nodes resource
             (r'/nodes/(?P<node_uuid>.+)/?', nodes.Handler),
             (r'/nodes/?', nodes.Handler),
-            # Indexes resource
+            # Internal indexes and resources
             (r'/indexes/(?P<index_uuid>.+)/?', indexes.Handler),
             (r'/indexes/?', indexes.Handler),
+            # Experiment with WebSockets and the BEAM vm as message backbone.
+            (r'/ws/alerts', TreeWSHandler),
         ],
         # system cache
         cache=cache,
