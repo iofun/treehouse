@@ -12,7 +12,6 @@ __author__ = 'Team Machine'
 
 
 import uuid
-
 import logging
 
 

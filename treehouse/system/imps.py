@@ -143,7 +143,7 @@ class Units(object):
     @gen.coroutine
     def get_imp(self, account, imp_uuid):
         '''
-            Get query
+            Get (IMP) unit
         '''
         search_index = 'tree_unit_index'
         query = 'uuid_register:{0}'.format(imp_uuid)
@@ -227,12 +227,11 @@ class Units(object):
     @gen.coroutine
     def new_imp(self, struct):
         '''
-            New query event
+            New (IMP) unit event
         '''
-        # currently we are changing this in two steps, first create de index with a structure file
+        # yokozuka's search index
         search_index = 'tree_unit_index'
-        # on the riak database with riak-admin bucket-type create `bucket_type`
-        # remember to activate it with riak-admin bucket-type activate
+        # resource bucket type
         bucket_type = 'tree_unit'
         # the bucket name can be dynamic
         bucket_name = 'units'

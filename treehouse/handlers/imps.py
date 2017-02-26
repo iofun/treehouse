@@ -29,7 +29,7 @@ class Handler(imps.Units, BaseHandler):
     @gen.coroutine
     def head(self, account=None, imp_uuid=None, page_num=0):
         '''
-            Head IMP units
+            Head units
         '''
         # request query arguments
         query_args = self.request.arguments

@@ -34,15 +34,14 @@ class NodeMap(object):
         bucket.set_properties({'search_index': search_index})
         self.map = Map(bucket, None)
         self.map.registers['uuid'].assign(struct.get('uuid', ''))
+        self.map.registers['hash'].assign(struct.get('hash', ''))
         self.map.registers['account'].assign(struct.get('account', ''))
-        self.map.registers['units'].assign(struct.get('units', ''))
-        self.map.registers['status'].assign(struct.get('status', ''))
+        self.map.registers['name'].assign(struct.get('name', ''))
+        self.map.registers['description'].assign(struct.get('description', ''))
+        self.map.registers['resources'].assign(struct.get('resources', ''))
         self.map.registers['labels'].assign(struct.get('labels', ''))
-        self.map.registers['size'].assign(struct.get('size', ''))
-        self.map.registers['stride'].assign(struct.get('stride', ''))
-        self.map.registers['offset'].assign(struct.get('offset', ''))
-        self.map.registers['storage'].assign(struct.get('storage', ''))
-        self.map.registers['total'].assign(struct.get('total', ''))
+        self.map.registers['centers'].assign(struct.get('centers', ''))
+        self.map.registers['status'].assign(struct.get('status', ''))
         self.map.registers['public'].assign(struct.get('public', ''))
         self.map.registers['checked'].assign(struct.get('checked', ''))
         self.map.registers['checked_by'].assign(struct.get('checked_by', ''))
@@ -64,15 +63,14 @@ class NodeMap(object):
         event = self.map.reload()
         struct = struct = {
             "uuid": event.registers['uuid'].value,
+            "hash": event.registers['hash'].value,
             "account": event.registers['account'].value,
-            "units": event.registers['units'].value,
-            "status": event.registers['status'].value,
+            "name": event.registers['name'].value,
+            "description": event.registers['description'].value,
+            "resources": event.registers['resources'].value,
             "labels": event.registers['labels'].value,
-            "size": event.registers['size'].value,
-            "stride": event.registers['stride'].value,
-            "offset": event.registers['offset'].value,
-            "storage": event.registers['storage'].value,
-            "total": event.registers['total'].value,
+            "centers": event.registers['centers'].value,
+            "status": event.registers['status'].value,
             "public": event.registers['public'].value,
             "checked": event.registers['checked'].value,
             "checked_by": event.registers['checked_by'].value,
@@ -87,15 +85,14 @@ class NodeMap(object):
         event = self.map.reload()
         struct = struct = {
             "uuid": event.registers['uuid'].value,
+            "hash": event.registers['hash'].value,
             "account": event.registers['account'].value,
-            "units": event.registers['units'].value,
-            "status": event.registers['status'].value,
+            "name": event.registers['name'].value,
+            "description": event.registers['description'].value,
+            "resources": event.registers['resources'].value,
             "labels": event.registers['labels'].value,
-            "size": event.registers['size'].value,
-            "stride": event.registers['stride'].value,
-            "offset": event.registers['offset'].value,
-            "storage": event.registers['storage'].value,
-            "total": event.registers['total'].value,
+            "centers": event.registers['centers'].value,
+            "status": event.registers['status'].value,
             "public": event.registers['public'].value,
             "checked": event.registers['checked'].value,
             "checked_by": event.registers['checked_by'].value,
