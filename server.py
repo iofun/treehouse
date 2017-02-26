@@ -14,8 +14,8 @@
 # The full license is in the file LICENCE, distributed as part of this software.
 
 __author__ = 'Team Machine'
-
-__water_mark__ = '''
+# Check out our research, services and resources at the https://nonsense.ws laboratory.
+__ooo__ = '''
 
     ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░╔░Ñß╠░░░░░░░░░░░░░░░░░░░░░░░»░░░░░░░░░░░░░░░░░░░░░
     ░░µ▄▄▄»░╔▄░░▄▄▄▄▄▄▄▄░░░ú░░░░░░░╔φm╫▒░╔▄░░▄░░▄╔░»▄▄»░░░░░µ░░▄▄▄▄▄▄▄▄▄▄▄▄░░▄░░▄H░░
@@ -91,7 +91,6 @@ from treehouse.handlers import nodes
 from treehouse.handlers import indexes
 from zmq.eventloop.future import Context, Poller
 from zmq.eventloop import ioloop
-
 
 # hack ioloop for zmq y'all <3
 ioloop.install()
