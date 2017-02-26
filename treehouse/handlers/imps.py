@@ -23,7 +23,7 @@ from treehouse.handlers import BaseHandler
 
 class Handler(imps.Units, BaseHandler):
     '''
-        Imp HTTP request handlers
+        HTTP request handlers
     '''
 
     @gen.coroutine
@@ -43,20 +43,21 @@ class Handler(imps.Units, BaseHandler):
         page_num = int(query_args.get('page', [page_num])[0])
         # not unique
         unique = query_args.get('unique', False)
-        # rage against the finite state machine
+        # status ?! ... rage against the finite state machine
         status = 'all'
         # are we done yet?
         done = False
-        # some message crashing it
+        # some random that crash this shit
         message = {'crashing': True}
+        # unique flag activated
         if unique:
             unique_stuff = {key:query_args[key][0] for key in query_args}
             query_list = yield self.get_unique_querys(unique_stuff)
             unique_list = yield self.get_query_values(query_list)
             done = True
+            message = {'units':unique_list}
             self.set_status(200)
-            # finish the request and return a list.
-            self.finish({'units':unique_list})
+        # get imp units
         if not done and not imp_uuid:
             unit_list = yield self.get_imp_list(account, start, end, lapse, status, page_num)
             message = {
@@ -71,29 +72,26 @@ class Handler(imps.Units, BaseHandler):
                     for (key, value) in doc.items() if key not in IGNORE_ME)
                 )
             self.set_status(200)
-            self.finish(message)
+        # single imp received
         if not done and imp_uuid:
             # try to get stuff from cache first
             imp_uuid = imp_uuid.rstrip('/')
             # get cache data
-            data = self.cache.get('units:{0}'.format(imp_uuid))
-            if data is not None:
-                logging.info('units:{0} done retrieving!'.format(imp_uuid))
-                result = data
+            message = self.cache.get('units:{0}'.format(imp_uuid))
+            if message is not None:
+                logging.info('units:{0} done retrieving from cache!'.format(imp_uuid))
+                self.set_status(200)
             else:
                 data = yield self.get_imp(account, imp_uuid)
                 if self.cache.add('units:{0}'.format(imp_uuid), data, 1):
                     logging.info('new cache entry {0}'.format(str(imp_uuid)))
-                    result = data
-            if not result:
+                    self.set_status(200)
+            if not message:
                 self.set_status(400)
-                self.finish({'missing account {0} imp_uuid {1} page_num {2} checked {3}'.format(
-                    account, imp_uuid, page_num, checked):result})
-            else:
-                self.set_status(200)
-                self.finish(result)
-        else:
-            logging.warning('let it crash')
+                message = {'missing account {0} imp_uuid {1} page_num {2} checked {3}'.format(
+                    account, imp_uuid, page_num, checked):message}
+        # thanks for all the fish
+        self.finish(message)
 
     @gen.coroutine
     def get(self, account=None, imp_uuid=None, page_num=0):
@@ -118,7 +116,7 @@ class Handler(imps.Units, BaseHandler):
         done = False
         # some random that crash this shit
         message = {'crashing': True}
-        #
+        # unique flag activated
         if unique:
             unique_stuff = {key:query_args[key][0] for key in query_args}
             query_list = yield self.get_unique_querys(unique_stuff)
@@ -126,7 +124,7 @@ class Handler(imps.Units, BaseHandler):
             done = True
             message = {'units':unique_list}
             self.set_status(200)
-        #
+        # get imp units
         if not done and not imp_uuid:
             unit_list = yield self.get_imp_list(account, start, end, lapse, status, page_num)
             message = {
@@ -141,7 +139,7 @@ class Handler(imps.Units, BaseHandler):
                     for (key, value) in doc.items() if key not in IGNORE_ME)
                 )
             self.set_status(200)
-        #
+        # single imp received
         if not done and imp_uuid:
             # try to get stuff from cache first
             imp_uuid = imp_uuid.rstrip('/')
@@ -159,7 +157,7 @@ class Handler(imps.Units, BaseHandler):
                 self.set_status(400)
                 message = {'missing account {0} imp_uuid {1} page_num {2} checked {3}'.format(
                     account, imp_uuid, page_num, checked):message}
-        #
+        # thanks for all the fish
         self.finish(message)
 
     @gen.coroutine
