@@ -16,7 +16,7 @@ import ujson as json
 from tornado import gen, web
 from treehouse import errors
 from treehouse.system import imps
-from treehouse.message import imps as models
+from treehouse.messages import imps as models
 from treehouse.tools import str2bool, check_json, new_resource
 from treehouse.handlers import BaseHandler
 
