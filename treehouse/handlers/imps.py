@@ -188,7 +188,6 @@ class Handler(imps.Units, BaseHandler):
                 (scheme, 'uuid')
             ]}
             message = yield self.let_it_crash(struct, scheme, new_unit, reason)
-            logging.warning(message)
             self.set_status(400)
             self.finish(message)
             return
