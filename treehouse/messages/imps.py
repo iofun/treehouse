@@ -18,7 +18,7 @@ from schematics import types
 
 class Unit(models.Model):
     '''
-        Treehouse unit (IMP)
+        Jungle IMP's
     '''
     uuid = types.UUIDType(default=_uuid.uuid4)
     hash = types.StringType()

@@ -19,13 +19,25 @@ from treehouse.messages import Resource
 
 
 class Node(models.Model):
+    '''
+        Thanks for all the fish!
+    '''
     uuid = types.UUIDType(default=_uuid.uuid4)
+    hash = types.StringType()
     account = types.StringType(required=True)
     name = types.StringType(required=True)
     description = types.StringType()
-    checked = types.BooleanType(default=False)
-    # -- resources
     resources = compound.ModelType(Resource)
+    labels = types.StringType()
+    centers = types.StringType()
+    status = types.StringType()
+    public = types.StringType()
+    checked = types.BooleanType(default=False)
+    checked_by = types.StringType()
+    created_at = types.StringType()
+    updated_by = types.StringType()
+    updated_at = types.StringType()
+    url = types.StringType()
 
 
 class ModifyNode(models.Model):
@@ -41,6 +53,19 @@ class ModifyNode(models.Model):
         this we prevent users from using PATCH to create fields 
         outside the scope of the resource.
     '''
+    uuid = types.UUIDType()
+    hash = types.StringType()
+    account = types.StringType()
     name = types.StringType()
     description = types.StringType()
+    resources = compound.ModelType(Resource)
+    labels = types.StringType()
+    centers = types.StringType()
+    status = types.StringType()
+    public = types.StringType()
     checked = types.BooleanType()
+    checked_by = types.StringType()
+    created_at = types.StringType()
+    updated_by = types.StringType()
+    updated_at = types.StringType()
+    url = types.StringType()
