@@ -8,7 +8,6 @@ start(_Type, _Args) ->
 	Dispatch = cowboy_router:compile([
         {'_', [
     		%% hello space cowboy
-        	{"/", hello_handler, []},
         	{"/imps/", imps_handler, []}
         ]}
     ]),
