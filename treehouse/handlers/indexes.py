@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 '''
-    HTTP indexes handlers.
+    HTTP index handlers.
 '''
 
 # This file is part of treehouse.
@@ -22,7 +22,7 @@ from treehouse.handlers import BaseHandler
 
 class Handler(indexes.Index, BaseHandler):
     '''
-        Index HTTP request handlers
+        HTTP request handlers
     '''
 
     @gen.coroutine
