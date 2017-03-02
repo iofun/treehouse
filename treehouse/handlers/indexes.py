@@ -40,10 +40,6 @@ class Handler(indexes.Index, BaseHandler):
             return
         # settings database
         db = self.settings.get('db')
-        # logging new index structure
-        logging.info('new index structure {0}'.format(str(struct)))
-        # logging request query arguments
-        logging.info('query arguments received {0}'.format(self.request.arguments))
         # request query arguments
         query_args = self.request.arguments
         # get account from new index struct

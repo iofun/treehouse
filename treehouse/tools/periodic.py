@@ -11,6 +11,15 @@
 __author__ = 'Team Machine'
 
 
+'''
+
+missing secret, missing secret and re-work on email integration with current services.
+missing secret, missing secret and re-work on email integration with current services.
+missing secret, missing secret and re-work on email integration with current services.
+
+'''
+
+
 import logging
 from tornado import httpclient
 import ujson as json
@@ -24,7 +33,6 @@ from treehouse.system import imps
 
 
 httpclient.AsyncHTTPClient.configure('tornado.curl_httpclient.CurlAsyncHTTPClient')
-
 
 
 @gen.coroutine
@@ -59,14 +67,12 @@ def send_alert_message(address, message, mailgun_url, mailgun_key):
         else:
             logging.info('ok %s' % str(response.body))
 
-    
     msgdict = json.loads(message)
 
     logging.error('message dictionary {0}'.format(msgdict))
 
     message = '''THIS E-MAIL CONTAINS IMPORTANT INFORMATION PERTAINING TO YOUR ABILITY TO ACCESS THE snakeyevape.com  SYSTEM & REGISTRY - DO NOT LOSE THIS MESSAGE! Pursuant to your request, a password was generated for your account {0} password: {1} has been sent to {2} email.
     '''.format(msgdict.get('account'),msgdict.get('password'),msgdict.get('email'))
-
 
     try:
         message = requests.post(
@@ -116,5 +122,4 @@ def consume_alert_callback(db, mailgun_key, mailgun_url):
         message = str(e)
         logging.error(message)
         
-
     raise gen.Return(alerts)
