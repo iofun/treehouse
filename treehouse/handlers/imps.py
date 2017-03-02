@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 '''
-    Treehouse HTTP IMP handlers.
+    HTTP imp handlers.
 '''
 
 # This file is part of treehouse.

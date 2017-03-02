@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 '''
-    Treehouse HTTP base handlers
+    HTTP base handlers.
 '''
 
 # This file is part of treehouse.
@@ -20,9 +20,7 @@ from treehouse.tools import errors
 
 class BaseHandler(web.RequestHandler):
     '''
-        System application request handler
-
-        gente d'armi e ganti
+        Gente d'armi e ganti
     '''
 
     @property
@@ -60,14 +58,11 @@ class BaseHandler(web.RequestHandler):
         # The Senate and People of Mars
         # -----------------------------
         # SPQM communication message system.
-
         super(BaseHandler, self).initialize(**kwargs)
-
+        # etag
         self.etag = None
-
         # System database
         self.db = self.settings.get('db')
-
         # Page settings
         self.page_size = self.settings.get('page_size')
 
@@ -94,48 +89,33 @@ class BaseHandler(web.RequestHandler):
         '''
             Let it crash
         '''
-
         str_error = str(error)
         error_handler = errors.Error(error)
         messages = []
-
         if error and 'Model' in str_error:
             message = error_handler.model(scheme)
-
         elif error and 'duplicate' in str_error:
-            
             for name, value in reason.get('duplicates'):
-
                 if value in str_error:
-
                     message = error_handler.duplicate(
                         name.title(),
                         value,
                         struct.get(value)
                     )
-
                     messages.append(message)
-            
             message = ({'messages':messages} if messages else False)
-
         elif error and 'value' in str_error:
             message = error_handler.value()
-
         elif error is not None:
-            logging.warning(str_error)
-
             logging.error(struct, scheme, error, reason)
-            
             message = {
                 'error': u'nonsense',
                 'message': u'there is no error'
             }
         else:
             quotes = PeopleQuotes()
-            
             message = {
                 'status': 200,
                 'message': quotes.get()
             }
-
         raise gen.Return(message)

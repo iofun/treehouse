@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 '''
-    Treehouse HTTP node handlers.
+    HTTP node handlers.
 '''
 
 # This file is part of treehouse.

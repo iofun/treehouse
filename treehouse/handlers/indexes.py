@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 '''
-    Treehouse HTTP Indexes handlers.
+    HTTP indexes handlers.
 '''
 
 # This file is part of treehouse.
@@ -14,6 +14,7 @@ __author__ = 'Team Machine'
 import logging
 import ujson as json
 from tornado import gen, web
+from treehouse import errors
 from treehouse.system import indexes
 from treehouse.tools import errors, str2bool, check_json
 from treehouse.handlers import BaseHandler
