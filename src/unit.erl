@@ -2,9 +2,10 @@
 
 -export([start/3,start_link/3]).
 -export([init/3]).
+%% Lua commands
 -export([set_tick/2,get_position/1,set_position/3,get_speed/1,set_speed/3,zap/1]).
 -export([get_state/1,get_tc/1]).
--export([set_unit/2,lua_do/2,gc/1]).    %Lua commands
+-export([set_unit/2,lua_do/2,gc/1]).
 
 %% Management API.
 
@@ -40,10 +41,12 @@ get_state(unit) ->
 get_tc(unit) ->
     call(unit, get_tc).
 
-set_unit(unit, Name) ->                 %Set a new unit chunk
+%Set a new unit chunk
+set_unit(unit, Name) ->
     cast(unit, {set_unit,Name}).
 
-lua_do(unit, Command) ->                %"do" any Lua command
+%"do" any Lua command
+lua_do(unit, Command) ->
     call(unit, {lua_do,Command}).
 
 gc(unit) ->
@@ -67,12 +70,14 @@ reply(To, Rep) ->
 %% Main loop.
 
 init(X, Y, State0) ->
-    region:add_sector(X, Y, self()),        %Put us in the region
+    %Put us in the region
+    region:add_sector(X, Y, self()),
     {_,State1} = luerl:call_function([this_unit,start], [], State0),
     {_,State2} = luerl:call_function([this_unit,set_position], [X,Y], State1),
     {_,State3} = luerl:call_function([this_unit,set_speed], [0,0], State2),
     proc_lib:init_ack({ok,self()}),
-    loop(State3, infinity, make_ref(), 0).    %Start with dummy tick ref
+    %Start with dummy tick ref
+    loop(State3, infinity, make_ref(), 0).
 
 %% loop(LuerlState, Tick, TickRef, TickCount) -> no_return().
 
@@ -84,11 +89,13 @@ loop(State0, Tick, Tref, Tc) ->
         NewTref = erlang:send_after(Tick, self(), tick),
         loop(State1, Tick, NewTref, Tc+1);
     {cast,From,{set_tick,NewTick}} ->
-        erlang:cancel_timer(Tref),            %Cancel existing timer
+        %Cancel existing timer
+        erlang:cancel_timer(Tref),
         {_,State1} = luerl:call_function([this_unit,set_tick], [NewTick], State0),
         %% Set the new tick and get a new timer
         NewTref = if NewTick =:= infinity ->
-                  make_ref();                %Dummy tick ref
+                  %Dummy tick ref
+                  make_ref();
              true ->
                   erlang:send_after(NewTick, self(), tick)
               end,
@@ -115,16 +122,20 @@ loop(State0, Tick, Tref, Tc) ->
         %% Remove ourselves from databases and die
         region:del_unit(),
         exit(zapped);
-    {call,From,get_state} ->                %Get the luerl state
+    %Get the luerl state
+    {call,From,get_state} ->
         reply(From, {ok,State0}),
         loop(State0, Tick, Tref, Tc);
-    {call,From,get_tc} ->                    %Get the tick count
+    %Get the tick count
+    {call,From,get_tc} ->
         reply(From, {ok,Tc}),
         loop(State0, Tick, Tref, Tc);
-    {cast,From,{set_unit,Name}} ->            %Set a new unit chunk
+    %Set a new unit chunk
+    {cast,From,{set_unit,Name}} ->
         {_,State1} = do_set_unit(Name, Tick, State0),
         loop(State1, Tick, Tref, Tc);
-    {call,From,{lua_do,Command}} ->            %"do" any Lua command
+    %"do" any Lua command
+    {call,From,{lua_do,Command}} ->
         {Rs,State1} = luerl:do(Command, State0),
         reply(From, {ok,Rs}),
         loop(State1, Tick, Tref, Tc);

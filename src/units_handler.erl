@@ -1,4 +1,4 @@
--module(imps_handler).
+-module(units_handler).
 
 -export([init/3]).
 -export([content_types_provided/2]).
