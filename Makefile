@@ -1,10 +1,9 @@
 PROJECT = treehouse
-PROJECT_DESCRIPTION = The treehouse spontaneously generates imps, which are used to spawn your resources.
+PROJECT_DESCRIPTION = Spontaneously generates imps used to spawn your resources.
 PROJECT_VERSION = 0.0.1
-DEPS = econfig cowboy hackney dht chumak luerl lager uuid jiffy msgpack esdl2
+DEPS = econfig cowboy hackney dht chumak luerl lager uuid jiffy msgpack
 dep_cowboy = git https://github.com/ninenines/cowboy 1.1.x
 dep_dht = git https://github.com/jlouis/dht.git
-dep_esdl2 = git https://github.com/ninenines/esdl2.git
 
 # this must be first
 include erlang.mk

@@ -39,19 +39,19 @@ new_sim({Xsize,Ysize,N}) ->
     {ok,#state{xsize=Xsize,ysize=Ysize,n=N,array=Array,state=State}}.
 
 sim_run(Tick) ->
-    gen_server:call(sim_master, {start_run,Tick}).
+    gen_server:call(tree_master, {start_run,Tick}).
 
 sim_run(Sim, Tick) ->
     gen_server:call(Sim, {start_run,Tick}).
 
 sim_stop() ->
-    gen_server:call(sim_master, stop_run).
+    gen_server:call(tree_master, stop_run).
 
 sim_stop(Sim) ->
     gen_server:call(Sim, sim_stop).
 
 get_ship(I) ->
-    gen_server:call(sim_master, {get_ship,I}).
+    gen_server:call(tree_master, {get_ship,I}).
 
 get_ship(Sim, I) ->
     gen_server:call(Sim, {get_ship,I}).
@@ -74,7 +74,7 @@ init_lua() ->
 		      {region,luerl_region},
 		      {unit,luerl_unit}]),
     %% Set the default unit behavior.
-    {_,L2} = luerl:do("this_unit = require 'default_unit'", L1),
+    {_,L2} = luerl:do("this_unit = require 'default'", L1),
     L2.
 
 load(Key, Module, State0) ->

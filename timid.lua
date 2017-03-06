@@ -32,13 +32,14 @@ function this_unit.set_tick(a1) tick = a1; end
 local function move_xy_bounce(x, y, dx, dy, valid_x, valid_y)
    local nx = x + dx
    local ny = y + dy
-
-   if (not valid_x(nx)) then	-- Bounce off the edge
+   -- Bounce off the edge
+   if (not valid_x(nx)) then
       color = "white"		-- Go back to white when we bounce
       nx = x - dx
       dx = -dx
    end
-   if (not valid_y(ny)) then	-- Bounce off the edge
+   -- Bounce off the edge
+   if (not valid_y(ny)) then
       color = "white"		-- Go back to white when we bounce
       ny = y - dy
       dy = -dy
@@ -74,8 +75,10 @@ function this_unit.tick()
    x,y,dx,dy = move(x, y, dx, dy)
 end
 
-function this_unit.zap()	-- The unit has been zapped and will die
+-- The unit has been zapped and will die
+function this_unit.zap()
    region.rem_sector(x, y)
 end
 
-return this_unit		-- Return the unit table
+-- Return the unit table
+return this_unit

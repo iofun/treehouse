@@ -1,13 +1,13 @@
-local this_unit = {}		-- Our unit function table
+local this_unit = {}       -- Our unit function table
 
-local x, y, dx, dy		-- Where we are and fast we move
-local color = "yellow"		-- Our color
-local type = "unit"		-- Our type
-local tick			-- Size of a clock tick msec
-local me = unit.self()		-- This is me
+local x, y, dx, dy         -- Where we are and fast we move
+local color = "yellow"     -- Our color
+local type = "unit"        -- Our type
+local tick                 -- Size of a clock tick msec
+local me = unit.self()     -- This is me
 local ammo,shield = 0,0
 
-local xsize, ysize		-- The size of the region
+local xsize, ysize         -- The size of the region
 
 -- The default unit interface.
 
@@ -27,11 +27,11 @@ local function move(x, y, dx, dy)
    local move_xy = function (a, da, valid)
       local na = a + da
       if valid(na) then
-	 return na,da
+    return na,da
       else
-	 color = "yellow"
-	 type = "extra"
-	 return a-da,-da
+    color = "yellow"
+    type = "extra"
+    return a-da,-da
       end
    end
    local nx,ndx = move_xy(x, dx, region.valid_x)
@@ -45,17 +45,17 @@ local function move(x, y, dx, dy)
    else
       -- Simple avoidance scheme
       if (region.get_sector(nx, ny)) then
-	 -- Something there, change color, pause and reverse
-	 -- print("reverse",x,y,dx,dy)
-	 color = "red"
-	 if (nx ~= x) then dx = -dx end
-	 if (ny ~= y) then dy = -dy end
-	 return x,y,dx,dy
+    -- Something there, change color, pause and reverse
+    -- print("reverse",x,y,dx,dy)
+    color = "red"
+    if (nx ~= x) then dx = -dx end
+    if (ny ~= y) then dy = -dy end
+    return x,y,dx,dy
       else
-	 -- In new sector, move us to the right sector
-	 region.rem_sector(x, y)
-	 region.add_sector(nx, ny)
-	 return nx,ny,ndx,ndy
+    -- In new sector, move us to the right sector
+    region.rem_sector(x, y)
+    region.add_sector(nx, ny)
+    return nx,ny,ndx,ndy
       end
    end
 end
