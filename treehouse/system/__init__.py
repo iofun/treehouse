@@ -63,7 +63,7 @@ def get_command(message):
     '''
     logging.warning('Received control command: {0}'.format(message))
     '''
-        #Current commands:
+        #Current commands: (orders) actions
 
         Action, Build, Cancel, Destination, Hold,
         Gather, Load, Unload, Advanced, Repair,

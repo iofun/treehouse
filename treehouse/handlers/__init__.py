@@ -76,13 +76,15 @@ class BaseHandler(web.RequestHandler):
         '''
             Return the username from a secure cookie
         '''
-        return self.get_secure_cookie('username')
+        #return self.get_secure_cookie('username')
+        return False
 
     def get_current_account(self):
         '''
             Return the account from a secure cookie
         '''
-        return self.get_secure_cookie('account')
+        #return self.get_secure_cookie('account')
+        return False
 
     @gen.coroutine
     def let_it_crash(self, struct, scheme, error, reason):
