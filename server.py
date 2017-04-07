@@ -85,12 +85,16 @@ from tornado.ioloop import PeriodicCallback as Cast
 from tornado import gen, web
 from tornado import websocket
 from tornado import queues            # <------------------------------------- dude.
+from tornado import httpclient
 from treehouse.tools import options, periodic, new_resource
 from treehouse.handlers import imps
 from treehouse.handlers import nodes
 from treehouse.handlers import indexes
 from zmq.eventloop.future import Context, Poller
 from zmq.eventloop import ioloop
+
+
+httpclient.AsyncHTTPClient.configure('tornado.curl_httpclient.CurlAsyncHTTPClient')
 
 
 # hack ioloop for zmq y'all <3
@@ -173,6 +177,24 @@ def main():
                 circus = Popen(["/etc/init.d/circusd", "stop", "."], stdout=PIPE)
                 (output, err) = circus.communicate()
                 logging.error('we crash circusd after trying {0} times!'.format(max_count))
+
+    @gen.coroutine
+    def check_indexes():
+        '''
+            use the curl client to post the current indexes
+        '''
+        # curl -X POST -H "Content-Type: application/json" -d '{"name": "mango_account", "index_type":"mango_account"}' https://api.cloudforest.ws/indexes/
+        http_client = httpclient.AsyncHTTPClient()
+        http_client.fetch(
+            'https://iofun.io/fire/', 
+            headers={"Content-Type": "application/json"},
+            method='POST',
+            body=json.dumps({'username': struct['account'], 'password': struct['password']}),
+            callback=handle_response
+        )
+        logging.info(coturn_account)
+        
+
     # Set memcached backend
     cache = mc.Client(
         [opts.memcached_host],
