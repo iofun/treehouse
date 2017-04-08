@@ -154,7 +154,7 @@ def main():
     otp_rel = opts.otp_rel
     # count von count
     von_count = 0
-    # what if it works?
+
     @gen.coroutine
     def check_tree():
         os.environ['HOME'] = '/opt/treehouse/'
@@ -178,21 +178,29 @@ def main():
                 (output, err) = circus.communicate()
                 logging.error('we crash circusd after trying {0} times!'.format(max_count))
 
+    # it fucking works
     @gen.coroutine
     def check_indexes():
         '''
             use the curl client to post the current indexes
         '''
-        # curl -X POST -H "Content-Type: application/json" -d '{"name": "mango_account", "index_type":"mango_account"}' https://api.cloudforest.ws/indexes/
+        def handle_response(response):
+            '''
+                Handle response
+            '''
+            if response.error:
+                logging.error(response.error)
+            else:
+                logging.info(response.body)
+
         http_client = httpclient.AsyncHTTPClient()
         http_client.fetch(
-            'https://iofun.io/fire/', 
+            'https://api.cloudforest.ws/indexes/', 
             headers={"Content-Type": "application/json"},
             method='POST',
-            body=json.dumps({'username': struct['account'], 'password': struct['password']}),
+            body=json.dumps({'name': 'mango_account', 'index_type': 'mango_account'}),
             callback=handle_response
         )
-        logging.info(coturn_account)
         
 
     # Set memcached backend
@@ -259,6 +267,9 @@ def main():
     # Periodic Cast Functions
     check_node_tree = Cast(check_tree, 5000)
     check_node_tree.start()
+    # automatically generate solr indexes
+    check_node_indexes = Cast(check_indexes, 6000)
+    check_node_indexes.start()
     # Setting up daemon process
     application.listen(opts.port)
     logging.info('Listening on http://%s:%s' % (opts.host, opts.port))
