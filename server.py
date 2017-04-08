@@ -192,7 +192,7 @@ def main():
             else:
                 logging.info(response.body)
 
-        # system indexes, get this list from pillar or some shit.
+        # get this list from pillar or some shit, like from regular configuration file, you know.
         current = [
             'mango_account',
             'mango_task',
@@ -201,7 +201,7 @@ def main():
             'cas_sms',
             'cas_query'
         ]
-
+        # process the current list of indexes
         for i in current:
             # for index in current system
             http_client = httpclient.AsyncHTTPClient()

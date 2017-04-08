@@ -53,7 +53,7 @@ init() ->
     chumak:subscribe(Socket, Upload),
     
     %% Hello chumak bind this case
-    case chumak:bind(Socket, tcp, "172.31.56.215", 5813) of
+    case chumak:bind(Socket, tcp, "127.0.0.1", 5813) of
         {ok, _BindPid} ->
             io:format("Binding OK with Pid: ~p\n", [Socket]);
         {error, Reason} ->
