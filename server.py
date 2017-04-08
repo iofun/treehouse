@@ -193,14 +193,26 @@ def main():
             else:
                 logging.info(response.body)
 
-        http_client = httpclient.AsyncHTTPClient()
-        http_client.fetch(
-            'https://api.cloudforest.ws/indexes/', 
-            headers={"Content-Type": "application/json"},
-            method='POST',
-            body=json.dumps({'name': 'mango_account', 'index_type': 'mango_account'}),
-            callback=handle_response
-        )
+        # system indexes
+        current = [
+            'mango_account',
+            'mango_task',
+            'howler_contact',
+            'cas_email',
+            'cas_sms',
+            'cas_query'
+        ]
+
+        for i in current:
+            # for index in current system
+            http_client = httpclient.AsyncHTTPClient()
+            http_client.fetch(
+                'https://api.cloudforest.ws/indexes/', 
+                headers={"Content-Type": "application/json"},
+                method='POST',
+                body=json.dumps({'name': i, 'index_type': i}),
+                callback=handle_response
+            )
         
 
     # Set memcached backend
@@ -268,7 +280,8 @@ def main():
     check_node_tree = Cast(check_tree, 5000)
     check_node_tree.start()
     # automatically generate solr indexes
-    check_node_indexes = Cast(check_indexes, 6000)
+    #check_node_indexes = Cast(check_indexes, 180000)
+    check_node_indexes = Cast(check_indexes, 8000)
     check_node_indexes.start()
     # Setting up daemon process
     application.listen(opts.port)
