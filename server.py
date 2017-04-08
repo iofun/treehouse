@@ -178,11 +178,10 @@ def main():
                 (output, err) = circus.communicate()
                 logging.error('we crash circusd after trying {0} times!'.format(max_count))
 
-    # it fucking works
     @gen.coroutine
     def check_indexes():
         '''
-            use the curl client to post the current indexes
+            Automatically generate SOLR indexes
         '''
         def handle_response(response):
             '''
@@ -193,7 +192,7 @@ def main():
             else:
                 logging.info(response.body)
 
-        # system indexes
+        # system indexes, get this list from pillar or some shit.
         current = [
             'mango_account',
             'mango_task',
@@ -213,7 +212,6 @@ def main():
                 body=json.dumps({'name': i, 'index_type': i}),
                 callback=handle_response
             )
-        
 
     # Set memcached backend
     cache = mc.Client(
@@ -279,9 +277,7 @@ def main():
     # Periodic Cast Functions
     check_node_tree = Cast(check_tree, 5000)
     check_node_tree.start()
-    # automatically generate solr indexes
-    #check_node_indexes = Cast(check_indexes, 180000)
-    check_node_indexes = Cast(check_indexes, 8000)
+    check_node_indexes = Cast(check_indexes, 180000)
     check_node_indexes.start()
     # Setting up daemon process
     application.listen(opts.port)
