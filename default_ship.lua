@@ -53,7 +53,7 @@ local function move(x, y, dx, dy)
       universe.rem_sector(x, y)
       universe.add_sector(nx, ny)
       -- and draw us
-      esdl_server.set_ship(type, colour, nx, ny)
+      -- esdl_server.set_ship(type, colour, nx, ny)
    end
    return nx,ny,ndx,ndy
 end
@@ -63,8 +63,8 @@ function this_ship.tick()
 end
 
 function this_ship.zap()	-- The ship has been zapped and will die
-   esdl_server.set_ship("explosion", colour, x, y)
-   sound.make_sound("boom")
+   -- esdl_server.set_ship("explosion", colour, x, y)
+   -- sound.make_sound("boom")
    universe.rem_sector(x, y)
 end
 

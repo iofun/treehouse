@@ -51,8 +51,8 @@ get_ship(Sim, I) ->
 
 init({Xsize,Ysize,N}) ->
     process_flag(trap_exit, true),
-    {ok,_} = esdl_server:start_link(Xsize, Ysize),
-    {ok,_} = sim_renderer:start_link(Xsize, Ysize),
+    %% {ok,_} = esdl_server:start_link(Xsize, Ysize),
+    %% {ok,_} = sim_renderer:start_link(Xsize, Ysize),
     {ok,_} = universe:start_link(Xsize, Ysize),	%Start the universe
     random:seed(now()),				%Seed the RNG
     Arr = ets:new(sim_ship_array, [named_table,protected]),
@@ -70,7 +70,7 @@ init_lua() ->
     L0 = luerl:init(),
     L1 = lists:foldl(fun({Name,Mod}, L) -> load([Name], Mod, L) end, L0,
 		     [
-              {esdl_server,luerl_esdl_server},
+              %% {esdl_server,luerl_esdl_server},
 		      {universe,luerl_universe},
 		      {ship,luerl_ship}]),
     %% Set the default ship.
@@ -88,7 +88,7 @@ start_ship(I, Xsize, Ysize, St) ->
        I rem 1 =:= 0 ->
         io:format("unit type imp~n")
     end,
-    io:format("spawn imp ~p \n",[I]),
+    io:format("spawn unit ~p \n",[I]),
     %% Spread out the ships over the whole space.
     X = random:uniform(Xsize) - 1,
     Y = random:uniform(Ysize) - 1,

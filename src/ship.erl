@@ -68,7 +68,7 @@ reply(To, Rep) ->
 
 init(X, Y, St0) ->
     universe:add_sector(X, Y, self()),		%Put us in the universe
-    esdl_server:add_ship(),			%Add us to SDL
+    %% esdl_server:add_ship(),			%Add us to SDL
     {_,St1} = luerl:call_function([this_ship,start], [], St0),
     {_,St2} = luerl:call_function([this_ship,set_pos], [X,Y], St1),
     {_,St3} = luerl:call_function([this_ship,set_speed], [0,0], St2),
@@ -114,7 +114,7 @@ loop(St0, Tick, Tref, Tc) ->
 	    {_,_} = luerl:call_function([this_ship,zap], [], St0),
 	    timer:sleep(1500),
 	    %% Remove ourselves from databases and die
-	    esdl_server:del_ship(),
+	    %% esdl_server:del_ship(),
 	    universe:del_ship(),
 	    exit(zapped);
 	{call,From,get_state} ->		%Get the luerl state
