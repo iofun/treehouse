@@ -1,11 +1,16 @@
 PROJECT = treehouse
-PROJECT_DESCRIPTION = Spontaneously generates imps used to spawn your resources.
-PROJECT_VERSION = 0.0.1
-DEPS = econfig cowboy hackney dht chumak luerl lager uuid jiffy msgpack
-dep_cowboy = git https://github.com/ninenines/cowboy 1.1.x
-dep_dht = git https://github.com/jlouis/dht.git
+PROJECT_DESCRIPTION = Spontaneously generate units and spawn your resources.
+PROJECT_VERSION = 0.1.0
 
-# this must be first
+DEPS = cowboy chumak luerl lager econfig uuid jiffy hackney esdl2
+dep_cowboy_commit = master
+
+dep_esdl2 = git https://github.com/ninenines/esdl2 master
+
+DEP_PLUGINS = cowboy
+
+ERLC_OPTS = +debug_info
+
 include erlang.mk
 
 # Compile flags

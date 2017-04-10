@@ -5,17 +5,16 @@
 -export([stop/1]).
 
 start(_Type, _Args) ->
-	Dispatch = cowboy_router:compile([
+    Dispatch = cowboy_router:compile([
         {'_', [
-    		%% hello space cowboy
-        	{"/units/", units_handler, []}
+            {"/", units_handler, []}
         ]}
     ]),
-    cowboy:start_http(treehouse_http_listener, 100, [{port, 8215}],
-        [{env, [{dispatch, Dispatch}]}]
+    {ok, _} = cowboy:start_clear(http, 100, [{port, 8215}], #{
+        env => #{dispatch => Dispatch}}
     ),
-    tree_master:start_link(), %% ???
-	treehouse_sup:start_link().
+    {ok, _} = zmq_sub_bind:start_link(),
+    treehouse_sup:start_link().
 
 stop(_State) ->
-	ok.
+    ok.

@@ -1,17 +1,17 @@
--- Fly unit behavior.
+-- Fly ship behavior.
 -- It randomly circles about and sits on the edge.
 
-local this_unit = {}		-- Our unit function table
+local this_ship = {}		-- Our ship function table
 
 -- The standard local variables
 local x0, y0, x, y	        -- Where we are
-local color = "cyan"           -- Our color
-local style = "unit"		-- Our style
+local colour = "cyan"           -- Our colour
+local style = "ship"		-- Our style
 local tick                      -- Size of a clock tick msec
-local me = unit.self()		-- This is me
+local me = ship.self()		-- This is me
 local ammo,shield = 0,0
 
-local xsize,ysize = region.size()     -- The size of the region
+local xsize,ysize = universe.size()     -- The size of the universe
 
 local phi = 0                   -- Direction
 local dphi = 0.1                -- Current turn angle per frame
@@ -24,25 +24,25 @@ local tda = 10                  -- Frames left until setting of new da
 local maxtda = 100              -- Max when setting new tda
 local mintda = 5                -- Min when setting new tda
 
--- The default unit interface.
+-- The default ship interface.
 
-function this_unit.start() end
+function this_ship.start() end
 
-function this_unit.get_position() return x,y end
+function this_ship.get_pos() return x,y end
 
-function this_unit.set_position(a1, a2)
+function this_ship.set_pos(a1, a2)
   x,y = a1,a2
   math.randomseed(a1+a2)
 end
 
-function this_unit.get_speed() return v,0 end
+function this_ship.get_speed() return v,0 end
 
-function this_unit.set_speed(a1, a2)
+function this_ship.set_speed(a1, a2)
   phi = math.atan2(a2,a1)
   v = math.sqrt(a1*a1+a2*a2)
 end
 
-function this_unit.set_tick(a1) tick = a1 end
+function this_ship.set_tick(a1) tick = a1 end
 
 local function move_xy(x, y, valid_x, valid_y)
    tda = tda - 1
@@ -67,24 +67,27 @@ local function move_xy(x, y, valid_x, valid_y)
 end
 
 local function move(x, y)
-   local nx,ny = move_xy(x, y, region.valid_x, region.valid_y)
+   local nx,ny = move_xy(x, y, universe.valid_x, universe.valid_y)
    -- Sectors: Where we were and where we are now.
-   local osx,osy = region.sector(x, y)
-   local nsx,nsy = region.sector(nx, ny)
+   local osx,osy = universe.sector(x, y)
+   local nsx,nsy = universe.sector(nx, ny)
    if (osx ~= nsx or osy ~= nsy) then
       -- In new sector, move us to the right sector
-      region.rem_sector(x, y)
-      region.add_sector(nx, ny)
+      universe.rem_sector(x, y)
+      universe.add_sector(nx, ny)
+      -- and draw us
+      esdl_server.set_ship(style, colour, nx, ny)
    end
    return nx,ny
 end
 
-function this_unit.tick()
+function this_ship.tick()
    x,y = move(x, y)
 end
 
-function this_unit.zap()	-- The unit has been zapped and will die
-   region.rem_sector(x, y)
+function this_ship.zap()	-- The ship has been zapped and will die
+   esdl_server.set_ship("explosion", colour, x, y)
+   universe.rem_sector(x, y)
 end
 
-return this_unit		-- Return the unit table
+return this_ship		-- Return the ship table

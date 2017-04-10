@@ -1,4 +1,4 @@
--module(luerl_unit).
+-module(luerl_ship).
 
 %% The basic entry point to set up the function table.
 -export([install/1]).
@@ -19,12 +19,12 @@ install(State) ->
 table() ->
     [{<<"self">>,{function,fun self/2}},
      {<<"set_tick">>,{function,fun set_tick/2}},
-     {<<"get_position">>,{function,fun get_position/2}},
-     {<<"set_position">>,{function,fun set_position/2}},
+     {<<"get_pos">>,{function,fun get_pos/2}},
+     {<<"set_pos">>,{function,fun set_pos/2}},
      {<<"get_speed">>,{function,fun get_speed/2}},
      {<<"set_speed">>,{function,fun set_speed/2}},
      {<<"zap">>,{function,fun zap/2}},
-     {<<"set_unit">>,{function,fun set_unit/2}},
+     {<<"set_ship">>,{function,fun set_ship/2}},
      {<<"do">>,{function,fun do/2}},
      {<<"gc">>,{function,fun gc/2}}
     ].
@@ -33,45 +33,47 @@ self([], State) ->
     {[#userdata{d=self()}],State}.
 
 set_tick([#userdata{d=S},Tick], State) when is_number(Tick) ->
-    unit:set_tick(S, trunc(Tick)),
+    ship:set_tick(S, trunc(Tick)),
     {[],State}.
 
-get_position([#userdata{d=S}], State) ->
-    {X,Y} = unit:get_position(S),
+get_pos([#userdata{d=S}], State) ->
+    {X,Y} = ship:get_pos(S),
     {[X,Y],State};
-get_position(As, State) -> badarg_error(get_position, As, State).
+get_pos(As, State) -> badarg_error(get_pos, As, State).
 
-set_position([#userdata{d=S},X,Y], State) when is_number(X), is_number(Y) ->
-    unit:set_position(S, X, Y),
+set_pos([#userdata{d=S},X,Y], State) when is_number(X), is_number(Y) ->
+    ship:set_pos(S, X, Y),
     {[],State};
-set_position(As, State) -> badarg_error(set_position, As, State).
+set_pos(As, State) -> badarg_error(set_pos, As, State).
 
 get_speed([#userdata{d=S}], State) ->
-    {X,Y} = unit:get_speed(S),
+    {X,Y} = ship:get_speed(S),
     {[X,Y],State};
 get_speed(As, State) -> badarg_error(get_speed, As, State).
 
 set_speed([#userdata{d=S},X,Y], State) when is_number(X), is_number(Y) ->
-    unit:set_speed(S, X, Y),
+    ship:set_speed(S, X, Y),
     {[],State};
 set_speed(As, State) -> badarg_error(set_speed, As, State).
 
 zap([#userdata{d=S}], State) ->
-    unit:zap(S),
+    ship:zap(S),
     {[],State};
 zap(As, State) -> badarg_error(zap, As, State).
 
-set_unit([#userdata{d=S},Name], State) ->
-    unit:set_unit(S, Name),
+set_ship([#userdata{d=S},Name], State) ->
+    ship:set_ship(S, Name),
     {[],State};
-set_unit(As, State) -> badarg_error(set_unit, As, State).
+set_ship(As, State) -> badarg_error(set_ship, As, State).
 
-do([#userdata{d=S},Command], State) ->
-    {ok,Rs} = unit:lua_do(S, binary_to_list(Command)),
+do([#userdata{d=S},Cmd], State) ->
+    {ok,Rs} = ship:lua_do(S, binary_to_list(Cmd)),
     {Rs,State};
 do(As, State) -> badarg_error(do, As, State).
 
 gc([#userdata{d=S}], State) ->
-    unit:gc(S),
+    ship:gc(S),
     {[],State};
 gc(As, State) -> badarg_error(gc, As, State).
+
+    

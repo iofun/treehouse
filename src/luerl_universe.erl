@@ -1,4 +1,4 @@
--module(luerl_region).
+-module(luerl_universe).
 
 %% The basic entry point to set up the function table.
 -export([install/1]).
@@ -24,54 +24,54 @@ table() ->
      {<<"get_sector">>,{function,fun get_sector/2}},
      {<<"add_sector">>,{function,fun add_sector/2}},
      {<<"rem_sector">>,{function,fun rem_sector/2}},
-     {<<"find_unit">>,{function,fun find_unit/2}},
-     {<<"del_unit">>,{function,fun del_unit/2}}
+     {<<"find_ship">>,{function,fun find_ship/2}},
+     {<<"del_ship">>,{function,fun del_ship/2}}
     ].
 
 size([], St) ->
-    {X,Y} = region:size(),
+    {X,Y} = universe:size(),
     {[float(X),float(Y)],St};
 size(As, St) -> badarg_error(size, As, St).
 
 valid_x([X], St) when is_number(X) ->
-    {[region:valid_x(X)],St};
+    {[universe:valid_x(X)],St};
 valid_x(As, St) -> badarg_error(valid_x, As, St).
 
 valid_y([Y], St) when is_number(Y) ->
-    {[region:valid_x(Y)],St};
+    {[universe:valid_x(Y)],St};
 valid_y(As, St) -> badarg_error(valid_y, As, St).
 
 sector([X,Y], St) when is_number(X), is_number(Y) ->
-    {Sx,Sy} = region:sector(X, Y),
+    {Sx,Sy} = universe:sector(X, Y),
     {[float(Sx),float(Sy)],St};
 sector(As, St) -> badarg_error(sector, As, St).
 
 get_sector([X,Y], St) when is_number(X), is_number(Y) ->
     %% list_to_binary(pid_to_list(S))
     Ss = lists:map(fun({_,S}) -> #userdata{d=S} end,
-		   region:get_sector(X, Y)),
+		   universe:get_sector(X, Y)),
     {Ss,St};
 get_sector(As, St) -> badarg_error(get_sector, As, St).
 
 add_sector([X,Y], St) when is_number(X), is_number(Y) ->
-    region:add_sector(X, Y, self()),
+    universe:add_sector(X, Y, self()),
     {[],St};
 add_sector(As, St) -> badarg_error(add_sector, As, St).
 
 rem_sector([X,Y], St) when is_number(X), is_number(Y) ->
-    region:rem_sector(X, Y, self()),
+    universe:rem_sector(X, Y, self()),
     {[],St};
 rem_sector(As, St) -> badarg_error(rem_sector, As, St).
 
-find_unit([#userdata{d=S}], St) ->
-    Sec = region:find_unit(S),
+find_ship([#userdata{d=S}], St) ->
+    Sec = universe:find_ship(S),
     {[Sec],St};
-find_unit(As, St) -> badarg_error(find_unit, As, St).
+find_ship(As, St) -> badarg_error(find_ship, As, St).
 
-del_unit([#userdata{d=S}], St) ->
-    region:del_unit(S),
+del_ship([#userdata{d=S}], St) ->
+    universe:del_ship(S),
     {[],St};
-del_unit([], St) ->
-    region:del_unit(),
+del_ship([], St) ->
+    universe:del_ship(),
     {[],St};
-del_unit(As, St) -> badarg_error(del_unit, As, St).
+del_ship(As, St) -> badarg_error(del_ship, As, St).
