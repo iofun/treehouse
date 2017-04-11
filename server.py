@@ -87,7 +87,6 @@ from tornado import websocket
 from tornado import queues            # <------------------------------------- dude.
 from tornado import httpclient
 from treehouse.tools import options, periodic, new_resource
-from treehouse.handlers import imps
 from treehouse.handlers import nodes
 from treehouse.handlers import indexes
 from zmq.eventloop.future import Context, Poller
@@ -247,16 +246,13 @@ def main():
     # treehouse application daemon
     application = web.Application(
         [
-            # Units resource
-            (r'/imps/(?P<imp_uuid>.+)/?', imps.Handler),
-            (r'/imps/?', imps.Handler),
             # Nodes resource
             (r'/nodes/(?P<node_uuid>.+)/?', nodes.Handler),
             (r'/nodes/?', nodes.Handler),
-            # Internal indexes and resources
+            # Internal index resources
             (r'/indexes/(?P<index_uuid>.+)/?', indexes.Handler),
             (r'/indexes/?', indexes.Handler),
-            # Experiment with WebSockets and the BEAM vm as message backbone.
+            # Experiment with WebSockets and the BEAM as message backbone.
             (r'/ws/alerts', TreeWSHandler),
         ],
         # system cache
