@@ -51,9 +51,7 @@ get_ship(Sim, I) ->
 
 init({Xsize,Ysize,N}) ->
     process_flag(trap_exit, true),
-    %% {ok,_} = esdl_server:start_link(Xsize, Ysize),
-    %% {ok,_} = sim_renderer:start_link(Xsize, Ysize),
-    {ok,_} = universe:start_link(Xsize, Ysize),	%Start the universe
+    {ok,_} = region:start_link(Xsize, Ysize),	%Start the region
     random:seed(now()),				%Seed the RNG
     Arr = ets:new(sim_ship_array, [named_table,protected]),
     St = init_lua(),				%Get the Lua state
@@ -70,8 +68,7 @@ init_lua() ->
     L0 = luerl:init(),
     L1 = lists:foldl(fun({Name,Mod}, L) -> load([Name], Mod, L) end, L0,
 		     [
-              %% {esdl_server,luerl_esdl_server},
-		      {universe,luerl_universe},
+		      {region,luerl_region},
 		      {ship,luerl_ship}]),
     %% Set the default ship.
     {_,L2} = luerl:do("this_ship = require 'default_ship'", L1),

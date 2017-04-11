@@ -1,4 +1,4 @@
--module(universe).
+-module(region).
 
 -export([start/2,start_link/2]).
 -export([init/2]).
@@ -20,7 +20,7 @@ start_link(Xsize, Ysize) ->
 %% User API.
 
 size() ->
-    [{size,X,Y}] = ets:lookup(universe, size),
+    [{size,X,Y}] = ets:lookup(region, size),
     {X,Y}.
 
 %% size() -> call(size).
@@ -55,11 +55,11 @@ del_ship(S) ->
 %% Internal protocol functions.
 
 cast(Msg) ->
-    universe ! {cast,self(),Msg},
+    region ! {cast,self(),Msg},
     ok.
 
 call(Msg) ->
-    U = whereis(universe),
+    U = whereis(region),
     U ! {call,self(),Msg},
     receive
 	{reply,U,Rep} -> Rep
@@ -71,10 +71,10 @@ reply(To, Rep) ->
 %% Initialise it all.
 
 init(Xsize, Ysize) ->
-    register(universe, self()),
-    %% Create the universe.
-    ets:new(universe, [named_table,duplicate_bag,protected]),
-    ets:insert(universe, {size,Xsize,Ysize}),
+    register(region, self()),
+    %% Create the region.
+    ets:new(region, [named_table,duplicate_bag,protected]),
+    ets:insert(region, {size,Xsize,Ysize}),
     St = #st{xsize=Xsize,ysize=Ysize},
     proc_lib:init_ack({ok,self()}),
     loop(St).
@@ -89,20 +89,20 @@ loop(St) ->
 	    loop(St);
 	{call,From,{get_sector,X,Y}} ->
 	    Sector = sector(X, Y),
-	    reply(From, ets:lookup(universe, Sector)),
+	    reply(From, ets:lookup(region, Sector)),
 	    loop(St);
 	{call,From,{add_sector,X,Y,What}} ->
 	    Sector = sector(X, Y),
-	    reply(From, ets:insert(universe, {Sector,What})),
+	    reply(From, ets:insert(region, {Sector,What})),
 	    loop(St);
 	{call,From,{rem_sector,X,Y,What}} ->
 	    Sector = sector(X, Y),
-	    reply(From, ets:delete_object(universe, {Sector,What})),
+	    reply(From, ets:delete_object(region, {Sector,What})),
 	    loop(St);
 	{call,From,{find_ship,S}} ->
-	    reply(From, ets:select(universe, [{{'$1',S},[],['$1']}])),
+	    reply(From, ets:select(region, [{{'$1',S},[],['$1']}])),
 	    loop(St);
 	{cast,From,{del_ship,S}} ->
-	    reply(From, ets:delete_object(universe, {'_',S})),
+	    reply(From, ets:delete_object(region, {'_',S})),
 	    loop(St)
     end.

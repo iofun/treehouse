@@ -19,8 +19,8 @@ install(State) ->
 table() ->
     [{<<"self">>,{function,fun self/2}},
      {<<"set_tick">>,{function,fun set_tick/2}},
-     {<<"get_pos">>,{function,fun get_pos/2}},
-     {<<"set_pos">>,{function,fun set_pos/2}},
+     {<<"get_position">>,{function,fun get_position/2}},
+     {<<"set_position">>,{function,fun set_position/2}},
      {<<"get_speed">>,{function,fun get_speed/2}},
      {<<"set_speed">>,{function,fun set_speed/2}},
      {<<"zap">>,{function,fun zap/2}},
@@ -36,15 +36,15 @@ set_tick([#userdata{d=S},Tick], State) when is_number(Tick) ->
     ship:set_tick(S, trunc(Tick)),
     {[],State}.
 
-get_pos([#userdata{d=S}], State) ->
-    {X,Y} = ship:get_pos(S),
+get_position([#userdata{d=S}], State) ->
+    {X,Y} = ship:get_position(S),
     {[X,Y],State};
-get_pos(As, State) -> badarg_error(get_pos, As, State).
+get_position(As, State) -> badarg_error(get_position, As, State).
 
-set_pos([#userdata{d=S},X,Y], State) when is_number(X), is_number(Y) ->
-    ship:set_pos(S, X, Y),
+set_position([#userdata{d=S},X,Y], State) when is_number(X), is_number(Y) ->
+    ship:set_position(S, X, Y),
     {[],State};
-set_pos(As, State) -> badarg_error(set_pos, As, State).
+set_position(As, State) -> badarg_error(set_position, As, State).
 
 get_speed([#userdata{d=S}], State) ->
     {X,Y} = ship:get_speed(S),

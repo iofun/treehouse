@@ -2,7 +2,7 @@
 
 -export([start/3,start_link/3]).
 -export([init/3]).
--export([set_tick/2,get_pos/1,set_pos/3,get_speed/1,set_speed/3,zap/1]).
+-export([set_tick/2,get_position/1,set_position/3,get_speed/1,set_speed/3,zap/1]).
 -export([get_state/1,get_tc/1]).
 -export([set_ship/2,lua_do/2,gc/1]).			%Lua commands
 
@@ -19,11 +19,11 @@ start_link(X, Y, St) ->
 set_tick(Ship, Tick) ->
     cast(Ship, {set_tick,Tick}).
 
-get_pos(Ship) ->
-    call(Ship, get_pos).
+get_position(Ship) ->
+    call(Ship, get_position).
 
-set_pos(Ship, X, Y) ->
-    cast(Ship, {set_pos,X,Y}).
+set_position(Ship, X, Y) ->
+    cast(Ship, {set_position,X,Y}).
 
 get_speed(Ship) ->
     call(Ship, get_speed).
@@ -67,10 +67,10 @@ reply(To, Rep) ->
 %% Main loop.
 
 init(X, Y, St0) ->
-    universe:add_sector(X, Y, self()),		%Put us in the universe
+    region:add_sector(X, Y, self()),		%Put us in the region
     %% esdl_server:add_ship(),			%Add us to SDL
     {_,St1} = luerl:call_function([this_ship,start], [], St0),
-    {_,St2} = luerl:call_function([this_ship,set_pos], [X,Y], St1),
+    {_,St2} = luerl:call_function([this_ship,set_position], [X,Y], St1),
     {_,St3} = luerl:call_function([this_ship,set_speed], [0,0], St2),
     proc_lib:init_ack({ok,self()}),
     loop(St3, infinity, make_ref(), 0).		%Start with dummy tick ref
@@ -94,12 +94,12 @@ loop(St0, Tick, Tref, Tc) ->
 			      erlang:send_after(NewTick, self(), tick)
 		      end,
 	    loop(St1, NewTick, NewTref, Tc);
-	{call,From,get_pos} ->
-	    {[X,Y],St1} = luerl:call_function([this_ship,get_pos], [], St0),
+	{call,From,get_position} ->
+	    {[X,Y],St1} = luerl:call_function([this_ship,get_position], [], St0),
 	    reply(From, {X,Y}),
 	    loop(St1, Tick, Tref, Tc);
-	{cast,From,{set_pos,X,Y}} ->
-	    {_,St1} = luerl:call_function([this_ship,set_pos],
+	{cast,From,{set_position,X,Y}} ->
+	    {_,St1} = luerl:call_function([this_ship,set_position],
 					  [float(X),float(Y)], St0),
 	    loop(St1, Tick, Tref, Tc);
 	{call,From,get_speed} ->
@@ -115,7 +115,7 @@ loop(St0, Tick, Tref, Tc) ->
 	    timer:sleep(1500),
 	    %% Remove ourselves from databases and die
 	    %% esdl_server:del_ship(),
-	    universe:del_ship(),
+	    region:del_ship(),
 	    exit(zapped);
 	{call,From,get_state} ->		%Get the luerl state
 	    reply(From, {ok,St0}),
@@ -142,11 +142,11 @@ loop(St0, Tick, Tref, Tc) ->
 %%  insert these into the new chunk.
 
 do_set_ship(Name, Tick, St0) ->
-    {[X,Y],St1} = luerl:call_function([this_ship,get_pos], [], St0),
+    {[X,Y],St1} = luerl:call_function([this_ship,get_position], [], St0),
     {[Dx,Dy],St2} = luerl:call_function([this_ship,get_speed], [], St1),
     {_,St3} = luerl:do("this_ship = require '" ++ Name ++ "'", St2),
     {_,St4} = luerl:call_function([this_ship,start], [], St3),
-    {_,St5} = luerl:call_function([this_ship,set_pos], [X,Y], St4),
+    {_,St5} = luerl:call_function([this_ship,set_position], [X,Y], St4),
     {_,St6} = luerl:call_function([this_ship,set_speed], [Dx,Dy], St5),
     {Rs,St7} = luerl:call_function([this_ship,set_tick], [Tick], St6),
     {Rs,St7}.

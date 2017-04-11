@@ -11,15 +11,15 @@ local tick			-- Size of a clock tick msec
 local me = ship.self()		-- This is me
 local ammo,shield = 0,0
 
-local xsize,ysize = universe.size()	-- The size of the universe
+local xsize,ysize = region.size()	-- The size of the region
 
 -- The default ship interface.
 
 function this_ship.start() end
 
-function this_ship.get_pos() return x,y end
+function this_ship.get_position() return x,y end
 
-function this_ship.set_pos(a1, a2) x,y = a1,a2 end
+function this_ship.set_position(a1, a2) x,y = a1,a2 end
 
 function this_ship.get_speed() return dx,dy end
 
@@ -44,14 +44,14 @@ end
 
 local function move(x, y, dx, dy)
    local nx,ny,ndx,ndy = move_xy_bounce(x, y, dx, dy,
-					universe.valid_x, universe.valid_y)
+					region.valid_x, region.valid_y)
    -- Where we were and where we are now.
-   local osx,osy = universe.sector(x, y)
-   local nsx,nsy = universe.sector(nx, ny)
+   local osx,osy = region.sector(x, y)
+   local nsx,nsy = region.sector(nx, ny)
    if (osx ~= nsx or osy ~= nsy) then
       -- In new sector, move us to the right sector
-      universe.rem_sector(x, y)
-      universe.add_sector(nx, ny)
+      region.rem_sector(x, y)
+      region.add_sector(nx, ny)
       -- and draw us
       -- esdl_server.set_ship(type, colour, nx, ny)
    end
@@ -63,9 +63,7 @@ function this_ship.tick()
 end
 
 function this_ship.zap()	-- The ship has been zapped and will die
-   -- esdl_server.set_ship("explosion", colour, x, y)
-   -- sound.make_sound("boom")
-   universe.rem_sector(x, y)
+   region.rem_sector(x, y)
 end
 
 return this_ship		-- Return the ship table
