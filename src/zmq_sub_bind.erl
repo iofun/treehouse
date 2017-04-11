@@ -55,10 +55,13 @@ init() ->
     %% Hello chumak bind this case
     case chumak:bind(Socket, tcp, "127.0.0.1", 5813) of
         {ok, _BindPid} ->
+            lager:info("and the Payload ~p \n", [Payload]).
             io:format("Binding OK with Pid: ~p\n", [Socket]);
         {error, Reason} ->
+            lager:info("and the Payload ~p \n", [Payload]).
             io:format("Connection Failed for this reason: ~p\n", [Reason]);
         X ->
+            lager:info("and the Payload ~p \n", [Payload]).
             io:format("Unhandled reply for bind ~p \n", [X])
     end,
 
