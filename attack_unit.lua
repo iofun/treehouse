@@ -2,17 +2,17 @@
 -- When it going to change sector and sees another unit in that sector
 -- it tries to zap it.
 
-local this_unit = {}		-- Our unit function table
+local this_unit = {}               -- Our unit function table
 
 -- The standard local variables
-local x, y, dx, dy		-- Where we are and fast we move
-local colour = "red"		-- Our default colour
-local style = "unit"		-- Our style
-local tick			-- Size of a clock tick msec
-local me = unit.self()		-- This is me
+local x, y, dx, dy                 -- Where we are and fast we move
+local colour = "red"               -- Our default colour
+local style = "unit"               -- Our style
+local tick                         -- Size of a clock tick msec
+local me = unit.self()             -- This is me
 local ammo,shield = 0,0
 
-local xsize,ysize = region.size()	-- The size of the region
+local xsize,ysize = region.size()  -- The size of the region
 
 -- The default unit interface.
 
@@ -31,11 +31,11 @@ function this_unit.set_tick(a1) tick = a1 end
 local function move_xy_bounce(x, y, dx, dy, valid_x, valid_y)
    local nx = x + dx
    local ny = y + dy
-   if (not valid_x(nx)) then	-- Bounce off the edge
+   if (not valid_x(nx)) then       -- Bounce off the edge
       nx = x - dx
       dx = -dx
    end
-   if (not valid_y(ny)) then	-- Bounce off the edge
+   if (not valid_y(ny)) then       -- Bounce off the edge
       ny = y - dy
       dy = -dy
    end
@@ -45,7 +45,7 @@ end
 -- Calculate the left/right sectors of the sector to which we are going.
 local function move_lr_sectors(osx, osy, nsx, nsy)
    local idx,idy = nsx-osx,nsy-osy
-   local lsx,lsy,rsx,rsy	-- Left, right of next sectors
+   local lsx,lsy,rsx,rsy           -- Left, right of next sectors
    if (idx == 0) then
       lsx,lsy = nsx - idy,nsy
       rsx,rsy = nsx + idy,nsy
@@ -55,7 +55,7 @@ local function move_lr_sectors(osx, osy, nsx, nsy)
    elseif (idx == idy) then
       lsx,lsy = nsx - idx, nsy
       rsx,rsy = nsx, nsy - idy
-   else				-- idx ~= idy
+   else           -- idx ~= idy
       lsx,lsy = nsx,nsy - idx
       rsx,rsy = nsx - idx,nsy
    end
@@ -65,19 +65,19 @@ end
 local function zap_units(osx, osy, nsx, nsy)
    local lsx,lsy,rsx,rsy = move_lr_sectors(osx, osy, nsx, nsy)
    local f = region.get_sector(nsx, nsy)
-   if (f and f ~= me) then	-- Always zap unit in front
+   if (f and f ~= me) then         -- Always zap unit in front
       unit.zap(f)
    end
    f = region.get_sector(lsx, lsy) or
       region.get_sector(rsx, rsy)
-   if (f and f ~= me) then	-- Zap unit either left or right
+   if (f and f ~= me) then         -- Zap unit either left or right
       unit.zap(f)
    end
 end
 
 local function move(x, y, dx, dy)
    local nx,ny,ndx,ndy = move_xy_bounce(x, y, dx, dy,
-					region.valid_x, region.valid_y)
+               region.valid_x, region.valid_y)
    -- Where we were and where we are now.
    local osx,osy = region.sector(x, y)
    local nsx,nsy = region.sector(nx, ny)
@@ -95,8 +95,8 @@ function this_unit.tick()
    x,y,dx,dy = move(x, y, dx, dy)
 end
 
-function this_unit.zap()	-- The unit has been zapped and will die
+function this_unit.zap()           -- The unit has been zapped and will die
    region.rem_sector(x, y)
 end
 
-return this_unit		-- Return the unit table
+return this_unit                   -- Return the unit table

@@ -66,32 +66,33 @@ def send_alert_message(address, message, mailgun_url, mailgun_key):
             logging.error(response.error)
         else:
             logging.info('ok %s' % str(response.body))
-
     msgdict = json.loads(message)
-
     logging.error('message dictionary {0}'.format(msgdict))
+    message = '''
+        Welcome to the multiverse, 
 
-    message = '''THIS E-MAIL CONTAINS IMPORTANT INFORMATION PERTAINING TO YOUR ABILITY TO ACCESS THE snakeyevape.com  SYSTEM & REGISTRY - DO NOT LOSE THIS MESSAGE! Pursuant to your request, a password was generated for your account {0} password: {1} has been sent to {2} email.
-    '''.format(msgdict.get('account'),msgdict.get('password'),msgdict.get('email'))
+        You are almost ready to join the underworld.ws!
 
+        a password was generated for your account {0} and send to your provided {1} email address.
+
+        Questions? spam us at https://twitter.com/nonsensews
+
+        '''.format(
+        msgdict.get('account'),msgdict.get('email')
+    )
     try:
         message = requests.post(
             url,
             auth=("api", mailgun_key),
-            data={"from": "Code Machine <no-reply@codemachine.io>",
+            data={"from": "Nonsense Worlds <no-reply@codemachine.io>",
                   "to": '''[{0},{1},
                             {2},{3},
                             {4},{5},
                             {6},{7}]'''.format(
                                             address, 
                                             msgdict.get('email'),
-                                            'advexe@gmail.com',
-                                            'jhernandez@codemachine.io',
-                                            'gcastillo@codemachine.io',
-                                            'lford@snakeyevapeshop.com',
-                                            'jchassoul@codemachine.io',
-                                            'info@snakeyevapeshop.com'),
-                  "subject": msgdict.get('subject', "Regarding your SnakeyeVape.com Wholesale user account"),
+                                            'info@nonsense.ws'),
+                  "subject": msgdict.get('subject', "Prepare to figth!"),
                   "text": msgdict.get('text', message)}
         )
     except Exception, e:

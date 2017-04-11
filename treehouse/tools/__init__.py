@@ -66,12 +66,9 @@ def check_json(struct):
     except Exception, e:
         api_error = errors.Error(e)
         error = api_error.json()
-
         logging.exception(e)
         raise gen.Return(error)
-
         return
-
     raise gen.Return(struct)
     
 @gen.coroutine
@@ -82,18 +79,13 @@ def check_times(start, end):
     try:
         start = (arrow.get(start) if start else arrow.utcnow())
         end = (arrow.get(end) if end else start.replace(days=+1))
-
         start = start.timestamp
         end = end.timestamp
-
     except Exception, e:
         logging.exception(e)
         raise e
-
         return
-
     message = {'start':start, 'end':end}
-    
     raise gen.Return(message)
 
 @gen.coroutine
@@ -107,11 +99,8 @@ def check_times_get_timestamp(start, end):
     except Exception, e:
         logging.exception(e)
         raise e
-
         return
-
     message = {'start':start.timestamp, 'end':end.timestamp}
-    
     raise gen.Return(message)
 
 @gen.coroutine
@@ -125,11 +114,8 @@ def check_times_get_datetime(start, end):
     except Exception, e:
         logging.exception(e)
         raise e
-
         return
-
     message = {'start':start.naive, 'end':end.naive}
-    
     raise gen.Return(message)
 
 @gen.coroutine
@@ -141,13 +127,7 @@ def new_resource(db, struct, collection=None, scheme=None):
     from schematics import models as _models
     from schematics import types as _types
 
-    # Trying to find analogies with erlang records
-    # We need more experience on OTP.
-
-    # Sup dude, you are killing it with FSM's
-    # thats great, and awesome and all... but ...
-    # please put some love on record analogies.
-    class OverlordResource(_models.Model):
+    class TreehouseResource(_models.Model):
         '''
             Treehouse resource
         '''
@@ -158,18 +138,15 @@ def new_resource(db, struct, collection=None, scheme=None):
 
     # Calling getattr(x, "foo") is just another way to write x.foo
     collection = getattr(db, collection)  
-
     try:
-        message = OverlordResource(struct)
+        message = TreehouseResource(struct)
         message.validate()
         message = message.to_primitive()
     except Exception, e:
         logging.exception(e)
         raise e
         return
-
     resource = 'resources.{0}'.format(message.get('resource'))
-
     try:
         message = yield collection.update(
             {
@@ -191,7 +168,6 @@ def new_resource(db, struct, collection=None, scheme=None):
         logging.exception(e)
         raise e
         return
-
     raise gen.Return(message)
 
 def clean_message(struct):
@@ -199,13 +175,11 @@ def clean_message(struct):
         clean message structure
     '''
     struct = struct.to_native()
-
     struct = {
         key: struct[key] 
             for key in struct
                 if struct[key] is not None
     }
-
     return struct
 
 def clean_structure(struct):
@@ -213,13 +187,11 @@ def clean_structure(struct):
         clean structure
     '''
     struct = struct.to_primitive()
-
     struct = {
         key: struct[key] 
             for key in struct
                 if struct[key] is not None
     }
-
     return struct
 
 def clean_results(results):
@@ -228,7 +200,6 @@ def clean_results(results):
     '''
     results = results.to_primitive()
     results = results.get('results')
-
     results = [
         {
             key: dic[key]
@@ -236,96 +207,7 @@ def clean_results(results):
                     if dic[key] is not None 
         } for dic in results 
     ]
-
     return {'results': results}
-
-def content_type_validation(handler_class):
-    '''
-        Content type validation
-    
-        @decorator
-    '''
-
-    def wrap_execute(handler_execute):
-        '''
-            Content-Type checker
-
-            Wrapper execute function
-        '''
-        def ctype_checker(handler, kwargs):
-            '''
-                Content-Type checker implementation
-            '''
-            content_type = handler.request.headers.get("Content-Type", "")
-            if content_type is None or not content_type.startswith('application/json'):
-                handler.set_status(415)
-                handler._transforms = []
-                handler.finish({
-                    'status': 415,
-                    'reason': 'Unsupported Media Type',
-                    'message': 'Must ACCEPT application/json: '\
-                    '[\"%s\"]' % content_type 
-                })
-                return False
-            return True
-
-        def _execute(self, transforms, *args, **kwargs):
-            '''
-                Execute the wrapped function
-            '''
-            if not ctype_checker(self, kwargs):
-                return False
-            return handler_execute(self, transforms, *args, **kwargs)
-
-        return _execute
-
-    handler_class._execute = wrap_execute(handler_class._execute)
-    return handler_class
-
-def content_type_msgpack_validation(handler_class):
-    '''
-        Content-Type validation
-        type: application/msgpack
-        
-        This function is a @decorator.
-    '''
-
-    def wrap_execute(handler_execute):
-        '''
-            Content-Type checker
-
-            Wrapper execute function
-        '''
-
-        def content_type_checker(handler, kwargs):
-            '''
-                Content-Type checker implementation
-            '''
-            content_type = handler.request.headers.get('Content-Type', "")
-            if content_type is None or not content_type.startswith('application/msgpack'):
-                handler.set_status(415)
-                handler._transforms = []
-                handler.finish({
-                    'status': 415,
-                    'reason': 'Unsupported Media Type',
-                    'message': 'Must ACCEPT application/msgpack: '\
-                               '[\"%s\"]' % content_type
-                })
-                return False
-            return True
-
-        def _execute(self, transforms, *args, **kwargs):
-            '''
-                Execute the wrapped function
-            '''
-            if not content_type_checker(self, kwargs):
-                return False
-            return handler_execute(self, transforms, *args, **kwargs)
-
-        return _execute
-
-    handler_class._execute = wrap_execute(handler_class._execute)
-    return handler_class
 
 def str2bool(boo):
     '''

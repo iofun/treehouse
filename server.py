@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 '''
-    The treehouse spontaneously generates imps, which are used to spawn your resources.
+    The treehouse spontaneously generates units, which are used to spawn your resources.
 
     Nodes allow control of additional CPU and GPU units.
 
@@ -14,7 +14,9 @@
 # The full license is in the file LICENCE, distributed as part of this software.
 
 __author__ = 'Team Machine'
+
 # Check out our research, services and resources at the https://nonsense.ws laboratory.
+
 __ooo__ = '''
 
     ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░╔░Ñß╠░░░░░░░░░░░░░░░░░░░░░░░»░░░░░░░░░░░░░░░░░░░░░
@@ -84,7 +86,7 @@ from subprocess import Popen, PIPE
 from tornado.ioloop import PeriodicCallback as Cast
 from tornado import gen, web
 from tornado import websocket
-from tornado import queues            # <------------------------------------- dude.
+from tornado import queues            # <------------------------------------- mae.
 from tornado import httpclient
 from treehouse.tools import options, periodic, new_resource
 from treehouse.handlers import nodes
@@ -96,10 +98,9 @@ from zmq.eventloop import ioloop
 httpclient.AsyncHTTPClient.configure('tornado.curl_httpclient.CurlAsyncHTTPClient')
 
 
-# hack ioloop for zmq y'all <3
 ioloop.install()
-# iofun testing box
-iofun = []
+# black testing box
+blackbox = []
 
 
 class TreeWSHandler(websocket.WebSocketHandler):
@@ -112,26 +113,26 @@ class TreeWSHandler(websocket.WebSocketHandler):
         return {}
     
     def open(self):
-        if self not in iofun:
-            iofun.append(self)
+        if self not in blackbox:
+            blackbox.append(self)
 
     def on_close(self):
-        if self in iofun:
-            iofun.remove(self)
+        if self in blackbox:
+            blackbox.remove(self)
 
 
 def ws_send(message):
     '''
         WebSocket Send
     '''
-    for ws in iofun:
+    for ws in blackbox:
         if not ws.ws_connection.stream.socket:
             logging.error("Web socket does not exist anymore!!!")
-            iofun.remove(ws)
+            blackbox.remove(ws)
         else:
             ws.write_message(message)
-    if not iofun:
-        # logging.info('there are no ws connections at this time')
+    if not blackbox:
+        # we choose to ignore it just pass
         pass
 
 @gen.coroutine

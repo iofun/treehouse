@@ -15,48 +15,6 @@ import uuid
 import logging
 
 
-def process_message(message):
-    '''
-        process_message system function
-    '''
-    logging.warning("Processing ... {0}".format(message))
-
-def spawn(message):
-    '''
-        Spawn process, return new uuid
-    '''
-    logging.info("Spawn process {0}".format(message))
-
-def link(message):
-    '''
-        Link processes
-    '''
-    logging.info("Link processes {0}".format(message))
-
-def spawn_link(message):
-    '''
-        Spawn link processes
-    '''
-    logging.info("Spawn new process, {0} return Received process uuid".format(message))
-
-def spawn_monitor(message):
-    '''
-        Spawn monitor processes
-    '''
-    logging.info("Spawn new process, {0} return Received process uuid".format(message))
-
-def monitor(message):
-    '''
-        Monitor processes
-    '''
-    logging.info("Monitor processes {0}".format(message))
-
-def register(message):
-    '''
-        Register process uuid
-    '''
-    logging.info("Received message: %s" % message)
-
 def get_command(message):
     '''
         get_command system function
