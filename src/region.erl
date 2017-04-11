@@ -32,7 +32,7 @@ valid_x(X) ->
 valid_y(Y) ->
     {_,Ysize} = size(),
     (Y > 1) andalso (Y < Ysize-1).
-	    
+        
 sector(X, Y) -> {trunc(X),trunc(Y)}.
 
 get_sector(X, Y) ->
@@ -62,7 +62,7 @@ call(Message) ->
     U = whereis(region),
     U ! {call,self(),Message},
     receive
-	{reply,U,Rep} -> Rep
+    {reply,U,Rep} -> Rep
     end.
 
 reply(To, Rep) ->
@@ -83,26 +83,26 @@ init(Xsize, Ysize) ->
 
 loop(State) ->
     receive
-	{call,From,size} ->
-	    #state{xsize=Xsize,ysize=Ysize} = State,
-	    reply(From, {Xsize,Ysize}),
-	    loop(State);
-	{call,From,{get_sector,X,Y}} ->
-	    Sector = sector(X, Y),
-	    reply(From, ets:lookup(region, Sector)),
-	    loop(State);
-	{call,From,{add_sector,X,Y,What}} ->
-	    Sector = sector(X, Y),
-	    reply(From, ets:insert(region, {Sector,What})),
-	    loop(State);
-	{call,From,{rem_sector,X,Y,What}} ->
-	    Sector = sector(X, Y),
-	    reply(From, ets:delete_object(region, {Sector,What})),
-	    loop(State);
-	{call,From,{find_unit,S}} ->
-	    reply(From, ets:select(region, [{{'$1',S},[],['$1']}])),
-	    loop(State);
-	{cast,From,{del_unit,S}} ->
-	    reply(From, ets:delete_object(region, {'_',S})),
-	    loop(State)
+    {call,From,size} ->
+        #state{xsize=Xsize,ysize=Ysize} = State,
+        reply(From, {Xsize,Ysize}),
+        loop(State);
+    {call,From,{get_sector,X,Y}} ->
+        Sector = sector(X, Y),
+        reply(From, ets:lookup(region, Sector)),
+        loop(State);
+    {call,From,{add_sector,X,Y,What}} ->
+        Sector = sector(X, Y),
+        reply(From, ets:insert(region, {Sector,What})),
+        loop(State);
+    {call,From,{rem_sector,X,Y,What}} ->
+        Sector = sector(X, Y),
+        reply(From, ets:delete_object(region, {Sector,What})),
+        loop(State);
+    {call,From,{find_unit,S}} ->
+        reply(From, ets:select(region, [{{'$1',S},[],['$1']}])),
+        loop(State);
+    {cast,From,{del_unit,S}} ->
+        reply(From, ets:delete_object(region, {'_',S})),
+        loop(State)
     end.

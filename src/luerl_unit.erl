@@ -75,5 +75,3 @@ gc([#userdata{d=S}], State) ->
     unit:gc(S),
     {[],State};
 gc(As, State) -> badarg_error(gc, As, State).
-
-    

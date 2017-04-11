@@ -49,7 +49,7 @@ sector(As, State) -> badarg_error(sector, As, State).
 get_sector([X,Y], State) when is_number(X), is_number(Y) ->
     %% list_to_binary(pid_to_list(S))
     Ss = lists:map(fun({_,S}) -> #userdata{d=S} end,
-		   region:get_sector(X, Y)),
+           region:get_sector(X, Y)),
     {Ss,State};
 get_sector(As, State) -> badarg_error(get_sector, As, State).
 

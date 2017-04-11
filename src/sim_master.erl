@@ -9,7 +9,7 @@
 
 %% Behaviour callbacks.
 -export([init/1,terminate/2,handle_call/3,handle_cast/2,
-	 handle_info/2,code_change/3]).
+     handle_info/2,code_change/3]).
 
 %% Test functions.
 -export([init_lua/0,load/3]).
@@ -51,14 +51,14 @@ get_unit(Sim, I) ->
 
 init({Xsize,Ysize,N}) ->
     process_flag(trap_exit, true),
-    {ok,_} = region:start_link(Xsize, Ysize),	%Start the region
-    random:seed(now()),				%Seed the RNG
+    {ok,_} = region:start_link(Xsize, Ysize),   %Start the region
+    random:seed(now()),             %Seed the RNG
     Array = ets:new(sim_unit_array, [named_table,protected]),
-    State = init_lua(),				%Get the Lua state
+    State = init_lua(),             %Get the Lua state
     lists:foreach(fun (I) ->
-			  {ok,S} = start_unit(I, Xsize, Ysize, State),
-			  ets:insert(Array, {I,S})
-		  end, lists:seq(1, N)),
+              {ok,S} = start_unit(I, Xsize, Ysize, State),
+              ets:insert(Array, {I,S})
+          end, lists:seq(1, N)),
     {ok,#state{xsize=Xsize,ysize=Ysize,n=N,array=Array,state=State}}.
 
 %% init_lua() -> LuaState.
@@ -67,9 +67,9 @@ init({Xsize,Ysize,N}) ->
 init_lua() ->
     L0 = luerl:init(),
     L1 = lists:foldl(fun({Name,Mod}, L) -> load([Name], Mod, L) end, L0,
-		     [
-		      {region,luerl_region},
-		      {unit,luerl_unit}]),
+             [
+              {region,luerl_region},
+              {unit,luerl_unit}]),
     %% Set the default unit.
     {_,L2} = luerl:do("this_unit = require 'default'", L1),
     L2.
@@ -110,8 +110,8 @@ handle_call(stop_run, _, #state{array=Array}=State) ->
     {reply,ok,State#state{tick=infinity}};
 handle_call({get_unit,I}, _, #state{array=Array}=State) ->
     case ets:lookup(Array, I) of
-	[] -> {reply,error,State};
-	[{I,S}] -> {reply,{ok,S},State}
+    [] -> {reply,error,State};
+    [{I,S}] -> {reply,{ok,S},State}
     end;
 handle_call(stop, _, State) ->
     %% Do everything in terminate.
@@ -119,7 +119,7 @@ handle_call(stop, _, State) ->
 
 handle_info({'EXIT',S,E}, #state{array=Array}=State) ->
     io:format("~p died: ~p\n", [S,E]),
-    ets:match_delete(Array, {'_',S}),		%Remove the unit
+    ets:match_delete(Array, {'_',S}),       %Remove the unit
     {noreply,State};
 handle_info(_, State) -> {noreply,State}.
 
