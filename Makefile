@@ -2,10 +2,8 @@ PROJECT = treehouse
 PROJECT_DESCRIPTION = Spontaneously generate units and spawn your resources.
 PROJECT_VERSION = 0.1.0
 
-DEPS = cowboy chumak luerl lager econfig uuid jiffy hackney esdl2
+DEPS = cowboy chumak luerl lager econfig uuid jiffy hackney gun
 dep_cowboy_commit = master
-
-dep_esdl2 = git https://github.com/ninenines/esdl2 master
 
 DEP_PLUGINS = cowboy
 
