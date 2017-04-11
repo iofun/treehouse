@@ -1,31 +1,31 @@
--- The default ship.
+-- The default unit.
 -- It reflects from the edge.
 
-local this_ship = {}		-- Our ship function table
+local this_unit = {}		-- Our unit function table
 
 -- The standard local variables
 local x, y, dx, dy		-- Where we are and fast we move
 local colour = "white"		-- Our colour
-local type = "ship"		-- Our type
+local type = "unit"		-- Our type
 local tick			-- Size of a clock tick msec
-local me = ship.self()		-- This is me
+local me = unit.self()		-- This is me
 local ammo,shield = 0,0
 
 local xsize,ysize = region.size()	-- The size of the region
 
--- The default ship interface.
+-- The default unit interface.
 
-function this_ship.start() end
+function this_unit.start() end
 
-function this_ship.get_position() return x,y end
+function this_unit.get_position() return x,y end
 
-function this_ship.set_position(a1, a2) x,y = a1,a2 end
+function this_unit.set_position(a1, a2) x,y = a1,a2 end
 
-function this_ship.get_speed() return dx,dy end
+function this_unit.get_speed() return dx,dy end
 
-function this_ship.set_speed(a1, a2) dx,dy = a1,a2 end
+function this_unit.set_speed(a1, a2) dx,dy = a1,a2 end
 
-function this_ship.set_tick(a1) tick = a1 end
+function this_unit.set_tick(a1) tick = a1 end
 
 local function move_xy_bounce(x, y, dx, dy, valid_x, valid_y)
    local nx = x + dx
@@ -53,17 +53,17 @@ local function move(x, y, dx, dy)
       region.rem_sector(x, y)
       region.add_sector(nx, ny)
       -- and draw us
-      -- esdl_server.set_ship(type, colour, nx, ny)
+      -- esdl_server.set_unit(type, colour, nx, ny)
    end
    return nx,ny,ndx,ndy
 end
 
-function this_ship.tick()
+function this_unit.tick()
    x,y,dx,dy = move(x, y, dx, dy)
 end
 
-function this_ship.zap()	-- The ship has been zapped and will die
+function this_unit.zap()	-- The unit has been zapped and will die
    region.rem_sector(x, y)
 end
 
-return this_ship		-- Return the ship table
+return this_unit		-- Return the unit table

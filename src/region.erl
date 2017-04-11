@@ -4,7 +4,7 @@
 -export([init/2]).
 -export([sector/2,get_sector/2,add_sector/3,rem_sector/3]).
 -export([size/0,valid_x/1,valid_y/1]).
--export([find_ship/1,del_ship/0,del_ship/1]).
+-export([find_unit/1,del_unit/0,del_unit/1]).
 
 %% Server state.
 -record(st, {xsize,ysize}).
@@ -44,13 +44,13 @@ add_sector(X, Y, What) ->
 rem_sector(X, Y, What) ->
     call({rem_sector,X,Y,What}).
 
-find_ship(S) ->
-    call({find_ship,S}).
+find_unit(S) ->
+    call({find_unit,S}).
 
-del_ship() -> del_ship(self()).
+del_unit() -> del_unit(self()).
 
-del_ship(S) ->
-    cast({del_ship,S}).
+del_unit(S) ->
+    cast({del_unit,S}).
 
 %% Internal protocol functions.
 
@@ -99,10 +99,10 @@ loop(St) ->
 	    Sector = sector(X, Y),
 	    reply(From, ets:delete_object(region, {Sector,What})),
 	    loop(St);
-	{call,From,{find_ship,S}} ->
+	{call,From,{find_unit,S}} ->
 	    reply(From, ets:select(region, [{{'$1',S},[],['$1']}])),
 	    loop(St);
-	{cast,From,{del_ship,S}} ->
+	{cast,From,{del_unit,S}} ->
 	    reply(From, ets:delete_object(region, {'_',S})),
 	    loop(St)
     end.

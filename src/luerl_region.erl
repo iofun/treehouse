@@ -24,8 +24,8 @@ table() ->
      {<<"get_sector">>,{function,fun get_sector/2}},
      {<<"add_sector">>,{function,fun add_sector/2}},
      {<<"rem_sector">>,{function,fun rem_sector/2}},
-     {<<"find_ship">>,{function,fun find_ship/2}},
-     {<<"del_ship">>,{function,fun del_ship/2}}
+     {<<"find_unit">>,{function,fun find_unit/2}},
+     {<<"del_unit">>,{function,fun del_unit/2}}
     ].
 
 size([], St) ->
@@ -63,15 +63,15 @@ rem_sector([X,Y], St) when is_number(X), is_number(Y) ->
     {[],St};
 rem_sector(As, St) -> badarg_error(rem_sector, As, St).
 
-find_ship([#userdata{d=S}], St) ->
-    Sec = region:find_ship(S),
+find_unit([#userdata{d=S}], St) ->
+    Sec = region:find_unit(S),
     {[Sec],St};
-find_ship(As, St) -> badarg_error(find_ship, As, St).
+find_unit(As, St) -> badarg_error(find_unit, As, St).
 
-del_ship([#userdata{d=S}], St) ->
-    region:del_ship(S),
+del_unit([#userdata{d=S}], St) ->
+    region:del_unit(S),
     {[],St};
-del_ship([], St) ->
-    region:del_ship(),
+del_unit([], St) ->
+    region:del_unit(),
     {[],St};
-del_ship(As, St) -> badarg_error(del_ship, As, St).
+del_unit(As, St) -> badarg_error(del_unit, As, St).
