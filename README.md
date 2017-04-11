@@ -1,16 +1,14 @@
 # treehouse
 
-The treehouse spontaneously generates imps, which are used to spawn your resources.
+The treehouse spontaneously generates units, which are used to spawn your resources.
 
-Nodes allow control of additional CPU and GPU units.
+Nodes allow control of additional CPU's and GPU's.
 
 Nodes provide control for your cloud forest. 
 
 As your forces grow in number, you must spawn more nodes to control them.
 
 Check out our research, services and resources at the https://nonsense.ws laboratory.
-
-__ooo__ = '''
 
     ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░╔░Ñß╠░░░░░░░░░░░░░░░░░░░░░░░»░░░░░░░░░░░░░░░░░░░░░
     ░░µ▄▄▄»░╔▄░░▄▄▄▄▄▄▄▄░░░ú░░░░░░░╔φm╫▒░╔▄░░▄░░▄╔░»▄▄»░░░░░µ░░▄▄▄▄▄▄▄▄▄▄▄▄░░▄░░▄H░░
@@ -61,5 +59,3 @@ __ooo__ = '''
     »h░░██████▀▀U░Nñ░░░░░██████████████╫▓h░▄░░▄▄░║▓▓████████████Kµ░░░░ñU███████░░«░░
     »░h½█▀░╜██▀K»Ü»░░░»╨h░»▀▀█▀█▀▀▀▀▀▀▀▀╩╩▀▀H»▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀»░╨hh░»»/╠░╚ñ║▀▀▀M░░░
     »»»╨╚╙╨░╙╙░╨"!╙░╙╚░╩^^╨^░"h░░""░Ü"░░░^╚"╚╨░»»░░░»░»»░░»»░░»░»»░»»»»»»»»»»░░░░░»»
-    
-'''
