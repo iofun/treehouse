@@ -66,8 +66,8 @@ set_unit([#userdata{d=S},Name], State) ->
     {[],State};
 set_unit(As, State) -> badarg_error(set_unit, As, State).
 
-do([#userdata{d=S},Cmd], State) ->
-    {ok,Rs} = unit:lua_do(S, binary_to_list(Cmd)),
+do([#userdata{d=S},Command], State) ->
+    {ok,Rs} = unit:lua_do(S, binary_to_list(Command)),
     {Rs,State};
 do(As, State) -> badarg_error(do, As, State).
 

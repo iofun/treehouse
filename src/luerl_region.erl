@@ -10,8 +10,8 @@
 
 %% -record(userdata, {d,m=nil}).
 
-install(St) ->
-    luerl_emul:alloc_table(table(), St).
+install(State) ->
+    luerl_emul:alloc_table(table(), State).
 
 %% table() -> [{FuncName,Function}].
 %% Caller will convert this list to the correct format.
@@ -28,50 +28,50 @@ table() ->
      {<<"del_unit">>,{function,fun del_unit/2}}
     ].
 
-size([], St) ->
+size([], State) ->
     {X,Y} = region:size(),
-    {[float(X),float(Y)],St};
-size(As, St) -> badarg_error(size, As, St).
+    {[float(X),float(Y)],State};
+size(As, State) -> badarg_error(size, As, State).
 
-valid_x([X], St) when is_number(X) ->
-    {[region:valid_x(X)],St};
-valid_x(As, St) -> badarg_error(valid_x, As, St).
+valid_x([X], State) when is_number(X) ->
+    {[region:valid_x(X)],State};
+valid_x(As, State) -> badarg_error(valid_x, As, State).
 
-valid_y([Y], St) when is_number(Y) ->
-    {[region:valid_x(Y)],St};
-valid_y(As, St) -> badarg_error(valid_y, As, St).
+valid_y([Y], State) when is_number(Y) ->
+    {[region:valid_x(Y)],State};
+valid_y(As, State) -> badarg_error(valid_y, As, State).
 
-sector([X,Y], St) when is_number(X), is_number(Y) ->
+sector([X,Y], State) when is_number(X), is_number(Y) ->
     {Sx,Sy} = region:sector(X, Y),
-    {[float(Sx),float(Sy)],St};
-sector(As, St) -> badarg_error(sector, As, St).
+    {[float(Sx),float(Sy)],State};
+sector(As, State) -> badarg_error(sector, As, State).
 
-get_sector([X,Y], St) when is_number(X), is_number(Y) ->
+get_sector([X,Y], State) when is_number(X), is_number(Y) ->
     %% list_to_binary(pid_to_list(S))
     Ss = lists:map(fun({_,S}) -> #userdata{d=S} end,
 		   region:get_sector(X, Y)),
-    {Ss,St};
-get_sector(As, St) -> badarg_error(get_sector, As, St).
+    {Ss,State};
+get_sector(As, State) -> badarg_error(get_sector, As, State).
 
-add_sector([X,Y], St) when is_number(X), is_number(Y) ->
+add_sector([X,Y], State) when is_number(X), is_number(Y) ->
     region:add_sector(X, Y, self()),
-    {[],St};
-add_sector(As, St) -> badarg_error(add_sector, As, St).
+    {[],State};
+add_sector(As, State) -> badarg_error(add_sector, As, State).
 
-rem_sector([X,Y], St) when is_number(X), is_number(Y) ->
+rem_sector([X,Y], State) when is_number(X), is_number(Y) ->
     region:rem_sector(X, Y, self()),
-    {[],St};
-rem_sector(As, St) -> badarg_error(rem_sector, As, St).
+    {[],State};
+rem_sector(As, State) -> badarg_error(rem_sector, As, State).
 
-find_unit([#userdata{d=S}], St) ->
+find_unit([#userdata{d=S}], State) ->
     Sec = region:find_unit(S),
-    {[Sec],St};
-find_unit(As, St) -> badarg_error(find_unit, As, St).
+    {[Sec],State};
+find_unit(As, State) -> badarg_error(find_unit, As, State).
 
-del_unit([#userdata{d=S}], St) ->
+del_unit([#userdata{d=S}], State) ->
     region:del_unit(S),
-    {[],St};
-del_unit([], St) ->
+    {[],State};
+del_unit([], State) ->
     region:del_unit(),
-    {[],St};
-del_unit(As, St) -> badarg_error(del_unit, As, St).
+    {[],State};
+del_unit(As, State) -> badarg_error(del_unit, As, State).

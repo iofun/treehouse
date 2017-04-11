@@ -7,7 +7,7 @@
 -export([find_unit/1,del_unit/0,del_unit/1]).
 
 %% Server state.
--record(st, {xsize,ysize}).
+-record(state, {xsize,ysize}).
 
 %% Management API.
 
@@ -54,13 +54,13 @@ del_unit(S) ->
 
 %% Internal protocol functions.
 
-cast(Msg) ->
-    region ! {cast,self(),Msg},
+cast(Message) ->
+    region ! {cast,self(),Message},
     ok.
 
-call(Msg) ->
+call(Message) ->
     U = whereis(region),
-    U ! {call,self(),Msg},
+    U ! {call,self(),Message},
     receive
 	{reply,U,Rep} -> Rep
     end.
@@ -75,34 +75,34 @@ init(Xsize, Ysize) ->
     %% Create the region.
     ets:new(region, [named_table,duplicate_bag,protected]),
     ets:insert(region, {size,Xsize,Ysize}),
-    St = #st{xsize=Xsize,ysize=Ysize},
+    State = #state{xsize=Xsize,ysize=Ysize},
     proc_lib:init_ack({ok,self()}),
-    loop(St).
+    loop(State).
 
 %% Main loop.
 
-loop(St) ->
+loop(State) ->
     receive
 	{call,From,size} ->
-	    #st{xsize=Xsize,ysize=Ysize} = St,
+	    #state{xsize=Xsize,ysize=Ysize} = State,
 	    reply(From, {Xsize,Ysize}),
-	    loop(St);
+	    loop(State);
 	{call,From,{get_sector,X,Y}} ->
 	    Sector = sector(X, Y),
 	    reply(From, ets:lookup(region, Sector)),
-	    loop(St);
+	    loop(State);
 	{call,From,{add_sector,X,Y,What}} ->
 	    Sector = sector(X, Y),
 	    reply(From, ets:insert(region, {Sector,What})),
-	    loop(St);
+	    loop(State);
 	{call,From,{rem_sector,X,Y,What}} ->
 	    Sector = sector(X, Y),
 	    reply(From, ets:delete_object(region, {Sector,What})),
-	    loop(St);
+	    loop(State);
 	{call,From,{find_unit,S}} ->
 	    reply(From, ets:select(region, [{{'$1',S},[],['$1']}])),
-	    loop(St);
+	    loop(State);
 	{cast,From,{del_unit,S}} ->
 	    reply(From, ets:delete_object(region, {'_',S})),
-	    loop(St)
+	    loop(State)
     end.
