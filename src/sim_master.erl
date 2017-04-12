@@ -81,13 +81,10 @@ load(Key, Module, State0) ->
 
 start_unit(I, Xsize, Ysize, State) ->
     if I rem 8 =:= 0 ->
-        io:format("unit type node~n");
-        lager:info("and the Payload ~p \n", [Payload]).
+        io:format("~p unit type node\n",[I]);
        I rem 1 =:= 0 ->
-        io:format("unit type imp~n")
-        lager:info("and the Payload ~p \n", [Payload]).
+        io:format("~p unit type imp\n",[I])
     end,
-    io:format("spawn unit ~p \n",[I]),
     %% Spread out the units over the whole space.
     X = random:uniform(Xsize) - 1,
     Y = random:uniform(Ysize) - 1,
@@ -120,8 +117,7 @@ handle_call(stop, _, State) ->
     {stop,normal,ok,State}.
 
 handle_info({'EXIT',S,E}, #state{array=Array}=State) ->
-    io:format("~p died: ~p\n", [S,E]),
-    lager:info("and the Payload ~p \n", [Payload]).
+    io:format("unit ~p has died: ~p\n", [S,E]),
     ets:match_delete(Array, {'_',S}),       %Remove the unit
     {noreply,State};
 handle_info(_, State) -> {noreply,State}.
