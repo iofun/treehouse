@@ -81,9 +81,9 @@ load(Key, Module, State0) ->
 
 start_unit(I, Xsize, Ysize, State) ->
     if I rem 8 =:= 0 ->
-        io:format("~p unit type node\n",[I]);
+        io:format("unit ~p type node\n",[I]);
        I rem 1 =:= 0 ->
-        io:format("~p unit type imp\n",[I])
+        io:format("unit ~p type imp\n",[I])
     end,
     %% Spread out the units over the whole space.
     X = random:uniform(Xsize) - 1,
