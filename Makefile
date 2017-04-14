@@ -2,7 +2,11 @@ PROJECT = treehouse
 PROJECT_DESCRIPTION = Spontaneously generate units and spawn your resources.
 PROJECT_VERSION = 0.1.0
 
-DEPS = cowboy chumak luerl lager econfig uuid jiffy hackney gun
+DEPS = cowboy chumak luerl lager econfig uuid jiffy hackney gun vmstats eflame
+
+BUILD_DEPS = eflame
+dep_eflame = git https://github.com/nonsensews/eflame
+
 dep_cowboy_commit = master
 
 DEP_PLUGINS = cowboy
