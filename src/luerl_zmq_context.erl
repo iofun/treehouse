@@ -20,7 +20,7 @@ table() ->
     [{<<"destroy">>,{function,fun destroy/2}},
      {<<"get_context">>,{function,fun get_context/2}},
      {<<"set_context">>,{function,fun set_context/2}},
-     {<<"socket">>,{function,fun socket/3}}
+     {<<"socket">>,{function,fun socket/2}}
     ].
 
 destroy([X,Y], State) when is_number(X), is_number(Y) ->
@@ -40,7 +40,7 @@ set_context([X,Y], State) when is_number(X), is_number(Y) ->
     {[],State};
 set_context(As, State) -> badarg_error(set_context, As, State).
 
-socket(Context, Type, State) ->
+socket([Context, Type], State) ->
     io:format("socket context ~p option\n", [Option]),
     {[],State};
 socket(As, State) -> badarg_error(socket, As, State).

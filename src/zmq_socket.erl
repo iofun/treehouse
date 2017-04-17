@@ -8,9 +8,7 @@
          disconnect/1,
          bind/1,
          unbind/1,
-         send/1,
          send/2,
-         recv/0,
          recv/1]).                     %Lua commands
  
 %% Server state.
@@ -26,59 +24,35 @@ start_link() ->
 
 %% User API.
 
-close(linger) ->
-    cast(linger)
-
-closed() ->
-    cast()
+close(Linger) ->
+    call({close,Linger}).
 
 connect(Address) ->
-    cast(Address)
+    call({connect,Address}).
 
 disconnect(Address) ->
-    cast(Address)
+    call({disconnect,Address}).
 
 bind(Address) ->
-    cast(Address)
+    call({bind,Address}).
 
 unbind(Address) ->
-    cast(Address)
+    call({unbind,Address}).
 
-send(Message) ->
-    cast(Message)
-
-send(Message, Flags) ->
-    cast(Message, Flags)
-
-recv() ->
-    cast()
+send(Message,Flags) ->
+    call({send,Message,Flags}).
 
 recv(Flags) ->
-    cast(Flags)
-
-destroy(Linger) ->
-    call({destroy_context,Linger}).
-
-get(Option) ->
-    call({get_context,Option}).
-
-set(Option,Value) ->
-    call({set_context_option,Option,Value}).
-
-socket(SocketOptions) ->
-    call({socket,SocketOptions}).
-
-socket(SocketType, SocketOptions) ->
-    call({socket,SocketType,SocketOptions}).
+    call({recv,Flags}).
 
 %% Internal protocol functions.
 
 cast(Message) ->
-    zmq ! {cast,self(),Message},
+    zmq_socket ! {cast,self(),Message},
     ok.
 
 call(Message) ->
-    U = whereis(zmq),
+    U = whereis(zmq_socket),
     U ! {call,self(),Message},
     receive
     {reply,U,Rep} -> Rep
@@ -90,10 +64,9 @@ reply(To, Rep) ->
 %% Initialise it all.
 
 init() ->
-    register(zmq, self()),
+    register(zmq_socket, self()),
     %% Create the zmq luerl driver interface.
-    ets:new(zmq, [named_table,duplicate_bag,protected]),
-    ets:insert(zmq, {version,0,1}),
+    ets:new(zmq_socket, [named_table,duplicate_bag,protected]),
     State = #state{},
     proc_lib:init_ack({ok,self()}),
     loop(State).
@@ -104,6 +77,6 @@ loop(State) ->
     receive
     {call,From,{add_context,Option,What}} ->
         Context = context(Option),
-        reply(From, ets:insert(zmq, {Context,What})),
+        reply(From, ets:insert(zmq_socket, {Context,What})),
         loop(State)
     end.
