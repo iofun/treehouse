@@ -7,7 +7,8 @@
 start(_Type, _Args) ->
     Dispatch = cowboy_router:compile([
         {'_', [
-            {"/units/", units_handler, []}
+            {"/units/", units_handler, []},
+            {"/structures/", structures_handler, []}
         ]}
     ]),
     {ok, _} = cowboy:start_clear(http, 100, [{port, 8215}], #{

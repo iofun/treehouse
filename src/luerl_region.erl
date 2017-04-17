@@ -3,7 +3,7 @@
 %% The basic entry point to set up the function table.
 -export([install/1]).
 
--import(luerl_lib, [lua_error/2,badarg_error/3]). %Shorten these
+-import(luerl_lib, [lua_error/2,badarg_error/3]).
 
 %% This works if luerl/ebin has been added to the path
 -include_lib("luerl/src/luerl.hrl").
