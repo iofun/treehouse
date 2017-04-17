@@ -23,7 +23,7 @@ context(Option) ->
     call({add_context,Option}).
 
 version() ->
-    [{version,X,Y}] = ets:lookup(zmq, version),
+    [{version,X,Y,Z}] = ets:lookup(zmq, version),
     {X,Y}.
 
 %% Internal protocol functions.
