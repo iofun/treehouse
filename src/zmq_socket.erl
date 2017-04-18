@@ -75,8 +75,32 @@ init() ->
 
 loop(State) ->
     receive
-    {call,From,{add_context,Option,What}} ->
+    {call,From,{close,X,Y,What}} ->
+        Socket = socket(X, Y),
+        reply(From, ets:delete_object(zmq_socket, {Socket,What})),
+        loop(State);
+    {call,From,{connect,X,Y}} ->
+        Context = context(X, Y),
+        reply(From, ets:lookup(zmq_socket, Context)),
+        loop(State);
+    {call,From,{disconnect,X,Y}} ->
+        Context = context(X, Y),
+        reply(From, ets:lookup(zmq_socket, Context)),
+        loop(State);
+    {call,From,{bind,X,Y}} ->
+        Context = context(X, Y),
+        reply(From, ets:lookup(zmq_socket, Context)),
+        loop(State);
+    {call,From,{unbind,X,Y}} ->
+        Context = context(X, Y),
+        reply(From, ets:lookup(zmq_socket, Context)),
+        loop(State);
+    {call,From,{send,Option,What}} ->
         Context = context(Option),
         reply(From, ets:insert(zmq_socket, {Context,What})),
-        loop(State)
+        loop(State);
+    {call,From,{recv,Option,What}} ->
+        Context = context(Option),
+        reply(From, ets:insert(zmq_socket, {Context,What})),
+        loop(State);
     end.
