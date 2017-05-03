@@ -41,6 +41,6 @@ set_context([X,Y], State) when is_number(X), is_number(Y) ->
 set_context(As, State) -> badarg_error(set_context, As, State).
 
 socket([Context, Type], State) ->
-    io:format("socket context ~p option\n", [Option]),
+    io:format("socket context ~p type\n", [Context, Type]),
     {[],State};
 socket(As, State) -> badarg_error(socket, As, State).

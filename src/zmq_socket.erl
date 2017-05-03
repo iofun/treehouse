@@ -103,5 +103,5 @@ loop(State) ->
     {call,From,{recv,Flags,What}} ->
         Context = context(Option),
         reply(From, ets:insert(zmq_socket, {Context,What})),
-        loop(State);
+        loop(State)
     end.

@@ -63,20 +63,29 @@ init() ->
 
 loop(State) ->
     receive
-    {call,From,{get_context,X,Y}} ->
-        Context = context(X, Y),
-        reply(From, ets:lookup(zmq_context, Context)),
+    {call,From,{get_context,Option}} ->
+        %%Context = context(X, Y),
+        %%reply(From, ets:lookup(zmq_context, Context)),
+        reply(From, ok),
         loop(State);
-    {call,From,{destroy,X,Y,What}} ->
-        Context = context(X, Y),
-        reply(From, ets:delete_object(zmq_context, {Context,What})),
+    {call,From,{destroy,Linger,What}} ->
+        %%Context = context(X, Y),
+        %%reply(From, ets:delete_object(zmq_context, {Context,What})),
+        reply(From, ok),
         loop(State);
-    {call,From,{socket,X,Y,What}} ->
-        Context = context(X, Y),
-        reply(From, ets:delete_object(zmq_context, {Context,What})),
+    {call,From,{socket,SocketType,SocketOptions,What}} ->
+        %%Context = context(X, Y),
+        %%reply(From, ets:delete_object(zmq_context, {Context,What})),
+        reply(From, ok),
+        loop(State);
+    {call,From,{set_socket_option,Option,Value,What}} ->
+        %%Context = context(X, Y),
+        %%reply(From, ets:delete_object(zmq_context, {Context,What})),
+        reply(From, ok),
         loop(State);
     {call,From,{add_context,Option,What}} ->
-        Context = context(Option),
-        reply(From, ets:insert(zmq_context, {Context,What})),
+        %%Context = context(Option),
+        %%reply(From, ets:insert(zmq_context, {Context,What})),
+        reply(From, ok),
         loop(State)
     end.
