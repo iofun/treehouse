@@ -15,7 +15,7 @@
 
 __author__ = 'Team Machine'
 
-# Check out our research, services and resources at the https://nonsense.ws laboratory.
+# Check our research and resources at the https://nonsense.ws laboratory.
 
 __ooo__ = '''
     ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░╔░Ñß╠░░░░░░░░░░░░░░░░░░░░░░░»░░░░░░░░░░░░░░░░░░░░░
@@ -88,7 +88,6 @@ from tornado import queues            # <------------------------------------- m
 from tornado import httpclient
 from treehouse.tools import options, periodic, new_resource
 from treehouse.handlers import nodes
-from treehouse.handlers import indexes
 from zmq.eventloop.future import Context, Poller
 from zmq.eventloop import ioloop
 
@@ -98,7 +97,7 @@ httpclient.AsyncHTTPClient.configure('tornado.curl_httpclient.CurlAsyncHTTPClien
 
 ioloop.install()
 # black testing box
-blackbox = []
+blackbox = []                         # <------------------------------------- mae.
 
 
 class TreeWSHandler(websocket.WebSocketHandler):
@@ -125,7 +124,7 @@ def ws_send(message):
     '''
     for ws in blackbox:
         if not ws.ws_connection.stream.socket:
-            logging.error("Web socket does not exist anymore!!!")
+            logging.error("Web socket does not exist anymore!")
             blackbox.remove(ws)
         else:
             ws.write_message(message)
@@ -152,7 +151,7 @@ def main():
     otp_rel = opts.otp_rel
     # count von count
     von_count = 0
-
+    # check for active tree
     @gen.coroutine
     def check_tree():
         os.environ['HOME'] = '/opt/treehouse/'
@@ -175,7 +174,7 @@ def main():
                 circus = Popen(["/etc/init.d/circusd", "stop", "."], stdout=PIPE)
                 (output, err) = circus.communicate()
                 logging.error('we crash circusd after trying {0} times!'.format(max_count))
-
+    # check solr indexes
     @gen.coroutine
     def check_indexes():
         '''
@@ -189,8 +188,7 @@ def main():
                 logging.error(response.error)
             else:
                 logging.info(response.body)
-
-        # get this list from pillar or some shit, like from regular configuration file, you know.
+        # get this list from pillar or some shit, like from regular configuration files, you know.
         current = [
             'mango_account',
             'mango_task',
@@ -210,7 +208,6 @@ def main():
                 body=json.dumps({'name': i, 'index_type': i}),
                 callback=handle_response
             )
-
     # Set memcached backend
     cache = mc.Client(
         [opts.memcached_host],
@@ -248,10 +245,7 @@ def main():
             # Nodes resource
             (r'/nodes/(?P<node_uuid>.+)/?', nodes.Handler),
             (r'/nodes/?', nodes.Handler),
-            # Internal index resources
-            (r'/indexes/(?P<index_uuid>.+)/?', indexes.Handler),
-            (r'/indexes/?', indexes.Handler),
-            # Experiment with WebSockets and the BEAM as message backbone.
+            # Experiment with WebSockets and the BEAM as messaging backbone.
             (r'/ws/alerts', TreeWSHandler),
         ],
         # system cache
@@ -278,9 +272,6 @@ def main():
     application.listen(opts.port)
     logging.info('Listening on http://%s:%s' % (opts.host, opts.port))
     loop = ioloop.IOLoop.instance()
-    # Process heartbeat SUB/PUB
-    #loop.add_callback(subscriber)
-    #loop.add_callback(publisher, opts.treehouse_host)
     loop.start()
 
 if __name__ == '__main__':
