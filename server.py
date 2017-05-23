@@ -201,8 +201,11 @@ def main():
             'mango_account',
             'mango_task',
             'howler_contact',
+            'grape_task',
+            'grape_lead',
             'cas_email',
             'cas_sms',
+            'cas_secret',
             'cas_query'
         ]
         # process the current list of indexes
