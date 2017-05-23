@@ -1,26 +1,17 @@
 PROJECT = treehouse
 PROJECT_DESCRIPTION = Spontaneously generate units and spawn your resources.
 PROJECT_VERSION = 0.1.0
-
 DEPS = cowboy chumak luerl lager econfig uuid jiffy hackney gun vmstats eflame
-
 BUILD_DEPS = eflame
 dep_eflame = git https://github.com/nonsensews/eflame
-
 dep_cowboy_commit = master
-
 DEP_PLUGINS = cowboy
-
 ERLC_OPTS = +debug_info
-
 include erlang.mk
-
 # trying to ident with 4 spaces here.
 SP = 4
-
 # Compile flags
 ERLC_COMPILE_OPTS= +'{parse_transform, lager_transform}'
-
 # Append these settings
 ERLC_OPTS += $(ERLC_COMPILE_OPTS)
 TEST_ERLC_OPTS += $(ERLC_COMPILE_OPTS)

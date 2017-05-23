@@ -8,7 +8,7 @@ Nodes provide control for your cloud forest.
 
 As your forces grow in number, you must spawn more nodes to control them.
 
-Check out our research, services and resources at the https://nonsense.ws laboratory.
+Check our research and resources at the https://nonsense.ws laboratory.
 
     ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░╔░Ñß╠░░░░░░░░░░░░░░░░░░░░░░░»░░░░░░░░░░░░░░░░░░░░░
     ░░µ▄▄▄»░╔▄░░▄▄▄▄▄▄▄▄░░░ú░░░░░░░╔φm╫▒░╔▄░░▄░░▄╔░»▄▄»░░░░░µ░░▄▄▄▄▄▄▄▄▄▄▄▄░░▄░░▄H░░
