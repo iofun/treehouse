@@ -1,4 +1,5 @@
 tornado
+tornadose
 futures
 riak
 schematics==2.0.0a1

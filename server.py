@@ -100,6 +100,14 @@ ioloop.install()
 blackbox = []                         # <------------------------------------- mae.
 
 
+
+class TreeSEHandler():
+    '''
+        Send-events Handler
+    '''
+    pass
+
+
 class TreeWSHandler(websocket.WebSocketHandler):
     '''
         WebSocket Handler
@@ -247,6 +255,8 @@ def main():
             (r'/nodes/?', nodes.Handler),
             # Experiment with WebSockets and the BEAM as messaging backbone.
             (r'/ws/alerts', TreeWSHandler),
+            # send-events
+            (r'/se/', TreeSEHandler),
         ],
         # system cache
         cache=cache,
