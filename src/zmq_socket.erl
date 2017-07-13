@@ -128,6 +128,8 @@ loop(State) ->
     {call,From,{unbind,Address}} ->
 
         %% unbind Address?
+
+        lager:warning("unbind Address? ~p \n", [Address]),
     
         %%Context = context(),
         %%reply(From, ets:lookup(zmq_socket, Context)),
@@ -138,6 +140,8 @@ loop(State) ->
     {call,From,{send,Message,Flags,What}} ->
 
         %% send Message, Flags, What?
+
+        lager:warning("send Message ~p, Flags ~p, What? ~p \n", [Message, Flags, What]),
     
         %%Context = context(Option),
         %%reply(From, ets:insert(zmq_socket, {Context,What})),
@@ -148,6 +152,8 @@ loop(State) ->
     {call,From,{recv,Flags,What}} ->
 
         %% recv Flags, What?
+
+        lager:warning("recv Flags ~p, What? ~p \n", [Flags, What]),
     
         %%Context = context(Option),
         %%reply(From, ets:insert(zmq_socket, {Context,What})),
