@@ -40,7 +40,6 @@ init() ->
     Topic = <<" ">>,
     Heartbeat = <<"heartbeat">>,
     Telephony = <<"telephony">>,
-    Currency = <<"currency">>,
     Logging = <<"logging">>,
     Upload = <<"upload">>,
     
@@ -48,7 +47,6 @@ init() ->
     chumak:subscribe(Socket, Topic),
     chumak:subscribe(Socket, Heartbeat),
     chumak:subscribe(Socket, Telephony),
-    chumak:subscribe(Socket, Currency),
     chumak:subscribe(Socket, Logging),
     chumak:subscribe(Socket, Upload),
     

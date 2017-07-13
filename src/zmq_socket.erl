@@ -76,32 +76,61 @@ init() ->
 loop(State) ->
     receive
     {call,From,{close,Linger,What}} ->
-        Socket = socket(),
-        %% Linger?
-        reply(From, ets:delete_object(zmq_socket, {Socket,What})),
+
+        %% Linger? What?
+
+        %%Socket = socket(),
+        %%reply(From, ets:delete_object(zmq_socket, {Socket,What})),
+        %%loop(State);
+    
+        reply(From, ok),
         loop(State);
     {call,From,{connect,Address}} ->
-        Context = context(),
-        reply(From, ets:lookup(zmq_socket, Context)),
+    
+        %%Context = context(),
+        %%reply(From, ets:lookup(zmq_socket, Context)),
+        %%loop(State);
+    
+        reply(From, ok),
         loop(State);
     {call,From,{disconnect,Address}} ->
-        Context = context(),
-        reply(From, ets:lookup(zmq_socket, Context)),
+    
+        %%Context = context(),
+        %%reply(From, ets:lookup(zmq_socket, Context)),
+        %%loop(State);
+    
+        reply(From, ok),
         loop(State);
     {call,From,{bind,Address}} ->
-        Context = context(),
-        reply(From, ets:lookup(zmq_socket, Context)),
+    
+        %%Context = context(),
+        %%reply(From, ets:lookup(zmq_socket, Context)),
+        %%loop(State);
+    
+        reply(From, ok),
         loop(State);
     {call,From,{unbind,Address}} ->
-        Context = context(),
-        reply(From, ets:lookup(zmq_socket, Context)),
+    
+        %%Context = context(),
+        %%reply(From, ets:lookup(zmq_socket, Context)),
+        %%loop(State);
+    
+        reply(From, ok),
         loop(State);
     {call,From,{send,Message,Flags,What}} ->
-        Context = context(Option),
-        reply(From, ets:insert(zmq_socket, {Context,What})),
+    
+        %%Context = context(Option),
+        %%reply(From, ets:insert(zmq_socket, {Context,What})),
+        %%loop(State);
+    
+        reply(From, ok),
         loop(State);
     {call,From,{recv,Flags,What}} ->
-        Context = context(Option),
-        reply(From, ets:insert(zmq_socket, {Context,What})),
+    
+        %%Context = context(Option),
+        %%reply(From, ets:insert(zmq_socket, {Context,What})),
+        %%loop(State)
+    
+        reply(From, ok),
         loop(State)
     end.
