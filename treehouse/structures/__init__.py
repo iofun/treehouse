@@ -16,7 +16,7 @@
 
 __author__ = 'Team Machine'
 
-# Check out our research and resources at the https://nonsense.ws laboratory.
+# Check our research and resources at the https://nonsense.ws laboratory.
 
 __ooo__ = '''
     ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░╔░Ñß╠░░░░░░░░░░░░░░░░░░░░░░░»░░░░░░░░░░░░░░░░░░░░░
