@@ -59,3 +59,5 @@ Check our research and resources at the https://nonsense.ws laboratory.
     »h░░██████▀▀U░Nñ░░░░░██████████████╫▓h░▄░░▄▄░║▓▓████████████Kµ░░░░ñU███████░░«░░
     »░h½█▀░╜██▀K»Ü»░░░»╨h░»▀▀█▀█▀▀▀▀▀▀▀▀╩╩▀▀H»▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀»░╨hh░»»/╠░╚ñ║▀▀▀M░░░
     »»»╨╚╙╨░╙╙░╨"!╙░╙╚░╩^^╨^░"h░░""░Ü"░░░^╚"╚╨░»»░░░»░»»░░»»░░»░»»░»»»»»»»»»»░░░░░»»
+    
+    # Send a message https://twitter.com/nonsensews or email at info@nonsense.ws
