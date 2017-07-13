@@ -8,6 +8,8 @@ import ujson as json
 import arrow
 import uuid
 
+zmq_host = '127.0.0.1'
+
 ioloop.install()
 
 @gen.coroutine
@@ -15,7 +17,7 @@ def publisher(port=5813):
     context = Context()
     pub_uuid = str(uuid.uuid4())
     pub = context.socket(zmq.PUB)
-    pub.connect("tcp://zmq.nonsense.ws:%s" % port)
+    pub.connect("tcp://%s:%s" % (zmq_host, port))
     poller = Poller()
     poller.register(pub, zmq.POLLOUT)
     while True:
