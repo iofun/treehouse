@@ -54,8 +54,12 @@ class BaseHandler(web.RequestHandler):
         self.etag = None
         # System database
         self.db = self.settings.get('db')
+        # System cache
+        self.cache = self.settings.get('cache')
         # Page settings
         self.page_size = self.settings.get('page_size')
+        # solr riak
+        self.solr = self.settings.get('solr')
 
     def set_default_headers(self):
         '''
