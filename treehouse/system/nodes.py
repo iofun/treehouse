@@ -105,14 +105,15 @@ class Nodes(object):
                         'group.field':group_field,
                     }
                     url = ''.join((
-                        'https://api.cloudforest.ws/search/query/',
+                        self.solr,
+                        '/query/',
                         search_index,
                         '?wt=json&q=uuid_register:*&fl=',
                         key,
                         '_register&fq=uuid_register:*&group=true&group.field=',
                         key,
                         '_register'))
-                    message_box.append(url)
+                    unique_list.append(url)
             else:
                 for key in struct.keys():
                     field_list = key
@@ -126,14 +127,15 @@ class Nodes(object):
                         'group.field':group_field,
                     }
                     url = ''.join((
-                        'https://api.cloudforest.ws/search/query/',
+                        self.solr,
+                        '/query/',
                         search_index,
                         '?wt=json&q=uuid_register:*&fl=',
                         key,
                         '_register&fq=uuid_register:*&group=true&group.field=',
                         key,
                         '_register'))
-                    message_box.append(url)
+                    unique_list.append(url)
         except Exception, e:
             logging.exception(e)
             raise gen.Return(e)
@@ -149,9 +151,10 @@ class Nodes(object):
         query = 'uuid_register:{0}'.format(node_uuid)
         filter_query = 'account_register:{0}'.format(account)
         # build the url
-        url = "https://api.cloudforest.ws/search/query/{0}?wt=json&q={1}&fq={2}".format(
-            search_index, query, filter_query
+        url = "https://{0}/search/query/{1}?wt=json&q={2}&fq={3}".format(
+            self.solr, search_index, query, filter_query
         )
+
         got_response = []
         def handle_request(response):
             '''
@@ -197,8 +200,8 @@ class Nodes(object):
         filter_query = 'account_register:{0}'.format(account)
         page_num = int(page_num)
         page_size = self.settings['page_size']
-        url = "https://api.cloudforest.ws/search/query/{0}?wt=json&q={1}&fq={2}".format(
-            search_index, query, filter_query
+        url = "https://{0}/search/query/{1}?wt=json&q={2}&fq={3}".format(
+            self.solr, search_index, query, filter_query
         )
         von_count = 0
         got_response = []
@@ -289,8 +292,8 @@ class Nodes(object):
         # filter query
         filter_query = 'account_register:{0}'.format(account)
         # search query url
-        url = "https://api.cloudforest.ws/search/query/{0}?wt=json&q={1}&fq={2}".format(
-            search_index, query, filter_query
+        url = "https://{0}/search/query/{1}?wt=json&q={2}&fq={3}".format(
+            self.solr, search_index, query, filter_query
         )
         # pretty please, ignore this list of fields from database.
         IGNORE_ME = ["_yz_id","_yz_rk","_yz_rt","_yz_rb","checked","keywords"]

@@ -66,6 +66,10 @@ def options():
     tornado.options.define('riak_host',
         default='127.0.0.1', type=str,
         help=('Riak cluster node'))
+    # solr
+    tornado.options.define('solr',
+        default='api.cloudforest.ws', type=str,
+        help='Application solr, e.g: "your_custom_solr_search"')
     tornado.options.define('riak_port',
         default=8087, type=int,
         help=('Riak cluster port'))
