@@ -15,7 +15,7 @@ start(_Type, _Args) ->
     % {ok, _} = cowboy:start_clear(http, 100, [{port, 8215}], #{
     %     env => #{dispatch => Dispatch}}
     % ),
-    {ok, _} = zmq_sub_bind:start_link(),
+    {ok, _} = sub_bind:start_link(),
     treehouse_sup:start_link().
 
 stop(_State) ->
