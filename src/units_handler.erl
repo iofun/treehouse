@@ -22,18 +22,18 @@ to_html(Req, State) ->
         <html>
         <head>
             <meta charset=\"utf-8\">
-            <title>REST Hello World!</title>
+            <title>REST Units Resource!</title>
         </head>
         <body>
-            <p>REST Hello World as HTML!</p>
+            <p>REST Units Resource as HTML!</p>
         </body>
         </html>
     ">>,
     {Body, Req, State}.
 
 to_json(Req, State) ->
-    Body = <<"{\"rest\": \"Hello World!\"}">>,
+    Body = <<"{\"rest\": \"Units Resource!\"}">>,
     {Body, Req, State}.
 
 to_text(Req, State) ->
-    {<<"REST Hello World as text!">>, Req, State}.
+    {<<"REST Units Resource as text!">>, Req, State}.
