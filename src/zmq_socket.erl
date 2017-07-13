@@ -93,7 +93,6 @@ loop(State) ->
 
         %%Socket = socket(),
         %%reply(From, ets:delete_object(zmq_socket, {Socket,What})),
-        %%loop(State);
     
         reply(From, ok),
         loop(State);
@@ -105,7 +104,6 @@ loop(State) ->
 
         %%Context = context(),
         %%reply(From, ets:lookup(zmq_socket, Context)),
-        %%loop(State);
     
         reply(From, ok),
         loop(State);
@@ -117,7 +115,6 @@ loop(State) ->
     
         %%Context = context(),
         %%reply(From, ets:lookup(zmq_socket, Context)),
-        %%loop(State);
     
         reply(From, ok),
         loop(State);
@@ -129,7 +126,6 @@ loop(State) ->
     
         %%Context = context(),
         %%reply(From, ets:lookup(zmq_socket, Context)),
-        %%loop(State);
     
         reply(From, ok),
         loop(State);
@@ -141,7 +137,6 @@ loop(State) ->
     
         %%Context = context(),
         %%reply(From, ets:lookup(zmq_socket, Context)),
-        %%loop(State);
     
         reply(From, ok),
         loop(State);
@@ -153,7 +148,6 @@ loop(State) ->
     
         %%Context = context(Option),
         %%reply(From, ets:insert(zmq_socket, {Context,What})),
-        %%loop(State);
     
         reply(From, ok),
         loop(State);
@@ -165,7 +159,6 @@ loop(State) ->
     
         %%Context = context(Option),
         %%reply(From, ets:insert(zmq_socket, {Context,What})),
-        %%loop(State)
     
         reply(From, ok),
         loop(State)
