@@ -25,15 +25,15 @@ to_html(Req, State) ->
             <title>REST Hello World!</title>
         </head>
         <body>
-            <p>REST Hello World structure as HTML!</p>
+            <p>REST Hello World scheme as HTML!</p>
         </body>
         </html>
     ">>,
     {Body, Req, State}.
 
 to_json(Req, State) ->
-    Body = <<"{\"rest\": \"Hello World structure!\"}">>,
+    Body = <<"{\"rest\": \"Hello World scheme!\"}">>,
     {Body, Req, State}.
 
 to_text(Req, State) ->
-    {<<"REST Hello World structure as text!">>, Req, State}.
+    {<<"REST Hello World scheme as text!">>, Req, State}.

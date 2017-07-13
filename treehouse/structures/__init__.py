@@ -5,6 +5,7 @@
     Nodes allow control of additional CPU and GPU units.
 
     Nodes provide control for your cloud forest.
+
     As your forces grow in number, you must spawn more nodes to control them.
 '''
 
@@ -15,7 +16,7 @@
 
 __author__ = 'Team Machine'
 
-# Check out our research, services and resources at the https://nonsense.ws laboratory.
+# Check out our research and resources at the https://nonsense.ws laboratory.
 
 __ooo__ = '''
     ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░╔░Ñß╠░░░░░░░░░░░░░░░░░░░░░░░»░░░░░░░░░░░░░░░░░░░░░
@@ -69,4 +70,4 @@ __ooo__ = '''
     »»»╨╚╙╨░╙╙░╨"!╙░╙╚░╩^^╨^░"h░░""░Ü"░░░^╚"╚╨░»»░░░»░»»░░»»░░»░»»░»»»»»»»»»»░░░░░»» 
 '''
 
-# Tweet a message https://twitter.com/nonsensews or send your email at info@nonsense.ws
+# Send a message https://twitter.com/nonsensews or email at info@nonsense.ws
