@@ -24,13 +24,13 @@ context(Option) ->
 
 version() ->
     [{version,X,Y,Z}] = ets:lookup(zmq, version),
-    {X,Y}.
+    {X,Y,Z}.
 
 %% Internal protocol functions.
 
-cast(Message) ->
-    zmq ! {cast,self(),Message},
-    ok.
+%%cast(Message) ->
+%%    zmq ! {cast,self(),Message},
+%%    ok.
 
 call(Message) ->
     U = whereis(zmq),

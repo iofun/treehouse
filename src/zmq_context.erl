@@ -110,12 +110,16 @@ loop(State) ->
 
         lager:warning("set Option? ~p Value? ~p What? ~p \n", [Option, Value, What]),
 
-
         %%Context = context(X, Y),
         %%reply(From, ets:delete_object(zmq_context, {Context,What})),
         reply(From, ok),
         loop(State);
     {call,From,{add_context,Option,What}} ->
+
+        %% add_context, Option, What
+
+        lager:warning("add_context Option? ~p What? ~p \n", [Option, What]),
+
         %%Context = context(Option),
         %%reply(From, ets:insert(zmq_context, {Context,What})),
         reply(From, ok),

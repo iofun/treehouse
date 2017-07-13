@@ -84,6 +84,10 @@ loop(State0, Tick, Tref, Tc) ->
         NewTref = erlang:send_after(Tick, self(), tick),
         loop(State1, Tick, NewTref, Tc+1);
     {cast,From,{set_tick,NewTick}} ->
+
+        %%  logging unused variable!
+        lager:warning("set_tick From? ~p \n", [From]),
+
         erlang:cancel_timer(Tref),      %Cancel existing timer
         {_,State1} = luerl:call_function([this_unit,set_tick], [NewTick], State0),
         %% Set the new tick and get a new timer
