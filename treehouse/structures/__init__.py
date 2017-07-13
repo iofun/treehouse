@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 '''
-    The treehouse spontaneously generates imps, which are used to spawn your resources.
+    The treehouse spontaneously generates units used to spawn your resources.
 
     Nodes allow control of additional CPU and GPU units.
 

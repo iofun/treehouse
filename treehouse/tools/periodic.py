@@ -29,8 +29,6 @@ import queries
 
 from tornado import gen
 
-from treehouse.system import imps
-
 
 httpclient.AsyncHTTPClient.configure('tornado.curl_httpclient.CurlAsyncHTTPClient')
 

@@ -18,7 +18,6 @@ import ujson as json
 import logging
 from tornado import gen
 from treehouse import errors
-from treehouse.messages import imps
 
 
 def get_average(total, marks):
@@ -132,7 +131,7 @@ def new_resource(db, struct, collection=None, scheme=None):
             Treehouse resource
         '''
         uuid = _types.UUIDType(default=_uuid.uuid4)
-        imps = _types.StringType(required=False)
+        units = _types.StringType(required=False)
         resource  = _types.StringType(required=True)
 
 
