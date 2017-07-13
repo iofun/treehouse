@@ -56,8 +56,6 @@ class BaseHandler(web.RequestHandler):
             Initialize the Base Handler
         '''
         # The Senate and People of Mars
-        # -----------------------------
-        # SPQM communication message system.
         super(BaseHandler, self).initialize(**kwargs)
         # etag
         self.etag = None
