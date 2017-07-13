@@ -3,14 +3,14 @@
 -export([start/0,start_link/0]).
 -export([init/0]).
 
--export([close/1,
+-export([close/1,       %Lua commands
          connect/1,
          disconnect/1,
          bind/1,
          unbind/1,
          send/2,
-         recv/1]).                     %Lua commands
- 
+         recv/1]).
+
 %% Server state.
 -record(state, {}).
 
@@ -47,9 +47,9 @@ recv(Flags) ->
 
 %% Internal protocol functions.
 
-cast(Message) ->
-    zmq_socket ! {cast,self(),Message},
-    ok.
+%%cast(Message) ->
+%%    zmq_socket ! {cast,self(),Message},
+%%    ok.
 
 call(Message) ->
     U = whereis(zmq_socket),
@@ -65,7 +65,9 @@ reply(To, Rep) ->
 
 init() ->
     register(zmq_socket, self()),
-    %% Create the zmq luerl driver interface.
+    
+    %% Create the zmq luerl driver interface.   <--------------- !!!
+
     ets:new(zmq_socket, [named_table,duplicate_bag,protected]),
     State = #state{},
     proc_lib:init_ack({ok,self()}),
@@ -77,7 +79,9 @@ loop(State) ->
     receive
     {call,From,{close,Linger,What}} ->
 
-        %% Linger? What?
+        %% close Linger? What?
+
+        lager:warning("close Linger ~p, What? ~p \n", [Linger, What]),
 
         %%Socket = socket(),
         %%reply(From, ets:delete_object(zmq_socket, {Socket,What})),
@@ -87,6 +91,10 @@ loop(State) ->
         loop(State);
     {call,From,{connect,Address}} ->
     
+        %% connect Address?
+
+        lager:warning("connect Address? ~p \n", [Address]),
+
         %%Context = context(),
         %%reply(From, ets:lookup(zmq_socket, Context)),
         %%loop(State);
@@ -94,6 +102,10 @@ loop(State) ->
         reply(From, ok),
         loop(State);
     {call,From,{disconnect,Address}} ->
+
+        %% disconnect Address?
+
+        lager:warning("disconnect Address? ~p \n", [Address]),
     
         %%Context = context(),
         %%reply(From, ets:lookup(zmq_socket, Context)),
@@ -102,6 +114,10 @@ loop(State) ->
         reply(From, ok),
         loop(State);
     {call,From,{bind,Address}} ->
+
+        %% bind Address?
+
+        lager:warning("bind Address? ~p \n", [Address]),
     
         %%Context = context(),
         %%reply(From, ets:lookup(zmq_socket, Context)),
@@ -110,6 +126,8 @@ loop(State) ->
         reply(From, ok),
         loop(State);
     {call,From,{unbind,Address}} ->
+
+        %% unbind Address?
     
         %%Context = context(),
         %%reply(From, ets:lookup(zmq_socket, Context)),
@@ -118,6 +136,8 @@ loop(State) ->
         reply(From, ok),
         loop(State);
     {call,From,{send,Message,Flags,What}} ->
+
+        %% send Message, Flags, What?
     
         %%Context = context(Option),
         %%reply(From, ets:insert(zmq_socket, {Context,What})),
@@ -126,6 +146,8 @@ loop(State) ->
         reply(From, ok),
         loop(State);
     {call,From,{recv,Flags,What}} ->
+
+        %% recv Flags, What?
     
         %%Context = context(Option),
         %%reply(From, ets:insert(zmq_socket, {Context,What})),
