@@ -3,6 +3,9 @@
 -export([start/0,start_link/0]).
 -export([init/0]).
 
+%% define and export the implementation interface API with the goal of consistently
+%% match https://moteus.github.io/lzmq/modules/lzmq.html lzmq API when it is possible.
+
 -export([close/1,       %Lua commands
          connect/1,
          disconnect/1,
@@ -66,9 +69,14 @@ reply(To, Rep) ->
 init() ->
     register(zmq_socket, self()),
     
-    %% Create the zmq luerl driver interface.   <--------------- !!!
+    %% Create the ZeroMQ luerl driver interface ETS table ?.   <--------------- !!!
 
     ets:new(zmq_socket, [named_table,duplicate_bag,protected]),
+
+    %% BUT ..
+
+    %% WHY THE FUCK?    
+
     State = #state{},
     proc_lib:init_ack({ok,self()}),
     loop(State).
