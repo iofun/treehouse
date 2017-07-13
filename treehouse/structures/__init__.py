@@ -4,7 +4,7 @@
 
     Nodes allow control of additional CPU and GPU units.
 
-    Nodes provide control for your cloud forest. 
+    Nodes provide control for your cloud forest.
     As your forces grow in number, you must spawn more nodes to control them.
 '''
 
