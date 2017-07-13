@@ -31,13 +31,6 @@ class BaseHandler(web.RequestHandler):
         return self.settings['sql']
 
     @property
-    def document(self):
-        '''
-            Document database
-        '''
-        return self.settings['document']
-
-    @property
     def kvalue(self):
         '''
             Key-value database

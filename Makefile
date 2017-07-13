@@ -1,7 +1,7 @@
 PROJECT = treehouse
 PROJECT_DESCRIPTION = Spontaneously generate units and spawn your resources.
-PROJECT_VERSION = 0.1.0
-DEPS = cowboy chumak luerl lager econfig uuid jiffy hackney gun
+PROJECT_VERSION = 0.2.0
+DEPS = chumak luerl cowboy lager econfig uuid jiffy hackney gun
 dep_cowboy_commit = master
 DEP_PLUGINS = cowboy
 ERLC_OPTS = +debug_info
