@@ -1,10 +1,11 @@
 # -*- coding: utf-8 -*-
 '''
-    The treehouse spontaneously generates units, which are used to spawn your resources.
+    The treehouse spontaneously generates units used to spawn your resources.
 
     Nodes allow control of additional CPU and GPU units.
 
-    Nodes provide control for your cloud forest. 
+    Nodes provide control for your cloud forest.
+
     As your forces grow in number, you must spawn more nodes to control them.
 '''
 
@@ -247,8 +248,8 @@ def main():
     logging.info('Treehouse system {0} spawned'.format(system_uuid))
     # logging database hosts
     logging.info('PostgreSQL server: {0}:{1}'.format(opts.sql_host, opts.sql_port))
-    #solr yokozuna
-    logging.info('Solr riak {0} '.format(solr))
+    # solr yokozuna
+    logging.info('Solr yokozuna: {0} '.format(opts.solr))
     # logging riak settings
     logging.info('Riak server: {0}:{1}'.format(opts.riak_host, opts.riak_port))
     # system cache
@@ -280,8 +281,8 @@ def main():
         domain=opts.domain,
         # pagination page size
         page_size=opts.page_size,
-        #solr yokozuna
-        solr = opts.solr,
+        # solr yokozuna
+        solr=opts.solr,
     )
     # Periodic Cast Functions
     check_node_tree = Cast(check_tree, 5000)
