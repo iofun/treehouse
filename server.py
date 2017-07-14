@@ -248,7 +248,7 @@ def main():
     # logging database hosts
     logging.info('PostgreSQL server: {0}:{1}'.format(opts.sql_host, opts.sql_port))
     #solr yokozuna
-    logging.info('Solr riak {0} '.format(solr))
+    logging.info('Solr riak {0} '.format(opts.solr))
     # logging riak settings
     logging.info('Riak server: {0}:{1}'.format(opts.riak_host, opts.riak_port))
     # system cache
