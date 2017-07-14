@@ -217,7 +217,7 @@ def main():
             # for index in current system
             http_client = httpclient.AsyncHTTPClient()
             http_client.fetch(
-                'https://api.cloudforest.ws/indexes/', 
+                'https://nonsense.ws/indexes/', 
                 headers={"Content-Type": "application/json"},
                 method='POST',
                 body=json.dumps({'name': i, 'index_type': i}),
