@@ -164,9 +164,6 @@ def main():
     @gen.coroutine
     def check_tree():
         os.environ['HOME'] = '/opt/treehouse/'
-
-        logging.warning(otp_rel)
-
         process = Popen([otp_rel, "ping", "."], stdout=PIPE)
         (output, err) = process.communicate()
         exit_code = process.wait()
