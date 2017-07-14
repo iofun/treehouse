@@ -6,6 +6,7 @@
 
 start(_Type, _Args) ->
     application:ensure_all_started(econfig),
+    application:ensure_all_started(chumak),
     econfig:register_config(forest, ["/etc/spawn.conf"], [autoreload]),
     econfig:subscribe(forest),
     Port = econfig:get_integer(forest, "engine", "port"),

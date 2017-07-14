@@ -33,7 +33,6 @@ cast(Message) ->
 %% Initialise it all.
 
 init() ->
-    application:ensure_all_started(chumak),
     {ok, Socket} = chumak:socket(sub),
     
     %% List of topics, put them in a list or something.
@@ -43,7 +42,7 @@ init() ->
     Logging = <<"logging">>,
     Upload = <<"upload">>,
     
-    %% Erlang zmq subscribe socket and topics!
+    %% ZeroMQ subscribe socket and topics!
     chumak:subscribe(Socket, Topic),
     chumak:subscribe(Socket, Heartbeat),
     chumak:subscribe(Socket, Telephony),
