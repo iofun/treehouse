@@ -214,7 +214,7 @@ def main():
             # for index in current system
             http_client = httpclient.AsyncHTTPClient()
             http_client.fetch(
-                'https://nonsense.ws/indexes/', 
+                'https://api.nonsense.ws/indexes/', 
                 headers={"Content-Type": "application/json"},
                 method='POST',
                 body=json.dumps({'name': i, 'index_type': i}),
