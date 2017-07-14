@@ -74,7 +74,6 @@ import os
 import zmq
 import sys
 import uuid
-import itertools
 import logging
 import arrow
 import riak
@@ -84,83 +83,27 @@ import ujson as json
 from subprocess import Popen, PIPE
 from tornado.ioloop import PeriodicCallback as Cast
 from tornado import gen, web
-from tornado import websocket
-from tornado import queues            # <------------------------------------- mae.
 from tornado import httpclient
 from treehouse.tools import options, periodic, new_resource
 from treehouse.handlers import nodes
-from zmq.eventloop.future import Context, Poller
 from zmq.eventloop import ioloop
 
+# ioloop
+ioloop.install()
 
 httpclient.AsyncHTTPClient.configure('tornado.curl_httpclient.CurlAsyncHTTPClient')
 
-
-ioloop.install()
-# black testing box
-blackbox = []                         # <------------------------------------- mae.
-
-
-
-class TreeSEHandler():
-    '''
-        Send-events Handler
-    '''
-    pass
-
-
-class TreeWSHandler(websocket.WebSocketHandler):
-    '''
-        WebSocket Handler
-    '''
-
-    def get_compression_options(self):
-        # Non-None enables compression with default options.
-        return {}
-    
-    def open(self):
-        if self not in blackbox:
-            blackbox.append(self)
-
-    def on_close(self):
-        if self in blackbox:
-            blackbox.remove(self)
-
-
-def ws_send(message):
-    '''
-        WebSocket Send
-    '''
-    for ws in blackbox:
-        if not ws.ws_connection.stream.socket:
-            logging.error("Web socket does not exist anymore!")
-            blackbox.remove(ws)
-        else:
-            ws.write_message(message)
-    if not blackbox:
-        # we choose to ignore it just pass
-        pass
-
-@gen.coroutine
-def periodic_ws_send():
-    '''
-        Periodic WebSocket Send
-    '''
-    hb_time = arrow.utcnow()
-    heartbeat = {"heartbeat":{"time":hb_time.timestamp, "info": "periodic_ws_send"}}
-    message = json.dumps({'message':heartbeat})
-    ws_send(message)
 
 def main():
     # daemon options
     opts = options.options()
     # System uuid
     system_uuid = uuid.uuid4()
-    # Set treehouse release
+    # Set treehouse OTP release
     otp_rel = opts.otp_rel
     # count von count
     von_count = 0
-    # check for active tree
+    # checks for active Erlang/OTP treehouse node
     @gen.coroutine
     def check_tree():
         os.environ['HOME'] = '/opt/treehouse/'
@@ -259,10 +202,6 @@ def main():
             # Nodes resource
             (r'/nodes/(?P<node_uuid>.+)/?', nodes.Handler),
             (r'/nodes/?', nodes.Handler),
-            # Experiment with WebSockets and the BEAM as messaging backbone.
-            (r'/ws/alerts', TreeWSHandler),
-            # send-events
-            (r'/se/', TreeSEHandler),
         ],
         # system cache
         cache=cache,
