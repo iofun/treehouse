@@ -49,9 +49,13 @@ init() ->
     chumak:subscribe(Socket, Telephony),
     chumak:subscribe(Socket, Logging),
     chumak:subscribe(Socket, Upload),
+
+    econfig:subscribe(forest),
+    Port = econfig:get_integer(forest, "zmq", "sub_bind"),
+    Address = econfig:get_value(forest, "zmq", "address"),
     
     %% Hello chumak bind this case
-    case chumak:bind(Socket, tcp, "127.0.0.1", 5813) of
+    case chumak:bind(Socket, tcp, Address, Port) of
         {ok, _BindPid} ->
             io:format("Binding OK with Pid: ~p\n", [Socket]);
         {error, Reason} ->
