@@ -5,6 +5,11 @@
 -export([stop/1]).
 
 start(_Type, _Args) ->
+    application:ensure_all_started(econfig),
+    econfig:register_config(spawn, ["/etc/spawn.conf"], [autoreload]),
+    econfig:subscribe(spawn),
+    Lol = econfig:get_value(spawn, "engine"),
+    lager:warning("Yo spawn in here ~p \n", [Lol]),
     Dispatch = cowboy_router:compile([
         {'_', [
             {"/units/", units_handler, []},
