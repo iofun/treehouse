@@ -34,25 +34,22 @@ cast(Message) ->
 
 init() ->
     {ok, Socket} = chumak:socket(sub),
-    
     %% List of topics, put them in a list or something.
     Topic = <<" ">>,
     Heartbeat = <<"heartbeat">>,
     Telephony = <<"telephony">>,
     Logging = <<"logging">>,
     Upload = <<"upload">>,
-    
     %% ZeroMQ subscribe socket and topics!
     chumak:subscribe(Socket, Topic),
     chumak:subscribe(Socket, Heartbeat),
     chumak:subscribe(Socket, Telephony),
     chumak:subscribe(Socket, Logging),
     chumak:subscribe(Socket, Upload),
-
+    %% subscribe forest config
     econfig:subscribe(forest),
     Port = econfig:get_integer(forest, "zmq", "sub_bind"),
     Address = econfig:get_value(forest, "zmq", "address"),
-    
     %% Hello chumak bind this case
     case chumak:bind(Socket, tcp, Address, Port) of
         {ok, _BindPid} ->
@@ -62,7 +59,6 @@ init() ->
         X ->
             io:format("Unhandled reply for bind ~p \n", [X])
     end,
-
     %% spawn external process that handle the zmq loop
     spawn_link(fun () ->
             zmq_loop(Socket)

@@ -126,10 +126,12 @@ def main():
                 circus = Popen(["/etc/init.d/circusd", "stop", "."], stdout=PIPE)
                 (output, err) = circus.communicate()
                 logging.error('we crash circusd after trying {0} times!'.format(max_count))
-    # check solr indexes
+    # check system indexes
     @gen.coroutine
     def check_indexes():
         '''
+            Check yokozuna solr indexes and
+    
             Automatically generate SOLR indexes
         '''
         def handle_response(response):
@@ -141,6 +143,7 @@ def main():
             else:
                 logging.info(response.body)
         # get this list from pillar or some shit, like from regular configuration files, you know.
+        # that or use messaging and ets super powers, you have your options.
         current = [
             'mango_account',
             'mango_task',
@@ -189,7 +192,7 @@ def main():
     # logging database hosts
     logging.info('PostgreSQL server: {0}:{1}'.format(opts.sql_host, opts.sql_port))
     # solr yokozuna
-    logging.info('Solr yokozuna: {0} '.format(opts.solr))
+    logging.info('Solr yokozuna: {0}'.format(opts.solr))
     # logging riak settings
     logging.info('Riak server: {0}:{1}'.format(opts.riak_host, opts.riak_port))
     # system cache
