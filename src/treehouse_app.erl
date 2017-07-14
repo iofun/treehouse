@@ -8,8 +8,7 @@ start(_Type, _Args) ->
     application:ensure_all_started(econfig),
     econfig:register_config(spawn, ["/etc/spawn.conf"], [autoreload]),
     econfig:subscribe(spawn),
-    Lol = econfig:get_value(spawn, "engine"),
-    lager:warning("Yo spawn in here ~p \n", [Lol]),
+    Port = econfig:get_value(spawn, "engine", "port"),
     Dispatch = cowboy_router:compile([
         {'_', [
             {"/units/", units_handler, []},
@@ -18,7 +17,7 @@ start(_Type, _Args) ->
         ]}
     ]),
     {ok, _} = cowboy:start_clear(http_listener,
-        [{port, 8215}],
+        [{port, Port}],
         #{env => #{dispatch => Dispatch}}
     ),
     {ok, _} = sub_bind:start_link(),
