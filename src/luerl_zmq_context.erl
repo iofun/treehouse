@@ -18,27 +18,27 @@ install(State) ->
 
 table() ->
     [{<<"destroy">>,{function,fun destroy/2}},
-     {<<"get_context">>,{function,fun get_context/2}},
-     {<<"set_context">>,{function,fun set_context/2}},
+     {<<"get">>,{function,fun get/2}},
+     {<<"set">>,{function,fun set/2}},
      {<<"socket">>,{function,fun socket/2}}
     ].
 
-destroy([X,Y], State) when is_number(X), is_number(Y) ->
-    zmq_context:destroy(X, Y, self()),
+destroy(Linger, State) ->
+    zmq_context:destroy(Linger, self()),
     {[],State};
 destroy(As, State) -> badarg_error(destroy, As, State).
 
-get_context([X,Y], State) when is_number(X), is_number(Y) ->
+get(Option, State) ->
     %% list_to_binary(pid_to_list(S))
     Ss = lists:map(fun({_,S}) -> #userdata{d=S} end,
-           zmq_context:get_context(X, Y)),
+           zmq_context:get(Option)),
     {Ss,State};
-get_context(As, State) -> badarg_error(get_context, As, State).
+get(As, State) -> badarg_error(get, As, State).
 
-set_context([X,Y], State) when is_number(X), is_number(Y) ->
-    zmq_context:set_context(X, Y, self()),
+set([X,Y], State) when is_number(X), is_number(Y) ->
+    zmq_context:set(X, Y, self()),
     {[],State};
-set_context(As, State) -> badarg_error(set_context, As, State).
+set(As, State) -> badarg_error(set, As, State).
 
 socket([Context, Type], State) ->
     io:format("socket context ~p type\n", [Context, Type]),

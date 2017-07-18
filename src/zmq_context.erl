@@ -28,10 +28,10 @@ destroy(Linger) ->
     call({destroy,Linger}).
 
 get(Option) ->
-    call({get_context,Option}).
+    call({get,Option}).
 
 set(Option,Value) ->
-    call({set_context_option,Option,Value}).
+    call({set_option,Option,Value}).
 
 socket(SocketType, SocketOptions) ->
     call({socket,SocketType,SocketOptions}).
@@ -73,14 +73,12 @@ init() ->
 
 loop(State) ->
     receive
-    {call,From,{get_context,Option}} ->
+    {call,From,{get,Option}} ->
 
         %% get Option?
 
         lager:warning("get Option? ~p \n", [Option]),
 
-        %%Context = context(X, Y),
-        %%reply(From, ets:lookup(zmq_context, Context)),
         reply(From, ok),
         loop(State);
     {call,From,{destroy,Linger,What}} ->
@@ -104,24 +102,11 @@ loop(State) ->
         %%reply(From, ets:delete_object(zmq_context, {Context,What})),
         reply(From, ok),
         loop(State);
-    {call,From,{set_socket_option,Option,Value,What}} ->
 
+    {call,From,{set_option,Option,Value,What}} ->
         %% set Option, Value, What?
-
-        lager:warning("set Option? ~p Value? ~p What? ~p \n", [Option, Value, What]),
-
-        %%Context = context(X, Y),
-        %%reply(From, ets:delete_object(zmq_context, {Context,What})),
-        reply(From, ok),
-        loop(State);
-    {call,From,{add_context,Option,What}} ->
-
-        %% add_context, Option, What
-
-        lager:warning("add_context Option? ~p What? ~p \n", [Option, What]),
-
-        %%Context = context(Option),
-        %%reply(From, ets:insert(zmq_context, {Context,What})),
-        reply(From, ok),
+        lager:warning("set context Option? ~p Value? ~p What? ~p \n", [Option, Value, What]),
+        Context = context(Option, Value),
+        reply(From, ets:insert(zmq_context, {Context,What})),
         loop(State)
     end.
