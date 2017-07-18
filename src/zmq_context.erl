@@ -47,11 +47,11 @@ reply(To, Rep) ->
 %% Initialise it all.
 
 init() ->
-    register(zmq:context, self()),
+    register(zmq_context, self()),
 
     %% Create the ZeroMQ luerl driver interface ETS table ?.   <--------------- !!!
 
-    ets:new(zmq_context, [named_table,duplicate_bag,protected]),
+    ets:new(context, [named_table,duplicate_bag,protected]),
 
     %% BUT ..
 
