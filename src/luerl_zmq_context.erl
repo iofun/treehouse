@@ -24,20 +24,20 @@ table() ->
     ].
 
 destroy(Linger, State) ->
-    zmq_context:destroy(Linger, self()),
-    {[],State};
+    %%zmq_context:destroy(Linger, self()),
+    %%{[],State};
 destroy(As, State) -> badarg_error(destroy, As, State).
 
 get(Option, State) ->
     %% list_to_binary(pid_to_list(S))
-    Ss = lists:map(fun({_,S}) -> #userdata{d=S} end,
-           zmq_context:get(Option)),
-    {Ss,State};
+    %%Ss = lists:map(fun({_,S}) -> #userdata{d=S} end,
+    %%       zmq_context:get(Option)),
+    %%{Ss,State};
 get(As, State) -> badarg_error(get, As, State).
 
-set([X,Y], State) when is_number(X), is_number(Y) ->
-    zmq_context:set(X, Y, self()),
-    {[],State};
+set([Shit,Stuff], State) ->
+    %%zmq_context:set(X, Y, self()),
+    %%{[],State};
 set(As, State) -> badarg_error(set, As, State).
 
 socket([Context, Type], State) ->

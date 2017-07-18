@@ -126,7 +126,7 @@ loop(State) ->
     {cast,From,{test_me,S}} ->
 
         lager:warning("Yo this S just test in here ~p \n", [S]),
-        reply(From, {wtf, S}),
+        reply(From, {ok, S}),
 
         loop(State);
     {cast,From,{del_unit,S}} ->

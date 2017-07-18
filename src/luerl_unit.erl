@@ -8,6 +8,7 @@
 %% This works if luerl/ebin has been added to the path
 -include_lib("luerl/src/luerl.hrl").
 
+%% Lua userdata, d=data, m=metadata
 %% -record(userdata, {d,m=nil}).
 
 install(State) ->
