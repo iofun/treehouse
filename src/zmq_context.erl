@@ -51,7 +51,7 @@ init() ->
 
     %% Create the ZeroMQ luerl driver interface ETS table ?.   <--------------- !!!
 
-    ets:new(context, [named_table,duplicate_bag,protected]),
+    ets:new(zmq_context, [named_table,duplicate_bag,protected]),
 
     %% BUT ..
 
@@ -86,3 +86,4 @@ loop(State) ->
         %%reply(From, ets:delete_object(zmq_context, {Context,What})),
         reply(From, ok),
         loop(State)
+    end.
