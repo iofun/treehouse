@@ -25,6 +25,7 @@ table() ->
      {<<"add_sector">>,{function,fun add_sector/2}},
      {<<"rem_sector">>,{function,fun rem_sector/2}},
      {<<"find_unit">>,{function,fun find_unit/2}},
+     {<<"test_me">>,{function, fun test_me/2}},
      {<<"del_unit">>,{function,fun del_unit/2}}
     ].
 
@@ -67,6 +68,14 @@ find_unit([#userdata{d=S}], State) ->
     Sec = region:find_unit(S),
     {[Sec],State};
 find_unit(As, State) -> badarg_error(find_unit, As, State).
+
+%% learning to add functions between erlang and luerl
+
+test_me([], State) ->
+    {[],State};
+test_me(As, State) -> badarg_error(test_me, As, State).
+
+%% thanks to this test_me implementation.
 
 del_unit([#userdata{d=S}], State) ->
     region:del_unit(S),
