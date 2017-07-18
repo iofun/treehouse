@@ -124,7 +124,10 @@ loop(State) ->
         reply(From, ets:select(region, [{{'$1',S},[],['$1']}])),
         loop(State);
     {cast,From,{test_me,S}} ->
+
+        lager:warning("Yo this S just test in here ~p \n", [S]),
         reply(From, {ok, S}),
+        
         loop(State);
     {cast,From,{del_unit,S}} ->
         reply(From, ets:delete_object(region, {'_',S})),
