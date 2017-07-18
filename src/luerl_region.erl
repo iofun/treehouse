@@ -71,7 +71,14 @@ find_unit(As, State) -> badarg_error(find_unit, As, State).
 
 %% learning to add functions between erlang and luerl
 
+%% lololol with userdata{d=S} where is this comming from???
+
+
+test_me([#userdata{d=S}], State) ->
+    lager:warning("Yo check this shit out ~p \n", [S]),
+    {[],State};
 test_me([], State) ->
+    region:test_me(),
     {[],State};
 test_me(As, State) -> badarg_error(test_me, As, State).
 
