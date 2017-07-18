@@ -7,8 +7,6 @@
 %% match https://moteus.github.io/lzmq/modules/lzmq.html lzmq API when it is possible.
 
 -export([destroy/1,     %Lua commands
-         get/1,
-         set/2,
          socket/2]).
  
 %% Server state.
@@ -26,12 +24,6 @@ start_link() ->
 
 destroy(Linger) ->
     call({destroy,Linger}).
-
-get(Option) ->
-    call({get,Option}).
-
-set(Option,Value) ->
-    call({set_option,Option,Value}).
 
 socket(SocketType, SocketOptions) ->
     call({socket,SocketType,SocketOptions}).
@@ -55,7 +47,7 @@ reply(To, Rep) ->
 %% Initialise it all.
 
 init() ->
-    register(zmq_context, self()),
+    register(zmq:context, self()),
 
     %% Create the ZeroMQ luerl driver interface ETS table ?.   <--------------- !!!
 
@@ -73,14 +65,6 @@ init() ->
 
 loop(State) ->
     receive
-    {call,From,{get,Option}} ->
-
-        %% get Option?
-
-        lager:warning("get Option? ~p \n", [Option]),
-
-        reply(From, ok),
-        loop(State);
     {call,From,{destroy,Linger,What}} ->
 
         %% close Linger? What?
@@ -101,12 +85,4 @@ loop(State) ->
         %%Context = context(X, Y),
         %%reply(From, ets:delete_object(zmq_context, {Context,What})),
         reply(From, ok),
-        loop(State);
-
-    {call,From,{set_option,Option,Value,What}} ->
-        %% set Option, Value, What?
-        lager:warning("set context Option? ~p Value? ~p What? ~p \n", [Option, Value, What]),
-        Context = context(Option, Value),
-        reply(From, ets:insert(zmq_context, {Context,What})),
         loop(State)
-    end.
