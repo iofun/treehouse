@@ -15,9 +15,7 @@ local xsize,ysize = region.size()  -- The size of the region
 
 -- The default unit interface.
 
-function this_unit.start() 
-   region.test_me()
-end
+function this_unit.start() end
 
 function this_unit.get_position() return x,y end
 

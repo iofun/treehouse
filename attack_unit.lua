@@ -1,6 +1,5 @@
--- A simple unit which is aggressive and attacks.
--- When it going to change sector and sees another unit in that sector
--- it tries to zap it.
+-- A simple unit which is aggressive and attacks on 
+-- change sector and sees another unit in that sector.
 
 local this_unit = {}               -- Our unit function table
 

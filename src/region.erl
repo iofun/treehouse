@@ -6,11 +6,6 @@
 -export([size/0,valid_x/1,valid_y/1]).
 -export([find_unit/1,del_unit/0,del_unit/1]).
 
-%% testing init work if works move this away
-
--export([test_me/0,test_me/1]).
-
-%% kthxbye
 
 %% Server state.
 -record(state, {xsize,ysize}).
@@ -52,21 +47,6 @@ rem_sector(X, Y, What) ->
 
 find_unit(S) ->
     call({find_unit,S}).
-
-
-%% init nonsense integration trying to test_me passing self, here we identify
-%% that current S means U, lol basically that we're still refering to Ships
-%% from the original World Simulator, if this observation is correct we need
-%% to change it to U now that we are using Units in our abstractions.
-
-test_me() -> test_me(self()).
-
-test_me(S) ->
-    cast({test_me,S}).
-
-%% also could this be the way that we tale control of the processes state?
-%% like receive from erlang the pid assigned by the BEAM to the lua VM?
-
 
 del_unit() -> del_unit(self()).
 
@@ -122,12 +102,6 @@ loop(State) ->
         loop(State);
     {call,From,{find_unit,S}} ->
         reply(From, ets:select(region, [{{'$1',S},[],['$1']}])),
-        loop(State);
-    {cast,From,{test_me,S}} ->
-
-        lager:warning("Yo this S just test in here ~p \n", [S]),
-        reply(From, {ok, S}),
-
         loop(State);
     {cast,From,{del_unit,S}} ->
         reply(From, ets:delete_object(region, {'_',S})),

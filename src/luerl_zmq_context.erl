@@ -8,6 +8,7 @@
 %% This works if luerl/ebin has been added to the path
 -include_lib("luerl/src/luerl.hrl").
 
+%% 
 %% -record(userdata, {d,m=nil}).
 
 install(State) ->
@@ -18,27 +19,16 @@ install(State) ->
 
 table() ->
     [{<<"destroy">>,{function,fun destroy/2}},
-     {<<"get">>,{function,fun get/2}},
-     {<<"set">>,{function,fun set/2}},
      {<<"socket">>,{function,fun socket/2}}
     ].
 
 destroy(Linger, State) ->
+
     %%zmq_context:destroy(Linger, self()),
     %%{[],State};
+
 destroy(As, State) -> badarg_error(destroy, As, State).
 
-get(Option, State) ->
-    %% list_to_binary(pid_to_list(S))
-    %%Ss = lists:map(fun({_,S}) -> #userdata{d=S} end,
-    %%       zmq_context:get(Option)),
-    %%{Ss,State};
-get(As, State) -> badarg_error(get, As, State).
-
-set([Shit,Stuff], State) ->
-    %%zmq_context:set(X, Y, self()),
-    %%{[],State};
-set(As, State) -> badarg_error(set, As, State).
 
 socket([Context, Type], State) ->
     io:format("socket context ~p type\n", [Context, Type]),
