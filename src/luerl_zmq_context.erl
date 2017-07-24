@@ -8,7 +8,7 @@
 %% This works if luerl/ebin has been added to the path
 -include_lib("luerl/src/luerl.hrl").
 
-%% 
+%% Lua userdata, d=data, m=metadata
 %% -record(userdata, {d,m=nil}).
 
 install(State) ->
@@ -18,17 +18,9 @@ install(State) ->
 %% Caller will convert this install to the correct format.
 
 table() ->
-    [{<<"destroy">>,{function,fun destroy/2}},
+    [
      {<<"socket">>,{function,fun socket/2}}
     ].
-
-destroy(Linger, State) ->
-
-    %%zmq_context:destroy(Linger, self()),
-    %%{[],State};
-
-destroy(As, State) -> badarg_error(destroy, As, State).
-
 
 socket([Context, Type], State) ->
     io:format("socket context ~p type\n", [Context, Type]),
