@@ -16,7 +16,6 @@ install(State) ->
 
 %% table() -> [{FuncName,Function}].
 %% Caller will convert this install to the correct format.
-
 table() ->
     [
      {<<"context">>,{function,fun context/2}}

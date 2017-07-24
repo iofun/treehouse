@@ -16,7 +16,6 @@ install(State) ->
 
 %% table() -> [{FuncName,Function}].
 %% Caller will convert this install to the correct format.
-
 table() ->
     [
      {<<"socket">>,{function,fun socket/2}}

@@ -51,10 +51,13 @@ get_unit(Sim, I) ->
 
 init({Xsize,Ysize,N}) ->
     process_flag(trap_exit, true),
-    {ok,_} = region:start_link(Xsize, Ysize),   %Start the region
-    random:seed(now()),             %Seed the RNG
+    %% Start the region
+    {ok,_} = region:start_link(Xsize, Ysize),
+    %% Seed the RNG
+    random:seed(now()),
     Array = ets:new(sim_unit_array, [named_table,protected]),
-    State = init_lua(),             %Get the Lua state
+    %% Get the Lua state
+    State = init_lua(),
     lists:foreach(fun (I) ->
               {ok,S} = start_unit(I, Xsize, Ysize, State),
               ets:insert(Array, {I,S})
@@ -62,13 +65,14 @@ init({Xsize,Ysize,N}) ->
     {ok,#state{xsize=Xsize,ysize=Ysize,n=N,array=Array,state=State}}.
 
 %% init_lua() -> LuaState.
-%%  Initialise a LuaState to be used for each unit process.
+%% Initialise a LuaState to be used for each unit process.
 
 init_lua() ->
     L0 = luerl:init(),
     L1 = lists:foldl(fun({Name,Mod}, L) -> load([Name], Mod, L) end, L0,
              [
               {region,luerl_region},
+              {zmq, luerl_zmq},
               {unit,luerl_unit}]),
     %% Set the default unit.
     {_,L2} = luerl:do("this_unit = require 'default'", L1),
@@ -81,9 +85,9 @@ load(Key, Module, State0) ->
 
 start_unit(I, Xsize, Ysize, State) ->
     if I rem 8 =:= 0 ->
-        io:format("process ~p type node\n",[I]);
+        io:format("Treehouse process ~p type node\n",[I]);
        I rem 1 =:= 0 ->
-        io:format("process ~p type unit\n",[I])
+        io:format("Treehouse process ~p type unit\n",[I])
     end,
     %% Spread out the units over the whole space.
     X = random:uniform(Xsize) - 1,
@@ -117,8 +121,9 @@ handle_call(stop, _, State) ->
     {stop,normal,ok,State}.
 
 handle_info({'EXIT',S,E}, #state{array=Array}=State) ->
-    io:format("process ~p has died: ~p\n", [S,E]),
-    ets:match_delete(Array, {'_',S}),       %Remove the unit
+    io:format("Treehouse process ~p has died: ~p\n", [S,E]),
+    %% Remove the unit
+    ets:match_delete(Array, {'_',S}),
     {noreply,State};
 handle_info(_, State) -> {noreply,State}.
 
