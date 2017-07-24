@@ -87,4 +87,3 @@ function s_wrap(msg, frame)
   table.insert(msg, 1, frame)
   return msg
 end
-

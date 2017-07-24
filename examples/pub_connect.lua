@@ -1,35 +1,33 @@
 #!/usr/bin/env luajit
-
--- Turn it up, turn it up, turn it up, fucked up loud
-
--- Connect PUB socket to tcp://localhost:8135
--- Publishes random update messages on logging topic
-
+-- Connect PUB socket to tcp://localhost:5813
+-- Publish timestamped uuid's on heartbeat topic
 require "sys"
 require "zhelpers"
-
+-- require lzmq module as local variable zmq
 local zmq = require "lzmq"
-local socket = require "socket"  -- gettime() has higher precision than os.time()
+-- socket.gettime() has higher precision than os.time()
+local socket = require "socket"
 local uuid = require "uuid"
 local json = require "cjson"
-
-local struct = {}
-
--- time in seconds, relative to the origin of the universe. 
-struct['timestamp'] = socket.gettime()
-
 -- see also example at uuid.seed()
 uuid.randomseed(socket.gettime()*10000)
-struct['uuid'] = uuid()
-
+-- get ZeroMQ context
 local context = zmq.context()
+-- set ZeroMQ PUB socket
 local publisher, err = context:socket{zmq.PUB, connect = "tcp://localhost:5813"}
 zassert(publisher, err)
-
+-- struct message
+local message = {}
+-- connect process loop
 while true do
-  struct['timestamp'] = socket.gettime()
+  -- time in seconds, relative to the origin of the universe. 
+  message['timestamp'] = socket.gettime()
+  -- set message uuid
+  message['uuid'] = uuid()
   -- Send message to the subscriber
-  local message = "heartbeat " .. json.encode(struct)
+  message = "heartbeat " .. json.encode(message)
+  -- socket send message
   publisher:send(message)
+  -- process sleep
   sys.sleep(0.500)
 end
