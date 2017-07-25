@@ -70,10 +70,11 @@ init({Xsize,Ysize,N}) ->
 init_lua() ->
     L0 = luerl:init(),
     L1 = lists:foldl(fun({Name,Mod}, L) -> load([Name], Mod, L) end, L0,
-             [
-              {region,luerl_region},
-              {zmq, luerl_zmq},
-              {unit,luerl_unit}]),
+            [
+                {region,luerl_region},
+                {unit,luerl_unit},
+                {zmq,luerl_zmq}
+            ]),
     %% Set the default unit.
     {_,L2} = luerl:do("this_unit = require 'default'", L1),
     L2.

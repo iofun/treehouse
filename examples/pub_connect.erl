@@ -24,11 +24,11 @@ loop(Socket, UuidString) ->
     Timestamp1 = [element(1,Timestamp0), element(2,Timestamp0)],
     Timestamp2 = [integer_to_binary(X) || X <- Timestamp1, integer(X)],
     Timestamp = list_to_binary(Timestamp2),
-
+    %%
     Json = jsx:encode([{<<"timestamp">>, list_to_integer(binary_to_list(Timestamp))},
         {<<"uuid">>, iolist_to_binary(UuidString)}]),
     Message = list_to_binary(["heartbeat ", Json]),
-
+    %% 
     ok = chumak:send(Socket, Message),
     timer:sleep(500),
     loop(Socket, UuidString),
