@@ -1,17 +1,17 @@
 -- The default unit.
 -- It reflects from the edge.
 
-local this_unit = {}               -- Our unit function table
+local this_unit = {}                -- Our unit function table
 
 -- The standard local variables
-local x, y, dx, dy                 -- Where we are and fast we move
-local colour = "white"             -- Our colour
-local type = "unit"                -- Our type
-local tick                         -- Size of a clock tick msec
-local me = unit.self()             -- This is me
+local x, y, dx, dy                  -- Where we are and fast we move
+local color = "white"               -- Our color
+local style = "unit"                -- Our style
+local tick                          -- Size of a clock tick msec
+local me = unit.self()              -- This is me
 local ammo,shield = 0,0
 
-local xsize,ysize = region.size()  -- The size of the region
+local xsize,ysize = region.size()   -- The size of the region
 
 -- The default unit interface.
 
@@ -30,7 +30,6 @@ function this_unit.set_tick(a1) tick = a1 end
 local function move_xy_bounce(x, y, dx, dy, valid_x, valid_y)
    local nx = x + dx
    local ny = y + dy
-
    if (not valid_x(nx)) then       -- Bounce off the edge
       nx = x - dx
       dx = -dx
