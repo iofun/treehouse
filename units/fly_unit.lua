@@ -76,7 +76,7 @@ local function move(x, y)
       region.add_sector(nx, ny)
       -- and draw us
       -- replace with love2d integration
-      -- esdl_server.set_unit(style, colour, nx, ny)
+      -- esdl_server.set_unit(style, color, nx, ny)
    end
    return nx,ny
 end
@@ -87,7 +87,7 @@ end
 
 function this_unit.zap()  -- The unit has been zapped and will die
    -- replace with love2d integration
-   -- esdl_server.set_unit("explosion", colour, x, y)
+   -- esdl_server.set_unit("explosion", color, x, y)
    region.rem_sector(x, y)
 end
 
