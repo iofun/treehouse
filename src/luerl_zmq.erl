@@ -18,10 +18,45 @@ install(State) ->
 %% Caller will convert this install to the correct format.
 table() ->
     [
-     {<<"context">>,{function,fun context/2}}
+     {<<"socket">>,{function,fun socket/2}},
+     {<<"close">>,{function,fun close/2}},
+     {<<"connect">>,{function,fun connect/2}},
+     {<<"disconnect">>,{function,fun disconnect/2}},
+     {<<"bind">>,{function,fun bind/2}},
+     {<<"unbind">>,{function,fun unbind/2}},
+     {<<"send">>,{function,fun send/2}},
+     {<<"recv">>,{function,fun recv/2}}
     ].
 
-context(Option, State) ->
-    io:format("invoker content ~p option\n", [Option]),
+socket([Context, Type], State) ->
+    io:format("socket context ~p type\n", [Context, Type]),
     {[],State};
-context(As, State) -> badarg_error(context, As, State).
+socket(As, State) -> badarg_error(socket, As, State).
+
+close(Option, State) ->
+    io:format("close socket ~p option\n", [Option]),
+    {[],State}.
+
+connect(Option, State) ->
+    io:format("connect socket ~p option\n", [Option]),
+    {[],State}.
+
+disconnect(Option, State) ->
+    io:format("disconnect socket ~p option\n", [Option]),
+    {[],State}.
+
+bind(Option, State) ->
+    io:format("bind socket ~p option\n", [Option]),
+    {[],State}.
+
+unbind(Option, State) ->
+    io:format("unbind socket ~p option\n", [Option]),
+    {[],State}.
+
+send(Option, State) ->
+    io:format("send socket ~p option\n", [Option]),
+    {[],State}.
+
+recv(Option, State) ->
+    io:format("recv socket ~p option\n", [Option]),
+    {[],State}.
