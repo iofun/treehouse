@@ -113,8 +113,8 @@ def main():
         max_count = 5
         if 'not responding to pings' in output:
             logging.error(output)
-            logging.waring('jue jue jue')
-            logging.waring(otp_rel)
+            logging.warning('jue jue jue')
+            logging.warning(otp_rel)
             process = Popen([otp_rel, "start", "."], stdout=PIPE)
             (output, err) = process.communicate()
             exit_code = process.wait()
