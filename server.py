@@ -113,6 +113,8 @@ def main():
         max_count = 5
         if 'not responding to pings' in output:
             logging.error(output)
+            logging.waring('jue jue jue')
+            logging.waring(otp_rel)
             process = Popen([otp_rel, "start", "."], stdout=PIPE)
             (output, err) = process.communicate()
             exit_code = process.wait()
@@ -142,6 +144,7 @@ def main():
                 logging.error(response.error)
             else:
                 logging.info(response.body)
+        # yo, yo, yo!
         # get this list from pillar or some shit, like from regular configuration files, you know.
         # that or use messaging and ets super powers, you have your options.
         current = [
