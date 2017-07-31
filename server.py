@@ -100,26 +100,28 @@ def main():
     # System uuid
     system_uuid = uuid.uuid4()
     # Set treehouse OTP release
-    otp_rel = opts.otp_rel
-    # count von count
-    von_count = 0
+    erlang_release = opts.erlang_release
     # checks for active Erlang/OTP treehouse node
     @gen.coroutine
     def check_tree():
         os.environ['HOME'] = '/opt/treehouse/'
-        process = Popen([otp_rel, "ping", "."], stdout=PIPE)
+        process = Popen([erlang_release, "ping", "."], stdout=PIPE)
         (output, err) = process.communicate()
         exit_code = process.wait()
         max_count = 5
+        # count von count
+        von_count = 0
+        # running
+        running = False
         if 'not responding to pings' in output:
             logging.error(output)
-            logging.warning(otp_rel)
-            process = Popen([otp_rel, "start", "."], stdout=PIPE)
+            process = Popen([erlang_release, "start", "."], stdout=PIPE)
             (output, err) = process.communicate()
             exit_code = process.wait()
         elif 'pong' in output:
-            # pong!
-            pass
+            if not running:
+                logging.warning('pong!')
+                running = True
         else:
             von_count += 1
             if von_count > max_count:
