@@ -65,7 +65,7 @@ init() ->
     end),
     register(sub_server, self()),
     proc_lib:init_ack({ok,self()}),
-    loop(#state{}).  
+    loop(#state{}).
 
 zmq_loop(Socket) ->
     {ok, Data1} = chumak:recv(Socket),
@@ -84,11 +84,8 @@ loop(State) ->
     end.
 
 process_pub([H|T]) ->
-
     lager:warning("Yo this head just spawn in here ~p \n", [H]),
-
     Payload = jiffy:decode([T], [return_maps]),
-
     lager:warning(maps:get(<<"timestamp">>, Payload, "0000000000")),
     lager:warning(maps:get(<<"uuid">>, Payload, uuid:uuid_to_string(uuid:get_v4()))).
 
@@ -100,16 +97,16 @@ process_pub([H|T]) ->
     %%http_client(),    ???
 
 %%http_client() ->
+
     %% so hackney is our http erlang client and we like it very much!
     %%URL = <<"https://iofun.io">>,
+
     %%Headers = [],
     %%Payload = <<>>,
     %%Options = [],
 
     %%{ok, StatusCode, _, _} = hackney:request(Method, URL, Headers, Payload, Options),
-
     %%{ok, StatusCode, _, _} = hackney:get(URL, Headers, Payload, Options),
-
     %%{ok, StatusCode, RespHeaders, ClientRef} = hackney:get(URL, Headers, Payload, Options),
 
     %%lager:warning("rare? ~p \n", [StatusCode]).
