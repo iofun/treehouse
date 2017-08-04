@@ -83,38 +83,38 @@ init() ->
 loop(State) ->
     receive
     {call,From,{socket,SocketType,SocketOptions,What}} ->
-        %% socket SocketType, SocketOptions, What?
-        lager:warning("socket SocketType ~p, SocketOptions ~p, What? ~p \n", [SocketType, SocketOptions, What]),
+        %% socket SocketType, SocketOptions, What
+        lager:warning("socket SocketType ~p, SocketOptions ~p, What ~p \n", [SocketType, SocketOptions, What]),
         reply(From, ok),
         loop(State);
     {call,From,{connect,Address}} ->
-        %% connect Address?
-        lager:warning("connect Address? ~p \n", [Address]),
+        %% connect Address
+        lager:warning("connect Address ~p \n", [Address]),
         reply(From, ok),
         loop(State);
     {call,From,{disconnect,Address}} ->
-        %% disconnect Address?
-        lager:warning("disconnect Address? ~p \n", [Address]),
+        %% disconnect Address
+        lager:warning("disconnect Address ~p \n", [Address]),
         reply(From, ok),
         loop(State);
     {call,From,{bind,Address}} ->
-        %% bind Address?
-        lager:warning("bind Address? ~p \n", [Address]),
+        %% bind Address
+        lager:warning("bind Address ~p \n", [Address]),
         reply(From, ok),
         loop(State);
     {call,From,{unbind,Address}} ->
-        %% unbind Address?
-        lager:warning("unbind Address? ~p \n", [Address]),
+        %% unbind Address
+        lager:warning("unbind Address ~p \n", [Address]),
         reply(From, ok),
         loop(State);
     {call,From,{send,Message,Flags,What}} ->
-        %% send Message, Flags, What?
-        lager:warning("send Message ~p, Flags ~p, What? ~p \n", [Message, Flags, What]),
+        %% send Message, Flags, What
+        lager:warning("send Message ~p, Flags ~p, What ~p \n", [Message, Flags, What]),
         reply(From, ok),
         loop(State);
     {call,From,{recv,Flags,What}} ->
-        %% recv Flags, What?
-        lager:warning("recv Flags ~p, What? ~p \n", [Flags, What]),
+        %% recv Flags, What
+        lager:warning("recv Flags ~p, What ~p \n", [Flags, What]),
         reply(From, ok),
         loop(State)
     end.

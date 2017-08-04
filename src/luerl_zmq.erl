@@ -16,9 +16,9 @@ install(State) ->
 
 %% table() -> [{FuncName,Function}].
 %% Caller will convert this install to the correct format.
+
 table() ->
-    [
-     {<<"socket">>,{function,fun socket/2}},
+    [{<<"socket">>,{function,fun socket/2}},
      {<<"connect">>,{function,fun connect/2}},
      {<<"disconnect">>,{function,fun disconnect/2}},
      {<<"bind">>,{function,fun bind/2}},
@@ -27,8 +27,11 @@ table() ->
      {<<"recv">>,{function,fun recv/2}}
     ].
 
-socket([Context, Type], State) ->
-    io:format("socket context ~p type\n", [Context, Type]),
+socket(Type, State) ->
+    SocketOption = "lol",
+    zmq:socket(Type, SocketOption),
+    io:format("socket ~p type option ~p\n", [Type, SocketOption]),
+    lager:warning("Yo this socket type ~p option here ~p \n", [Type, SocketOption]),
     {[],State};
 socket(As, State) -> badarg_error(socket, As, State).
 
