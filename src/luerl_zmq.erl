@@ -19,7 +19,6 @@ install(State) ->
 table() ->
     [
      {<<"socket">>,{function,fun socket/2}},
-     {<<"close">>,{function,fun close/2}},
      {<<"connect">>,{function,fun connect/2}},
      {<<"disconnect">>,{function,fun disconnect/2}},
      {<<"bind">>,{function,fun bind/2}},
@@ -32,10 +31,6 @@ socket([Context, Type], State) ->
     io:format("socket context ~p type\n", [Context, Type]),
     {[],State};
 socket(As, State) -> badarg_error(socket, As, State).
-
-close(Option, State) ->
-    io:format("close socket ~p option\n", [Option]),
-    {[],State}.
 
 connect(Option, State) ->
     io:format("connect socket ~p option\n", [Option]),

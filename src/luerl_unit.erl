@@ -64,6 +64,7 @@ zap(As, State) -> badarg_error(zap, As, State).
 
 set_unit([#userdata{d=S},Name], State) ->
     unit:set_unit(S, Name),
+    zmq:version(),
     {[],State};
 set_unit(As, State) -> badarg_error(set_unit, As, State).
 
