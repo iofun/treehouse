@@ -48,6 +48,7 @@ recv(Flags) ->
 
 version() ->
     [{version,X,Y,Z}] = ets:lookup(zmq, version),
+    lager:warning("zmq version ~p.~p.~p \n", [X,Y,Z]),
     {X,Y,Z}.
 
 %% Internal protocol functions.
