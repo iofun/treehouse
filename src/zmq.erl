@@ -52,9 +52,10 @@ version() ->
     {X,Y,Z}.
 
 %% Internal protocol functions.
-%%cast(Message) ->
-%%    zmq ! {cast,self(),Message},
-%%    ok.
+
+cast(Message) ->
+    zmq ! {cast,self(),Message},
+    ok.
 
 call(Message) ->
     U = whereis(zmq),
@@ -67,9 +68,10 @@ reply(To, Rep) ->
     To ! {reply,self(),Rep}.
 
 %% Initialise it all.
+
 init() ->
     register(zmq, self()),
-    %% Create the zmq luerl driver interface.
+    %% Create the zmq interface.
     ets:new(zmq, [named_table,duplicate_bag,protected]),
     ets:insert(zmq, {version,0,1,0}),
     State = #state{},
@@ -77,6 +79,7 @@ init() ->
     loop(State).
 
 %% Main loop.
+
 loop(State) ->
     receive
     {call,From,{socket,SocketType,SocketOptions,What}} ->
