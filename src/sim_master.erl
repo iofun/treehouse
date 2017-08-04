@@ -86,8 +86,7 @@ load(Key, Module, State0) ->
 
 start_unit(I, Xsize, Ysize, State) ->
     if I rem 8 =:= 0 ->
-        io:format("Jungle process ~p type node\n",[I]),
-        zmq:socket("Que","Mae")
+        io:format("Jungle process ~p type node\n",[I]);
        I rem 1 =:= 0 ->
         io:format("Jungle process ~p type unit\n",[I])
     end,
@@ -99,6 +98,7 @@ start_unit(I, Xsize, Ysize, State) ->
     Dx = 2.5*random:uniform() - 1.25,
     Dy = 2.5*random:uniform() - 1.25,
     unit:set_speed(S, Dx, Dy),
+    zmq:socket("Que", "Mae"),
     {ok,S}.
 
 terminate(_, #state{}) -> ok.
