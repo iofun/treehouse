@@ -2,7 +2,14 @@
 
 -export([start/3,start_link/3]).
 -export([init/3]).
--export([set_tick/2,get_position/1,set_position/3,get_speed/1,set_speed/3,zap/1]).
+
+-export([set_tick/2,
+         get_position/1,
+         set_position/3,
+         get_speed/1,
+         set_speed/3,
+         zap/1]).
+
 -export([get_state/1,get_tc/1]).
 -export([set_unit/2,lua_do/2,gc/1]).            %Lua commands
 

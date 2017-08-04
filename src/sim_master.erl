@@ -86,9 +86,9 @@ load(Key, Module, State0) ->
 
 start_unit(I, Xsize, Ysize, State) ->
     if I rem 8 =:= 0 ->
-        io:format("Treehouse process ~p type node\n",[I]);
+        io:format("Jungle process ~p type node\n",[I]);
        I rem 1 =:= 0 ->
-        io:format("Treehouse process ~p type unit\n",[I])
+        io:format("Jungle process ~p type unit\n",[I])
     end,
     %% Spread out the units over the whole space.
     X = random:uniform(Xsize) - 1,
@@ -122,7 +122,7 @@ handle_call(stop, _, State) ->
     {stop,normal,ok,State}.
 
 handle_info({'EXIT',S,E}, #state{array=Array}=State) ->
-    io:format("Treehouse process ~p has died: ~p\n", [S,E]),
+    io:format("Jungle process ~p has died: ~p\n", [S,E]),
     %% Remove the unit
     ets:match_delete(Array, {'_',S}),
     {noreply,State};
