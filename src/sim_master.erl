@@ -98,7 +98,7 @@ start_unit(I, Xsize, Ysize, State) ->
     Dx = 2.5*random:uniform() - 1.25,
     Dy = 2.5*random:uniform() - 1.25,
     unit:set_speed(S, Dx, Dy),
-    zmq:socket(["Que", "Mae"]),
+    zmq:socket("Que", "Mae"),
     {ok,S}.
 
 terminate(_, #state{}) -> ok.

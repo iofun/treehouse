@@ -26,7 +26,7 @@ start_link() ->
 %% User API.
 
 socket(SocketType, SocketOptions) ->
-    call({socket,[SocketType,SocketOptions]}).
+    call({socket,SocketType,SocketOptions}).
 
 connect(Address) ->
     call({connect,Address}).
