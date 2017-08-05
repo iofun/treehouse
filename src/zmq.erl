@@ -26,6 +26,8 @@ start_link() ->
 %% User API.
 
 socket(SocketType, SocketOptions) ->
+    io:format("socket options ~p ~p \n", [SocketType, SocketOptions]),
+    lager:warning("socket options ~p ~p \n", [SocketType, SocketOptions]),
     call({socket,SocketType,SocketOptions}).
 
 connect(Address) ->
