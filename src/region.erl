@@ -33,7 +33,7 @@ valid_x(X) ->
 valid_y(Y) ->
     {_,Ysize} = size(),
     (Y > 1) andalso (Y < Ysize-1).
-        
+
 sector(X, Y) -> {trunc(X),trunc(Y)}.
 
 get_sector(X, Y) ->
@@ -45,13 +45,13 @@ add_sector(X, Y, What) ->
 rem_sector(X, Y, What) ->
     call({rem_sector,X,Y,What}).
 
-find_unit(S) ->
-    call({find_unit,S}).
+find_unit(U) ->
+    call({find_unit,U}).
 
 del_unit() -> del_unit(self()).
 
-del_unit(S) ->
-    cast({del_unit,S}).
+del_unit(U) ->
+    cast({del_unit,U}).
 
 %% Internal protocol functions.
 
@@ -100,10 +100,10 @@ loop(State) ->
         Sector = sector(X, Y),
         reply(From, ets:delete_object(region, {Sector,What})),
         loop(State);
-    {call,From,{find_unit,S}} ->
-        reply(From, ets:select(region, [{{'$1',S},[],['$1']}])),
+    {call,From,{find_unit,U}} ->
+        reply(From, ets:select(region, [{{'$1',U},[],['$1']}])),
         loop(State);
-    {cast,From,{del_unit,S}} ->
-        reply(From, ets:delete_object(region, {'_',S})),
+    {cast,From,{del_unit,U}} ->
+        reply(From, ets:delete_object(region, {'_',U})),
         loop(State)
     end.

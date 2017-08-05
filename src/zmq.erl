@@ -25,12 +25,12 @@ start_link() ->
 
 %% User API.
 
-socket(SocketType, SocketOptions) ->
+socket(Unit, SocketType, SocketOptions) ->
     io:format("socket options ~p ~p \n", [SocketType, SocketOptions]),
-    call({socket,SocketType,SocketOptions}).
+    call(Unit, {socket,SocketType,SocketOptions}).
 
-connect(Address) ->
-    call({connect,Address}).
+connect(Unit, Address) ->
+    call(Unit, {connect,Address}).
 
 disconnect(Address) ->
     call({disconnect,Address}).

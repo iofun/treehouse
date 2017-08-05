@@ -33,46 +33,46 @@ table() ->
 self([], State) ->
     {[#userdata{d=self()}],State}.
 
-set_tick([#userdata{d=S},Tick], State) when is_number(Tick) ->
-    unit:set_tick(S, trunc(Tick)),
+set_tick([#userdata{d=U},Tick], State) when is_number(Tick) ->
+    unit:set_tick(U, trunc(Tick)),
     {[],State}.
 
-get_position([#userdata{d=S}], State) ->
-    {X,Y} = unit:get_position(S),
+get_position([#userdata{d=U}], State) ->
+    {X,Y} = unit:get_position(U),
     {[X,Y],State};
 get_position(As, State) -> badarg_error(get_position, As, State).
 
-set_position([#userdata{d=S},X,Y], State) when is_number(X), is_number(Y) ->
-    unit:set_position(S, X, Y),
+set_position([#userdata{d=U},X,Y], State) when is_number(X), is_number(Y) ->
+    unit:set_position(U, X, Y),
     {[],State};
 set_position(As, State) -> badarg_error(set_position, As, State).
 
-get_speed([#userdata{d=S}], State) ->
-    {X,Y} = unit:get_speed(S),
+get_speed([#userdata{d=U}], State) ->
+    {X,Y} = unit:get_speed(U),
     {[X,Y],State};
 get_speed(As, State) -> badarg_error(get_speed, As, State).
 
-set_speed([#userdata{d=S},X,Y], State) when is_number(X), is_number(Y) ->
-    unit:set_speed(S, X, Y),
+set_speed([#userdata{d=U},X,Y], State) when is_number(X), is_number(Y) ->
+    unit:set_speed(U, X, Y),
     {[],State};
 set_speed(As, State) -> badarg_error(set_speed, As, State).
 
-zap([#userdata{d=S}], State) ->
-    unit:zap(S),
+zap([#userdata{d=U}], State) ->
+    unit:zap(U),
     {[],State};
 zap(As, State) -> badarg_error(zap, As, State).
 
-set_unit([#userdata{d=S},Name], State) ->
-    unit:set_unit(S, Name),
+set_unit([#userdata{d=U},Name], State) ->
+    unit:set_unit(U, Name),
     {[],State};
 set_unit(As, State) -> badarg_error(set_unit, As, State).
 
-do([#userdata{d=S},Command], State) ->
-    {ok,Rs} = unit:lua_do(S, binary_to_list(Command)),
-    {Rs,State};
+do([#userdata{d=U},Command], State) ->
+    {ok,Result} = unit:lua_do(U, binary_to_list(Command)),
+    {Result,State};
 do(As, State) -> badarg_error(do, As, State).
 
-gc([#userdata{d=S}], State) ->
-    unit:gc(S),
+gc([#userdata{d=U}], State) ->
+    unit:gc(U),
     {[],State};
 gc(As, State) -> badarg_error(gc, As, State).

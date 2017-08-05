@@ -59,8 +59,8 @@ init({Xsize,Ysize,N}) ->
     %% Get the Lua state
     State = init_lua(),
     lists:foreach(fun (I) ->
-              {ok,S} = start_unit(I, Xsize, Ysize, State),
-              ets:insert(Array, {I,S})
+              {ok,U} = start_unit(I, Xsize, Ysize, State),
+              ets:insert(Array, {I,U})
           end, lists:seq(1, N)),
     {ok,#state{xsize=Xsize,ysize=Ysize,n=N,array=Array,state=State}}.
 
@@ -93,39 +93,39 @@ start_unit(I, Xsize, Ysize, State) ->
     %% Spread out the units over the whole space.
     X = random:uniform(Xsize) - 1,
     Y = random:uniform(Ysize) - 1,
-    {ok,S} = unit:start_link(X, Y, State),
+    {ok,U} = unit:start_link(X, Y, State),
     %% Random speeds from -0.25 to 0.25 sectors per tick (very fast).
     Dx = 2.5*random:uniform() - 1.25,
     Dy = 2.5*random:uniform() - 1.25,
-    unit:set_speed(S, Dx, Dy),
+    unit:set_speed(U, Dx, Dy),
     zmq:socket("Que", "Mae"),
-    {ok,S}.
+    {ok,U}.
 
 terminate(_, #state{}) -> ok.
 
 handle_call({start_run,Tick}, _, #state{array=Array}=State) ->
     %% We don't need the Acc here, but there is no foreach.
-    Start = fun ({_,S}, Acc) -> unit:set_tick(S, Tick), Acc end,
+    Start = fun ({_,U}, Acc) -> unit:set_tick(U, Tick), Acc end,
     ets:foldl(Start, ok, Array),
     {reply,ok,State#state{tick=Tick}};
 handle_call(stop_run, _, #state{array=Array}=State) ->
     %% We don't need the Acc here, but there is no foreach.
-    Stop = fun ({_,S}, Acc) -> unit:set_tick(S, infinity), Acc end,
+    Stop = fun ({_,U}, Acc) -> unit:set_tick(U, infinity), Acc end,
     ets:foldl(Stop, ok, Array),
     {reply,ok,State#state{tick=infinity}};
 handle_call({get_unit,I}, _, #state{array=Array}=State) ->
     case ets:lookup(Array, I) of
     [] -> {reply,error,State};
-    [{I,S}] -> {reply,{ok,S},State}
+    [{I,U}] -> {reply,{ok,U},State}
     end;
 handle_call(stop, _, State) ->
     %% Do everything in terminate.
     {stop,normal,ok,State}.
 
-handle_info({'EXIT',S,E}, #state{array=Array}=State) ->
-    io:format("Jungle process ~p has died: ~p\n", [S,E]),
+handle_info({'EXIT',U,E}, #state{array=Array}=State) ->
+    io:format("Jungle process ~p has died: ~p\n", [U,E]),
     %% Remove the unit
-    ets:match_delete(Array, {'_',S}),
+    ets:match_delete(Array, {'_',U}),
     {noreply,State};
 handle_info(_, State) -> {noreply,State}.
 

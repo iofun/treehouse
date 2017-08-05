@@ -48,9 +48,9 @@ sector(As, State) -> badarg_error(sector, As, State).
 
 get_sector([X,Y], State) when is_number(X), is_number(Y) ->
     %% list_to_binary(pid_to_list(S))
-    Ss = lists:map(fun({_,S}) -> #userdata{d=S} end,
+    Su = lists:map(fun({_,U}) -> #userdata{d=U} end,
            region:get_sector(X, Y)),
-    {Ss,State};
+    {Su,State};
 get_sector(As, State) -> badarg_error(get_sector, As, State).
 
 add_sector([X,Y], State) when is_number(X), is_number(Y) ->
@@ -63,13 +63,13 @@ rem_sector([X,Y], State) when is_number(X), is_number(Y) ->
     {[],State};
 rem_sector(As, State) -> badarg_error(rem_sector, As, State).
 
-find_unit([#userdata{d=S}], State) ->
-    Sec = region:find_unit(S),
+find_unit([#userdata{d=U}], State) ->
+    Sec = region:find_unit(U),
     {[Sec],State};
 find_unit(As, State) -> badarg_error(find_unit, As, State).
 
-del_unit([#userdata{d=S}], State) ->
-    region:del_unit(S),
+del_unit([#userdata{d=U}], State) ->
+    region:del_unit(U),
     {[],State};
 del_unit([], State) ->
     region:del_unit(),
