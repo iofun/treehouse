@@ -3,13 +3,13 @@
 -export([start/0,start_link/0]).
 -export([init/0]).
 
--export([socket/2,      %Lua commands
-         connect/1,
-         disconnect/1,
-         bind/1,
-         unbind/1,
-         send/2,
-         recv/1,
+-export([socket/3,      %Lua commands
+         connect/2,
+         disconnect/2,
+         bind/3,
+         unbind/3,
+         send/3,
+         recv/2,
          version/0]).
 
 %% Server state.
@@ -32,20 +32,20 @@ socket(Unit, SocketType, SocketOptions) ->
 connect(Unit, Address) ->
     call(Unit, {connect,Address}).
 
-disconnect(Address) ->
-    call({disconnect,Address}).
+disconnect(Unit, Address) ->
+    call(Unit, {disconnect,Address}).
 
-bind(Address) ->
-    call({bind,Address}).
+bind(Unit, Address) ->
+    call(Unit, {bind,Address}).
 
-unbind(Address) ->
-    call({unbind,Address}).
+unbind(Unit, Address) ->
+    call(Unit, {unbind,Address}).
 
-send(Message,Flags) ->
-    call({send,Message,Flags}).
+send(Unit, Message,Flags) ->
+    call(Unit, {send,Message,Flags}).
 
-recv(Flags) ->
-    call({recv,Flags}).
+recv(Unit, Flags) ->
+    call(Unit, {recv,Flags}).
 
 version() ->
     [{version,X,Y,Z}] = ets:lookup(zmq, version),
