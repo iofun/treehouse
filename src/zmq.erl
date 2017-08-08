@@ -61,6 +61,11 @@ cast(Message) ->
 
 call(Message) ->
     U = whereis(zmq),
+
+
+    io:format("message ~p\n",[Message]),
+
+
     U ! {call,self(),Message},
     receive
     {reply,U,Rep} -> Rep
