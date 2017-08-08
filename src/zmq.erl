@@ -92,7 +92,6 @@ loop(State) ->
     {call,From,{socket,SocketType,SocketOptions}} ->
         %% socket SocketType, SocketOptions, What
         io:format("socket ~p type option ~p \n", [SocketType, SocketOptions]),
-        lager:warning("socket SocketType ~p, SocketOptions ~p \n", [SocketType, SocketOptions]),
         reply(From, ok),
         loop(State);
     {call,From,{connect,Address}} ->
