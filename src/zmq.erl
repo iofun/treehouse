@@ -6,8 +6,8 @@
 -export([socket/2,      %Lua commands
          connect/1,
          disconnect/1,
-         bind/2,
-         unbind/2,
+         bind/1,
+         unbind/1,
          send/2,
          recv/1,
          version/0]).
