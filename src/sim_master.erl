@@ -53,7 +53,7 @@ init({Xsize,Ysize,N}) ->
     process_flag(trap_exit, true),
     %% Start the region
     {ok,_} = region:start_link(Xsize, Ysize),
-    %% Start ZMQ
+    %% Start ZMQ interface
     {ok,_} = zmq:start_link(),
     %% Seed the RNG
     random:seed(now()),
