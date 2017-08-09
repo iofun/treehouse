@@ -84,9 +84,10 @@ load(Key, Module, State0) ->
 
 start_unit(I, Xsize, Ysize, State) ->
     if I rem 8 =:= 0 ->
-        io:format("Jungle process ~p type node\n",[I]);
+        io:format("spqr process ~p type node\n",[I]),
+        io:format("spqr process ~p type node\n",[I]);
        I rem 1 =:= 0 ->
-        io:format("Jungle process ~p type unit\n",[I])
+        io:format("spqr process ~p type unit\n",[I])
     end,
     %% Spread out the units over the whole space.
     X = random:uniform(Xsize) - 1,
@@ -123,7 +124,7 @@ handle_call(stop, _, State) ->
     {stop,normal,ok,State}.
 
 handle_info({'EXIT',U,E}, #state{array=Array}=State) ->
-    io:format("Jungle process ~p has died: ~p\n", [U,E]),
+    io:format("process ~p has died: ~p\n", [U,E]),
     %% Remove the unit
     ets:match_delete(Array, {'_',U}),
     {noreply,State};
