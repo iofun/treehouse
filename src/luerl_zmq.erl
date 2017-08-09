@@ -28,7 +28,7 @@ table() ->
 socket(Type, State) ->
     zmq:socket(Type),
     {[],State};
-socket(As, State) -> badarg_error(socket, As, State).
+%%socket(As, State) -> badarg_error(socket, As, State).
 
 bind(Option, State) ->
     io:format("bind socket ~p option\n", [Option]),
