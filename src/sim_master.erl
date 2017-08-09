@@ -98,6 +98,7 @@ start_unit(I, Xsize, Ysize, State) ->
     unit:set_speed(U, Dx, Dy),
     zmq:socket("Que", "Mae"),
     zmq:socket("PUB"),
+    zmq:version(),
     {ok,U}.
 
 terminate(_, #state{}) -> ok.

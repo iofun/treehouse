@@ -19,8 +19,6 @@ install(State) ->
 
 table() ->
     [{<<"socket">>,{function,fun socket/2}},
-     {<<"connect">>,{function,fun connect/2}},
-     {<<"disconnect">>,{function,fun disconnect/2}},
      {<<"bind">>,{function,fun bind/2}},
      {<<"unbind">>,{function,fun unbind/2}},
      {<<"send">>,{function,fun send/2}},
@@ -28,20 +26,9 @@ table() ->
     ].
 
 socket(Type, State) ->
-    SocketOption = "lol",
-    zmq:socket(Type, SocketOption),
-    io:format("socket ~p type option ~p\n", [Type, SocketOption]),
-    lager:warning("Yo this socket type ~p option here ~p \n", [Type, SocketOption]),
+    zmq:socket(Type),
     {[],State};
 socket(As, State) -> badarg_error(socket, As, State).
-
-connect(Option, State) ->
-    io:format("connect socket ~p option\n", [Option]),
-    {[],State}.
-
-disconnect(Option, State) ->
-    io:format("disconnect socket ~p option\n", [Option]),
-    {[],State}.
 
 bind(Option, State) ->
     io:format("bind socket ~p option\n", [Option]),

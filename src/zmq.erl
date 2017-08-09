@@ -5,8 +5,6 @@
 
 -export([socket/1,      %Lua commands
          socket/2,
-         connect/1,
-         disconnect/1,
          bind/1,
          unbind/1,
          send/2,
@@ -24,19 +22,11 @@ start_link() ->
     proc_lib:start_link(?MODULE, init, []).
 
 %% User API.
-socket(SocketType, SocketOptions) ->
-    io:format("socket options ~p ~p \n", [SocketType, SocketOptions]),
-    call({socket,SocketType,SocketOptions}).
-
 socket(SocketType) ->
-      io:format("socket type ~p \n", [SocketType]),
       call({socket,SocketType}).
 
-connect(Address) ->
-    call({connect,Address}).
-
-disconnect(Address) ->
-    call({disconnect,Address}).
+socket(SocketType, SocketOptions) ->
+    call({socket,SocketType,SocketOptions}).
 
 bind(Address) ->
     call({bind,Address}).
@@ -85,23 +75,11 @@ init() ->
 loop(State) ->
     receive
     {call,From,{socket,SocketType}} ->
-        %% socket SocketType, What
         io:format("socket ~p type \n", [SocketType]),
         reply(From, ok),
         loop(State);
     {call,From,{socket,SocketType,SocketOptions}} ->
-        %% socket SocketType, SocketOptions, What
         io:format("socket ~p type option ~p \n", [SocketType, SocketOptions]),
-        reply(From, ok),
-        loop(State);
-    {call,From,{connect,Address}} ->
-        %% connect Address
-        lager:warning("connect Address ~p \n", [Address]),
-        reply(From, ok),
-        loop(State);
-    {call,From,{disconnect,Address}} ->
-        %% disconnect Address
-        lager:warning("disconnect Address ~p \n", [Address]),
         reply(From, ok),
         loop(State);
     {call,From,{bind,Address}} ->
