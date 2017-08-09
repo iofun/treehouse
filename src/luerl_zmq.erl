@@ -27,7 +27,7 @@ table() ->
 
 socket(Type, State) ->
     zmq:socket(Type),
-    {[],State};
+    {[],State}.
 %%socket(As, State) -> badarg_error(socket, As, State).
 
 bind(Option, State) ->
