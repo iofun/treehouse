@@ -84,10 +84,10 @@ load(Key, Module, State0) ->
 
 start_unit(I, Xsize, Ysize, State) ->
     if I rem 8 =:= 0 ->
-        zmq:socket("PUB"),
+        zmq:socket("SUB"),
         io:format("spqr process ~p type node\n",[I]);
        I rem 1 =:= 0 ->
-        zmq:socket("SUB"),
+        zmq:socket("PUB"),
         io:format("spqr process ~p type unit\n",[I])
     end,
     %% Spread out the units over the whole space.
