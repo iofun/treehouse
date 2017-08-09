@@ -53,6 +53,8 @@ init({Xsize,Ysize,N}) ->
     process_flag(trap_exit, true),
     %% Start the region
     {ok,_} = region:start_link(Xsize, Ysize),
+    %% Start ZMQ
+    {ok,_} = zmq:start_link(),
     %% Seed the RNG
     random:seed(now()),
     Array = ets:new(sim_unit_array, [named_table,protected]),
