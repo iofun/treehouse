@@ -66,7 +66,7 @@ init() ->
     register(zmq, self()),
     %% Create the zmq interface.
     ets:new(zmq, [named_table,duplicate_bag,protected]),
-    ets:insert(zmq, {version,0,1,0}),
+    ets:insert(zmq, {version,0,2,0}),
     State = #state{},
     proc_lib:init_ack({ok,self()}),
     loop(State).
@@ -84,22 +84,18 @@ loop(State) ->
         loop(State);
     {call,From,{bind,Address}} ->
         %% bind Address
-        lager:warning("bind Address ~p \n", [Address]),
         reply(From, ok),
         loop(State);
     {call,From,{unbind,Address}} ->
         %% unbind Address
-        lager:warning("unbind Address ~p \n", [Address]),
         reply(From, ok),
         loop(State);
     {call,From,{send,Message,Flags,What}} ->
         %% send Message, Flags, What
-        lager:warning("send Message ~p, Flags ~p, What ~p \n", [Message, Flags, What]),
         reply(From, ok),
         loop(State);
     {call,From,{recv,Flags,What}} ->
         %% recv Flags, What
-        lager:warning("recv Flags ~p, What ~p \n", [Flags, What]),
         reply(From, ok),
         loop(State)
     end.
