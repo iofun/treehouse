@@ -3,7 +3,8 @@
 -export([start/0,start_link/0]).
 -export([init/0]).
 
--export([socket/2,      %Lua commands
+-export([socket/1,      %Lua commands
+         socket/2,
          connect/1,
          disconnect/1,
          bind/1,
@@ -16,7 +17,6 @@
 -record(state, {}).
 
 %% Management API.
-
 start() ->
     proc_lib:start(?MODULE, init, []).
 
@@ -24,10 +24,13 @@ start_link() ->
     proc_lib:start_link(?MODULE, init, []).
 
 %% User API.
-
 socket(SocketType, SocketOptions) ->
     io:format("socket options ~p ~p \n", [SocketType, SocketOptions]),
     call({socket,SocketType,SocketOptions}).
+
+socket(SocketType) ->
+      io:format("socket type ~p \n", [SocketType]),
+      call({socket,SocketType}).
 
 connect(Address) ->
     call({connect,Address}).
@@ -54,16 +57,12 @@ version() ->
     {X,Y,Z}.
 
 %% Internal protocol functions.
-
 cast(Message) ->
     zmq ! {cast,self(),Message},
     ok.
 
 call(Message) ->
     U = whereis(zmq),
-
-    io:format("message ~p\n",[Message]),
-
     U ! {call,self(),Message},
     receive
     {reply,U,Rep} -> Rep
@@ -73,7 +72,6 @@ reply(To, Rep) ->
     To ! {reply,self(),Rep}.
 
 %% Initialise it all.
-
 init() ->
     register(zmq, self()),
     %% Create the zmq interface.
@@ -84,9 +82,13 @@ init() ->
     loop(State).
 
 %% Main loop.
-
 loop(State) ->
     receive
+    {call,From,{socket,SocketType}} ->
+        %% socket SocketType, What
+        io:format("socket ~p type \n", [SocketType]),
+        reply(From, ok),
+        loop(State);
     {call,From,{socket,SocketType,SocketOptions}} ->
         %% socket SocketType, SocketOptions, What
         io:format("socket ~p type option ~p \n", [SocketType, SocketOptions]),

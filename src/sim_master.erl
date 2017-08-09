@@ -17,7 +17,6 @@
 -record(state, {xsize,ysize,n,array,tick=infinity,state}).
 
 %% Management API.
-
 start(Xsize, Ysize, N) ->
     gen_server:start({local,sim_master}, ?MODULE, {Xsize,Ysize,N}, []).
 
@@ -28,7 +27,6 @@ stop(Pid) ->
     gen_server:call(Pid, stop).
 
 %% User API.
-
 start_run(Tick) ->
     gen_server:call(sim_master, {start_run,Tick}).
 
@@ -48,7 +46,6 @@ get_unit(Sim, I) ->
     gen_server:call(Sim, {get_unit,I}).
 
 %% Behaviour callbacks.
-
 init({Xsize,Ysize,N}) ->
     process_flag(trap_exit, true),
     %% Start the region
@@ -68,7 +65,6 @@ init({Xsize,Ysize,N}) ->
 
 %% init_lua() -> LuaState.
 %% Initialise a LuaState to be used for each unit process.
-
 init_lua() ->
     L0 = luerl:init(),
     L1 = lists:foldl(fun({Name,Mod}, L) -> load([Name], Mod, L) end, L0,
@@ -101,6 +97,7 @@ start_unit(I, Xsize, Ysize, State) ->
     Dy = 2.5*random:uniform() - 1.25,
     unit:set_speed(U, Dx, Dy),
     zmq:socket("Que", "Mae"),
+    zmq:socket("PUB"),
     {ok,U}.
 
 terminate(_, #state{}) -> ok.
