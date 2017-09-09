@@ -12,9 +12,7 @@ start(_Type, _Args) ->
     Port = econfig:get_integer(forest, "engine", "port"),
     Dispatch = cowboy_router:compile([
         {'_', [
-            {"/units/", units_handler, []},
-            {"/schemes/", schemes_handler, []},
-            {"/structures/", structures_handler, []}  
+            {"/units/", units_handler, []}
         ]}
     ]),
     {ok, _} = cowboy:start_clear(http_listener,
