@@ -41,9 +41,9 @@ class UnitMap(object):
         self.map.registers['ranking'].assign(struct.get('ranking', ''))
         self.map.registers['created_by'].assign(struct.get('created_by', ''))
         self.map.registers['created_at'].assign(struct.get('created_at', ''))
-        self.map.registers['updated_by'].assign(struct.get('updated_by', ''))
-        self.map.registers['updated_at'].assign(struct.get('updated_at', ''))
-        self.map.registers['change_history'].assign(struct.get('change_history', ''))
+        self.map.registers['last_update_by'].assign(struct.get('last_update_by', ''))
+        self.map.registers['last_update_at'].assign(struct.get('last_update_at', ''))
+        self.map.registers['history'].assign(struct.get('history', ''))
         self.map.registers['labels'].assign(struct.get('labels', ''))
         self.map.registers['status'].assign(struct.get('status', ''))
         self.map.registers['resource_uuid'].assign(struct.get('resource_uuid', ''))
@@ -69,9 +69,9 @@ class UnitMap(object):
             "ranking":event.registers['ranking'].value,
             "created_by":event.registers['created_by'].value,
             "created_at":event.registers['created_at'].value,
-            "updated_by":event.registers['updated_by'].value,
-            "updated_at":event.registers['updated_at'].value,
-            "change_history":event.registers['change_history'].value,
+            "last_update_by":event.registers['last_update_by'].value,
+            "last_update_at":event.registers['last_update_at'].value,
+            "history":event.registers['history'].value,
             "labels":event.registers['labels'].value,
             "status":event.registers['status'].value,
             "resource_uuid":event.registers['resource_uuid'].value,
@@ -90,9 +90,9 @@ class UnitMap(object):
             "ranking":event.registers['ranking'].value,
             "created_by":event.registers['created_by'].value,
             "created_at":event.registers['created_at'].value,
-            "updated_by":event.registers['updated_by'].value,
-            "updated_at":event.registers['updated_at'].value,
-            "change_history":event.registers['change_history'].value,
+            "last_update_by":event.registers['last_update_by'].value,
+            "last_update_at":event.registers['last_update_at'].value,
+            "history":event.registers['history'].value,
             "labels":event.registers['labels'].value,
             "status":event.registers['status'].value,
             "resource_uuid":event.registers['resource_uuid'].value,

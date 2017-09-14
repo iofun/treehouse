@@ -305,7 +305,7 @@ class Unit(object):
                 "created_at": str(event.get('created_at', '')),
                 "updated_by": str(event.get('updated_by', '')),
                 "updated_at": str(event.get('updated_at', '')),
-                "change_history": str(event.get('change_history', '')),
+                "history": str(event.get('history', '')),
                 "labels": str(event.get('labels', '')),
                 "status": str(event.get('status', '')),
                 "resource_uuid": str(event.get('resource_uuid', '')),
@@ -384,7 +384,7 @@ class Unit(object):
             Remove unit
         '''
         
-        # missing change_history
+        # missing history
         struct = {}
 
         struct['status'] = 'deleted'

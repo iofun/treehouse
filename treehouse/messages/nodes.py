@@ -35,8 +35,8 @@ class Node(models.Model):
     checked = types.BooleanType(default=False)
     checked_by = types.StringType()
     created_at = types.StringType()
-    updated_by = types.StringType()
-    updated_at = types.StringType()
+    last_update_by = types.StringType()
+    last_update_at = types.StringType()
     url = types.StringType()
 
 
@@ -66,6 +66,6 @@ class ModifyNode(models.Model):
     checked = types.BooleanType()
     checked_by = types.StringType()
     created_at = types.StringType()
-    updated_by = types.StringType()
-    updated_at = types.StringType()
+    last_update_by = types.StringType()
+    last_update_at = types.StringType()
     url = types.StringType()
