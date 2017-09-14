@@ -85,10 +85,10 @@ load(Key, Module, State0) ->
 start_unit(I, Xsize, Ysize, State) ->
     if I rem 8 =:= 0 ->
         zmq:socket("SUB"),
-        io:format("spqr process ~p type node\n",[I]);
+        io:format("SHA/OS process ~p type node\n",[I]);
        I rem 1 =:= 0 ->
         zmq:socket("PUB"),
-        io:format("spqr process ~p type unit\n",[I])
+        io:format("SHA/OS process ~p type unit\n",[I])
     end,
     %% Spread out the units over the whole space.
     X = random:uniform(Xsize) - 1,
