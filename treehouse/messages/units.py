@@ -37,6 +37,8 @@ class Unit(models.Model):
     history = compound.ListType(types.StringType())
     labels = compound.ListType(types.StringType())
     status = types.StringType()
+    uri = types.StringType()
+
 
 
 class ModifyUnit(models.Model):
@@ -67,3 +69,4 @@ class ModifyUnit(models.Model):
     labels = compound.ListType(types.StringType())
     status = types.StringType()
     resource_uuid = types.StringType()
+    uri = types.StringType()

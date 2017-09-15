@@ -309,6 +309,7 @@ class Unit(object):
                 "labels": str(event.get('labels', '')),
                 "status": str(event.get('status', '')),
                 "resource_uuid": str(event.get('resource_uuid', '')),
+                "uri":str(event.get('uri', '')),
             }
             result = UnitMap(
                 self.kvalue,
