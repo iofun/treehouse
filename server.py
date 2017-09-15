@@ -85,7 +85,7 @@ from tornado.ioloop import PeriodicCallback as Cast
 from tornado import gen, web
 from tornado import httpclient
 from treehouse.tools import options, periodic, new_resource
-from treehouse.handlers import nodes
+from treehouse.handlers import nodes, units
 from zmq.eventloop import ioloop
 
 # ioloop
@@ -211,6 +211,9 @@ def main():
             # Nodes resource
             (r'/nodes/(?P<node_uuid>.+)/?', nodes.Handler),
             (r'/nodes/?', nodes.Handler),
+            # Nodes resource
+            (r'/units/(?P<unit_uuid>.+)/?', units.Handler),
+            (r'/units/?', nodes.Handler),
         ],
         # system cache
         cache=cache,
