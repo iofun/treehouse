@@ -211,7 +211,7 @@ def main():
             # Nodes resource
             (r'/nodes/(?P<node_uuid>.+)/?', nodes.Handler),
             (r'/nodes/?', nodes.Handler),
-            # Nodes resource
+            # Units resource
             (r'/units/(?P<unit_uuid>.+)/?', units.Handler),
             (r'/units/?', nodes.Handler),
         ],
