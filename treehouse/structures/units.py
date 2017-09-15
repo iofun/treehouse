@@ -34,19 +34,23 @@ class UnitMap(object):
         self.map = Map(bucket, None)
         self.map.registers['uuid'].assign(struct.get('uuid', ''))
         self.map.registers['account'].assign(struct.get('account', ''))
-        self.map.registers['source'].assign(struct.get('source', ''))
-        self.map.registers['comment'].assign(struct.get('comment', ''))
-        self.map.registers['resource'].assign(struct.get('resource', ''))
-        self.map.registers['sentiment'].assign(struct.get('sentiment', ''))
-        self.map.registers['ranking'].assign(struct.get('ranking', ''))
-        self.map.registers['created_by'].assign(struct.get('created_by', ''))
-        self.map.registers['created_at'].assign(struct.get('created_at', ''))
-        self.map.registers['last_update_by'].assign(struct.get('last_update_by', ''))
-        self.map.registers['last_update_at'].assign(struct.get('last_update_at', ''))
-        self.map.registers['history'].assign(struct.get('history', ''))
-        self.map.registers['labels'].assign(struct.get('labels', ''))
+        self.map.registers['hashs'].assign(struct.get('hashs', ''))
+        self.map.registers['name'].assign(struct.get('name', ''))
+        self.map.registers['style'].assign(struct.get('style', ''))
+        self.map.registers['description'].assign(struct.get('description', ''))
+        self.map.registers['payload'].assign(struct.get('payload', ''))
         self.map.registers['status'].assign(struct.get('status', ''))
-        self.map.registers['resource_uuid'].assign(struct.get('resource_uuid', ''))
+        self.map.registers['labels'].assign(struct.get('labels', ''))
+        self.map.registers['public'].assign(struct.get('public', ''))
+        self.map.registers['checked'].assign(struct.get('checked', ''))
+        self.map.registers['checked_by'].assign(struct.get('checked_by', ''))
+        self.map.registers['checked_at'].assign(struct.get('checked_at', ''))
+        self.map.registers['last_update_at'].assign(struct.get('last_update_at', ''))
+        self.map.registers['last_update_by'].assign(struct.get('last_update_by', ''))
+        self.map.registers['history'].assign(struct.get('history', ''))
+        self.map.registers['uri'].assign(struct.get('uri', ''))
+        self.map.registers['region'].assign(struct.get('region', ''))
+        self.map.registers['ranking'].assign(struct.get('ranking', ''))
         self.map.store()
 
     @property
@@ -60,41 +64,49 @@ class UnitMap(object):
     def to_json(self):
         event = self.map.reload()
         struct = {
-            "uuid":event.registers['uuid'].value,
-            "account":event.registers['account'].value,
-            "source":event.registers['source'].value,
-            "comment":event.registers['comment'].value,
-            "resource":event.registers['resource'].value,
-            "sentiment":event.registers['sentiment'].value,
-            "ranking":event.registers['ranking'].value,
-            "created_by":event.registers['created_by'].value,
-            "created_at":event.registers['created_at'].value,
-            "last_update_by":event.registers['last_update_by'].value,
-            "last_update_at":event.registers['last_update_at'].value,
-            "history":event.registers['history'].value,
-            "labels":event.registers['labels'].value,
-            "status":event.registers['status'].value,
-            "resource_uuid":event.registers['resource_uuid'].value,
+        "uuid":event.registers['uuid'].value,
+        "account":event.registers['account'].value,
+        "hashs":event.registers['hashs'].value,
+        "name":event.registers['name'].value,
+        "style":event.registers['style'].value,
+        "description":event.registers['description'].value,
+        "payload":event.registers['payload'].value,
+        "status":event.registers['status'].value,
+        "labels":event.registers['labels'].value,
+        "public":event.registers['public'].value,
+        "checked":event.registers['checked'].value,
+        "checked_by":event.registers['checked_by'].value,
+        "checked_at":event.registers['checked_at'].value,
+        "last_update_at":event.registers['last_update_at'].value,
+        "last_update_by":event.registers['last_update_by'].value,
+        "history":event.registers['history'].value,
+        "uri":event.registers['uri'].value,
+        "region":event.registers['region'].value,
+        "ranking":event.registers['ranking'].value,
         }
         return json.dumps(struct)
 
     def to_dict(self):
         event = self.map.reload()
         struct = {
-            "uuid":event.registers['uuid'].value,
-            "account":event.registers['account'].value,
-            "source":event.registers['source'].value,
-            "comment":event.registers['comment'].value,
-            "resource":event.registers['resource'].value,
-            "sentiment":event.registers['sentiment'].value,
-            "ranking":event.registers['ranking'].value,
-            "created_by":event.registers['created_by'].value,
-            "created_at":event.registers['created_at'].value,
-            "last_update_by":event.registers['last_update_by'].value,
-            "last_update_at":event.registers['last_update_at'].value,
-            "history":event.registers['history'].value,
-            "labels":event.registers['labels'].value,
-            "status":event.registers['status'].value,
-            "resource_uuid":event.registers['resource_uuid'].value,
+        "uuid":event.registers['uuid'].value,
+        "account":event.registers['account'].value,
+        "hashs":event.registers['hashs'].value,
+        "name":event.registers['name'].value,
+        "style":event.registers['style'].value,
+        "description":event.registers['description'].value,
+        "payload":event.registers['payload'].value,
+        "status":event.registers['status'].value,
+        "labels":event.registers['labels'].value,
+        "public":event.registers['public'].value,
+        "checked":event.registers['checked'].value,
+        "checked_by":event.registers['checked_by'].value,
+        "checked_at":event.registers['checked_at'].value,
+        "last_update_at":event.registers['last_update_at'].value,
+        "last_update_by":event.registers['last_update_by'].value,
+        "history":event.registers['history'].value,
+        "uri":event.registers['uri'].value,
+        "region":event.registers['region'].value,
+        "ranking":event.registers['ranking'].value,
         }
         return struct
