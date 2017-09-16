@@ -35,6 +35,12 @@ cast(Message) ->
 init() ->
     {ok, Socket} = chumak:socket(sub),
     %% List of topics, put them in a list or something.
+    %%
+    %% yo, yo, yo, yo! lol
+    %% da fuq is this shit? where is the fucking proxy? are u insane?
+    %% did the fucking guide did not teach you shit????? lol
+    %%
+    %%
     Topic = <<" ">>,
     Heartbeat = <<"heartbeat">>,
     Telephony = <<"telephony">>,
