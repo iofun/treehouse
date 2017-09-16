@@ -31,3 +31,16 @@ while true do
   -- process sleep
   sys.sleep(0.500)
 end
+
+--------------------------------------- OLD NEW FORMAT
+local zmq = require"zmq"
+
+local context = zmq.init()
+local subscriber = context:socket(zmq.SUB)
+subscriber:setopt(zmq.SUBSCRIBE, "")
+subscriber:connect("tcp://localhost:5555")
+while true do
+  local message = subscriber:recv()
+  local message_id = tonumber(message)
+  if math.mod(message_id, 10000) == 0 then print(message_id) end
+end
