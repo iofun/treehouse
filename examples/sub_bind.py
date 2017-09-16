@@ -5,7 +5,10 @@ import logging, uuid, zmq
 from zmq.eventloop import ioloop
 from zmq.eventloop.future import Context, Poller
 
+
+# this is cool and all but why the fuck are we importing a fucking http client in all the examples?
 from tornado import httpclient as _http_client
+
 from tornado import gen
 import ujson as json
 
