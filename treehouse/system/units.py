@@ -282,7 +282,7 @@ class Unit(object):
         search_index = 'treehouse_unit_index'
         # on the riak database with riak-admin bucket-type create `bucket_type`
         # remember to activate it with riak-admin bucket-type activate
-        bucket_type = 'treehouse_units'
+        bucket_type = 'treehouse_unit'
         # the bucket name can be dynamic
         bucket_name = 'units'
         try:
