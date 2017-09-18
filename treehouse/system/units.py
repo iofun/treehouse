@@ -90,7 +90,7 @@ class Unit(object):
         '''
             Get unique list from Solr
         '''
-        search_index = 'treehouse_units_index'
+        search_index = 'treehouse_unit_index'
         query = 'uuid_register:*'
         filter_query = 'uuid_register:*'
         unique_list = []
@@ -190,7 +190,7 @@ class Unit(object):
         '''
             Get unit
         '''
-        search_index = 'treehouse_units_index'
+        search_index = 'treehouse_unit_index'
         query = 'uuid_register:{0}'.format(unit_uuid)
         filter_query = 'account_register:{0}'.format(account)
         # url building
@@ -235,7 +235,7 @@ class Unit(object):
         '''
             Get unit list
         '''
-        search_index = 'treehouse_units_index'
+        search_index = 'treehouse_unit_index'
         query = 'uuid_register:*'
         filter_query = 'account_register:{0}'.format(account)
         # shit required on pagination of results
@@ -279,7 +279,7 @@ class Unit(object):
             New query event
         '''
         # currently we are changing this in two steps, first create de index with a structure file
-        search_index = 'treehouse_units_index'
+        search_index = 'treehouse_unit_index'
         # on the riak database with riak-admin bucket-type create `bucket_type`
         # remember to activate it with riak-admin bucket-type activate
         bucket_type = 'treehouse_units'
@@ -333,7 +333,7 @@ class Unit(object):
             Modify query
         '''
         # riak search index
-        search_index = 'treehouse_units_index'
+        search_index = 'treehouse_unit_index'
         # riak bucket type
         bucket_type = 'treehouse_units'
         # riak bucket name
