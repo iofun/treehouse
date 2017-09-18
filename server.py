@@ -101,9 +101,14 @@ def main():
     system_uuid = uuid.uuid4()
     # Set treehouse OTP release
     erlang_release = opts.erlang_release
-    # checks for active Erlang/OTP treehouse node
+    
     @gen.coroutine
-    def check_tree():
+    def check_treehouse_erlang_node():
+        '''
+            Checks for active Erlang/OTP treehouse node
+
+            YO: move this coroutine to tools/__init__.py ???
+        '''
         os.environ['HOME'] = '/opt/treehouse/'
         process = Popen([erlang_release, "ping", "."], stdout=PIPE)
         (output, err) = process.communicate()
@@ -129,49 +134,7 @@ def main():
                 circus = Popen(["/etc/init.d/circusd", "stop", "."], stdout=PIPE)
                 (output, err) = circus.communicate()
                 logging.error('we crash circusd after trying {0} times!'.format(max_count))
-    # check system indexes
-    @gen.coroutine
-    def check_indexes():
-        '''
-            Check yokozuna solr indexes and
     
-            Automatically generate SOLR indexes
-        '''
-        def handle_response(response):
-            '''
-                Handle response
-            '''
-            if response.error:
-                logging.error(response.error)
-            else:
-                logging.info(response.body)
-
-        # -- yo, yo, yo!
-        # get this list from pillar or some shit, like from regular configuration files, you know.
-        # that or use messaging and ets super powers, you have your options.
-    
-        current = [
-            'mango_account',
-            'mango_task',
-            'howler_contact',
-            'grape_task',
-            'grape_lead',
-            'cas_email',
-            'cas_sms',
-            'cas_secret',
-            'cas_query'
-        ]
-        # process the current list of indexes
-        for i in current:
-            # for index in current system
-            http_client = httpclient.AsyncHTTPClient()
-            http_client.fetch(
-                'https://api.nonsense.ws/indexes/', 
-                headers={"Content-Type": "application/json"},
-                method='POST',
-                body=json.dumps({'name': i, 'index_type': i}),
-                callback=handle_response
-            )
     # Set memcached backend
     cache = mc.Client(
         [opts.memcached_host],
@@ -233,10 +196,8 @@ def main():
         solr=opts.solr,
     )
     # Periodic Cast Functions
-    check_node_tree = Cast(check_tree, 5000)
+    check_node_tree = Cast(check_treehouse_erlang_node, 5000)
     check_node_tree.start()
-    check_node_indexes = Cast(check_indexes, 180000)
-    check_node_indexes.start()
     # Setting up daemon process
     application.listen(opts.port)
     logging.info('Listening on http://%s:%s' % (opts.host, opts.port))
