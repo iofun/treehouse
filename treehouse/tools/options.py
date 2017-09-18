@@ -40,7 +40,7 @@ def options():
         default='iofun.io', type=str,
         help=('Application domain, e.g. "example.com"'))
     # Erlang/OTP release
-    tornado.options.define('otp_rel', 
+    tornado.options.define('erlang_release', 
         default='/opt/treehouse/_rel/treehouse_release/bin/treehouse_release',
         type=str, help=('Erlang/OTP release'))
     # Server settings
