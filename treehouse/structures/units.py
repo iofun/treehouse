@@ -41,7 +41,7 @@ class UnitMap(object):
         self.map.registers['payload'].assign(struct.get('payload', ''))
         self.map.registers['status'].assign(struct.get('status', ''))
         self.map.sets['labels'].add(struct.get('labels', ''))
-        self.map.counters['total_labels'].increment(len(struct.get('labels',[])))
+        self.map.counters['total_labels'].increment(len(struct.get('total_labels',[])))
         self.map.registers['public'].assign(struct.get('public', ''))
         self.map.registers['checked'].assign(struct.get('checked', ''))
         self.map.registers['checked_by'].assign(struct.get('checked_by', ''))
@@ -84,6 +84,7 @@ class UnitMap(object):
         "uri":event.registers['uri'].value,
         "region":event.registers['region'].value,
         "ranking":event.registers['ranking'].value,
+        "total_labels":event.registers['total_labels'].value,
         }
         return json.dumps(struct)
 
@@ -109,5 +110,6 @@ class UnitMap(object):
         "uri":event.registers['uri'].value,
         "region":event.registers['region'].value,
         "ranking":event.registers['ranking'].value,
+        "total_labels":event.registers['total_labels'].value,
         }
         return struct

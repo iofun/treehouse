@@ -41,6 +41,7 @@ class Unit(models.Model):
     uri = types.StringType()
     region = types.StringType()
     ranking = types.StringType()
+    total_labels = compound.ListType(types.StringType())
 
 class ModifyUnit(models.Model):
     '''
@@ -74,3 +75,4 @@ class ModifyUnit(models.Model):
     uri = types.StringType()
     region = types.StringType()
     ranking = types.StringType()
+    total_labels = compound.ListType(types.StringType())

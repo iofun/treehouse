@@ -313,6 +313,7 @@ class Unit(object):
                 "uri": str(event.get('uri', '')),
                 "region": str(event.get('region', '')),
                 "ranking": str(event.get('ranking', '')),
+                "total_labels": str(event.get('total_labels', '')),
             }
             result = UnitMap(
                 self.kvalue,
