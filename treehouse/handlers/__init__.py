@@ -37,12 +37,12 @@ class BaseHandler(web.RequestHandler):
         '''
         return self.settings['kvalue']
 
-    @property
-    def cache(self):
-        '''
-            Cache backend
-        '''
-        return self.settings['cache']
+    #@property
+    #def cache(self):
+        #'''
+            #Cache backend
+        #'''
+        #return self.settings['cache']
 
     def initialize(self, **kwargs):
         '''
