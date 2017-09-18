@@ -73,7 +73,7 @@ class UnitMap(object):
         "description":event.registers['description'].value,
         "payload":event.registers['payload'].value,
         "status":event.registers['status'].value,
-        "labels":event.registers['labels'].value,
+        "labels":event.sets['labels'].value,
         "public":event.registers['public'].value,
         "checked":event.registers['checked'].value,
         "checked_by":event.registers['checked_by'].value,
@@ -84,7 +84,7 @@ class UnitMap(object):
         "uri":event.registers['uri'].value,
         "region":event.registers['region'].value,
         "ranking":event.registers['ranking'].value,
-        "total_labels":event.registers['total_labels'].value,
+        "total_labels":event.counters['total_labels'].value,
         }
         return json.dumps(struct)
 
@@ -99,7 +99,7 @@ class UnitMap(object):
         "description":event.registers['description'].value,
         "payload":event.registers['payload'].value,
         "status":event.registers['status'].value,
-        "labels":event.registers['labels'].value,
+        "labels":event.sets['labels'].value,
         "public":event.registers['public'].value,
         "checked":event.registers['checked'].value,
         "checked_by":event.registers['checked_by'].value,
@@ -110,6 +110,6 @@ class UnitMap(object):
         "uri":event.registers['uri'].value,
         "region":event.registers['region'].value,
         "ranking":event.registers['ranking'].value,
-        "total_labels":event.registers['total_labels'].value,
+        "total_labels":event.counters['total_labels'].value,
         }
         return struct
