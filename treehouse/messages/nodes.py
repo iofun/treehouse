@@ -24,7 +24,7 @@ class Node(models.Model):
     '''
     uuid = types.UUIDType(default=uuid.uuid4)
     account = types.StringType(required=True)
-    checked = types.StringType(default=False)
+    checked = types.BooleanType(default=False)
     status = types.StringType()
     created_at = types.TimestampType(default=arrow.utcnow().timestamp)
     created_by = types.StringType()
