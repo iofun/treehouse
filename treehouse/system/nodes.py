@@ -85,7 +85,7 @@ class Nodes(object):
         '''
             Get unique list from Solr
         '''
-        search_index = 'tree_node_index'
+        search_index = 'treehouse_node_index'
         query = 'uuid_register:*'
         filter_query = 'uuid_register:*'
         message_box = []
@@ -147,7 +147,7 @@ class Nodes(object):
         '''
             Get query
         '''
-        search_index = 'tree_node_index'
+        search_index = 'treehouse_node_index'
         query = 'uuid_register:{0}'.format(node_uuid)
         filter_query = 'account_register:{0}'.format(account)
         # build the url
@@ -195,7 +195,7 @@ class Nodes(object):
         '''
             Get node list
         '''
-        search_index = 'tree_node_index'
+        search_index = 'treehouse_node_index'
         query = 'uuid_register:*'
         filter_query = 'account_register:{0}'.format(account)
         page_num = int(page_num)
@@ -233,7 +233,7 @@ class Nodes(object):
             New node event
         '''
         # yokozuna's search index
-        search_index = 'tree_node_index'
+        search_index = 'treehouse_node_index'
         # riak bucket type
         bucket_type = 'tree_node'
         # the bucket name can be dynamic
@@ -248,21 +248,28 @@ class Nodes(object):
             message = event.get('uuid')
             structure = {
                 "uuid": str(event.get('uuid', str(uuid.uuid4()))),
-                "hash": str(event.get('hash', '')),
                 "account": str(event.get('account', 'pebkac')),
+                "status": str(event.get('status', '')),
+                "centers": str(event.get('centers', '')),
+                "created_at": str(event.get('created_at', '')),
+                "created_by": str(event.get('created_by', '')),
+                "last_update_by": str(event.get('last_update_by', '')),
+                "last_update_at": str(event.get('last_update_at', '')),
+                "checksum": str(event.get('checksum', '')),
                 "name": str(event.get('name', '')),
                 "description": str(event.get('description', '')),
-                "resources": str(event.get('resources', '')),
-                "labels": str(event.get('labels', '')),
-                "centers": str(event.get('centers', '')),
-                "status": str(event.get('status', '')),
+                "region": str(event.get('region', '')),
+                "ranking": str(event.get('ranking', '')),
                 "public": str(event.get('public', '')),
                 "checked": str(event.get('checked', '')),
-                "checked_by": str(event.get('checked_by', '')),
-                "created_at": str(event.get('created_at', '')),
-                "updated_by": str(event.get('updated_by', '')),
-                "updated_at": str(event.get('updated_at', '')),
-                "url": str(event.get('url', '')),
+                "uri": str(event.get('uri', '')),
+                "labels": str(event.get('labels', '')),
+                "hashs": str(event.get('hashs', '')),
+                "resources": str(event.get('resources', '')),
+                "units": str(event.get('units', '')),
+                "history": str(event.get('history', '')),
+                "labels_total": str(event.get('labels_total', '')),
+                "hashs_total": str(event.get('hashs_total', '')),
             }
             result = NodeMap(
                 self.kvalue,
@@ -282,7 +289,7 @@ class Nodes(object):
             Modify node
         '''
         # yokozuna's search index
-        search_index = 'tree_node_index'
+        search_index = 'treehouse_node_index'
         # riak bucket type
         bucket_type = 'tree_node'
         # the bucket name can be dynamic

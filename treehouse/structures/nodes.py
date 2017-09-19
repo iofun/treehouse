@@ -34,21 +34,28 @@ class NodeMap(object):
         bucket.set_properties({'search_index': search_index})
         self.map = Map(bucket, None)
         self.map.registers['uuid'].assign(struct.get('uuid', ''))
-        self.map.registers['hash'].assign(struct.get('hash', ''))
         self.map.registers['account'].assign(struct.get('account', ''))
-        self.map.registers['name'].assign(struct.get('name', ''))
-        self.map.registers['description'].assign(struct.get('description', ''))
-        self.map.registers['resources'].assign(struct.get('resources', ''))
-        self.map.registers['labels'].assign(struct.get('labels', ''))
-        self.map.registers['centers'].assign(struct.get('centers', ''))
         self.map.registers['status'].assign(struct.get('status', ''))
-        self.map.registers['public'].assign(struct.get('public', ''))
-        self.map.registers['checked'].assign(struct.get('checked', ''))
-        self.map.registers['checked_by'].assign(struct.get('checked_by', ''))
+        self.map.registers['centers'].assign(struct.get('centers', ''))
         self.map.registers['created_at'].assign(struct.get('created_at', ''))
+        self.map.registers['created_by'].assign(struct.get('created_by', ''))
         self.map.registers['last_update_by'].assign(struct.get('last_update_by', ''))
         self.map.registers['last_update_at'].assign(struct.get('last_update_at', ''))
-        self.map.registers['url'].assign(struct.get('url', ''))
+        self.map.registers['checksum'].assign(struct.get('checksum', ''))
+        self.map.registers['name'].assign(struct.get('name', ''))
+        self.map.registers['description'].assign(struct.get('description', ''))
+        self.map.registers['region'].assign(struct.get('region', ''))
+        self.map.registers['ranking'].assign(struct.get('ranking', ''))
+        self.map.registers['public'].assign(struct.get('public', ''))
+        self.map.registers['checked'].assign(struct.get('checked', ''))
+        self.map.registers['uri'].assign(struct.get('uri', ''))
+        self.map.registers['labels'].assign(struct.get('labels', ''))
+        self.map.registers['hashs'].assign(struct.get('hashs', ''))
+        self.map.registers['resources'].assign(struct.get('resources', ''))
+        self.map.registers['units'].assign(struct.get('units', ''))
+        self.map.registers['history'].assign(struct.get('history', ''))
+        self.map.registers['labels_total'].assign(struct.get('labels_total', ''))
+        self.map.registers['hashs_total'].assign(struct.get('hashs_total', ''))
         self.map.store()
 
     @property
@@ -63,21 +70,28 @@ class NodeMap(object):
         event = self.map.reload()
         struct = struct = {
             "uuid": event.registers['uuid'].value,
-            "hash": event.registers['hash'].value,
             "account": event.registers['account'].value,
-            "name": event.registers['name'].value,
-            "description": event.registers['description'].value,
-            "resources": event.registers['resources'].value,
-            "labels": event.registers['labels'].value,
-            "centers": event.registers['centers'].value,
             "status": event.registers['status'].value,
-            "public": event.registers['public'].value,
-            "checked": event.registers['checked'].value,
-            "checked_by": event.registers['checked_by'].value,
+            "centers": event.registers['centers'].value,
             "created_at": event.registers['created_at'].value,
+            "created_by": event.registers['created_by'].value,
             "last_update_by": event.registers['last_update_by'].value,
             "last_update_at": event.registers['last_update_at'].value,
-            "url": event.registers['url'].value,
+            "checksum": event.registers['checksum'].value,
+            "name": event.registers['name'].value,
+            "description": event.registers['description'].value,
+            "region": event.registers['region'].value,
+            "ranking": event.registers['ranking'].value,
+            "public": event.registers['public'].value,
+            "checked": event.registers['checked'].value,
+            "uri": event.registers['uri'].value,
+            "labels": event.registers['labels'].value,
+            "hashs": event.registers['hashs'].value,
+            "resources": event.registers['resources'].value,
+            "units": event.registers['units'].value,
+            "history": event.registers['history'].value,
+            "labels_total": event.registers['labels_total'].value,
+            "hashs_total": event.registers['hashs_total'].value,
         }
         return json.dumps(struct)
 
@@ -85,20 +99,27 @@ class NodeMap(object):
         event = self.map.reload()
         struct = struct = {
             "uuid": event.registers['uuid'].value,
-            "hash": event.registers['hash'].value,
             "account": event.registers['account'].value,
-            "name": event.registers['name'].value,
-            "description": event.registers['description'].value,
-            "resources": event.registers['resources'].value,
-            "labels": event.registers['labels'].value,
-            "centers": event.registers['centers'].value,
             "status": event.registers['status'].value,
-            "public": event.registers['public'].value,
-            "checked": event.registers['checked'].value,
-            "checked_by": event.registers['checked_by'].value,
+            "centers": event.registers['centers'].value,
             "created_at": event.registers['created_at'].value,
+            "created_by": event.registers['created_by'].value,
             "last_update_by": event.registers['last_update_by'].value,
             "last_update_at": event.registers['last_update_at'].value,
-            "url": event.registers['url'].value,
+            "checksum": event.registers['checksum'].value,
+            "name": event.registers['name'].value,
+            "description": event.registers['description'].value,
+            "region": event.registers['region'].value,
+            "ranking": event.registers['ranking'].value,
+            "public": event.registers['public'].value,
+            "checked": event.registers['checked'].value,
+            "uri": event.registers['uri'].value,
+            "labels": event.registers['labels'].value,
+            "hashs": event.registers['hashs'].value,
+            "resources": event.registers['resources'].value,
+            "units": event.registers['units'].value,
+            "history": event.registers['history'].value,
+            "labels_total": event.registers['labels_total'].value,
+            "hashs_total": event.registers['hashs_total'].value,
         }
         return struct

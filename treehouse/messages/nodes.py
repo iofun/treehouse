@@ -10,7 +10,6 @@
 
 __author__ = 'Team Machine'
 
-
 import uuid as _uuid
 from schematics import models
 from schematics import types
@@ -23,22 +22,28 @@ class Node(models.Model):
         Thanks for all the fish!
     '''
     uuid = types.UUIDType(default=_uuid.uuid4)
-    hash = types.StringType()
     account = types.StringType(required=True)
-    name = types.StringType(required=True)
-    description = types.StringType()
-    resources = compound.ModelType(Resource)
-    labels = types.StringType()
-    centers = types.StringType()
+    checked = types.StringType(default=False)
     status = types.StringType()
-    public = types.StringType()
-    checked = types.BooleanType(default=False)
-    checked_by = types.StringType()
-    created_at = types.StringType()
+    created_at = types.TimestampType(default=arrow.utcnow().timestamp)
+    created_by = types.StringType()
     last_update_by = types.StringType()
-    last_update_at = types.StringType()
-    url = types.StringType()
-
+    last_update_at = types.TimestampType(default=arrow.utcnow().timestamp)
+    checksum = types.StringType()
+    name = types.StringType()
+    description = types.StringType()
+    region = types.StringType()
+    ranking = types.StringType()
+    public = types.StringType()
+    uri = types.StringType()
+    centers = compound.ListType(types.StringType())
+    labels = compound.ListType(types.StringType())
+    hashs = compound.ListType(types.StringType())
+    resources = compound.ListType(types.StringType())
+    units = compound.ListType(types.StringType())
+    history = compound.ListType(types.StringType())
+    labels_total = types.IntType()
+    hashs_total = types.IntType()
 
 class ModifyNode(models.Model):
     '''
@@ -54,18 +59,25 @@ class ModifyNode(models.Model):
         outside the scope of the resource.
     '''
     uuid = types.UUIDType()
-    hash = types.StringType()
     account = types.StringType()
+    status = types.StringType()
+    centers = compound.ListType(types.StringType())
+    created_at = types.TimestampType()
+    created_by = types.StringType()
+    last_update_by = types.StringType()
+    last_update_at = types.TimestampType(default=arrow.utcnow().timestamp)
+    checksum = types.StringType()
     name = types.StringType()
     description = types.StringType()
-    resources = compound.ModelType(Resource)
-    labels = types.StringType()
-    centers = types.StringType()
-    status = types.StringType()
+    region = types.StringType()
+    ranking = types.StringType()
     public = types.StringType()
-    checked = types.BooleanType()
-    checked_by = types.StringType()
-    created_at = types.StringType()
-    last_update_by = types.StringType()
-    last_update_at = types.StringType()
-    url = types.StringType()
+    checked = types.StringType()
+    uri = types.StringType()
+    labels = compound.ListType(types.StringType())
+    hashs = compound.ListType(types.StringType())
+    resources = compound.ListType(types.StringType())
+    units = compound.ListType(types.StringType())
+    history = compound.ListType(types.StringType())
+    labels_total = types.IntType()
+    hashs_total = types.IntType()
