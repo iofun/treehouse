@@ -220,7 +220,7 @@ class Node(object):
                 response_doc = stuff['response']['docs'][0]
                 IGNORE_ME = ["_yz_id","_yz_rk","_yz_rt","_yz_rb"]
                 message = dict(
-                    (key.split('_register') or ('_set')[0][1], value)
+                    (key.split('_register')[0], value)
                     for (key, value) in response_doc.items()
                     if key not in IGNORE_ME
                 )
