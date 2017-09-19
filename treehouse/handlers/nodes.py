@@ -1,27 +1,30 @@
 # -*- coding: utf-8 -*-
 '''
-    HTTP node handlers.
+    Treehouse HTTP event handlers.
 '''
 
-# This file is part of treehouse.
+# This file is part of Treehouse.
 
 # Distributed under the terms of the last AGPL License.
 # The full license is in the file LICENCE, distributed as part of this software.
 
 __author__ = 'Team Machine'
 
-
+import time
+import arrow
+import uuid
 import logging
+import urlparse
 import ujson as json
-from tornado import gen, web
-from treehouse import errors
-from treehouse.system import nodes
+from tornado import gen
+from tornado import web
 from treehouse.messages import nodes as models
-from treehouse.tools import str2bool, check_json, new_resource
+from treehouse.system import nodes
+from tornado import httpclient
+from treehouse.tools import errors, str2bool, check_json, new_resource
 from treehouse.handlers import BaseHandler
 
-
-class Handler(nodes.Nodes, BaseHandler):
+class Handler(nodes.Node, BaseHandler):
     '''
         HTTP request handlers
     '''
@@ -43,7 +46,7 @@ class Handler(nodes.Nodes, BaseHandler):
         page_num = int(query_args.get('page', [page_num])[0])
         # not unique
         unique = query_args.get('unique', False)
-        # status ?! ... rage against the finite state machine
+        # rage against the finite state machine
         status = 'all'
         # are we done yet?
         done = False
@@ -52,14 +55,14 @@ class Handler(nodes.Nodes, BaseHandler):
         # unique flag activated
         if unique:
             unique_stuff = {key:query_args[key][0] for key in query_args}
-            query_list = yield self.get_unique_querys(unique_stuff)
-            unique_list = yield self.get_query_values(query_list)
+            node_list = yield self.get_unique_queries(unique_stuff)
+            unique_list = yield self.get_query_values(node_list)
             done = True
             message = {'nodes':unique_list}
             self.set_status(200)
-        # get your nodes
+        # get node list
         if not done and not node_uuid:
-            node_list = yield self.get_node_list(account, start, end, lapse, status, page_num)
+            message = yield self.get_node_list(account, start, end, lapse, status, page_num)
             message = {
                 'count': node_list.get('response')['numFound'],
                 'page': page_num,
@@ -79,22 +82,24 @@ class Handler(nodes.Nodes, BaseHandler):
             # get cache data
             message = self.cache.get('nodes:{0}'.format(node_uuid))
             if message is not None:
-                logging.info('nodes:{0} done retrieving from cache!'.format(node_uuid))
+                logging.info('nodes:{0} done retrieving!'.format(node_uuid))
+                #result = data
                 self.set_status(200)
             else:
-                data = yield self.get_node(account, node_uuid)
-                if self.cache.add('nodes:{0}'.format(node_uuid), data, 1):
+                #data = yield self.get_node(account, node_uuid.rstrip('/'))
+                message = yield self.get_query(account, node_uuid)
+                if self.cache.add('nodes:{0}'.format(node_uuid), message, 1):
                     logging.info('new cache entry {0}'.format(str(node_uuid)))
                     self.set_status(200)
             if not message:
                 self.set_status(400)
                 message = {'missing account {0} node_uuid {1} page_num {2} checked {3}'.format(
-                    account, node_uuid, page_num, checked):message}
+                    account, node_uuid.rstrip('/'), page_num, checked):result}
         # thanks for all the fish
         self.finish(message)
 
     @gen.coroutine
-    def get(self, account=None, node_uuid=None, page_num=0):
+    def get(self, account=None, node_uuid=None, start=None, end=None, page_num=1, lapse='hours'):
         '''
             Get nodes
         '''
@@ -110,7 +115,7 @@ class Handler(nodes.Nodes, BaseHandler):
         page_num = int(query_args.get('page', [page_num])[0])
         # not unique
         unique = query_args.get('unique', False)
-        # status ?! ... rage against the finite state machine
+        # rage against the finite state machine
         status = 'all'
         # are we done yet?
         done = False
@@ -119,12 +124,13 @@ class Handler(nodes.Nodes, BaseHandler):
         # unique flag activated
         if unique:
             unique_stuff = {key:query_args[key][0] for key in query_args}
-            query_list = yield self.get_unique_querys(unique_stuff)
-            unique_list = yield self.get_query_values(query_list)
+            node_list = yield self.get_unique_querys(unique_stuff)
+            unique_list = yield self.get_query_values(node_list)
             done = True
             message = {'nodes':unique_list}
             self.set_status(200)
-        # get your nodes
+
+        # get node list
         if not done and not node_uuid:
             node_list = yield self.get_node_list(account, start, end, lapse, status, page_num)
             message = {
@@ -135,7 +141,7 @@ class Handler(nodes.Nodes, BaseHandler):
             for doc in node_list.get('response')['docs']:
                 IGNORE_ME = ["_yz_id","_yz_rk","_yz_rt","_yz_rb"]
                 message['results'].append(
-                    dict((key.split('_register')[0], value) 
+                    dict((key.split('_register') or ('_set')[0][1], value) 
                     for (key, value) in doc.items() if key not in IGNORE_ME)
                 )
             self.set_status(200)
@@ -146,17 +152,19 @@ class Handler(nodes.Nodes, BaseHandler):
             # get cache data
             message = self.cache.get('nodes:{0}'.format(node_uuid))
             if message is not None:
-                logging.info('nodes:{0} done retrieving from cache!'.format(node_uuid))
+                logging.info('nodes:{0} done retrieving!'.format(node_uuid))
+                #result = data
                 self.set_status(200)
             else:
-                data = yield self.get_node(account, node_uuid)
-                if self.cache.add('nodes:{0}'.format(node_uuid), data, 1):
+                #data = yield self.get_node(account, node_uuid.rstrip('/'))
+                message = yield self.get_node(account, node_uuid)
+                if self.cache.add('nodes:{0}'.format(node_uuid), message, 1):
                     logging.info('new cache entry {0}'.format(str(node_uuid)))
                     self.set_status(200)
             if not message:
                 self.set_status(400)
                 message = {'missing account {0} node_uuid {1} page_num {2} checked {3}'.format(
-                    account, node_uuid, page_num, checked):message}
+                    account, node_uuid.rstrip('/'), page_num, checked):result}
         # thanks for all the fish
         self.finish(message)
 
@@ -177,22 +185,23 @@ class Handler(nodes.Nodes, BaseHandler):
         account = struct.get('account', None)
         # get the current frontend logged username
         username = self.get_current_username()
-        # if the user don't provide an account we use the frontend username as last resort
+        # if the user don't provide an account we use the username
         account = (query_args.get('account', [username])[0] if not account else account)
-        # execute new imp struct
-        new_node = yield self.new_imp(struct)
-        if 'error' in new_node:
+        # execute new node struct
+        ack = yield self.new_node(struct)
+        # complete message with receive acknowledgment uuid.
+        message = {'uuid':ack}
+        if 'error' in message['uuid']:
             scheme = 'node'
             reason = {'duplicates': [
                 (scheme, 'account'),
                 (scheme, 'uuid')
             ]}
-            message = yield self.let_it_crash(struct, scheme, new_node, reason)
+            message = yield self.let_it_crash(struct, scheme, message['uuid'], reason)
             self.set_status(400)
-            self.finish(message)
-            return
-        self.set_status(201)
-        self.finish({'uuid':new_node})
+        else:
+            self.set_status(201)
+        self.finish(message)
 
     @gen.coroutine
     def patch(self, node_uuid):
@@ -224,6 +233,7 @@ class Handler(nodes.Nodes, BaseHandler):
         '''
             Delete node
         '''
+        query_args = self.request.arguments
         account = query_args.get('account', [None])[0]
         result = yield self.remove_node(account, node_uuid)
         if not result:
@@ -242,9 +252,9 @@ class Handler(nodes.Nodes, BaseHandler):
         '''
         self.set_header('Access-Control-Allow-Origin', '*')
         self.set_header('Access-Control-Allow-Methods', 'HEAD, GET, POST, PATCH, DELETE, OPTIONS')
-        self.set_header('Access-Control-Allow-Headers', ''.join((
-                        'DNT,Keep-Alive,User-Agent,X-Requested-With',
-                        'If-Modified-Since,Cache-Control,Content-Type',
+        self.set_header('Access-Control-Allow-Headers', ''.join(('Accept-Language,',
+                        'DNT,Keep-Alive,User-Agent,X-Requested-With,',
+                        'If-Modified-Since,Cache-Control,Content-Type,',
                         'Content-Range,Range,Date,Etag')))
         # allowed http methods
         message = {
@@ -266,7 +276,7 @@ class Handler(nodes.Nodes, BaseHandler):
         parameters['labels'] = 'array/string'
         # end of manual cleaning
         POST = {
-            "description": "Spawn node",
+            "description": "Send node",
             "parameters": parameters
         }
         # filter single resource
