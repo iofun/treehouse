@@ -22,7 +22,7 @@ class Node(models.Model):
     '''
         Thanks for all the fish!
     '''
-    uuid = types.UUIDType(default=_uuid.uuid4)
+    uuid = types.UUIDType(default=uuid.uuid4)
     account = types.StringType(required=True)
     checked = types.StringType(default=False)
     status = types.StringType()
