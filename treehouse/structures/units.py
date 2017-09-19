@@ -15,7 +15,6 @@ import logging
 import ujson as json
 from riak.datatypes import Map
 
-
 class UnitMap(object):
 
     def __init__(

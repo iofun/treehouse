@@ -10,13 +10,13 @@
 
 __author__ = 'Team Machine'
 
-import uuid as _uuid
+
+import uuid
 import arrow
 from schematics import models
 from schematics import types
 from schematics.types import compound
 from treehouse.messages import Resource
-
 
 class Node(models.Model):
     '''
