@@ -33,8 +33,8 @@ class NodeMap(object):
         self.map = Map(bucket, None)
         self.map.registers['uuid'].assign(struct.get('uuid', ''))
         self.map.registers['account'].assign(struct.get('account', ''))
+        self.map.registers['checked'].assign(struct.get('checked', ''))
         self.map.registers['status'].assign(struct.get('status', ''))
-        self.map.registers['centers'].assign(struct.get('centers', ''))
         self.map.registers['created_at'].assign(struct.get('created_at', ''))
         self.map.registers['created_by'].assign(struct.get('created_by', ''))
         self.map.registers['last_update_by'].assign(struct.get('last_update_by', ''))
@@ -45,13 +45,17 @@ class NodeMap(object):
         self.map.registers['region'].assign(struct.get('region', ''))
         self.map.registers['ranking'].assign(struct.get('ranking', ''))
         self.map.registers['public'].assign(struct.get('public', ''))
-        self.map.registers['checked'].assign(struct.get('checked', ''))
         self.map.registers['uri'].assign(struct.get('uri', ''))
         self.map.registers['labels'].assign(struct.get('labels', ''))
         self.map.registers['hashs'].assign(struct.get('hashs', ''))
         self.map.registers['resources'].assign(struct.get('resources', ''))
         self.map.registers['units'].assign(struct.get('units', ''))
         self.map.registers['history'].assign(struct.get('history', ''))
+        self.map.registers['centers'].assign(struct.get('centers', ''))
+        self.map.registers['resources_total'].assign(struct.get('resources_total', ''))
+        self.map.registers['units_total'].assign(struct.get('units_total', ''))
+        self.map.registers['centers_total'].assign(struct.get('centers_total', ''))
+        self.map.registers['history_total'].assign(struct.get('history_total', ''))
         self.map.registers['labels_total'].assign(struct.get('labels_total', ''))
         self.map.registers['hashs_total'].assign(struct.get('hashs_total', ''))
         self.map.store()
@@ -69,8 +73,8 @@ class NodeMap(object):
         struct = struct = {
             "uuid": event.registers['uuid'].value,
             "account": event.registers['account'].value,
+            "checked": event.registers['checked'].value,
             "status": event.registers['status'].value,
-            "centers": event.registers['centers'].value,
             "created_at": event.registers['created_at'].value,
             "created_by": event.registers['created_by'].value,
             "last_update_by": event.registers['last_update_by'].value,
@@ -81,13 +85,17 @@ class NodeMap(object):
             "region": event.registers['region'].value,
             "ranking": event.registers['ranking'].value,
             "public": event.registers['public'].value,
-            "checked": event.registers['checked'].value,
             "uri": event.registers['uri'].value,
             "labels": event.registers['labels'].value,
             "hashs": event.registers['hashs'].value,
             "resources": event.registers['resources'].value,
             "units": event.registers['units'].value,
             "history": event.registers['history'].value,
+            "centers": event.registers['centers'].value,
+            "resources_total": event.registers['resources_total'].value,
+            "units_total": event.registers['units_total'].value,
+            "centers_total": event.registers['centers_total'].value,
+            "history_total": event.registers['history_total'].value,
             "labels_total": event.registers['labels_total'].value,
             "hashs_total": event.registers['hashs_total'].value,
         }
@@ -98,8 +106,8 @@ class NodeMap(object):
         struct = struct = {
             "uuid": event.registers['uuid'].value,
             "account": event.registers['account'].value,
+            "checked": event.registers['checked'].value,
             "status": event.registers['status'].value,
-            "centers": event.registers['centers'].value,
             "created_at": event.registers['created_at'].value,
             "created_by": event.registers['created_by'].value,
             "last_update_by": event.registers['last_update_by'].value,
@@ -110,13 +118,17 @@ class NodeMap(object):
             "region": event.registers['region'].value,
             "ranking": event.registers['ranking'].value,
             "public": event.registers['public'].value,
-            "checked": event.registers['checked'].value,
             "uri": event.registers['uri'].value,
             "labels": event.registers['labels'].value,
             "hashs": event.registers['hashs'].value,
             "resources": event.registers['resources'].value,
             "units": event.registers['units'].value,
             "history": event.registers['history'].value,
+            "centers": event.registers['centers'].value,
+            "resources_total": event.registers['resources_total'].value,
+            "units_total": event.registers['units_total'].value,
+            "centers_total": event.registers['centers_total'].value,
+            "history_total": event.registers['history_total'].value,
             "labels_total": event.registers['labels_total'].value,
             "hashs_total": event.registers['hashs_total'].value,
         }
