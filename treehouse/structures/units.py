@@ -31,26 +31,29 @@ class UnitMap(object):
         bucket = client.bucket_type(bucket_type).bucket('{0}'.format(bucket_name))
         bucket.set_properties({'search_index': search_index})
         self.map = Map(bucket, None)
-        self.map.registers['uuid'].assign(struct.get('uuid', ''))
-        self.map.registers['account'].assign(struct.get('account', ''))
-        self.map.registers['hashs'].assign(struct.get('hashs', ''))
-        self.map.registers['name'].assign(struct.get('name', ''))
-        self.map.registers['style'].assign(struct.get('style', ''))
-        self.map.registers['description'].assign(struct.get('description', ''))
-        self.map.registers['payload'].assign(struct.get('payload', ''))
-        self.map.registers['status'].assign(struct.get('status', ''))
-        self.map.sets['labels'].add(struct.get('labels', ''))
-        self.map.counters['total_labels'].increment(len(struct.get('total_labels',[])))
-        self.map.registers['public'].assign(struct.get('public', ''))
-        self.map.registers['checked'].assign(struct.get('checked', ''))
-        self.map.registers['checked_by'].assign(struct.get('checked_by', ''))
-        self.map.registers['checked_at'].assign(struct.get('checked_at', ''))
-        self.map.registers['last_update_at'].assign(struct.get('last_update_at', ''))
-        self.map.registers['last_update_by'].assign(struct.get('last_update_by', ''))
-        self.map.registers['history'].assign(struct.get('history', ''))
-        self.map.registers['uri'].assign(struct.get('uri', ''))
-        self.map.registers['region'].assign(struct.get('region', ''))
-        self.map.registers['ranking'].assign(struct.get('ranking', ''))
+        self.map.registers['uuid'].add(struct.get('uuid', ''))
+        self.map.registers['account'].add(struct.get('account', ''))
+        self.map.registers['name'].add(struct.get('name', ''))
+        self.map.registers['style'].add(struct.get('style', ''))
+        self.map.registers['description'].add(struct.get('description', ''))
+        self.map.registers['payload'].add(struct.get('payload', ''))
+        self.map.registers['status'].add(struct.get('status', ''))
+        self.map.registers['region'].add(struct.get('region', ''))
+        self.map.registers['ranking'].add(struct.get('ranking', ''))
+        self.map.registers['public'].add(struct.get('public', ''))
+        self.map.registers['checksum'].add(struct.get('checksum', ''))
+        self.map.registers['checked'].add(struct.get('checked', ''))
+        self.map.registers['checked_by'].add(struct.get('checked_by', ''))
+        self.map.registers['checked_at'].add(struct.get('checked_at', ''))
+        self.map.registers['last_update_at'].add(struct.get('last_update_at', ''))
+        self.map.registers['last_update_by'].add(struct.get('last_update_by', ''))
+        self.map.registers['uri'].add(struct.get('uri', ''))
+        self.map.registers['labels_set'].add(struct.get('labels_set', ''))
+        self.map.registers['labels_total'].add(struct.get('labels_total', ''))
+        self.map.registers['history'].add(struct.get('history', ''))
+        self.map.registers['history_total'].add(struct.get('history_total', ''))
+        self.map.registers['hashs'].add(struct.get('hashs', ''))
+        self.map.registers['hashs_total'].add(struct.get('hashs_total', ''))
         self.map.store()
 
     @property
@@ -66,24 +69,27 @@ class UnitMap(object):
         struct = {
         "uuid":event.registers['uuid'].value,
         "account":event.registers['account'].value,
-        "hashs":event.registers['hashs'].value,
         "name":event.registers['name'].value,
         "style":event.registers['style'].value,
         "description":event.registers['description'].value,
         "payload":event.registers['payload'].value,
         "status":event.registers['status'].value,
-        "labels":event.sets['labels'].value,
+        "region":event.registers['region'].value,
+        "ranking":event.registers['ranking'].value,
         "public":event.registers['public'].value,
+        "checksum":event.registers['checksum'].value,
         "checked":event.registers['checked'].value,
         "checked_by":event.registers['checked_by'].value,
         "checked_at":event.registers['checked_at'].value,
         "last_update_at":event.registers['last_update_at'].value,
         "last_update_by":event.registers['last_update_by'].value,
-        "history":event.registers['history'].value,
         "uri":event.registers['uri'].value,
-        "region":event.registers['region'].value,
-        "ranking":event.registers['ranking'].value,
-        "total_labels":event.counters['total_labels'].value,
+        "labels_set":event.registers['labels_set'].value,
+        "labels_total":event.registers['labels_total'].value,
+        "history":event.registers['history'].value,
+        "history_total":event.registers['history_total'].value,
+        "hashs":event.registers['hashs'].value,
+        "hashs_total":event.registers['hashs_total'].value,
         }
         return json.dumps(struct)
 
@@ -92,23 +98,26 @@ class UnitMap(object):
         struct = {
         "uuid":event.registers['uuid'].value,
         "account":event.registers['account'].value,
-        "hashs":event.registers['hashs'].value,
         "name":event.registers['name'].value,
         "style":event.registers['style'].value,
         "description":event.registers['description'].value,
         "payload":event.registers['payload'].value,
         "status":event.registers['status'].value,
-        "labels":event.sets['labels'].value,
+        "region":event.registers['region'].value,
+        "ranking":event.registers['ranking'].value,
         "public":event.registers['public'].value,
+        "checksum":event.registers['checksum'].value,
         "checked":event.registers['checked'].value,
         "checked_by":event.registers['checked_by'].value,
         "checked_at":event.registers['checked_at'].value,
         "last_update_at":event.registers['last_update_at'].value,
         "last_update_by":event.registers['last_update_by'].value,
-        "history":event.registers['history'].value,
         "uri":event.registers['uri'].value,
-        "region":event.registers['region'].value,
-        "ranking":event.registers['ranking'].value,
-        "total_labels":event.counters['total_labels'].value,
+        "labels_set":event.registers['labels_set'].value,
+        "labels_total":event.registers['labels_total'].value,
+        "history":event.registers['history'].value,
+        "history_total":event.registers['history_total'].value,
+        "hashs":event.registers['hashs'].value,
+        "hashs_total":event.registers['hashs_total'].value,
         }
         return struct

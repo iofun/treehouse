@@ -41,9 +41,9 @@ class Unit(models.Model):
     labels_set = compound.ListType(types.StringType())
     labels_total = types.IntType()
     history = compound.ListType(types.StringType())
-    history_total_counter = types.IntType()
+    history_total = types.IntType()
     hashs = compound.ListType(types.StringType())
-    hashs_total_counter = types.IntType()
+    hashs_total = types.IntType()
 
 class ModifyUnit(models.Model):
     '''
@@ -78,6 +78,6 @@ class ModifyUnit(models.Model):
     labels_set = compound.ListType(types.StringType())
     labels_total = types.IntType()
     history = compound.ListType(types.StringType())
-    history_total_counter = types.IntType()
+    history_total = types.IntType()
     hashs = compound.ListType(types.StringType())
-    hashs_total_counter = types.IntType()
+    hashs_total = types.IntType()
