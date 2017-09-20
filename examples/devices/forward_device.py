@@ -1,3 +1,4 @@
+import logging
 import zmq
 
 def main():
@@ -14,10 +15,9 @@ def main():
         # yo! where is the pizza?
         zmq.device(zmq.FORWARDER, frontend, backend)
     except Exception, e:
-        print(e)
+        logging.error(e)
         print("let it crash")
     finally:
-        pass
         frontend.close()
         backend.close()
         context.term()
