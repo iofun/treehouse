@@ -17,6 +17,7 @@ from schematics import models
 from schematics import types
 from schematics.types import compound
 
+
 class Unit(models.Model):
     '''
         Unit messages
@@ -32,11 +33,6 @@ class Unit(models.Model):
     ranking = types.StringType()
     public = types.StringType()
     checksum = types.StringType()
-    checked = types.BooleanType(default=False)
-    checked_by = types.StringType()
-    checked_at = types.TimestampType(default=arrow.utcnow().timestamp)
-    last_update_at = types.TimestampType(default=arrow.utcnow().timestamp)
-    last_update_by = types.StringType()
     uri = types.StringType()
     labels_set = compound.ListType(types.StringType())
     labels_total = types.IntType()
@@ -44,6 +40,14 @@ class Unit(models.Model):
     history_total = types.IntType()
     hashs = compound.ListType(types.StringType())
     hashs_total = types.IntType()
+    checked = types.BooleanType(default=False)
+    checked_by = types.StringType()
+    checked_at = types.TimestampType(default=arrow.utcnow().timestamp)
+    created_by = types.StringType()
+    created_at = types.TimestampType(default=arrow.utcnow().timestamp)
+    last_update_by = types.StringType()
+    last_update_at = types.TimestampType(default=arrow.utcnow().timestamp)
+
 
 class ModifyUnit(models.Model):
     '''
@@ -69,11 +73,6 @@ class ModifyUnit(models.Model):
     ranking = types.StringType()
     public = types.StringType()
     checksum = types.StringType()
-    checked = types.BooleanType()
-    checked_by = types.StringType()
-    checked_at = types.TimestampType(default=arrow.utcnow().timestamp)
-    last_update_at = types.TimestampType(default=arrow.utcnow().timestamp)
-    last_update_by = types.StringType()
     uri = types.StringType()
     labels_set = compound.ListType(types.StringType())
     labels_total = types.IntType()
@@ -81,3 +80,10 @@ class ModifyUnit(models.Model):
     history_total = types.IntType()
     hashs = compound.ListType(types.StringType())
     hashs_total = types.IntType()
+    checked = types.BooleanType()
+    checked_by = types.StringType()
+    checked_at = types.TimestampType()
+    created_by = types.StringType()
+    created_at = types.TimestampType()
+    last_update_by = types.StringType()
+    last_update_at = types.TimestampType(default=arrow.utcnow().timestamp)

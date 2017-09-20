@@ -18,6 +18,7 @@ from schematics import types
 from schematics.types import compound
 from treehouse.messages import Resource
 
+
 class Node(models.Model):
     '''
         Thanks for all the fish!
@@ -26,7 +27,6 @@ class Node(models.Model):
     account = types.StringType(required=True)
     status = types.StringType()
     public = types.StringType()
-    checked = types.BooleanType(default=False)
     name = types.StringType()
     description = types.StringType()
     checksum = types.StringType()
@@ -45,10 +45,14 @@ class Node(models.Model):
     centers_total = types.IntType()
     history = compound.ListType(types.StringType())
     history_total = types.IntType()
-    created_at = types.TimestampType(default=arrow.utcnow().timestamp)
+    checked = types.BooleanType(default=False)
+    checked_by = types.StringType()
+    checked_at = types.TimestampType(default=arrow.utcnow().timestamp)
     created_by = types.StringType()
+    created_at = types.TimestampType(default=arrow.utcnow().timestamp)
     last_update_by = types.StringType()
     last_update_at = types.TimestampType(default=arrow.utcnow().timestamp)
+
 
 class ModifyNode(models.Model):
     '''
@@ -67,7 +71,6 @@ class ModifyNode(models.Model):
     account = types.StringType()
     status = types.StringType()
     public = types.StringType()
-    checked = types.BooleanType()
     name = types.StringType()
     description = types.StringType()
     checksum = types.StringType()
@@ -86,7 +89,10 @@ class ModifyNode(models.Model):
     centers_total = types.IntType()
     history = compound.ListType(types.StringType())
     history_total = types.IntType()
-    created_at = types.TimestampType()
+    checked = types.BooleanType(default=False)
+    checked_by = types.StringType()
+    checked_at = types.TimestampType(default=arrow.utcnow().timestamp)
     created_by = types.StringType()
+    created_at = types.TimestampType()
     last_update_by = types.StringType()
     last_update_at = types.TimestampType(default=arrow.utcnow().timestamp)
