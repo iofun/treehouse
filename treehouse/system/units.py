@@ -296,24 +296,27 @@ class Unit(object):
             structure = {
                 "uuid": str(event.get('uuid', str(uuid.uuid4()))),
                 "account": str(event.get('account', 'pebkac')),
-                "hashs": str(event.get('hashs', '')),
                 "name": str(event.get('name', '')),
                 "style": str(event.get('style', '')),
                 "description": str(event.get('description', '')),
                 "payload": str(event.get('payload', '')),
                 "status": str(event.get('status', '')),
-                "labels": str(event.get('labels', '')),
+                "region": str(event.get('region', '')),
+                "ranking": str(event.get('ranking', '')),
                 "public": str(event.get('public', '')),
+                "checksum": str(event.get('checksum', '')),
                 "checked": str(event.get('checked', '')),
                 "checked_by": str(event.get('checked_by', '')),
                 "checked_at": str(event.get('checked_at', '')),
                 "last_update_at": str(event.get('last_update_at', '')),
                 "last_update_by": str(event.get('last_update_by', '')),
-                "history": str(event.get('history', '')),
                 "uri": str(event.get('uri', '')),
-                "region": str(event.get('region', '')),
-                "ranking": str(event.get('ranking', '')),
-                "total_labels": str(event.get('total_labels', '')),
+                "labels_set": str(event.get('labels_set', '')),
+                "labels_total": str(event.get('labels_total', '')),
+                "history": str(event.get('history', '')),
+                "history_total": str(event.get('history_total', '')),
+                "hashs": str(event.get('hashs', '')),
+                "hashs_total": str(event.get('hashs_total', '')),
             }
             result = UnitMap(
                 self.kvalue,
@@ -388,7 +391,6 @@ class Unit(object):
         '''
             Remove unit
         '''
-        
         # missing history
         struct = {}
 
