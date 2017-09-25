@@ -46,7 +46,7 @@ class NodeMap(object):
         self.map.registers['ranking'].assign(struct.get('ranking', ''))
         self.map.registers['public'].assign(struct.get('public', ''))
         self.map.registers['uri'].assign(struct.get('uri', ''))
-        self.map.registers['labels'].assign(struct.get('labels', ''))
+        self.map.sets['labels'].add(struct.get('labels'))
         self.map.registers['hashs'].assign(struct.get('hashs', ''))
         self.map.registers['resources'].assign(struct.get('resources', ''))
         self.map.registers['units'].assign(struct.get('units', ''))
@@ -86,7 +86,7 @@ class NodeMap(object):
             "ranking": event.registers['ranking'].value,
             "public": event.registers['public'].value,
             "uri": event.registers['uri'].value,
-            "labels": event.registers['labels'].value,
+            "labels": event.sets['labels'].value,
             "hashs": event.registers['hashs'].value,
             "resources": event.registers['resources'].value,
             "units": event.registers['units'].value,
@@ -119,7 +119,7 @@ class NodeMap(object):
             "ranking": event.registers['ranking'].value,
             "public": event.registers['public'].value,
             "uri": event.registers['uri'].value,
-            "labels": event.registers['labels'].value,
+            "labels": event.sets['labels'].value,
             "hashs": event.registers['hashs'].value,
             "resources": event.registers['resources'].value,
             "units": event.registers['units'].value,
