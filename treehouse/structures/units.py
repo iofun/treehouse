@@ -49,11 +49,11 @@ class UnitMap(object):
         self.map.registers['last_update_by'].assign(struct.get('last_update_by', ''))
         self.map.registers['uri'].assign(struct.get('uri', ''))
         self.map.sets['labels'].add(struct.get('labels'))
-        self.map.counters['labels_total'].assign(struct.get('labels_total', ''))
+        #self.map.counters['labels_total'].assign(struct.get('labels_total', ''))
         self.map.registers['history'].assign(struct.get('history', ''))
-        self.map.counters['history_total'].assign(struct.get('history_total', ''))
+        #self.map.counters['history_total'].assign(struct.get('history_total', ''))
         self.map.registers['hashs'].assign(struct.get('hashs', ''))
-        self.map.counters['hashs_total'].assign(struct.get('hashs_total', ''))
+        #self.map.counters['hashs_total'].assign(struct.get('hashs_total', ''))
         self.map.store()
 
     @property
@@ -85,11 +85,11 @@ class UnitMap(object):
         "last_update_by":event.registers['last_update_by'].value,
         "uri":event.registers['uri'].value,
         "labels_set":event.sets['labels_set'].value,
-        "labels_total":event.counters['labels_total'].value,
+        #"labels_total":event.counters['labels_total'].value,
         "history":event.registers['history'].value,
-        "history_total":event.counters['history_total'].value,
+        #"history_total":event.counters['history_total'].value,
         "hashs":event.registers['hashs'].value,
-        "hashs_total":event.counters['hashs_total'].value,
+        #"hashs_total":event.counters['hashs_total'].value,
         }
         return json.dumps(struct)
 
@@ -114,10 +114,10 @@ class UnitMap(object):
         "last_update_by":event.registers['last_update_by'].value,
         "uri":event.registers['uri'].value,
         "labels_set":event.sets['labels_set'].value,
-        "labels_total":event.counters['labels_total'].value,
+        #"labels_total":event.counters['labels_total'].value,
         "history":event.registers['history'].value,
-        "history_total":event.counters['history_total'].value,
+        #"history_total":event.counters['history_total'].value,
         "hashs":event.registers['hashs'].value,
-        "hashs_total":event.counters['hashs_total'].value,
+        #"hashs_total":event.counters['hashs_total'].value,
         }
         return struct
