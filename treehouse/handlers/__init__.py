@@ -37,12 +37,12 @@ class BaseHandler(web.RequestHandler):
         '''
         return self.settings['kvalue']
 
-    #@property
-    #def cache(self):
-        #'''
+    @property
+    def cache(self):
+        '''
             #Cache backend
-        #'''
-        #return self.settings['cache']
+        '''
+        return self.settings['cache']
 
     def initialize(self, **kwargs):
         '''
@@ -63,23 +63,9 @@ class BaseHandler(web.RequestHandler):
 
     def set_default_headers(self):
         '''
-            Treehouse default headers
+            Set default headers
         '''
         self.set_header("Access-Control-Allow-Origin", self.settings.get('domain', '*'))
-
-    def get_current_username(self):
-        '''
-            Return the username from a secure cookie
-        '''
-        #return self.get_secure_cookie('username')
-        return False
-
-    def get_current_account(self):
-        '''
-            Return the account from a secure cookie
-        '''
-        #return self.get_secure_cookie('account')
-        return False
 
     @gen.coroutine
     def let_it_crash(self, struct, scheme, error, reason):
