@@ -32,7 +32,7 @@ class Node(models.Model):
     checksum = types.StringType()
     region = types.StringType()
     ranking = types.StringType()
-    uri = types.StringType()
+    uri = types.URLType()
     labels = compound.ListType(types.StringType())
     labels_total = types.IntType()
     hashs = compound.ListType(types.StringType())

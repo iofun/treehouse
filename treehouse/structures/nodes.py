@@ -52,12 +52,12 @@ class NodeMap(object):
         self.map.registers['units'].assign(struct.get('units', ''))
         self.map.registers['history'].assign(struct.get('history', ''))
         self.map.registers['centers'].assign(struct.get('centers', ''))
-        self.map.registers['resources_total'].assign(struct.get('resources_total', ''))
-        self.map.registers['units_total'].assign(struct.get('units_total', ''))
-        self.map.registers['centers_total'].assign(struct.get('centers_total', ''))
-        self.map.registers['history_total'].assign(struct.get('history_total', ''))
-        self.map.registers['labels_total'].assign(struct.get('labels_total', ''))
-        self.map.registers['hashs_total'].assign(struct.get('hashs_total', ''))
+        self.map.counters['resources_total'].assign(struct.get('resources_total', ''))
+        self.map.counters['units_total'].assign(struct.get('units_total', ''))
+        self.map.counters['centers_total'].assign(struct.get('centers_total', ''))
+        self.map.counters['history_total'].assign(struct.get('history_total', ''))
+        self.map.counters['labels_total'].assign(struct.get('labels_total', ''))
+        self.map.counters['hashs_total'].assign(struct.get('hashs_total', ''))
         self.map.store()
 
     @property
@@ -92,12 +92,12 @@ class NodeMap(object):
             "units": event.registers['units'].value,
             "history": event.registers['history'].value,
             "centers": event.registers['centers'].value,
-            "resources_total": event.registers['resources_total'].value,
-            "units_total": event.registers['units_total'].value,
-            "centers_total": event.registers['centers_total'].value,
-            "history_total": event.registers['history_total'].value,
-            "labels_total": event.registers['labels_total'].value,
-            "hashs_total": event.registers['hashs_total'].value,
+            "resources_total": event.counters['resources_total'].value,
+            "units_total": event.counters['units_total'].value,
+            "centers_total": event.counters['centers_total'].value,
+            "history_total": event.counters['history_total'].value,
+            "labels_total": event.counters['labels_total'].value,
+            "hashs_total": event.counters['hashs_total'].value,
         }
         return json.dumps(struct)
 
@@ -125,11 +125,11 @@ class NodeMap(object):
             "units": event.registers['units'].value,
             "history": event.registers['history'].value,
             "centers": event.registers['centers'].value,
-            "resources_total": event.registers['resources_total'].value,
-            "units_total": event.registers['units_total'].value,
-            "centers_total": event.registers['centers_total'].value,
-            "history_total": event.registers['history_total'].value,
-            "labels_total": event.registers['labels_total'].value,
-            "hashs_total": event.registers['hashs_total'].value,
+            "resources_total": event.counters['resources_total'].value,
+            "units_total": event.counters['units_total'].value,
+            "centers_total": event.counters['centers_total'].value,
+            "history_total": event.counters['history_total'].value,
+            "labels_total": event.counters['labels_total'].value,
+            "hashs_total": event.counters['hashs_total'].value,
         }
         return struct
