@@ -7,22 +7,9 @@ main(_) ->
     application:ensure_all_started(chumak),
     {ok, Socket} = chumak:socket(sub),
 
-    %% List of topics, put them on a list!
-    Topic = <<" ">>,
+    %% Subscribe topic
     Heartbeat = <<"heartbeat">>,
-    Asterisk = <<"asterisk">>,
-    Currency = <<"currency">>,
-    Beam = <<"beam">>,
-    Logging = <<"logging">>,
-    Upload = <<"upload">>,
-
-    %% Erlang zmq subscribe socket and topics!
-    chumak:subscribe(Socket, Topic),
     chumak:subscribe(Socket, Heartbeat),
-    chumak:subscribe(Socket, Asterisk),
-    chumak:subscribe(Socket, Currency),
-    chumak:subscribe(Socket, Logging),
-    chumak:subscribe(Socket, Upload),
     
     case chumak:bind(Socket, tcp, "localhost", 5813) of
         {ok, _BindPid} ->
