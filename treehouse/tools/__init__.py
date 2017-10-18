@@ -31,7 +31,7 @@ def get_percentage(part, whole):
         Get percentage of part and whole.
 
     '''
-    return 100.0 * part/whole
+    return "{0:.0f}%".format(float(part)/whole * 100)
 
 def socketid2hex(sid):
     '''

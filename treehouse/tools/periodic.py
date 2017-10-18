@@ -11,10 +11,10 @@
 __author__ = 'Team Machine'
 
 
+import uuid
 import logging
 from tornado import httpclient
 import ujson as json
-import uuid
 
 from tornado import gen
 
