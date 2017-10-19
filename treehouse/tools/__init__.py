@@ -116,58 +116,6 @@ def check_times_get_datetime(start, end):
     message = {'start':start.naive, 'end':end.naive}
     raise gen.Return(message)
 
-@gen.coroutine
-def new_resource(db, struct, collection=None, scheme=None):
-    '''
-        New resource function
-    '''
-    import uuid as _uuid
-    from schematics import models as _models
-    from schematics import types as _types
-
-    class TreehouseResource(_models.Model):
-        '''
-            Treehouse resource
-        '''
-        uuid = _types.UUIDType(default=_uuid.uuid4)
-        units = _types.StringType(required=False)
-        resource  = _types.StringType(required=True)
-
-
-    # Calling getattr(x, "foo") is just another way to write x.foo
-    collection = getattr(db, collection)
-    try:
-        message = TreehouseResource(struct)
-        message.validate()
-        message = message.to_primitive()
-    except Exception, e:
-        logging.exception(e)
-        raise e
-        return
-    resource = 'resources.{0}'.format(message.get('resource'))
-    try:
-        message = yield collection.update(
-            {
-                #'uuid': message.get(scheme),           # tha fucks ?
-                'account': message.get('account')
-            },
-            {
-                '$addToSet': {
-                    '{0}.contains'.format(resource): message.get('uuid')
-                },
-
-                '$inc': {
-                    'resources.total': 1,
-                    '{0}.total'.format(resource): 1
-                }
-            }
-        )
-    except Exception, e:
-        logging.exception(e)
-        raise e
-        return
-    raise gen.Return(message)
-
 def clean_message(struct):
     '''
         clean message structure
