@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 '''
-    Treehouse tools system periodic functions.
+    Treehouse periodic system tools.
 '''
 
 # This file is part of treehouse.

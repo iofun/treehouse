@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 '''
-    Treehouse tools system logic functions.
+    Treehouse system tool functions.
 '''
 
 # This file is part of treehouse.
