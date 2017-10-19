@@ -36,8 +36,7 @@ def socketid2hex(sid):
     '''
         Returns printable hex representation of a socket id.
     '''
-    ret = ''.join("%02X" % ord(c) for c in sid)
-    return ret
+    return ''.join("%02X" % ord(c) for c in sid)
 
 def split_address(message):
     '''
