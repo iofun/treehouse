@@ -5,7 +5,7 @@
 
 # This file is part of treehouse.
 
-# Distributed under the terms of the last AGPL License. 
+# Distributed under the terms of the last AGPL License.
 # The full license is in the file LICENCE, distributed as part of this software.
 
 __author__ = 'Team Machine'
@@ -29,11 +29,11 @@ class Error(object):
     '''
         Treehouse custom error class
     '''
-    
+
     def __init__(self, error):
         self.error = str(error)
         self.message = None
-        self.hint = None
+        self.reason = None
         self.data = None
         self.code = None
 
@@ -76,7 +76,7 @@ class Error(object):
     def model(self, model_name):
         '''
             Error model dataset
-            
+
             model_name: Model name of the dataset
         '''
         model_name = ''.join((model_name, ' resource'))
@@ -97,7 +97,7 @@ class Error(object):
         '''
         self.message = 'Missing %s resource [\"%s\"].' % (resource, name)
         self.data = self.error
-        
+
         return {
             'message': self.message,
             'errors': self.data
