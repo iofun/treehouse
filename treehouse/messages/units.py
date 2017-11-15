@@ -47,7 +47,9 @@ class Unit(models.Model):
     created_at = types.TimestampType(default=arrow.utcnow().timestamp)
     last_update_by = types.StringType()
     last_update_at = types.TimestampType(default=arrow.utcnow().timestamp)
-
+    resource = types.StringType()
+    resource_uuid = types.StringType()
+    active = types.BooleanType(default=True)
 
 class ModifyUnit(models.Model):
     '''
@@ -87,3 +89,6 @@ class ModifyUnit(models.Model):
     created_at = types.TimestampType()
     last_update_by = types.StringType()
     last_update_at = types.TimestampType(default=arrow.utcnow().timestamp)
+    resource = types.StringType()
+    resource_uuid = types.StringType()
+    active = types.BooleanType()

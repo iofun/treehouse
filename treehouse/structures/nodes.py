@@ -58,6 +58,10 @@ class NodeMap(object):
         self.map.counters['history_total'].assign(struct.get('history_total', ''))
         self.map.counters['labels_total'].assign(struct.get('labels_total', ''))
         self.map.counters['hashs_total'].assign(struct.get('hashs_total', ''))
+        self.map.registers['resource'].assign(struct.get('resource', ''))
+        self.map.registers['resource_uuid'].assign(struct.get('resource_uuid', ''))
+        self.map.registers['active'].assign(struct.get('active', ''))
+
         self.map.store()
 
     @property
@@ -98,6 +102,9 @@ class NodeMap(object):
             "history_total": event.counters['history_total'].value,
             "labels_total": event.counters['labels_total'].value,
             "hashs_total": event.counters['hashs_total'].value,
+            "resource":event.registers['resource'].value,
+            "resource_uuid":event.registers['resource_uuid'].value,
+            "active":event.registers['active'].value,
         }
         return json.dumps(struct)
 
@@ -131,5 +138,8 @@ class NodeMap(object):
             "history_total": event.counters['history_total'].value,
             "labels_total": event.counters['labels_total'].value,
             "hashs_total": event.counters['hashs_total'].value,
+            "resource":event.registers['resource'].value,
+            "resource_uuid":event.registers['resource_uuid'].value,
+            "active":event.registers['active'].value,
         }
         return struct

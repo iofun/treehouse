@@ -54,6 +54,9 @@ class UnitMap(object):
         #self.map.counters['history_total'].assign(struct.get('history_total', ''))
         self.map.registers['hashs'].assign(struct.get('hashs', ''))
         #self.map.counters['hashs_total'].assign(struct.get('hashs_total', ''))
+        self.map.registers['resource'].assign(struct.get('resource', ''))
+        self.map.registers['resource_uuid'].assign(struct.get('resource_uuid', ''))
+        self.map.registers['active'].assign(struct.get('active', ''))
         self.map.store()
 
     @property
@@ -67,57 +70,63 @@ class UnitMap(object):
     def to_json(self):
         event = self.map.reload()
         struct = {
-        "uuid":event.registers['uuid'].value,
-        "account":event.registers['account'].value,
-        "name":event.registers['name'].value,
-        "style":event.registers['style'].value,
-        "description":event.registers['description'].value,
-        "payload":event.registers['payload'].value,
-        "status":event.registers['status'].value,
-        "region":event.registers['region'].value,
-        "ranking":event.registers['ranking'].value,
-        "public":event.registers['public'].value,
-        "checksum":event.registers['checksum'].value,
-        "checked":event.registers['checked'].value,
-        "checked_by":event.registers['checked_by'].value,
-        "checked_at":event.registers['checked_at'].value,
-        "last_update_at":event.registers['last_update_at'].value,
-        "last_update_by":event.registers['last_update_by'].value,
-        "uri":event.registers['uri'].value,
-        "labels_set":event.sets['labels_set'].value,
-        #"labels_total":event.counters['labels_total'].value,
-        "history":event.registers['history'].value,
-        #"history_total":event.counters['history_total'].value,
-        "hashs":event.registers['hashs'].value,
-        #"hashs_total":event.counters['hashs_total'].value,
+            "uuid":event.registers['uuid'].value,
+            "account":event.registers['account'].value,
+            "name":event.registers['name'].value,
+            "style":event.registers['style'].value,
+            "description":event.registers['description'].value,
+            "payload":event.registers['payload'].value,
+            "status":event.registers['status'].value,
+            "region":event.registers['region'].value,
+            "ranking":event.registers['ranking'].value,
+            "public":event.registers['public'].value,
+            "checksum":event.registers['checksum'].value,
+            "checked":event.registers['checked'].value,
+            "checked_by":event.registers['checked_by'].value,
+            "checked_at":event.registers['checked_at'].value,
+            "last_update_at":event.registers['last_update_at'].value,
+            "last_update_by":event.registers['last_update_by'].value,
+            "uri":event.registers['uri'].value,
+            "labels_set":event.sets['labels_set'].value,
+            #"labels_total":event.counters['labels_total'].value,
+            "history":event.registers['history'].value,
+            #"history_total":event.counters['history_total'].value,
+            "hashs":event.registers['hashs'].value,
+            #"hashs_total":event.counters['hashs_total'].value,
+            "resource":event.registers['resource'].value,
+            "resource_uuid":event.registers['resource_uuid'].value,
+            "active":event.registers['active'].value
         }
         return json.dumps(struct)
 
     def to_dict(self):
         event = self.map.reload()
         struct = {
-        "uuid":event.registers['uuid'].value,
-        "account":event.registers['account'].value,
-        "name":event.registers['name'].value,
-        "style":event.registers['style'].value,
-        "description":event.registers['description'].value,
-        "payload":event.registers['payload'].value,
-        "status":event.registers['status'].value,
-        "region":event.registers['region'].value,
-        "ranking":event.registers['ranking'].value,
-        "public":event.registers['public'].value,
-        "checksum":event.registers['checksum'].value,
-        "checked":event.registers['checked'].value,
-        "checked_by":event.registers['checked_by'].value,
-        "checked_at":event.registers['checked_at'].value,
-        "last_update_at":event.registers['last_update_at'].value,
-        "last_update_by":event.registers['last_update_by'].value,
-        "uri":event.registers['uri'].value,
-        "labels_set":event.sets['labels_set'].value,
-        #"labels_total":event.counters['labels_total'].value,
-        "history":event.registers['history'].value,
-        #"history_total":event.counters['history_total'].value,
-        "hashs":event.registers['hashs'].value,
-        #"hashs_total":event.counters['hashs_total'].value,
+            "uuid":event.registers['uuid'].value,
+            "account":event.registers['account'].value,
+            "name":event.registers['name'].value,
+            "style":event.registers['style'].value,
+            "description":event.registers['description'].value,
+            "payload":event.registers['payload'].value,
+            "status":event.registers['status'].value,
+            "region":event.registers['region'].value,
+            "ranking":event.registers['ranking'].value,
+            "public":event.registers['public'].value,
+            "checksum":event.registers['checksum'].value,
+            "checked":event.registers['checked'].value,
+            "checked_by":event.registers['checked_by'].value,
+            "checked_at":event.registers['checked_at'].value,
+            "last_update_at":event.registers['last_update_at'].value,
+            "last_update_by":event.registers['last_update_by'].value,
+            "uri":event.registers['uri'].value,
+            "labels_set":event.sets['labels_set'].value,
+            #"labels_total":event.counters['labels_total'].value,
+            "history":event.registers['history'].value,
+            #"history_total":event.counters['history_total'].value,
+            "hashs":event.registers['hashs'].value,
+            #"hashs_total":event.counters['hashs_total'].value,
+            "resource":event.registers['resource'].value,
+            "resource_uuid":event.registers['resource_uuid'].value,
+            "active":event.registers['active'].value
         }
         return struct
