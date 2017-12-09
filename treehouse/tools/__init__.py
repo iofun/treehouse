@@ -1,11 +1,11 @@
 # -*- coding: utf-8 -*-
 '''
-    Treehouse tools system logic functions.
+    Treehouse system tool functions.
 '''
 
 # This file is part of treehouse.
 
-# Distributed under the terms of the last AGPL License. 
+# Distributed under the terms of the last AGPL License.
 # The full license is in the file LICENCE, distributed as part of this software.
 
 __author__ = 'Team Machine'
@@ -13,7 +13,6 @@ __author__ = 'Team Machine'
 
 import time
 import arrow
-import datetime
 import ujson as json
 import logging
 from tornado import gen
@@ -26,19 +25,18 @@ def get_average(total, marks):
     '''
     return float(total) / len(marks)
 
-def get_percentage(shit, stuff):
+def get_percentage(part, whole):
     '''
-        Get percentage of shit and stuff.
+        Get percentage of part and whole.
 
     '''
-    return "{:.0%}".format(shit/stuff)
+    return "{0:.0f}%".format(float(part)/whole * 100)
 
 def socketid2hex(sid):
     '''
         Returns printable hex representation of a socket id.
     '''
-    ret = ''.join("%02X" % ord(c) for c in sid)
-    return ret
+    return ''.join("%02X" % ord(c) for c in sid)
 
 def split_address(message):
     '''
@@ -69,7 +67,7 @@ def check_json(struct):
         raise gen.Return(error)
         return
     raise gen.Return(struct)
-    
+
 @gen.coroutine
 def check_times(start, end):
     '''
@@ -117,65 +115,13 @@ def check_times_get_datetime(start, end):
     message = {'start':start.naive, 'end':end.naive}
     raise gen.Return(message)
 
-@gen.coroutine
-def new_resource(db, struct, collection=None, scheme=None):
-    '''
-        New resource function
-    '''
-    import uuid as _uuid
-    from schematics import models as _models
-    from schematics import types as _types
-
-    class TreehouseResource(_models.Model):
-        '''
-            Treehouse resource
-        '''
-        uuid = _types.UUIDType(default=_uuid.uuid4)
-        units = _types.StringType(required=False)
-        resource  = _types.StringType(required=True)
-
-
-    # Calling getattr(x, "foo") is just another way to write x.foo
-    collection = getattr(db, collection)  
-    try:
-        message = TreehouseResource(struct)
-        message.validate()
-        message = message.to_primitive()
-    except Exception, e:
-        logging.exception(e)
-        raise e
-        return
-    resource = 'resources.{0}'.format(message.get('resource'))
-    try:
-        message = yield collection.update(
-            {
-                #'uuid': message.get(scheme),           # tha fucks ?
-                'account': message.get('account')
-            },
-            {
-                '$addToSet': {
-                    '{0}.contains'.format(resource): message.get('uuid')
-                },
-                    
-                '$inc': {
-                    'resources.total': 1,
-                    '{0}.total'.format(resource): 1
-                }
-            }
-        )
-    except Exception, e:
-        logging.exception(e)
-        raise e
-        return
-    raise gen.Return(message)
-
 def clean_message(struct):
     '''
         clean message structure
     '''
     struct = struct.to_native()
     struct = {
-        key: struct[key] 
+        key: struct[key]
             for key in struct
                 if struct[key] is not None
     }
@@ -187,7 +133,7 @@ def clean_structure(struct):
     '''
     struct = struct.to_primitive()
     struct = {
-        key: struct[key] 
+        key: struct[key]
             for key in struct
                 if struct[key] is not None
     }
@@ -203,8 +149,8 @@ def clean_results(results):
         {
             key: dic[key]
                 for key in dic
-                    if dic[key] is not None 
-        } for dic in results 
+                    if dic[key] is not None
+        } for dic in results
     ]
     return {'results': results}
 
@@ -213,68 +159,3 @@ def str2bool(boo):
         String to boolean
     '''
     return boo.lower() in ('yes', 'true', 't', '1')
-
-@gen.coroutine
-def resource_exists(db, struct):
-    '''
-        resource_exists
-    '''
-    logging.warning('exist, exists, existed')
-
-@gen.coroutine
-def last_modified(db, struct):
-    '''
-        last_modified
-    '''
-    logging.warning('exist, exists, existed')
-
-@gen.coroutine
-def moved_permanently(db, struct):
-    '''
-        moved_permanently
-    '''
-    logging.warning('exist, exists, existed')
-
-@gen.coroutine
-def moved_temporarily(db, struct):
-    '''
-        moved_temporarily
-    '''
-    logging.warning('exist, exists, existed')
-
-@gen.coroutine
-def previously_existed(db, struct):
-    '''
-        previosly_existed
-    '''
-    logging.warning('exist, exists, existed')
-
-@gen.coroutine
-def resource_exists(db, struct):
-    '''
-        resource_exists
-    '''
-    logging.warning('exist, exists, existed')
-
-@gen.coroutine
-def forbidden_resource(db, struct):
-    '''
-        forbidden_resource
-    '''
-    logging.warning('exist, exists, existed')
-
-@gen.coroutine
-def delete_resource(db, struct):
-    '''
-        delete_resource
-    '''
-    logging.warning('exist, exists, existed')
-
-@gen.coroutine
-def delete_completed(db, struct):
-    '''
-        delete_completed
-
-        this is an acknoledgment
-    '''
-    logging.warning('exist, exists, existed')

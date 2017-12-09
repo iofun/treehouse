@@ -84,7 +84,7 @@ from subprocess import Popen, PIPE
 from tornado.ioloop import PeriodicCallback as Cast
 from tornado import gen, web
 from tornado import httpclient
-from treehouse.tools import options, periodic, new_resource
+from treehouse.tools import options, periodic
 from treehouse.handlers import nodes, units
 from zmq.eventloop import ioloop
 
@@ -101,7 +101,7 @@ def main():
     system_uuid = uuid.uuid4()
     # Set treehouse OTP release
     erlang_release = opts.erlang_release
-    
+
     @gen.coroutine
     def check_treehouse_erlang_node():
         '''
@@ -134,7 +134,7 @@ def main():
                 circus = Popen(["/etc/init.d/circusd", "stop", "."], stdout=PIPE)
                 (output, err) = circus.communicate()
                 logging.error('we crash circusd after trying {0} times!'.format(max_count))
-    
+
     # Set memcached backend
     cache = mc.Client(
         [opts.memcached_host],

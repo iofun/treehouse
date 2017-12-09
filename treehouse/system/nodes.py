@@ -320,6 +320,9 @@ class Node(object):
                 "history_total": str(event.get('history_total', '')),
                 "labels_total": str(event.get('labels_total', '')),
                 "hashs_total": str(event.get('hashs_total', '')),
+                "resource": str(event.get('resource', '')),
+                "resource_uuid": str(event.get('resource_uuid', '')),
+                "active": str(event.get('active', '')),
             }
             result = NodeMap(
                 self.kvalue,

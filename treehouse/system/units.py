@@ -317,6 +317,9 @@ class Unit(object):
                 "history_total": str(event.get('history_total', '')),
                 "hashs": str(event.get('hashs', '')),
                 "hashs_total": str(event.get('hashs_total', '')),
+                "resource": str(event.get('resource', '')),
+                "resource_uuid": str(event.get('resource_uuid', '')),
+                "active": str(event.get('active', '')),
             }
             result = UnitMap(
                 self.kvalue,
