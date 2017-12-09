@@ -6,11 +6,9 @@ main(_) ->
 	io:format("Subscriber bind treehouse OTP release erlang escript.\n",[]),
     application:ensure_all_started(chumak),
     {ok, Socket} = chumak:socket(sub),
-
     %% Subscribe topic
     Heartbeat = <<"heartbeat">>,
     chumak:subscribe(Socket, Heartbeat),
-    
     case chumak:bind(Socket, tcp, "localhost", 5813) of
         {ok, _BindPid} ->
             io:format("Binding OK with Pid: ~p\n", [Socket]);
