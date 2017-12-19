@@ -4,7 +4,7 @@
 
 The treehouse spontaneously generates units used to spawn your resources.
 
-Nodes use singularity containers to allow you control of additional CPU and GPU units.
+Nodes allow you control of additional CPU and GPU units.
 
 Nodes provide granular unit control for your cloud forest jungle.
 
