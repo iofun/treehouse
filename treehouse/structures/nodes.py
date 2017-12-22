@@ -45,19 +45,13 @@ class NodeMap(object):
         self.map.registers['region'].assign(struct.get('region', ''))
         self.map.registers['ranking'].assign(struct.get('ranking', ''))
         self.map.registers['public'].assign(struct.get('public', ''))
-        self.map.registers['uri'].assign(struct.get('uri', ''))
-        self.map.sets['labels'].add(struct.get('labels'))
+        self.map.registers['url'].assign(struct.get('url', ''))
+        self.map.registers['labels'].assign(struct.get('labels'))
         self.map.registers['hashs'].assign(struct.get('hashs', ''))
         self.map.registers['resources'].assign(struct.get('resources', ''))
         self.map.registers['units'].assign(struct.get('units', ''))
         self.map.registers['history'].assign(struct.get('history', ''))
         self.map.registers['centers'].assign(struct.get('centers', ''))
-        self.map.counters['resources_total'].assign(struct.get('resources_total', ''))
-        self.map.counters['units_total'].assign(struct.get('units_total', ''))
-        self.map.counters['centers_total'].assign(struct.get('centers_total', ''))
-        self.map.counters['history_total'].assign(struct.get('history_total', ''))
-        self.map.counters['labels_total'].assign(struct.get('labels_total', ''))
-        self.map.counters['hashs_total'].assign(struct.get('hashs_total', ''))
         self.map.registers['resource'].assign(struct.get('resource', ''))
         self.map.registers['resource_uuid'].assign(struct.get('resource_uuid', ''))
         self.map.registers['active'].assign(struct.get('active', ''))
@@ -89,19 +83,13 @@ class NodeMap(object):
             "region": event.registers['region'].value,
             "ranking": event.registers['ranking'].value,
             "public": event.registers['public'].value,
-            "uri": event.registers['uri'].value,
-            "labels": event.sets['labels'].value,
+            "url": event.registers['url'].value,
+            "labels": event.registers['labels'].value,
             "hashs": event.registers['hashs'].value,
             "resources": event.registers['resources'].value,
             "units": event.registers['units'].value,
             "history": event.registers['history'].value,
             "centers": event.registers['centers'].value,
-            "resources_total": event.counters['resources_total'].value,
-            "units_total": event.counters['units_total'].value,
-            "centers_total": event.counters['centers_total'].value,
-            "history_total": event.counters['history_total'].value,
-            "labels_total": event.counters['labels_total'].value,
-            "hashs_total": event.counters['hashs_total'].value,
             "resource":event.registers['resource'].value,
             "resource_uuid":event.registers['resource_uuid'].value,
             "active":event.registers['active'].value,
@@ -125,19 +113,13 @@ class NodeMap(object):
             "region": event.registers['region'].value,
             "ranking": event.registers['ranking'].value,
             "public": event.registers['public'].value,
-            "uri": event.registers['uri'].value,
-            "labels": event.sets['labels'].value,
+            "url": event.registers['url'].value,
+            "labels": event.registers['labels'].value,
             "hashs": event.registers['hashs'].value,
             "resources": event.registers['resources'].value,
             "units": event.registers['units'].value,
             "history": event.registers['history'].value,
             "centers": event.registers['centers'].value,
-            "resources_total": event.counters['resources_total'].value,
-            "units_total": event.counters['units_total'].value,
-            "centers_total": event.counters['centers_total'].value,
-            "history_total": event.counters['history_total'].value,
-            "labels_total": event.counters['labels_total'].value,
-            "hashs_total": event.counters['hashs_total'].value,
             "resource":event.registers['resource'].value,
             "resource_uuid":event.registers['resource_uuid'].value,
             "active":event.registers['active'].value,
