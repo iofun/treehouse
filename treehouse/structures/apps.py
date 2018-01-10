@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 '''
-    App CRDT's structures.
+   Treehouse App CRDT's structures.
 '''
 
 # This file is part of aqueduct.

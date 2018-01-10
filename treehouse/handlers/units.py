@@ -20,6 +20,7 @@ from treehouse.messages import units as models
 from treehouse.system import units
 from treehouse.tools import errors, str2bool, check_json
 from treehouse.handlers import BaseHandler
+from collections import OrderedDict
 
 
 class Handler(units.Unit, BaseHandler):

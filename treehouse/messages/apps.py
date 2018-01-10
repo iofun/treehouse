@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 '''
-    App message models.
+    Treehouse App message models.
 '''
 
 # This file is part of aqueduct.

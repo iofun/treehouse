@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 '''
-    Unit message models.
+    Treehouse Unit message models.
 '''
 
 # This file is part of aqueduct.

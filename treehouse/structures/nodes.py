@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 '''
-    Treehouse CRDT node structures.
+    Treehouse node CRDT structures.
 '''
 
 # This file is part of treehouse.

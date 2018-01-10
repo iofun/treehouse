@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 '''
-    Cas units system logic.
+    Treehouse units system logic.
 '''
 
 # This file is part of treehouse.
@@ -10,7 +10,6 @@
 
 __author__ = 'Team Machine'
 
-import arrow
 import uuid
 import logging
 import ujson as json

@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 '''
-    Unit CRDT's structures.
+    Treehouse Unit CRDT's structures.
 '''
 
 # This file is part of aqueduct.
