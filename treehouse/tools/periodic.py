@@ -11,12 +11,11 @@
 __author__ = 'Team Machine'
 
 
-import uuid
-import logging
-from tornado import httpclient
-import ujson as json
 
+import logging
+import ujson as json
 from tornado import gen
+from tornado import httpclient
 
 
 httpclient.AsyncHTTPClient.configure('tornado.curl_httpclient.CurlAsyncHTTPClient')

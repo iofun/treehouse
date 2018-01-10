@@ -49,6 +49,7 @@ class Node(models.Model):
     resource = types.StringType()
     resource_uuid = types.StringType()
     active = types.BooleanType(default=True)
+    watchers = compound.ListType(types.StringType())
 
 
 class ModifyNode(models.Model):
@@ -90,3 +91,4 @@ class ModifyNode(models.Model):
     resource = types.StringType()
     resource_uuid = types.StringType()
     active = types.BooleanType()
+    watchers = compound.ListType(types.StringType())

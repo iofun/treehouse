@@ -11,25 +11,15 @@
 __author__ = 'Team Machine'
 
 
-import sys
-import logging
-from tornado import gen
+
+
 from tornado import web
-from treehouse.tools import errors
 
 
 class BaseHandler(web.RequestHandler):
     '''
-        Gente d'armi e ganti
+        gente d'armi e ganti
     '''
-
-    @property
-    def sql(self):
-        '''
-            SQL database
-        '''
-        return self.settings['sql']
-
     @property
     def kvalue(self):
         '''
@@ -37,21 +27,11 @@ class BaseHandler(web.RequestHandler):
         '''
         return self.settings['kvalue']
 
-    @property
-    def cache(self):
-        '''
-            #Cache backend
-        '''
-        return self.settings['cache']
-
     def initialize(self, **kwargs):
         '''
             Initialize the Base Handler
         '''
-        # The Senate and People of Mars
         super(BaseHandler, self).initialize(**kwargs)
-        # etag
-        self.etag = None
         # System database
         self.db = self.settings.get('db')
         # System cache
@@ -63,42 +43,6 @@ class BaseHandler(web.RequestHandler):
 
     def set_default_headers(self):
         '''
-            Set default headers
+            default headers
         '''
         self.set_header("Access-Control-Allow-Origin", self.settings.get('domain', '*'))
-
-    @gen.coroutine
-    def let_it_crash(self, struct, scheme, error, reason):
-        '''
-            Let it crash
-        '''
-        str_error = str(error)
-        error_handler = errors.Error(error)
-        messages = []
-        if error and 'Model' in str_error:
-            message = error_handler.model(scheme)
-        elif error and 'duplicate' in str_error:
-            for name, value in reason.get('duplicates'):
-                if value in str_error:
-                    message = error_handler.duplicate(
-                        name.title(),
-                        value,
-                        struct.get(value)
-                    )
-                    messages.append(message)
-            message = ({'messages':messages} if messages else False)
-        elif error and 'value' in str_error:
-            message = error_handler.value()
-        elif error is not None:
-            logging.error(struct, scheme, error, reason)
-            message = {
-                'error': u'nonsense',
-                'message': u'there is no error'
-            }
-        else:
-            quotes = PeopleQuotes()
-            message = {
-                'status': 200,
-                'message': quotes.get()
-            }
-        raise gen.Return(message)

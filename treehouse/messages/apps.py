@@ -47,6 +47,7 @@ class App(models.Model):
     resource = types.StringType()
     resource_uuid = types.StringType()
     active = types.BooleanType(default=True)
+    watchers = compound.ListType(types.StringType())
 
 class ModifyApp(models.Model):
     '''
@@ -86,3 +87,4 @@ class ModifyApp(models.Model):
     resource = types.StringType()
     resource_uuid = types.StringType()
     active = types.BooleanType()
+    watchers = compound.ListType(types.StringType())

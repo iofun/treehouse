@@ -55,7 +55,7 @@ class NodeMap(object):
         self.map.registers['resource'].assign(struct.get('resource', ''))
         self.map.registers['resource_uuid'].assign(struct.get('resource_uuid', ''))
         self.map.registers['active'].assign(struct.get('active', ''))
-
+        self.map.registers['watchers'].assign(struct.get('watchers', ''))
         self.map.store()
 
     @property
@@ -93,6 +93,7 @@ class NodeMap(object):
             "resource":event.registers['resource'].value,
             "resource_uuid":event.registers['resource_uuid'].value,
             "active":event.registers['active'].value,
+            "watchers": event.registers['watchers'].value,
         }
         return json.dumps(struct)
 
@@ -123,5 +124,6 @@ class NodeMap(object):
             "resource":event.registers['resource'].value,
             "resource_uuid":event.registers['resource_uuid'].value,
             "active":event.registers['active'].value,
+            "watchers": event.registers['watchers'].value,
         }
         return struct

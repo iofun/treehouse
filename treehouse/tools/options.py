@@ -12,6 +12,7 @@ __author__ = 'Team Machine'
 
 
 import os
+import base64
 import uuid
 import tornado.options
 from tornado.options import parse_config_file
