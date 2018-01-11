@@ -76,7 +76,7 @@ import sys
 import uuid
 import logging
 import arrow
-import riak
+#import riak
 import queries
 import pylibmc as mc
 import ujson as json
@@ -120,7 +120,7 @@ def main():
     # Set SQL session
     sql = queries.TornadoSession(uri=postgresql_uri)
     # key-value
-    kvalue = riak.RiakClient(host=opts.riak_host, pb_port=8087)
+    #kvalue = riak.RiakClient(host=opts.riak_host, pb_port=8087)
     # Set treehouse OTP release
     erlang_release = opts.erlang_release
 
@@ -162,9 +162,9 @@ def main():
     # logging database hosts
     logging.info('PostgreSQL server: {0}:{1}'.format(opts.sql_host, opts.sql_port))
     # solr yokozuna
-    logging.info('Solr yokozuna: {0}'.format(opts.solr))
+    #logging.info('Solr yokozuna: {0}'.format(opts.solr))
     # logging riak settings
-    logging.info('Riak server: {0}:{1}'.format(opts.riak_host, opts.riak_port))
+    #logging.info('Riak server: {0}:{1}'.format(opts.riak_host, opts.riak_port))
     # system cache
     cache_enabled = opts.cache_enabled
     if cache_enabled:
@@ -185,7 +185,7 @@ def main():
         # cache enabled flag
         cache_enabled=cache_enabled,
         # kvalue datastorage
-        kvalue=kvalue,
+        #kvalue=kvalue,
         # sql datastorage
         sql=sql,
         # debug mode
