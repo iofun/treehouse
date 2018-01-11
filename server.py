@@ -70,9 +70,9 @@ __ooo__ = '''
     »»»╨╚╙╨░╙╙░╨"!╙░╙╚░╩^^╨^░"h░░""░Ü"░░░^╚"╚╨░»»░░░»░»»░░»»░░»░»»░»»»»»»»»»»░░░░░»»
 '''
 
-#import os
+import os
 import zmq
-#import sys
+import sys
 import uuid
 import logging
 #import arrow
