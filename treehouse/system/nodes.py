@@ -220,7 +220,7 @@ class Node(object):
             message = str(error)
         return message
 
-     @gen.coroutine
+    @gen.coroutine
     def modify_node(self, account, node_uuid, struct):
         '''
             Modify node
