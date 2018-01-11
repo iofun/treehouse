@@ -75,7 +75,7 @@ import zmq
 import sys
 import uuid
 import logging
-#import arrow
+import arrow
 import riak
 import queries
 import pylibmc as mc
@@ -100,6 +100,27 @@ def main():
     opts = options.options()
     # System uuid
     system_uuid = uuid.uuid4()
+    # Set memcached backend
+    cache = mc.Client(
+        [opts.memcached_host],
+        binary=opts.memcached_binary,
+        behaviors={
+            "tcp_nodelay": opts.memcached_tcp_nodelay,
+            "ketama": opts.memcached_ketama
+        }
+    )
+    # Set SQL URI
+    postgresql_uri = queries.uri(
+        host=opts.sql_host,
+        port=opts.sql_port,
+        dbname='cybernetics',
+        user=opts.sql_user,
+        password=None
+    )
+    # Set SQL session
+    sql = queries.TornadoSession(uri=postgresql_uri)
+    # key-value
+    kvalue = riak.RiakClient(host=opts.riak_host, pb_port=8087)
     # Set treehouse OTP release
     erlang_release = opts.erlang_release
 
@@ -136,27 +157,6 @@ def main():
                 (output, err) = circus.communicate()
                 logging.error('we crash circusd after trying {0} times!'.format(max_count))
 
-    # Set memcached backend
-    cache = mc.Client(
-        [opts.memcached_host],
-        binary=opts.memcached_binary,
-        behaviors={
-            "tcp_nodelay": opts.memcached_tcp_nodelay,
-            "ketama": opts.memcached_ketama
-        }
-    )
-    # Set SQL URI
-    postgresql_uri = queries.uri(
-        host=opts.sql_host,
-        port=opts.sql_port,
-        dbname='cybernetics',
-        user=opts.sql_user,
-        password=None
-    )
-    # Set SQL session
-    sql = queries.TornadoSession(uri=postgresql_uri)
-    # key-value
-    kvalue = riak.RiakClient(host=opts.riak_host, pb_port=8087)
     # logging system spawned
     logging.info('Treehouse system {0} spawned'.format(system_uuid))
     # logging database hosts
