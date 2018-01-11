@@ -173,12 +173,12 @@ def main():
     application = web.Application(
         [
             # Nodes resource
-            (r'/nodes/(?P<node_uuid>.+)/?', nodes.Handler),
-            (r'/nodes/?', nodes.Handler),
+            #(r'/nodes/(?P<node_uuid>.+)/?', nodes.Handler),
+            #(r'/nodes/?', nodes.Handler),
             # Units resource
-            (r'/units/page/(?P<page_num>\d+)/?', units.Handler),
-            (r'/units/(?P<unit_uuid>.+)/?', units.Handler),
-            (r'/units/?', units.Handler),
+            #(r'/units/page/(?P<page_num>\d+)/?', units.Handler),
+            #(r'/units/(?P<unit_uuid>.+)/?', units.Handler),
+            #(r'/units/?', units.Handler),
         ],
         # system cache
         cache=cache,
