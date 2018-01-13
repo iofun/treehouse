@@ -48,7 +48,7 @@ class UnitMap(object):
         self.map.registers['last_update_at'].assign(struct.get('last_update_at', ''))
         self.map.registers['last_update_by'].assign(struct.get('last_update_by', ''))
         self.map.registers['url'].assign(struct.get('url', ''))
-        self.map.registers['labels'].add(struct.get('labels'))
+        self.map.registers['labels'].assign(struct.get('labels'))
         self.map.registers['history'].assign(struct.get('history', ''))
         self.map.registers['hashs'].assign(struct.get('hashs', ''))
         self.map.registers['resource'].assign(struct.get('resource', ''))
