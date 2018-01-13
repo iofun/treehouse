@@ -86,7 +86,7 @@ from tornado import gen, web
 from tornado.web import RequestHandler
 from tornado import httpclient
 from treehouse.tools import options, periodic
-#from treehouse.handlers import nodes, units
+from treehouse.handlers import apps, units, nodes
 from zmq.eventloop import ioloop
 
 # ioloop
@@ -138,10 +138,11 @@ def main():
         von_count = 0
         running = False
         # tomela mae borre esta linea cuando funque lololol
-        logging.error(output)
         if b'not responding to pings' in output:
+            logging.error(output)
             process = Popen([erlang_release, "start", "."], stdout=PIPE)
             (output, err) = process.communicate()
+            logging.error(output)
             exit_code = process.wait()
         elif b'pong' in output:
             if not running:
@@ -170,13 +171,19 @@ def main():
     # treehouse application daemon
     application = web.Application(
         [
-            # Nodes resource
-            #(r'/nodes/(?P<node_uuid>.+)/?', nodes.Handler),
-            #(r'/nodes/?', nodes.Handler),
+            # Apps resource
+            (r'/apps/page/(?P<page_num>\d+)/?', apps.Handler),
+            (r'/apps/(?P<app_uuid>.+)/?', apps.Handler),
+            (r'/apps/?', apps.Handler),
             # Units resource
-            #(r'/units/page/(?P<page_num>\d+)/?', units.Handler),
-            #(r'/units/(?P<unit_uuid>.+)/?', units.Handler),
-            #(r'/units/?', units.Handler),
+            (r'/units/page/(?P<page_num>\d+)/?', units.Handler),
+            (r'/units/(?P<unit_uuid>.+)/?', units.Handler),
+            (r'/units/?', units.Handler),
+            # Nodes resource
+            (r'/nodes/page/(?P<page_num>\d+)/?', nodes.Handler),
+            (r'/nodes/(?P<node_uuid>.+)/?', nodes.Handler),
+            (r'/nodes/?', nodes.Handler),
+
         ],
         # system cache
         cache=cache,
