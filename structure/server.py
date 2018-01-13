@@ -196,7 +196,7 @@ def main():
         solr=opts.solr,
     )
     # Periodic Cast Functions
-    check_node_tree = Cast(check_treehouse_erlang_node, 5000)
+    check_node_tree = Cast(check_alive_erlang_node, 5000)
     check_node_tree.start()
     # Setting up daemon process
     application.listen(opts.port)
