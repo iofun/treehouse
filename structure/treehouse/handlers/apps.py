@@ -23,7 +23,7 @@ from treehouse.tools import errors, str2bool, check_json
 from treehouse.handlers import BaseHandler
 from collections import OrderedDict
 
-class Handler(apps.App, BaseHandler):
+class Handler(apps.Apps, BaseHandler):
     '''
         HTTP request handlers
     '''
