@@ -76,7 +76,7 @@ import sys
 import uuid
 import logging
 import arrow
-#import riak
+import riak
 import queries
 import pylibmc as mc
 import ujson as json
@@ -86,7 +86,7 @@ from tornado import gen, web
 from tornado.web import RequestHandler
 from tornado import httpclient
 from treehouse.tools import options, periodic
-from treehouse.handlers import units, nodes
+#from treehouse.handlers import units, nodes
 from zmq.eventloop import ioloop
 
 # ioloop
