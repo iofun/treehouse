@@ -120,7 +120,7 @@ def main():
     # Set SQL session
     sql = queries.TornadoSession(uri=postgresql_uri)
     # key-value
-    #kvalue = riak.RiakClient(host=opts.riak_host, pb_port=8087)
+    kvalue = riak.RiakClient(host=opts.riak_host, pb_port=8087)
     # Set treehouse OTP release
     erlang_release = opts.erlang_release
 
@@ -190,7 +190,7 @@ def main():
         # cache enabled flag
         cache_enabled=cache_enabled,
         # kvalue datastorage
-        #kvalue=kvalue,
+        kvalue=kvalue,
         # sql datastorage
         sql=sql,
         # debug mode
