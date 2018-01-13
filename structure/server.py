@@ -86,7 +86,7 @@ from tornado import gen, web
 from tornado.web import RequestHandler
 from tornado import httpclient
 from treehouse.tools import options, periodic
-from treehouse.handlers import units, nodes
+from treehouse.handlers import apps, units, nodes
 from zmq.eventloop import ioloop
 
 # ioloop
