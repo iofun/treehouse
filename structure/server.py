@@ -76,7 +76,7 @@ import sys
 import uuid
 import logging
 import arrow
-import riak
+#import riak
 import queries
 import pylibmc as mc
 import ujson as json
