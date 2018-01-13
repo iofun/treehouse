@@ -35,28 +35,20 @@ cast(Message) ->
 init() ->
     {ok, Socket} = chumak:socket(sub),
     %% List of topics, put them in a list or something.
-    %%
-    %% yo, yo, yo, yo! lol
-    %% da fuq is this shit? where is the fucking proxy? are u insane?
-    %% did the fucking guide did not teach you shit????? lol
-    %%
-    %%
     Topic = <<" ">>,
     Heartbeat = <<"heartbeat">>,
-    Telephony = <<"telephony">>,
+    Telecom = <<"telecom">>,
     Logging = <<"logging">>,
-    Upload = <<"upload">>,
     %% ZeroMQ subscribe socket and topics!
     chumak:subscribe(Socket, Topic),
     chumak:subscribe(Socket, Heartbeat),
-    chumak:subscribe(Socket, Telephony),
+    chumak:subscribe(Socket, Telecom),
     chumak:subscribe(Socket, Logging),
-    chumak:subscribe(Socket, Upload),
-    %% subscribe forest config
-    econfig:subscribe(forest),
-    Port = econfig:get_integer(forest, "zmq", "sub_bind"),
-    Address = econfig:get_value(forest, "zmq", "address"),
-    %% Hello chumak bind this case
+    %% subscribe hypercube config
+    econfig:subscribe(hypercube),
+    Port = econfig:get_integer(hypercube, "zmq", "sub_bind"),
+    Address = econfig:get_value(hypercube, "zmq", "address"),
+    %% Yo, chumak blind this for me please.
     case chumak:bind(Socket, tcp, Address, Port) of
         {ok, _BindPid} ->
             io:format("Binding OK with Pid: ~p\n", [Socket]);
@@ -83,9 +75,9 @@ loop(State) ->
         {cast,From,{send_message,Message}} ->
             io:format("~w: ~p\n", [From,Message]),
             loop(State);
-        {cast,_From,stop} ->            %We're done
+        {cast,_From,stop} ->            % We're done
             ok;
-        _ ->                            %Ignore everything else
+        _ ->                            % Ignore everything else
             loop(State)
     end.
 
