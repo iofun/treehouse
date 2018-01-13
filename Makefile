@@ -1,5 +1,5 @@
 PROJECT = treehouse
-PROJECT_DESCRIPTION = Spontaneously generate units and spawn your resources.
+PROJECT_DESCRIPTION = Spontaneous units spawn your computing resources.
 PROJECT_VERSION = 0.2.0
 DEPS = lager chumak luerl econfig uuid jiffy hackney
 ERLC_OPTS = +debug_info
