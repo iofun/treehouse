@@ -125,34 +125,32 @@ def main():
     erlang_release = opts.erlang_release
 
     @gen.coroutine
-    def check_treehouse_erlang_node():
+    def check_alive_erlang_node():
         '''
-            Checks for active Erlang/OTP treehouse node
-
-            YO: move this coroutine to tools/__init__.py ???
+            Checks for an active Erlang/OTP treehouse node
         '''
         os.environ['HOME'] = '/opt/treehouse/'
         process = Popen([erlang_release, "ping", "."], stdout=PIPE)
         (output, err) = process.communicate()
         exit_code = process.wait()
+        # some static variables
         max_count = 5
-        # count von count
         von_count = 0
-        # running
         running = False
-        if 'not responding to pings' in output:
-            logging.error(output)
+        # tomela mae borre esta linea cuando funque lololol
+        logging.error(output)
+        if b'not responding to pings' in output:
             process = Popen([erlang_release, "start", "."], stdout=PIPE)
             (output, err) = process.communicate()
             exit_code = process.wait()
-        elif 'pong' in output:
+        elif b'pong' in output:
             if not running:
                 logging.warning('pong!')
                 running = True
         else:
             von_count += 1
             if von_count > max_count:
-                # Crash circusd monitor
+                # Crash circusd monitor cuz why not! right?
                 circus = Popen(["/etc/init.d/circusd", "stop", "."], stdout=PIPE)
                 (output, err) = circus.communicate()
                 logging.error('we crash circusd after trying {0} times!'.format(max_count))
