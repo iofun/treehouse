@@ -139,7 +139,7 @@ def main():
         running = False
         # tomela mae borre esta linea cuando funque lololol
         logging.warning(output)
-        logging.warning(process)
+        logging.warning(erlang_release)
         if b'not responding to pings' in output:
             logging.error(output)
             process = Popen([erlang_release, "start", "."], stdout=PIPE)
