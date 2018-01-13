@@ -10,7 +10,7 @@
 
 __author__ = 'Team Machine'
 
-import riak
+#import riak
 import logging
 import ujson as json
 from riak.datatypes import Map

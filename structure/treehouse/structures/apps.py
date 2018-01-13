@@ -10,7 +10,7 @@
 
 __author__ = 'Team Machine'
 
-import riak
+#import riak
 import logging
 import ujson as json
 from riak.datatypes import Map
@@ -90,7 +90,7 @@ class AppMap(object):
             "hashs":event.registers['hashs'].value,
             "resource":event.registers['resource'].value,
             "resource_uuid":event.registers['resource_uuid'].value,
-            "active":event.registers['active'].value
+            "active":event.registers['active'].value,
             "watchers": event.registers['watchers'].value,
         }
         return json.dumps(struct)
@@ -120,7 +120,7 @@ class AppMap(object):
             "hashs":event.registers['hashs'].value,
             "resource":event.registers['resource'].value,
             "resource_uuid":event.registers['resource_uuid'].value,
-            "active":event.registers['active'].value
+            "active":event.registers['active'].value,
             "watchers": event.registers['watchers'].value,
         }
         return struct
