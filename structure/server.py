@@ -86,7 +86,7 @@ from tornado import gen, web
 from tornado.web import RequestHandler
 from tornado import httpclient
 from treehouse.tools import options, periodic
-from treehouse.handlers import apps, units, nodes
+#from treehouse.handlers import apps, units, nodes
 from zmq.eventloop import ioloop
 
 # ioloop
@@ -172,17 +172,17 @@ def main():
     application = web.Application(
         [
             # Apps resource
-            (r'/apps/page/(?P<page_num>\d+)/?', apps.Handler),
-            (r'/apps/(?P<app_uuid>.+)/?', apps.Handler),
-            (r'/apps/?', apps.Handler),
+            #(r'/apps/page/(?P<page_num>\d+)/?', apps.Handler),
+            #(r'/apps/(?P<app_uuid>.+)/?', apps.Handler),
+            #(r'/apps/?', apps.Handler),
             # Units resource
-            (r'/units/page/(?P<page_num>\d+)/?', units.Handler),
-            (r'/units/(?P<unit_uuid>.+)/?', units.Handler),
-            (r'/units/?', units.Handler),
+            #(r'/units/page/(?P<page_num>\d+)/?', units.Handler),
+            #(r'/units/(?P<unit_uuid>.+)/?', units.Handler),
+            #(r'/units/?', units.Handler),
             # Nodes resource
-            (r'/nodes/page/(?P<page_num>\d+)/?', nodes.Handler),
-            (r'/nodes/(?P<node_uuid>.+)/?', nodes.Handler),
-            (r'/nodes/?', nodes.Handler),
+            #(r'/nodes/page/(?P<page_num>\d+)/?', nodes.Handler),
+            #(r'/nodes/(?P<node_uuid>.+)/?', nodes.Handler),
+            #(r'/nodes/?', nodes.Handler),
 
         ],
         # system cache
