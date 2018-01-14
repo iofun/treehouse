@@ -76,7 +76,7 @@ import sys
 import uuid
 import logging
 import arrow
-#import riak
+import riak
 import queries
 import pylibmc as mc
 import ujson as json
@@ -86,7 +86,7 @@ from tornado import gen, web
 from tornado.web import RequestHandler
 from tornado import httpclient
 from treehouse.tools import options, periodic
-#from treehouse.handlers import units, nodes
+from treehouse.handlers import apps, units, nodes
 from zmq.eventloop import ioloop
 
 # ioloop
@@ -120,7 +120,7 @@ def main():
     # Set SQL session
     sql = queries.TornadoSession(uri=postgresql_uri)
     # key-value
-    #kvalue = riak.RiakClient(host=opts.riak_host, pb_port=8087)
+    kvalue = riak.RiakClient(host=opts.riak_host, pb_port=8087)
     # Set treehouse OTP release
     erlang_release = opts.erlang_release
 
@@ -132,18 +132,18 @@ def main():
         os.environ['HOME'] = '/opt/treehouse/'
         process = Popen([erlang_release, "ping", "."], stdout=PIPE)
         (output, err) = process.communicate()
+        # Yo, wait for some shit.
         exit_code = process.wait()
         # some static variables
         max_count = 5
         von_count = 0
         running = False
-        # tomela mae borre esta linea cuando funque lololol
         if b'not responding to pings' in output:
             logging.error(output)
             process = Popen([erlang_release, "start", "."], stdout=PIPE)
             (output, err) = process.communicate()
-            logging.error(output)
             exit_code = process.wait()
+            logging.error(output)
         elif b'pong' in output:
             if not running:
                 logging.warning('pong!')
@@ -161,9 +161,9 @@ def main():
     # logging database hosts
     logging.info('PostgreSQL server: {0}:{1}'.format(opts.sql_host, opts.sql_port))
     # solr yokozuna
-    #logging.info('Solr yokozuna: {0}'.format(opts.solr))
+    logging.info('Solr yokozuna: {0}'.format(opts.solr))
     # logging riak settings
-    #logging.info('Riak server: {0}:{1}'.format(opts.riak_host, opts.riak_port))
+    logging.info('Riak server: {0}:{1}'.format(opts.riak_host, opts.riak_port))
     # system cache
     cache_enabled = opts.cache_enabled
     if cache_enabled:
@@ -172,17 +172,17 @@ def main():
     application = web.Application(
         [
             # Apps resource
-            #(r'/apps/page/(?P<page_num>\d+)/?', apps.Handler),
-            #(r'/apps/(?P<app_uuid>.+)/?', apps.Handler),
-            #(r'/apps/?', apps.Handler),
+            (r'/apps/page/(?P<page_num>\d+)/?', apps.Handler),
+            (r'/apps/(?P<app_uuid>.+)/?', apps.Handler),
+            (r'/apps/?', apps.Handler),
             # Units resource
-            #(r'/units/page/(?P<page_num>\d+)/?', units.Handler),
-            #(r'/units/(?P<unit_uuid>.+)/?', units.Handler),
-            #(r'/units/?', units.Handler),
+            (r'/units/page/(?P<page_num>\d+)/?', units.Handler),
+            (r'/units/(?P<unit_uuid>.+)/?', units.Handler),
+            (r'/units/?', units.Handler),
             # Nodes resource
-            #(r'/nodes/page/(?P<page_num>\d+)/?', nodes.Handler),
-            #(r'/nodes/(?P<node_uuid>.+)/?', nodes.Handler),
-            #(r'/nodes/?', nodes.Handler),
+            (r'/nodes/page/(?P<page_num>\d+)/?', nodes.Handler),
+            (r'/nodes/(?P<node_uuid>.+)/?', nodes.Handler),
+            (r'/nodes/?', nodes.Handler),
 
         ],
         # system cache
@@ -190,7 +190,7 @@ def main():
         # cache enabled flag
         cache_enabled=cache_enabled,
         # kvalue datastorage
-        #kvalue=kvalue,
+        kvalue=kvalue,
         # sql datastorage
         sql=sql,
         # debug mode
