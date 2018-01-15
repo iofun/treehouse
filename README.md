@@ -3,7 +3,7 @@
 
 The treehouse spawn unix daemons over time, daemons are morphed into other units. When the user has a spawning [aqueduct](https://github.com/nonsensews/aqueduct), the treehouse can be morphed into a [colony](https://github.com/nonsensews/colony), with the final stage of evolution being the [academy](https://github.com/nonsensews/academy).
 
-From there spawn nodes to allow you control of additional processing units.
+Spawn more nodes from the treehouse to allow you control of additional processing units.
 
 Nodes provide granular unit control for your elastic cloud infrastructure.
 
