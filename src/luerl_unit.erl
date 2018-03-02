@@ -24,7 +24,7 @@ table() ->
      {<<"set_position">>,{function,fun set_position/2}},
      {<<"get_speed">>,{function,fun get_speed/2}},
      {<<"set_speed">>,{function,fun set_speed/2}},
-     {<<"zap">>,{function,fun zap/2}},
+     {<<"attack">>,{function,fun attack/2}},
      {<<"set_unit">>,{function,fun set_unit/2}},
      {<<"do">>,{function,fun do/2}},
      {<<"gc">>,{function,fun gc/2}}
@@ -57,10 +57,10 @@ set_speed([#userdata{d=U},X,Y], State) when is_number(X), is_number(Y) ->
     {[],State};
 set_speed(As, State) -> badarg_error(set_speed, As, State).
 
-zap([#userdata{d=U}], State) ->
-    unit:zap(U),
+attack([#userdata{d=U}], State) ->
+    unit:attack(U),
     {[],State};
-zap(As, State) -> badarg_error(zap, As, State).
+attack(As, State) -> badarg_error(attack, As, State).
 
 set_unit([#userdata{d=U},Name], State) ->
     unit:set_unit(U, Name),

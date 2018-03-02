@@ -70,8 +70,8 @@ __ooo__ = '''
     »»»╨╚╙╨░╙╙░╨"!╙░╙╚░╩^^╨^░"h░░""░Ü"░░░^╚"╚╨░»»░░░»░»»░░»»░░»░»»░»»»»»»»»»»░░░░░»»
 '''
 
+
 import os
-import zmq
 import sys
 import uuid
 import logging
@@ -83,14 +83,10 @@ import ujson as json
 from subprocess import Popen, PIPE
 from tornado.ioloop import PeriodicCallback as Cast
 from tornado import gen, web
-from tornado.web import RequestHandler
 from tornado import httpclient
 from treehouse.tools import options, periodic
 from treehouse.handlers import apps, units, nodes
-from zmq.eventloop import ioloop
 
-# ioloop
-ioloop.install()
 
 httpclient.AsyncHTTPClient.configure('tornado.curl_httpclient.CurlAsyncHTTPClient')
 

@@ -8,10 +8,10 @@
          set_position/3,
          get_speed/1,
          set_speed/3,
-         zap/1]).
+         attack/1]).
 
 -export([get_state/1,get_tc/1]).
--export([set_unit/2,lua_do/2,gc/1]).            %Lua commands
+-export([set_unit/2,lua_do/2,gc/1]).            % Lua commands
 
 %% Management API.
 
@@ -38,8 +38,8 @@ get_speed(Unit) ->
 set_speed(Unit, Dx, Dy) ->
     cast(Unit, {set_speed,Dx,Dy}).
 
-zap(Unit) ->
-    cast(Unit, zap).
+attack(Unit) ->
+    cast(Unit, attack).
 
 get_state(Unit) ->
     call(Unit, get_state).
@@ -91,10 +91,8 @@ loop(State0, Tick, Tref, Tc) ->
         NewTref = erlang:send_after(Tick, self(), tick),
         loop(State1, Tick, NewTref, Tc+1);
     {cast,From,{set_tick,NewTick}} ->
-
         %%  logging unused variable!
         lager:warning("set_tick From? ~p \n", [From]),
-
         erlang:cancel_timer(Tref),      %Cancel existing timer
         {_,State1} = luerl:call_function([this_unit,set_tick], [NewTick], State0),
         %% Set the new tick and get a new timer
@@ -109,11 +107,8 @@ loop(State0, Tick, Tref, Tc) ->
         reply(From, {X,Y}),
         loop(State1, Tick, Tref, Tc);
     {cast,From,{set_position,X,Y}} ->
-
         %%  logging unused variable!
         lager:warning("set_position From? ~p \n", [From]),
-
-
         {_,State1} = luerl:call_function([this_unit,set_position],
                       [float(X),float(Y)], State0),
         loop(State1, Tick, Tref, Tc);
@@ -122,19 +117,15 @@ loop(State0, Tick, Tref, Tc) ->
         reply(From, {Dx,Dy}),
         loop(State1, Tick, Tref, Tc);
     {cast,From,{set_speed,Dx,Dy}} ->
-
         %%  logging unused variable!
         lager:warning("set_speed From? ~p \n", [From]),
-
         {_,State1} = luerl:call_function([this_unit,set_speed],
                       [float(Dx),float(Dy)], State0),
         loop(State1, Tick, Tref, Tc);
-    {cast,From,zap} ->
-
+    {cast,From,attack} ->
         %%  logging unused variable!
-        lager:warning("zap From? ~p \n", [From]),
-
-        {_,_} = luerl:call_function([this_unit,zap], [], State0),
+        lager:warning("unit attack from? ~p \n", [From]),
+        {_,_} = luerl:call_function([this_unit,attack], [], State0),
         timer:sleep(1500),
         %% Remove ourselves from databases and die
         region:del_unit(),
@@ -146,10 +137,8 @@ loop(State0, Tick, Tref, Tc) ->
         reply(From, {ok,Tc}),
         loop(State0, Tick, Tref, Tc);
     {cast,From,{set_unit,Name}} ->      %Set a new unit chunk
-
         %%  logging unused variable!
         lager:warning("set_unit From? ~p \n", [From]),
-
         {_,State1} = do_set_unit(Name, Tick, State0),
         loop(State1, Tick, Tref, Tc);
     {call,From,{lua_do,Command}} ->     %"do" any Lua command

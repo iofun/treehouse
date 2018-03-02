@@ -59,7 +59,7 @@ function this_unit.tick()
    x,y,dx,dy = move(x, y, dx, dy)
 end
 
-function this_unit.zap()           -- The unit has been zapped and will die
+function this_unit.attack()           -- The unit has been zapped and will die
    region.rem_sector(x, y)
 end
 

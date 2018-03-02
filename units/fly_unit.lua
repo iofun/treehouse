@@ -85,7 +85,7 @@ function this_unit.tick()
    x,y = move(x, y)
 end
 
-function this_unit.zap()  -- The unit has been zapped and will die
+function this_unit.attack()  -- The unit has been zapped and will die
    -- replace with love2d integration
    -- esdl_server.set_unit("explosion", color, x, y)
    region.rem_sector(x, y)

@@ -5,7 +5,7 @@
 
 # This file is part of treehouse.
 
-# Distributed under the terms of the last AGPL License. 
+# Distributed under the terms of the last AGPL License.
 # The full license is in the file LICENCE, distributed as part of this software.
 
 __author__ = 'Team Machine'
@@ -41,7 +41,7 @@ def options():
         default='iofun.io', type=str,
         help=('Application domain, e.g. "example.com"'))
     # Erlang/OTP release
-    tornado.options.define('erlang_release', 
+    tornado.options.define('erlang_release',
         default='/opt/treehouse/_rel/treehouse_release/bin/treehouse_release',
         type=str, help=('Erlang/OTP release'))
     # Server settings
@@ -52,12 +52,12 @@ def options():
         default=8888, type=int,
         help=('Server port'))
     # PostgreSQL database settings
-    tornado.options.define('sql_host', 
+    tornado.options.define('sql_host',
         type=str,help=('PostgreSQL hostname or ip address'))
     tornado.options.define('sql_port',
         default=5432, type=int,
         help=('PostgreSQL port'))
-    tornado.options.define('sql_database', 
+    tornado.options.define('sql_database',
         type=str, help=('PostgreSQL database'))
     tornado.options.define('sql_user',
         type=str, help=('PostgreSQL username'))

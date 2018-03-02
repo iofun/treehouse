@@ -6,11 +6,8 @@
 
 start(_Type, _Args) ->
     application:ensure_all_started(econfig),
-    application:ensure_all_started(chumak),
-    econfig:register_config(hypercube, ["/etc/tesseract.conf"], [autoreload]),
+    econfig:register_config(hypercube, ["../treehouse.conf"], [autoreload]),
     econfig:subscribe(hypercube),
-    %% SUB BIND, SUB BIND, SUB BIND
-    {ok, _} = sub_bind:start_link(),
     treehouse_sup:start_link().
 
 stop(_State) ->

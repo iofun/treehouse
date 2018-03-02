@@ -1,4 +1,4 @@
--- A simple unit which is aggressive and attacks on 
+-- A simple unit which is aggressive and attacks on
 -- change sector and sees another unit in that sector.
 
 local this_unit = {}                -- Our unit function table
@@ -61,16 +61,16 @@ local function move_lr_sectors(osx, osy, nsx, nsy)
    return lsx,lsy,rsx,rsy
 end
 
-local function zap_units(osx, osy, nsx, nsy)
+local function attack_units(osx, osy, nsx, nsy)
    local lsx,lsy,rsx,rsy = move_lr_sectors(osx, osy, nsx, nsy)
    local f = region.get_sector(nsx, nsy)
-   if (f and f ~= me) then          -- Always zap unit in front
-      unit.zap(f)
+   if (f and f ~= me) then          -- Always attack unit in front
+      unit.attack(f)
    end
    f = region.get_sector(lsx, lsy) or
       region.get_sector(rsx, rsy)
-   if (f and f ~= me) then          -- Zap unit either left or right
-      unit.zap(f)
+   if (f and f ~= me) then          -- Attack unit either left or right
+      unit.attack(f)
    end
 end
 
@@ -81,8 +81,8 @@ local function move(x, y, dx, dy)
    local osx,osy = region.sector(x, y)
    local nsx,nsy = region.sector(nx, ny)
    if (osx ~= nsx or osy ~= nsy) then
-      -- Zap a nearby units, only zap when we move
-      zap_units(osx, osy, nsx, nsy)
+      -- Attack a nearby units, only attack when we move
+      attack_units(osx, osy, nsx, nsy)
       -- In new sector, move us to the right sector
       region.rem_sector(x, y)
       region.add_sector(nx, ny)
@@ -94,7 +94,7 @@ function this_unit.tick()
    x,y,dx,dy = move(x, y, dx, dy)
 end
 
-function this_unit.zap()            -- The unit has been zapped and will die
+function this_unit.attack()            -- The unit has been zapped and will die
    region.rem_sector(x, y)
 end
 

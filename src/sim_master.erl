@@ -50,8 +50,6 @@ init({Xsize,Ysize,N}) ->
     process_flag(trap_exit, true),
     %% Start the region
     {ok,_} = region:start_link(Xsize, Ysize),
-    %% Start ZMQ interface
-    {ok,_} = zmq:start_link(),
     %% Seed the RNG
     random:seed(now()),
     Array = ets:new(sim_unit_array, [named_table,protected]),
@@ -70,8 +68,7 @@ init_lua() ->
     L1 = lists:foldl(fun({Name,Mod}, L) -> load([Name], Mod, L) end, L0,
             [
                 {region,luerl_region},
-                {unit,luerl_unit},
-                {zmq,luerl_zmq}
+                {unit,luerl_unit}
             ]),
     %% Set the default unit.
     {_,L2} = luerl:do("this_unit = require 'default'", L1),
@@ -83,13 +80,6 @@ load(Key, Module, State0) ->
     luerl:set_table1(Lk, T, State2).
 
 start_unit(I, Xsize, Ysize, State) ->
-    if I rem 8 =:= 0 ->
-        zmq:socket("SUB"),
-        io:format("SHA/OS process ~p type node\n",[I]);
-       I rem 1 =:= 0 ->
-        zmq:socket("PUB"),
-        io:format("SHA/OS process ~p type unit\n",[I])
-    end,
     %% Spread out the units over the whole space.
     X = random:uniform(Xsize) - 1,
     Y = random:uniform(Ysize) - 1,
@@ -98,8 +88,6 @@ start_unit(I, Xsize, Ysize, State) ->
     Dx = 2.5*random:uniform() - 1.25,
     Dy = 2.5*random:uniform() - 1.25,
     unit:set_speed(U, Dx, Dy),
-    %% zmq:socket("Que", "Mae"),
-    zmq:version(),
     {ok,U}.
 
 terminate(_, #state{}) -> ok.
@@ -124,7 +112,7 @@ handle_call(stop, _, State) ->
     {stop,normal,ok,State}.
 
 handle_info({'EXIT',U,E}, #state{array=Array}=State) ->
-    io:format("process ~p has died: ~p\n", [U,E]),
+    io:format("Process ~p has died: ~p\n", [U,E]),
     %% Remove the unit
     ets:match_delete(Array, {'_',U}),
     {noreply,State};
