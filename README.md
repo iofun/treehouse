@@ -5,6 +5,6 @@ The treehouse spawn unix daemons over time, daemons are morphed into other units
 
 Spawn more nodes from the treehouse to allow you control of additional processing units.
 
-Nodes provide granular unit control for your elastic cloud infrastructure.
+Nodes provide granular unit control for your elastic high-performance computing infrastructure.
 
 Remember, as your computing units grow in number, you must spawn more nodes to control them.
