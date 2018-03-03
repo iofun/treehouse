@@ -8,10 +8,22 @@
          set_position/3,
          get_speed/1,
          set_speed/3,
+         %% and now for something completly different!
+         move/1,
+         rally/1,
+         patrol/1,
+         gather/1,
+         return/1,
+         spell/1,
+         build/1,
+         cancel/1,
+         repair/1,
+         stop/1,
+         hold/1,
          attack/1]).
 
 -export([get_state/1,get_tc/1]).
--export([set_unit/2,lua_do/2,gc/1]).            % Lua commands
+-export([set_unit/2,lua_do/2,gc/1]).     %%  LuaLang commands
 
 %% Management API.
 
@@ -21,7 +33,45 @@ start(X, Y, State) ->
 start_link(X, Y, State) ->
     proc_lib:start_link(?MODULE, init, [X,Y,State]).
 
-%% User API.
+%% Human Unit API.
+
+move(Unit) ->
+    cast(Unit, move).
+
+rally(Unit) ->
+    cast(Unit, rally).
+
+patrol(Unit) ->
+    cast(Unit, attack).
+
+gather(Unit) ->
+    cast(Unit, gather).
+
+return(Unit) ->
+    cast(Unit, return).
+
+spell(Unit) ->
+    cast(Unit, spell).
+
+build(Unit) ->
+    cast(Unit, build).
+
+cancel(Unit) ->
+    cast(Unit, cancel).
+
+repair(Unit) ->
+    cast(Unit, repair).
+
+stop(Unit) ->
+    cast(Unit, stop).
+
+hold(Unit) ->
+    cast(Unit, hold).
+
+attack(Unit) ->
+    cast(Unit, attack).
+
+%% Seriously low level no-horn functions
 
 set_tick(Unit, Tick) ->
     cast(Unit, {set_tick,Tick}).
@@ -37,9 +87,6 @@ get_speed(Unit) ->
 
 set_speed(Unit, Dx, Dy) ->
     cast(Unit, {set_speed,Dx,Dy}).
-
-attack(Unit) ->
-    cast(Unit, attack).
 
 get_state(Unit) ->
     call(Unit, get_state).
@@ -130,6 +177,95 @@ loop(State0, Tick, Tref, Tc) ->
         %% Remove ourselves from databases and die
         region:del_unit(),
         exit(zapped);
+    {cast,From,attack} ->
+        %%  logging unused variable!
+        lager:warning("unit attack from? ~p \n", [From]),
+        {_,_} = luerl:call_function([this_unit,attack], [], State0),
+        timer:sleep(1500),
+        %% Remove ourselves from databases and die
+        region:del_unit(),
+        exit(zapped);
+%% return, spell, build, cancel, repair, stop, hold, attack
+    {cast,From,move} ->
+        %%  logging unused variable!
+        lager:warning("unit move from? ~p \n", [From]),
+        {_,_} = luerl:call_function([this_unit,move], [], State0),
+        timer:sleep(1500),
+        %% Remove ourselves from databases and die
+        region:del_unit(),
+        exit(moved);
+    {cast,From,rally} ->
+        %%  logging unused variable!
+        lager:warning("unit rally from? ~p \n", [From]),
+        {_,_} = luerl:call_function([this_unit,rally], [], State0),
+        timer:sleep(1500),
+        %% Remove ourselves from databases and die
+        region:del_unit(),
+        exit(pointed);
+    {cast,From,patrol} ->
+        %%  logging unused variable!
+        lager:warning("unit patrol from? ~p \n", [From]),
+        {_,_} = luerl:call_function([this_unit,patrol], [], State0),
+        timer:sleep(1500),
+        %% Remove ourselves from databases and die
+        region:del_unit(),
+        exit(patroled);
+    {cast,From,gather} ->
+        %%  logging unused variable!
+        lager:warning("unit gather from? ~p \n", [From]),
+        {_,_} = luerl:call_function([this_unit,gather], [], State0),
+        timer:sleep(1500),
+        %% Remove ourselves from databases and die
+        region:del_unit(),
+        exit(gathered);
+    {cast,From,gather} ->
+        %%  logging unused variable!
+        lager:warning("unit gather from? ~p \n", [From]),
+        {_,_} = luerl:call_function([this_unit,gather], [], State0),
+        timer:sleep(1500),
+        %% Remove ourselves from databases and die
+        region:del_unit(),
+        exit(gathered);
+    {cast,From,gather} ->
+        %%  logging unused variable!
+        lager:warning("unit gather from? ~p \n", [From]),
+        {_,_} = luerl:call_function([this_unit,gather], [], State0),
+        timer:sleep(1500),
+        %% Remove ourselves from databases and die
+        region:del_unit(),
+        exit(gathered);
+    {cast,From,gather} ->
+        %%  logging unused variable!
+        lager:warning("unit gather from? ~p \n", [From]),
+        {_,_} = luerl:call_function([this_unit,gather], [], State0),
+        timer:sleep(1500),
+        %% Remove ourselves from databases and die
+        region:del_unit(),
+        exit(gathered);
+    {cast,From,gather} ->
+        %%  logging unused variable!
+        lager:warning("unit gather from? ~p \n", [From]),
+        {_,_} = luerl:call_function([this_unit,gather], [], State0),
+        timer:sleep(1500),
+        %% Remove ourselves from databases and die
+        region:del_unit(),
+        exit(gathered);
+    {cast,From,gather} ->
+        %%  logging unused variable!
+        lager:warning("unit gather from? ~p \n", [From]),
+        {_,_} = luerl:call_function([this_unit,gather], [], State0),
+        timer:sleep(1500),
+        %% Remove ourselves from databases and die
+        region:del_unit(),
+        exit(gathered);
+    {cast,From,gather} ->
+        %%  logging unused variable!
+        lager:warning("unit gather from? ~p \n", [From]),
+        {_,_} = luerl:call_function([this_unit,gather], [], State0),
+        timer:sleep(1500),
+        %% Remove ourselves from databases and die
+        region:del_unit(),
+        exit(gathered);
     {call,From,get_state} ->        %Get the luerl state
         reply(From, {ok,State0}),
         loop(State0, Tick, Tref, Tc);
