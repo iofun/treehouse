@@ -25,9 +25,20 @@ table() ->
      {<<"get_speed">>,{function,fun get_speed/2}},
      {<<"set_speed">>,{function,fun set_speed/2}},
      {<<"attack">>,{function,fun attack/2}},
+     {<<"hold">>,{function,fun hold/2}},
+     {<<"move">>,{function,fun move/2}},
+     {<<"rally">>,{function,fun rally/2}},
+     {<<"patrol">>,{function,fun patrol/2}},
+     {<<"gather">>,{function,fun gather/2}},
+     {<<"return">>,{function,fun return/2}},
+     {<<"spell">>,{function,fun spell/2}},
+     {<<"build">>,{function,fun build/2}},
+     {<<"cancel">>,{function,fun cancel/2}},
+     {<<"repair">>,{function,fun repair/2}},
+     {<<"stop">>,{function,fun stop/2}},
      {<<"set_unit">>,{function,fun set_unit/2}},
-     {<<"do">>,{function,fun do/2}},
-     {<<"gc">>,{function,fun gc/2}}
+     {<<"do">>,{function,fun do/2}},  %% do what in the context of our implementation you guys? S=
+     {<<"gc">>,{function,fun gc/2}}   %% please call the shit our of this!
     ].
 
 self([], State) ->
@@ -61,6 +72,61 @@ attack([#userdata{d=U}], State) ->
     unit:attack(U),
     {[],State};
 attack(As, State) -> badarg_error(attack, As, State).
+
+hold([#userdata{d=U}], State) ->
+    unit:hold(U),
+    {[],State};
+hold(As, State) -> badarg_error(hold, As, State).
+
+move([#userdata{d=U}], State) ->
+    unit:move(U),
+    {[],State};
+move(As, State) -> badarg_error(move, As, State).
+
+rally([#userdata{d=U}], State) ->
+    unit:rally(U),
+    {[],State};
+rally(As, State) -> badarg_error(rally, As, State).
+
+patrol([#userdata{d=U}], State) ->
+    unit:patrol(U),
+    {[],State};
+patrol(As, State) -> badarg_error(patrol, As, State).
+
+gather([#userdata{d=U}], State) ->
+    unit:gather(U),
+    {[],State};
+gather(As, State) -> badarg_error(gather, As, State).
+
+return([#userdata{d=U}], State) ->
+    unit:return(U),
+    {[],State};
+return(As, State) -> badarg_error(return, As, State).
+
+spell([#userdata{d=U}], State) ->
+    unit:spell(U),
+    {[],State};
+spell(As, State) -> badarg_error(spell, As, State).
+
+build([#userdata{d=U}], State) ->
+    unit:build(U),
+    {[],State};
+build(As, State) -> badarg_error(build, As, State).
+
+cancel([#userdata{d=U}], State) ->
+    unit:cancel(U),
+    {[],State};
+cancel(As, State) -> badarg_error(cancel, As, State).
+
+repair([#userdata{d=U}], State) ->
+    unit:repair(U),
+    {[],State};
+repair(As, State) -> badarg_error(repair, As, State).
+
+stop([#userdata{d=U}], State) ->
+    unit:stop(U),
+    {[],State};
+stop(As, State) -> badarg_error(stop, As, State).
 
 set_unit([#userdata{d=U},Name], State) ->
     unit:set_unit(U, Name),
