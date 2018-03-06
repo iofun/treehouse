@@ -184,90 +184,56 @@ loop(State0, Tick, Tref, Tc) ->
         %%  logging unused variable!
         lager:warning("unit return from? ~p \n", [From]),
         {_,_} = luerl:call_function([this_unit,return], [], State0),
-        timer:sleep(1500),
-        %% Remove ourselves from databases and die
-        region:del_unit(),
         exit(returned);
-%% repair, stop, hold, attack
     {cast,From,move} ->
         %%  logging unused variable!
         lager:warning("unit move from? ~p \n", [From]),
         {_,_} = luerl:call_function([this_unit,move], [], State0),
-        timer:sleep(1500),
-        %% Remove ourselves from databases and die
-        region:del_unit(),
         exit(moved);
     {cast,From,rally} ->
         %%  logging unused variable!
         lager:warning("unit rally from? ~p \n", [From]),
         {_,_} = luerl:call_function([this_unit,rally], [], State0),
-        timer:sleep(1500),
-        %% Remove ourselves from databases and die
-        region:del_unit(),
         exit(pointed);
     {cast,From,patrol} ->
         %%  logging unused variable!
         lager:warning("unit patrol from? ~p \n", [From]),
         {_,_} = luerl:call_function([this_unit,patrol], [], State0),
-        timer:sleep(1500),
-        %% Remove ourselves from databases and die
-        region:del_unit(),
         exit(patroled);
     {cast,From,gather} ->
         %%  logging unused variable!
         lager:warning("unit gather from? ~p \n", [From]),
         {_,_} = luerl:call_function([this_unit,gather], [], State0),
-        timer:sleep(1500),
-        %% Remove ourselves from databases and die
-        region:del_unit(),
         exit(gathered);
     {cast,From,spell} ->
         %%  logging unused variable!
         lager:warning("unit spell from? ~p \n", [From]),
         {_,_} = luerl:call_function([this_unit,spell], [], State0),
-        timer:sleep(1500),
-        %% Remove ourselves from databases and die
-        region:del_unit(),
         exit(spelled);
     {cast,From,build} ->
         %%  logging unused variable!
         lager:warning("unit build from? ~p \n", [From]),
         {_,_} = luerl:call_function([this_unit,build], [], State0),
-        timer:sleep(1500),
-        %% Remove ourselves from databases and die
-        region:del_unit(),
         exit(morphed);
     {cast,From,repair} ->
         %%  logging unused variable!
         lager:warning("unit repair from? ~p \n", [From]),
         {_,_} = luerl:call_function([this_unit,repair], [], State0),
-        timer:sleep(1500),
-        %% Remove ourselves from databases and die
-        region:del_unit(),
         exit(repaired);
     {cast,From,cancel} ->
         %%  logging unused variable!
         lager:warning("unit cancel from? ~p \n", [From]),
         {_,_} = luerl:call_function([this_unit,cancel], [], State0),
-        timer:sleep(1500),
-        %% Remove ourselves from databases and die
-        region:del_unit(),
         exit(canceled);
     {cast,From,stop} ->
         %%  logging unused variable!
         lager:warning("unit stop from? ~p \n", [From]),
         {_,_} = luerl:call_function([this_unit,stop], [], State0),
-        timer:sleep(1500),
-        %% Remove ourselves from databases and die
-        region:del_unit(),
         exit(stoped);
     {cast,From,hold} ->
         %%  logging unused variable!
         lager:warning("unit hold from? ~p \n", [From]),
         {_,_} = luerl:call_function([this_unit,hold], [], State0),
-        timer:sleep(1500),
-        %% Remove ourselves from databases and die
-        region:del_unit(),
         exit(holded);
     {call,From,get_state} ->        %Get the luerl state
         reply(From, {ok,State0}),
