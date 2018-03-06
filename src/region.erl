@@ -45,6 +45,18 @@ add_sector(X, Y, What) ->
 rem_sector(X, Y, What) ->
     call({rem_sector,X,Y,What}).
 
+hold_sector(X, Y, What) ->
+    call({hold_sector,X,Y,What}).
+
+rally_sector(X, Y, What) ->
+    call({rally_sector,X,Y,What}).
+
+patrol_sector(X, Y, What) ->
+    call({patrol_sector,X,Y,What}).
+
+gather_sector(X, Y, What) ->
+    call({gather_sector,X,Y,What}).
+
 find_unit(U) ->
     call({find_unit,U}).
 

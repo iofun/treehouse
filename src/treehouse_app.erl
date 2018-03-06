@@ -6,8 +6,8 @@
 
 start(_Type, _Args) ->
     application:ensure_all_started(econfig),
-    econfig:register_config(hypercube, ["../treehouse.conf"], [autoreload]),
-    econfig:subscribe(hypercube),
+    econfig:register_config(engine, ["../treehouse.conf"], [autoreload]),
+    econfig:subscribe(engine),
     treehouse_sup:start_link().
 
 stop(_State) ->

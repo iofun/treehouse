@@ -41,6 +41,16 @@ local function move_xy_bounce(x, y, dx, dy, valid_x, valid_y)
    return nx, ny, dx, dy
 end
 
+local function hold_xy_bounce(x, y, valid_x, valid_y)
+    if (not valid_x(x)) then       -- !
+       message = "x food for thougth"
+    end
+    if (not valid_y(y)) then       -- !
+       message = "y food for thougth"
+    end
+    return x, y
+end
+
 local function move(x, y, dx, dy)
    local nx,ny,ndx,ndy = move_xy_bounce(x, y, dx, dy,
                region.valid_x, region.valid_y)
@@ -55,12 +65,24 @@ local function move(x, y, dx, dy)
    return nx,ny,ndx,ndy
 end
 
+local function hold(x, y)
+    local nx,ny = hold_xy_bounce(x, y, region.valid_x, region.valid_y)
+    -- Where we were and where we are now.
+    region.hold_sector(nx,ny)
+    return nx,ny
+end
+
 function this_unit.tick()
    x,y,dx,dy = move(x, y, dx, dy)
 end
+-- attack,hold,move,rally,patrol,gather,return,spell,build,cancel,repair,stop,
 
 function this_unit.attack()           -- The unit has been zapped and will die
    region.rem_sector(x, y)
+end
+
+function this_unit.hold()
+    x,y,dx,dy, = bla(x, y, dx, dy)
 end
 
 return this_unit                   -- Return the unit table
