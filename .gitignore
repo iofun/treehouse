@@ -1,3 +1,4 @@
+erlang.mk
 .erlang.mk/
 .eunit
 erl_crash.dump

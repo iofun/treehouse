@@ -1,6 +1,7 @@
 -module(unit).
 
 %% It really seem that our own OTP behavior it's painfully needed.
+%% and with it hopefully grasp the power and need of define  your own behaviours.
 
 -export([start/3,start_link/3]).
 -export([init/3]).
@@ -16,7 +17,7 @@
          patrol/1,
          gather/1,
          return/1,
-         spell/1,
+         spell/1,    % how about burrow/unborrow?
          build/1,
          cancel/1,
          repair/1,
@@ -25,7 +26,7 @@
          attack/1]).
 
 -export([get_state/1,get_tc/1]).
--export([set_unit/2,lua_do/2,gc/1]).     %%  LuaLang commands
+-export([set_unit/2,lua_do/2,gc/1]).    %  LuaLang commands
 
 %% Management API.
 
@@ -96,10 +97,10 @@ get_state(Unit) ->
 get_tc(Unit) ->
     call(Unit, get_tc).
 
-set_unit(Unit, Name) ->             %Set a new unit chunk
+set_unit(Unit, Name) ->              % Set a new unit chunk
     cast(Unit, {set_unit,Name}).
 
-lua_do(Unit, Command) ->                %"do" any Lua command
+lua_do(Unit, Command) ->             % "do" any Lua command
     call(Unit, {lua_do,Command}).
 
 gc(Unit) ->
@@ -123,12 +124,12 @@ reply(To, Rep) ->
 %% Main loop.
 
 init(X, Y, State0) ->
-    region:add_sector(X, Y, self()),        %Put us in the region
+    region:add_sector(X, Y, self()),       % Put us in some region
     {_,State1} = luerl:call_function([this_unit,start], [], State0),
     {_,State2} = luerl:call_function([this_unit,set_position], [X,Y], State1),
     {_,State3} = luerl:call_function([this_unit,set_speed], [0,0], State2),
     proc_lib:init_ack({ok,self()}),
-    loop(State3, infinity, make_ref(), 0).      %Start with dummy tick ref
+    loop(State3, infinity, make_ref(), 0). % Start with dummy tick ref
 
 %% loop(LuerlState, Tick, TickRef, TickCount) -> no_return().
 
@@ -142,11 +143,11 @@ loop(State0, Tick, Tref, Tc) ->
     {cast,From,{set_tick,NewTick}} ->
         %%  logging unused variable!
         lager:warning("set_tick From? ~p \n", [From]),
-        erlang:cancel_timer(Tref),      %Cancel existing timer
+        erlang:cancel_timer(Tref),    % Cancel existing timer
         {_,State1} = luerl:call_function([this_unit,set_tick], [NewTick], State0),
         %% Set the new tick and get a new timer
         NewTref = if NewTick =:= infinity ->
-                  make_ref();   %Dummy tick ref
+                  make_ref();    % Dummy tick ref
              true ->
                   erlang:send_after(NewTick, self(), tick)
               end,
