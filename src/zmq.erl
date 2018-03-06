@@ -1,9 +1,11 @@
+%% Hello fucking world!
+
 -module(zmq).
 
 -export([start/0,start_link/0]).
 -export([init/0]).
 
--export([socket/1,      %Lua commands
+-export([socket/1,   % Lua commands
          socket/2,
          bind/1,
          unbind/1,
@@ -21,7 +23,7 @@ start() ->
 start_link() ->
     proc_lib:start_link(?MODULE, init, []).
 
-%% User API.
+%% Human Unit (User) API.
 socket(SocketType) ->
       call({socket,SocketType}).
 
