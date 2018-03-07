@@ -13,7 +13,7 @@ local this_unit = {}                -- Our unit function table
     
     local xsize,ysize = region.size()   -- The size of the region
     
-    -- The default unit interface.
+    -- The node unit interface.
     
     function this_unit.start() end
     
