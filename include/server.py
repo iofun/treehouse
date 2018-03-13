@@ -128,12 +128,9 @@ def main():
         os.environ['HOME'] = '/opt/treehouse/'
         process = Popen([erlang_release, "ping", "."], stdout=PIPE)
         (output, err) = process.communicate()
-        # Yo, wait for some shit.
         exit_code = process.wait()
-        # some static variables
-        max_count = 5
-        von_count = 0
-        running = False
+        # some local variables
+        max_count,von_count,running = 5,0,False
         if b'not responding to pings' in output:
             logging.error(output)
             process = Popen([erlang_release, "start", "."], stdout=PIPE)
