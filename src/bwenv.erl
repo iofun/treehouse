@@ -134,25 +134,82 @@ map_tile_array() ->
 	Message = "map_tile_array",
     lager:warning("execute bwapi ~p function \n", [Message]).
 	
-trigger_vectors() -> 
-save_game_file() -> 
+trigger_vectors() ->
+    Message = "trigger_vectors",
+    lager:warning("execute bwapi ~p function \n", [Message]).
+
+save_game_file() ->
+    Message = "save_game_file",
+    lager:warning("execute bwapi ~p function \n", [Message]).
+
 current_map_file() ->
-replay_header() -> 
+    Message = "current_map_file",
+    lager:warning("execute bwapi ~p function \n", [Message]).
+
+replay_header() ->
+    Message = "replay_header",
+    lager:warning("execute bwapi ~p function \n", [Message]).
+
 frame_skip() -> 
+    Message = "frame_skip",
+    lager:warning("execute bwapi ~p function \n", [Message]).
+
 latency_frames() -> 
+    Message = "latency_frames",
+    lager:warning("execute bwapi ~p function \n", [Message]).
+
 screen_x() -> 
+    Message = "screen_x",
+    lager:warning("execute bwapi ~p function \n", [Message]).
+
 screen_y() -> 
-move_to_x() -> 
+    Message = "screen_y",
+    lager:warning("execute bwapi ~p function \n", [Message]).
+
+move_to_x() ->
+    Message = "move_to_x",
+    lager:warning("execute bwapi ~p function \n", [Message]).
+
 move_to_y() -> 
+    Message = "move_to_y",
+    lager:warning("execute bwapi ~p function \n", [Message]).
+
 vissible_units() ->  
+    Message = "vissible_units",
+    lager:warning("execute bwapi ~p function \n", [Message]).
+
 hidden_units() -> 
+    Message = "hidden_units",
+    lager:warning("execute bwapi ~p function \n", [Message]).
+
 resource_count() -> 
+    Message = "resource_count",
+    lager:warning("execute bwapi ~p function \n", [Message]).
+
 gather_queue_count() -> 
+    Message = "gather_queue_count",
+    lager:warning("execute bwapi ~p function \n", [Message]).
+
 next_gatherer() -> 
+    Message = "next_gatherer",
+    lager:warning("execute bwapi ~p function \n", [Message]).
+
 hit_points() -> 
+    Message = "hit_points",
+    lager:warning("execute bwapi ~p function \n", [Message]).
+
 move_target() -> 
+    Message = "move_target",
+    lager:warning("execute bwapi ~p function \n", [Message]).
+
 current_direction() -> 
+    Message = "current_direction",
+    lager:warning("execute bwapi ~p function \n", [Message]).
+
 current_speed() ->
+    Message = "current_speed",
+    lager:warning("execute bwapi ~p function \n", [Message]).
+
 % explicit setters
 set_local_speed() -> 
 set_vision() -> 
