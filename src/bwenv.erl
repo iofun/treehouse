@@ -322,44 +322,161 @@ is_being_healed() ->
 
 % getters
 get_mouse_position() -> 
+    Message = "is_mouse_position",
+    lager:warning("execute bwapi ~p function \n", [Message]).
+
 get_hit_points() -> 
+    Message = "get_hit_points",
+    lager:warning("execute bwapi ~p function \n", [Message]).
+
 get_resource_group() -> 
+    Message = "get_resource_group",
+    lager:warning("execute bwapi ~p function \n", [Message]).
+
 get_nydus_exit() -> 
+    Message = "get_nydus_exit",
+    lager:warning("execute bwapi ~p function \n", [Message]).
+
 get_build_unit() -> 
+    Message = "get_build_unit",
+    lager:warning("execute bwapi ~p function \n", [Message]).
+
 get_addon() -> 
+    Message = "get_addon",
+    lager:warning("execute bwapi ~p function \n", [Message]).
+
 get_rally_position() -> 
+    Message = "get_rally_position",
+    lager:warning("execute bwapi ~p function \n", [Message]).
+
 get_rally_unit() -> 
+    Message = "get_rally_unit",
+    lager:warning("execute bwapi ~p function \n", [Message]).
+
 get_remove_timer() -> 
+    Message = "get_remove_timer",
+    lager:warning("execute bwapi ~p function \n", [Message]).
+
 get_defense_matrix_points() -> 
+    Message = "get_defense_matrix_points",
+    lager:warning("execute bwapi ~p function \n", [Message]).
+
 get_defense_matrix_timer() -> 
+    Message = "get_defense_matrix_timer",
+    lager:warning("execute bwapi ~p function \n", [Message]).
+
 get_spider_mine_count() -> 
+    Message = "get_spider_mine_count",
+    lager:warning("execute bwapi ~p function \n", [Message]).
+
 get_remaining_upgrade_time() -> 
+    Message = "get_remaining_upgrade_time",
+    lager:warning("execute bwapi ~p function \n", [Message]).
+
 get_remaining_research_time() -> 
+    Message = "get_remaining_research_time",
+    lager:warning("execute bwapi ~p function \n", [Message]).
+
 get_tech() -> 
+    Message = "get_tech",
+    lager:warning("execute bwapi ~p function \n", [Message]).
+
 get_upgrade() -> 
+    Message = "get_upgrade",
+    lager:warning("execute bwapi ~p function \n", [Message]).
+
 get_remaining_train_time() -> 
+    Message = "get_remaining_train_time",
+    lager:warning("execute bwapi ~p function \n", [Message]).
+
 get_player() -> 
+    Message = "get_player",
+    lager:warning("execute bwapi ~p function \n", [Message]).
+
 get_order() -> 
+    Message = "get_order",
+    lager:warning("execute bwapi ~p function \n", [Message]).
+
 get_order_timer() -> 
+    Message = "get_order_timer",
+    lager:warning("execute bwapi ~p function \n", [Message]).
+
 get_velocity() -> 
+    Message = "get_velocity",
+    lager:warning("execute bwapi ~p function \n", [Message]).
+
 get_angle() -> 
+    Message = "get_angle",
+    lager:warning("execute bwapi ~p function \n", [Message]).
+
 get_target_position() -> 
+    Message = "get_target_position",
+    lager:warning("execute bwapi ~p function \n", [Message]).
+
 get_energy() -> 
+    Message = "get_energy",
+    lager:warning("execute bwapi ~p function \n", [Message]).
+
 get_ground_weapon_cooldown() -> 
+    Message = "get_ground_weapon_cooldown",
+    lager:warning("execute bwapi ~p function \n", [Message]).
+
 get_acid_spore_count() -> 
+    Message = "get_acid_spore_count",
+    lager:warning("execute bwapi ~p function \n", [Message]).
+
 get_ensnare_timer() -> 
+    Message = "get_ensnare_timer",
+    lager:warning("execute bwapi ~p function \n", [Message]).
+
 get_stim_timer() -> 
+    Message = "get_stim_timer",
+    lager:warning("execute bwapi ~p function \n", [Message]).
+
 get_air_weapon_cooldown() -> 
+    Message = "get_air_weapon_cooldown",
+    lager:warning("execute bwapi ~p function \n", [Message]).
+
 get_spell_cooldown() -> 
+    Message = "get_spell_cooldown",
+    lager:warning("execute bwapi ~p function \n", [Message]).
+
 get_order_target() -> 
+    Message = "get_order_target",
+    lager:warning("execute bwapi ~p function \n", [Message]).
+
 get_order_target_position() -> 
+    Message = "get_order_target_position",
+    lager:warning("execute bwapi ~p function \n", [Message]).
+
 get_shields() -> 
+    Message = "get_shields",
+    lager:warning("execute bwapi ~p function \n", [Message]).
+
 get_type() -> 
+    Message = "get_type",
+    lager:warning("execute bwapi ~p function \n", [Message]).
+
 get_transport() -> 
+    Message = "get_transport",
+    lager:warning("execute bwapi ~p function \n", [Message]).
+
 get_hatchery() -> 
+    Message = "get_hatchery",
+    lager:warning("execute bwapi ~p function \n", [Message]).
+
 get_kill_count() -> 
+    Message = "get_kill_count",
+    lager:warning("execute bwapi ~p function \n", [Message]).
+
 get_last_attacking_player() -> 
+    Message = "get_last_attacking_player",
+    lager:warning("execute bwapi ~p function \n", [Message]).
+
 get_training_queue() -> 
+    Message = "get_training_queue",
+    lager:warning("execute bwapi ~p function \n", [Message]).
+
 
 lua_do(Unit, Command) ->             % "do" any Lua command
     call(Unit, {lua_do, Command}).
