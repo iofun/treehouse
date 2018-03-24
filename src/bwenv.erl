@@ -211,34 +211,115 @@ current_speed() ->
     lager:warning("execute bwapi ~p function \n", [Message]).
 
 % explicit setters
-set_local_speed() -> 
-set_vision() -> 
+set_local_speed() ->
+    Message = "set_local_speed",
+    lager:warning("execute bwapi ~p function \n", [Message]).
+
+set_vision() ->
+    Message = "set_vision",
+    lager:warning("execute bwapi ~p function \n", [Message]).
+
 set_frame_skip() ->
+    Message = "set_frame_skip",
+    lager:warning("execute bwapi ~p function \n", [Message]).
+
 % checkers
 has_nuke() -> 
+    Message = "has_nuke",
+    lager:warning("execute bwapi ~p function \n", [Message]).
+
 in_replay() -> 
-is_game_paused() ->  
+    Message = "in_replay",
+    lager:warning("execute bwapi ~p function \n", [Message]).
+
+is_game_paused() -> 
+    Message = "is_game_paused",
+    lager:warning("execute bwapi ~p function \n", [Message]).
+
 is_being_gathered() -> 
+    Message = "is_being_gathered",
+    lager:warning("execute bwapi ~p function \n", [Message]).
+
 is_carrying_gas() -> 
+    Message = "is_carrying_gas",
+    lager:warning("execute bwapi ~p function \n", [Message]).
+
 is_carrying_minerals() -> 
+    Message = "is_carrying_minerals",
+    lager:warning("execute bwapi ~p function \n", [Message]).
+
 is_moving() -> 
+    Message = "is_moving",
+    lager:warning("execute bwapi ~p function \n", [Message]).
+
 is_accelerating() -> 
+    Message = "is_accelerating",
+    lager:warning("execute bwapi ~p function \n", [Message]).
+
 is_under_storm() -> 
+    Message = "is_under_storm",
+    lager:warning("execute bwapi ~p function \n", [Message]).
+
 is_starting_attack() -> 
+    Message = "is_starting_attack",
+    lager:warning("execute bwapi ~p function \n", [Message]).
+
 is_attacking() -> 
+    Message = "is_attacking",
+    lager:warning("execute bwapi ~p function \n", [Message]).
+
 is_attack_frame() -> 
+    Message = "is_attack_frame",
+    lager:warning("execute bwapi ~p function \n", [Message]).
+
 is_stuck() -> 
+    Message = "is_stuck",
+    lager:warning("execute bwapi ~p function \n", [Message]).
+
 is_completed() -> 
+    Message = "is_completed",
+    lager:warning("execute bwapi ~p function \n", [Message]).
+
 is_burrowed() -> 
+    Message = "is_burrowed",
+    lager:warning("execute bwapi ~p function \n", [Message]).
+
 is_cloacked() -> 
+    Message = "is_cloacked",
+    lager:warning("execute bwapi ~p function \n", [Message]).
+
 is_gathering() -> 
+    Message = "is_gathering",
+    lager:warning("execute bwapi ~p function \n", [Message]).
+
 is_lifted() -> 
+    Message = "is_lifted",
+    lager:warning("execute bwapi ~p function \n", [Message]).
+
 is_powered() -> 
+    Message = "is_powered",
+    lager:warning("execute bwapi ~p function \n", [Message]).
+
 is_interruptible() -> 
+    Message = "is_interruptible",
+    lager:warning("execute bwapi ~p function \n", [Message]).
+
 is_hallucination() -> 
+    Message = "is_hallucination",
+    lager:warning("execute bwapi ~p function \n", [Message]).
+
 is_visible() -> 
+    Message = "is_visible",
+    lager:warning("execute bwapi ~p function \n", [Message]).
+
 is_detected() -> 
+    Message = "is_detected",
+    lager:warning("execute bwapi ~p function \n", [Message]).
+
 is_being_healed() -> 
+    Message = "is_being_healed",
+    lager:warning("execute bwapi ~p function \n", [Message]).
+
 % getters
 get_mouse_position() -> 
 get_hit_points() -> 
