@@ -111,29 +111,29 @@ start_link(X, Y, State) ->
 
 %% init our bwapi environment approximation
 game_type() ->
-	Message = "game_type",
+    Message = "game_type",
     lager:warning("execute bwapi ~p function \n", [Message]).
 
 net_mode() ->
-	Message = "net_mode",
+    Message = "net_mode",
     lager:warning("execute bwapi ~p function \n", [Message]).
 
 active_tile_array() -> 
-	Message = "active_tile_array",
+    Message = "active_tile_array",
     lager:warning("execute bwapi ~p function \n", [Message]).
 
 mini_tile_flags() -> 
-	Message = "mini_tile_flags",
+    Message = "mini_tile_flags",
     lager:warning("execute bwapi ~p function \n", [Message]).
 
 tile_set_map() ->
-	Message = "tile_set_map",
+    Message = "tile_set_map",
     lager:warning("execute bwapi ~p function \n", [Message]).
 
 map_tile_array() -> 
-	Message = "map_tile_array",
+    Message = "map_tile_array",
     lager:warning("execute bwapi ~p function \n", [Message]).
-	
+
 trigger_vectors() ->
     Message = "trigger_vectors",
     lager:warning("execute bwapi ~p function \n", [Message]).
@@ -477,8 +477,9 @@ get_training_queue() ->
     Message = "get_training_queue",
     lager:warning("execute bwapi ~p function \n", [Message]).
 
+% "do" any Lua command
 
-lua_do(Unit, Command) ->             % "do" any Lua command
+lua_do(Unit, Command) ->
     call(Unit, {lua_do, Command}).
 
 gc(Unit) ->
@@ -487,12 +488,14 @@ gc(Unit) ->
 %% Main loop.
 
 init(X, Y, State0) ->
-    region:add_sector(X, Y, self()),       % Put us in some region
+    % Put us in some region
+    region:add_sector(X, Y, self()),
     {_,State1} = luerl:call_function([this_unit,start], [], State0),
     {_,State2} = luerl:call_function([this_unit,set_position], [X,Y], State1),
     {_,State3} = luerl:call_function([this_unit,set_speed], [0,0], State2),
     proc_lib:init_ack({ok,self()}),
-    loop(State3, infinity, make_ref(), 0). % Start with dummy tick ref
+    % Start with dummy tick ref
+    loop(State3, infinity, make_ref(), 0).
 
 %% loop(LuerlState, Tick, TickRef, TickCount) -> no_return().
 
