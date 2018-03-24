@@ -36,13 +36,19 @@ init() ->
     {ok, Socket} = chumak:socket(sub),
     %% List of topics, put them in a list or something.
     Topic = <<" ">>,
-    Heartbeat = <<"heartbeat">>,
+    Torch = <<"torch">>
+    Heart = <<"heart">>,
+    Model = <<"model">>,
+    Academy = <<"academy">>,
     Telecom = <<"telecom">>,
     Datacom = <<"datacom">>,
     Logging = <<"logging">>,
     %% ZeroMQ subscribe socket and topics!
     chumak:subscribe(Socket, Topic),
-    chumak:subscribe(Socket, Heartbeat),
+    chumak:subscribe(Socket, Torch),
+    chumak:subscribe(Socket, Heart),
+    chumak:subscribe(Socket, Model),
+    chumak:subscribe(Socket, Academy),
     chumak:subscribe(Socket, Telecom),
     chumak:subscribe(Socket, Datacom),
     chumak:subscribe(Socket, Logging),
