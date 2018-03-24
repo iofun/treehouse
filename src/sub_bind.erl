@@ -38,11 +38,13 @@ init() ->
     Topic = <<" ">>,
     Heartbeat = <<"heartbeat">>,
     Telecom = <<"telecom">>,
+    Datacom = <<"datacom">>,
     Logging = <<"logging">>,
     %% ZeroMQ subscribe socket and topics!
     chumak:subscribe(Socket, Topic),
     chumak:subscribe(Socket, Heartbeat),
     chumak:subscribe(Socket, Telecom),
+    chumak:subscribe(Socket, Datacom),
     chumak:subscribe(Socket, Logging),
     %% subscribe hypercube config
     econfig:subscribe(hypercube),
