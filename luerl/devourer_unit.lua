@@ -1,19 +1,41 @@
--- The doggo unit.
--- It reflects our lovely zergling style.
+-- The Devourer is a Hive-tech air-to-air unit that requires a Greater Spire
+-- to morph from a Mutalisk, through a Cocoon.
+-- Spores add a point of damage to every attack and slows attacks its target makes,
+-- making them extremely powerful with Zerg Mutalisks which bounce attacks thrice. 
 
-local this_unit = {}                -- Our unit function table
+-- Our unit function table
+local this_unit = {}
 
     -- The standard local variables
-    local x, y, dx, dy                  -- Where we are and fast we move
-    local color = "white"               -- Our color
-    local style = "unit"                -- Our style
-    local tick                          -- Size of a clock tick msec
-    local me = unit.self()              -- This is me
-    local ammo,shield = 0,0
     
-    local xsize,ysize = region.size()   -- The size of the region
+    -- Where we are and fast we move
+    local x, y, dx, dy
+    -- Our color
+    local color = "red"
+    -- Our style
+    local style = "unit"
+    -- Size of a clock tick msec
+    local tick
     
-    -- The doggo unit interface.
+    -- This is me              
+    local me = unit.self()
+
+    -- and now for something completely different
+    local label = "large_air"
+    local hitpoints,shield = 250,2
+    local ground_damage,air_damage = 0,25
+    local ground_cooldown,air_cooldown = 0,4.2
+    local ground_range,air_range = 0,6
+    local sight = 10
+    local supply = 2
+    local cooldown = 50
+    local gold = 250
+    local weed = 150
+
+    -- The size of the region
+    local xsize,ysize = region.size()
+    
+    -- The unit interface.
     
     function this_unit.start() end
     
@@ -30,11 +52,13 @@ local this_unit = {}                -- Our unit function table
     local function move_xy_bounce(x, y, dx, dy, valid_x, valid_y)
        local nx = x + dx
        local ny = y + dy
-       if (not valid_x(nx)) then       -- Bounce off the edge
+       -- Bounce off the edge
+       if (not valid_x(nx)) then
           nx = x - dx
           dx = -dx
        end
-       if (not valid_y(ny)) then       -- Bounce off the edge
+       -- Bounce off the edge
+       if (not valid_y(ny)) then
           ny = y - dy
           dy = -dy
        end
@@ -59,9 +83,10 @@ local this_unit = {}                -- Our unit function table
        x,y,dx,dy = move(x, y, dx, dy)
     end
     
-    function this_unit.attack()        -- The unit has been zapped and will die
+    function this_unit.attack()
+       -- The unit has been zapped and will die
        region.rem_sector(x, y)
     end
     
-    return this_unit                   -- Return the unit table
-    
+    -- Return the unit table
+    return this_unit
