@@ -85,7 +85,7 @@ from tornado.ioloop import PeriodicCallback as Cast
 from tornado import gen, web
 from tornado import httpclient
 from treehouse.tools import options, periodic
-from treehouse.handlers import apps, units, nodes
+from treehouse.handlers import units, nodes
 
 
 httpclient.AsyncHTTPClient.configure('tornado.curl_httpclient.CurlAsyncHTTPClient')
@@ -164,10 +164,6 @@ def main():
     # treehouse application daemon
     application = web.Application(
         [
-            # Apps resource
-            (r'/apps/page/(?P<page_num>\d+)/?', apps.Handler),
-            (r'/apps/(?P<app_uuid>.+)/?', apps.Handler),
-            (r'/apps/?', apps.Handler),
             # Units resource
             (r'/units/page/(?P<page_num>\d+)/?', units.Handler),
             (r'/units/(?P<unit_uuid>.+)/?', units.Handler),
