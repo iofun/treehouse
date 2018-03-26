@@ -1,5 +1,5 @@
--- The Science Vessel is an airborne detector caster unit. 
--- In the Terran army, it generally serves a support role. 
+-- The Larva is a Zerg unit that automatically spawns on average every 342 frames, 
+-- directly below every Hatchery, Lair, and Hive, with a maximum of 3 Larvae at any one of these buildings. 
 
 -- Our unit function table
 local this_unit = {}
@@ -8,9 +8,9 @@ local this_unit = {}
     
     -- Where we are and fast we move
     local x, y, dx, dy
-    -- Our color               
-    local color = "blue"
-    -- Our style           
+    -- Our color
+    local color = "red"
+    -- Our style
     local style = "unit"
     -- Size of a clock tick msec
     local tick
@@ -19,16 +19,16 @@ local this_unit = {}
     local me = unit.self()
 
     -- and now for something completely different
-    local label = "large_air"
-    local hitpoints,shield = 200,1
+    local label = "small_ground"
+    local hitpoints,shield = 25,10
     local ground_damage,air_damage = 0,0
     local ground_cooldown, air_cooldown = 0,0
     local ground_range, air_range = 0,0
-    local sight = 10
-    local supply = 2
-    local cooldown = 50
-    local gold = 100
-    local weed = 225
+    local sight = 4
+    local supply = 0
+    local cooldown = 14
+    local gold = 0
+    local weed = 0
 
     -- The size of the region
     local xsize,ysize = region.size()

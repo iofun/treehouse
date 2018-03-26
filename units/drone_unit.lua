@@ -1,19 +1,39 @@
--- The default unit.
--- It reflects from the edge.
+-- The Drone is the Zerg Worker. It can gather gas and minerals, it has a low-damage ranged attack (range of one),
+-- and it can morph into a Zerg building anywhere on the creep generated from colonies and hatcheries.
 
-local this_unit = {}                -- Our unit function table
+-- Our unit function table
+local this_unit = {}
 
     -- The standard local variables
-    local x, y, dx, dy                  -- Where we are and fast we move
-    local color = "white"               -- Our color
-    local style = "unit"                -- Our style
-    local tick                          -- Size of a clock tick msec
-    local me = unit.self()              -- This is me
-    local ammo,shield = 0,0
     
-    local xsize,ysize = region.size()   -- The size of the region
+    -- Where we are and fast we move
+    local x, y, dx, dy
+    -- Our color
+    local color = "red"
+    -- Our style
+    local style = "unit"
+    -- Size of a clock tick msec
+    local tick
     
-    -- The default unit interface.
+    -- This is me              
+    local me = unit.self()
+
+    -- and now for something completely different
+    local label = "small_ground"
+    local hitpoints,shield = 40,0
+    local ground_damage,air_damage = 5,0
+    local ground_cooldown, air_cooldown = 0.924,0
+    local ground_range, air_range = 1,0
+    local sight = 7
+    local supply = 1
+    local cooldown = 13
+    local gold = 50
+    local weed = 0
+
+    -- The size of the region
+    local xsize,ysize = region.size()
+    
+    -- The unit interface.
     
     function this_unit.start() end
     
@@ -30,25 +50,17 @@ local this_unit = {}                -- Our unit function table
     local function move_xy_bounce(x, y, dx, dy, valid_x, valid_y)
        local nx = x + dx
        local ny = y + dy
-       if (not valid_x(nx)) then       -- Bounce off the edge
+       -- Bounce off the edge
+       if (not valid_x(nx)) then
           nx = x - dx
           dx = -dx
        end
-       if (not valid_y(ny)) then       -- Bounce off the edge
+       -- Bounce off the edge
+       if (not valid_y(ny)) then
           ny = y - dy
           dy = -dy
        end
        return nx, ny, dx, dy
-    end
-    
-    local function hold_xy_bounce(x, y, valid_x, valid_y)
-        if (not valid_x(x)) then       -- !
-           message = "x food for thougth"
-        end
-        if (not valid_y(y)) then       -- !
-           message = "y food for thougth"
-        end
-        return x, y
     end
     
     local function move(x, y, dx, dy)
@@ -65,25 +77,14 @@ local this_unit = {}                -- Our unit function table
        return nx,ny,ndx,ndy
     end
     
-    local function hold(x, y)
-        local nx,ny = hold_xy_bounce(x, y, region.valid_x, region.valid_y)
-        -- Where we were and where we are now.
-        region.hold_sector(nx,ny)
-        return nx,ny
-    end
-    
     function this_unit.tick()
        x,y,dx,dy = move(x, y, dx, dy)
     end
-    -- attack,hold,move,rally,patrol,gather,return,spell,build,cancel,repair,stop,
     
-    function this_unit.attack()           -- The unit has been zapped and will die
+    function this_unit.attack()
+       -- The unit has been zapped and will die
        region.rem_sector(x, y)
     end
     
-    function this_unit.hold()
-        x,y,dx,dy, = bla(x, y, dx, dy)
-    end
-    
-    return this_unit                   -- Return the unit table
-    
+    -- Return the unit table
+    return this_unit
