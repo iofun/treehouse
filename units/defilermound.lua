@@ -1,19 +1,30 @@
--- The doggo unit.
--- It reflects our lovely zergling style.
+-- The Defiler Mound is an essential high-tech building for the Zerg. 
+-- The Defiler Mound requires a Hive to be existing before it can be morphed. 
 
-local this_unit = {}                -- Our unit function table
+-- Our unit function table
+local this_unit = {}                
 
     -- The standard local variables
-    local x, y, dx, dy                  -- Where we are and fast we move
-    local color = "white"               -- Our color
-    local style = "unit"                -- Our style
-    local tick                          -- Size of a clock tick msec
-    local me = unit.self()              -- This is me
-    local ammo,shield = 0,0
+    -- Where we are and fast we move
+    local x, y, dx, dy
+    -- Our color               
+    local color = "red"
+    -- Our style           
+    local style = "structure"
+    -- Size of a clock tick msec
+    local tick
+    -- This is me              
+    local me = unit.self()
+    -- and now for something completely different
+    local hitpoints,shield = 850,1
+    local cooldown = 38
+    local gold = 100
+    local weed = 100
+
+    -- The size of the region
+    local xsize,ysize = region.size()
     
-    local xsize,ysize = region.size()   -- The size of the region
-    
-    -- The doggo unit interface.
+    -- The unit interface.
     
     function this_unit.start() end
     
@@ -30,11 +41,13 @@ local this_unit = {}                -- Our unit function table
     local function move_xy_bounce(x, y, dx, dy, valid_x, valid_y)
        local nx = x + dx
        local ny = y + dy
-       if (not valid_x(nx)) then       -- Bounce off the edge
+       -- Bounce off the edge
+       if (not valid_x(nx)) then
           nx = x - dx
           dx = -dx
        end
-       if (not valid_y(ny)) then       -- Bounce off the edge
+       -- Bounce off the edge
+       if (not valid_y(ny)) then
           ny = y - dy
           dy = -dy
        end
@@ -59,9 +72,10 @@ local this_unit = {}                -- Our unit function table
        x,y,dx,dy = move(x, y, dx, dy)
     end
     
-    function this_unit.attack()        -- The unit has been zapped and will die
+    function this_unit.attack()
+       -- The unit has been zapped and will die
        region.rem_sector(x, y)
     end
     
-    return this_unit                   -- Return the unit table
-    
+    -- Return the unit table
+    return this_unit
