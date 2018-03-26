@@ -1,4 +1,4 @@
---  The Bunker must be filled with one to four units, which then work against the opponent. 
+-- The Bunker must be filled with one to four units, which then work against the opponent. 
 
 -- Our unit function table
 local this_unit = {}                
