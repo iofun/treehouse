@@ -1,19 +1,38 @@
--- The doggo unit.
--- It reflects our lovely zergling style.
+-- The Ghost is a specialised infantry-type spellcaster unit built from the Barracks 
+-- once an Academy and Science Facility with an attached Covert Ops have been constructed.
 
-local this_unit = {}                -- Our unit function table
+-- Our unit function table
+local this_unit = {}                
 
     -- The standard local variables
-    local x, y, dx, dy                  -- Where we are and fast we move
-    local color = "white"               -- Our color
-    local style = "unit"                -- Our style
-    local tick                          -- Size of a clock tick msec
-    local me = unit.self()              -- This is me
-    local ammo,shield = 0,0
     
-    local xsize,ysize = region.size()   -- The size of the region
+    -- Where we are and fast we move
+    local x, y, dx, dy
+    -- Our color               
+    local color = "blue"
+    -- Our style           
+    local style = "unit"
+    -- Size of a clock tick msec
+    local tick
     
-    -- The doggo unit interface.
+    -- This is me              
+    local me = unit.self()
+
+    -- and now for something completely different
+    local label = "small_ground"
+    local hitpoints,shield = 45,0
+    local ground_damage,air_damage = 10,10
+    local ground_cooldown, air_cooldown = 0.924,0.924
+    local sight,range = 9,7
+    local supply = 1
+    local cooldown = 32
+    local gold = 25
+    local weed = 75
+
+    -- The size of the region
+    local xsize,ysize = region.size()
+    
+    -- The unit interface.
     
     function this_unit.start() end
     
@@ -30,11 +49,13 @@ local this_unit = {}                -- Our unit function table
     local function move_xy_bounce(x, y, dx, dy, valid_x, valid_y)
        local nx = x + dx
        local ny = y + dy
-       if (not valid_x(nx)) then       -- Bounce off the edge
+       -- Bounce off the edge
+       if (not valid_x(nx)) then
           nx = x - dx
           dx = -dx
        end
-       if (not valid_y(ny)) then       -- Bounce off the edge
+       -- Bounce off the edge
+       if (not valid_y(ny)) then
           ny = y - dy
           dy = -dy
        end
@@ -59,9 +80,10 @@ local this_unit = {}                -- Our unit function table
        x,y,dx,dy = move(x, y, dx, dy)
     end
     
-    function this_unit.attack()        -- The unit has been zapped and will die
+    function this_unit.attack()
+       -- The unit has been zapped and will die
        region.rem_sector(x, y)
     end
     
-    return this_unit                   -- Return the unit table
-    
+    -- Return the unit table
+    return this_unit

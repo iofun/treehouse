@@ -1,7 +1,7 @@
 PROJECT = treehouse
 PROJECT_DESCRIPTION = Spontaneous units spawn your computing resources.
 PROJECT_VERSION = 0.3.0
-DEPS = lager chumak luerl econfig uuid jsx gun
+DEPS = lager chumak luerl econfig uuid jsx gun hackney
 ERLC_OPTS = +debug_info
 include erlang.mk
 # trying to ident with 4 spaces here.
