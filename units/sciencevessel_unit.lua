@@ -1,4 +1,5 @@
--- The Science Vessel is an airborne detector caster unit. In the Terran army, it generally serves a support role. 
+-- The Science Vessel is an airborne detector caster unit. 
+-- In the Terran army, it generally serves a support role. 
 
 -- Our unit function table
 local this_unit = {}

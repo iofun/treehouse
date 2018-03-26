@@ -1,5 +1,5 @@
--- The Science Vessel is an airborne detector caster unit. 
--- In the Terran army, it generally serves a support role. 
+-- The Siege Tank, or simply Tank, is a Terran mechanical unit. 
+-- Tanks are built from the Factory once it has an attached Machine Shop. 
 
 -- Our unit function table
 local this_unit = {}
@@ -19,16 +19,16 @@ local this_unit = {}
     local me = unit.self()
 
     -- and now for something completely different
-    local label = "large_air"
-    local hitpoints,shield = 200,1
-    local ground_damage,air_damage = 0,0
-    local ground_cooldown, air_cooldown = 0,0
-    local ground_range, air_range = 0,0
+    local label = "large_ground"
+    local hitpoints,shield = 150,1
+    local ground_damage,air_damage = 30,0
+    local ground_cooldown, air_cooldown = 1.554,0
+    local ground_range, air_range = 7,0
     local sight = 10
     local supply = 2
-    local cooldown = 50
-    local gold = 100
-    local weed = 225
+    local cooldown = 32
+    local gold = 150
+    local weed = 100
 
     -- The size of the region
     local xsize,ysize = region.size()
