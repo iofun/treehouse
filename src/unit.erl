@@ -17,7 +17,7 @@
          patrol/1,
          gather/1,
          return/1,
-         spell/1,    % how about burrow/unborrow?
+         spell/1,
          build/1,
          cancel/1,
          repair/1,
@@ -26,7 +26,8 @@
          attack/1]).
 
 -export([get_state/1,get_tc/1]).
--export([set_unit/2,lua_do/2,gc/1]).    %  LuaLang commands
+%%  LuaLang commands
+-export([set_unit/2,lua_do/2,gc/1]).
 
 %% Management API.
 
