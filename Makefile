@@ -1,6 +1,6 @@
 PROJECT = treehouse
-PROJECT_DESCRIPTION = Spontaneous units spawn your computing resources.
-PROJECT_VERSION = 0.3.0
+PROJECT_DESCRIPTION = Spontaneous unix-like daemons spawning your resources
+PROJECT_VERSION = 0.4.0
 DEPS = lager chumak luerl econfig uuid jsx gun hackney
 ERLC_OPTS = +debug_info
 include erlang.mk
