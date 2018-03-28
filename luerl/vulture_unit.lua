@@ -1,20 +1,20 @@
 -- The Vulture is an extremely mobile and dangerous Terran unit produced from the Factory.
 
 -- Our unit function table
-local this_unit = {}                
+local this_unit = {}
 
     -- The standard local variables
     
     -- Where we are and fast we move
     local x, y, dx, dy
-    -- Our color               
+    -- Our color
     local color = "blue"
-    -- Our style           
+    -- Our style
     local style = "unit"
     -- Size of a clock tick msec
     local tick
     
-    -- This is me              
+    -- This is me
     local me = unit.self()
 
     -- and now for something completely different
@@ -22,7 +22,8 @@ local this_unit = {}
     local hitpoints,shield = 80,0
     local ground_damage,air_damage = 20,0
     local ground_cooldown, air_cooldown = 1.26,0
-    local sight,range = 8,5
+    local ground_range, air_range = 5,0
+    local sight = 8
     local supply = 2
     local cooldown = 19
     local gold = 75
@@ -32,19 +33,19 @@ local this_unit = {}
     local xsize,ysize = region.size()
     
     -- The unit interface.
-    
+
     function this_unit.start() end
-    
+
     function this_unit.get_position() return x,y end
-    
+
     function this_unit.set_position(a1, a2) x,y = a1,a2 end
-    
+
     function this_unit.get_speed() return dx,dy end
-    
+
     function this_unit.set_speed(a1, a2) dx,dy = a1,a2 end
-    
+
     function this_unit.set_tick(a1) tick = a1 end
-    
+
     local function move_xy_bounce(x, y, dx, dy, valid_x, valid_y)
        local nx = x + dx
        local ny = y + dy
@@ -60,7 +61,7 @@ local this_unit = {}
        end
        return nx, ny, dx, dy
     end
-    
+
     local function move(x, y, dx, dy)
        local nx,ny,ndx,ndy = move_xy_bounce(x, y, dx, dy,
                    region.valid_x, region.valid_y)
@@ -74,15 +75,15 @@ local this_unit = {}
        end
        return nx,ny,ndx,ndy
     end
-    
+
     function this_unit.tick()
        x,y,dx,dy = move(x, y, dx, dy)
     end
-    
+
     function this_unit.attack()
        -- The unit has been zapped and will die
        region.rem_sector(x, y)
     end
-    
+
     -- Return the unit table
     return this_unit
