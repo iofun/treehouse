@@ -1,4 +1,5 @@
--- The Hydralisk is a versatile Zerg ranged unit that can attack both air and ground targets using needle spines.  
+-- The Reaver is a powerful Protoss siege unit produced from the Robotics Facility. 
+-- Construction of Reavers also requires the Robotics Support Bay. 
 
 -- Our unit function table
 local this_unit = {}
@@ -8,7 +9,7 @@ local this_unit = {}
     -- Where we are and fast we move
     local x, y, dx, dy
     -- Our color
-    local color = "red"
+    local color = "green"
     -- Our style
     local style = "unit"
     -- Size of a clock tick msec
@@ -18,16 +19,17 @@ local this_unit = {}
     local me = unit.self()
 
     -- and now for something completely different
-    local label = "medium_ground"
-    local hitpoints,shield = 80,0
-    local ground_damage,air_damage = 10,10
-    local ground_cooldown, air_cooldown = 0.63,0.63
-    local ground_range, air_range = 4,4
-    local sight = 6
-    local supply = 1
-    local cooldown = 18
-    local gold = 75
-    local weed = 25
+    local label = "large_ground"
+    local armor = 0
+    local hitpoints,shield = 100,80
+    local ground_damage,air_damage = 40,0
+    local ground_cooldown, air_cooldown = 2.52,0
+    local ground_range, air_range = 8,0
+    local sight = 10
+    local supply = 4
+    local cooldown = 44
+    local gold = 200
+    local weed = 100
 
     -- The size of the region
     local xsize,ysize = region.size()
