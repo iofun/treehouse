@@ -1,4 +1,4 @@
--- The Hydralisk is a versatile Zerg ranged unit that can attack both air and ground targets using needle spines.  
+-- The Scout is a power Protoss air unit that is produced from the Stargate.
 
 -- Our unit function table
 local this_unit = {}
@@ -8,7 +8,7 @@ local this_unit = {}
     -- Where we are and fast we move
     local x, y, dx, dy
     -- Our color
-    local color = "red"
+    local color = "green"
     -- Our style
     local style = "unit"
     -- Size of a clock tick msec
@@ -18,16 +18,17 @@ local this_unit = {}
     local me = unit.self()
 
     -- and now for something completely different
-    local label = "medium_ground"
-    local hitpoints,shield = 80,0
-    local ground_damage,air_damage = 10,10
-    local ground_cooldown, air_cooldown = 0.63,0.63
+    local label = "large_air"
+    local armor = 0
+    local hitpoints,shield = 150,100
+    local ground_damage,air_damage = 8,14
+    local ground_cooldown, air_cooldown = 1.26,0.924
     local ground_range, air_range = 4,4
-    local sight = 6
-    local supply = 1
-    local cooldown = 18
-    local gold = 75
-    local weed = 25
+    local sight = 8
+    local supply = 3
+    local cooldown = 80
+    local gold = 275
+    local weed = 125
 
     -- The size of the region
     local xsize,ysize = region.size()
