@@ -1,4 +1,6 @@
--- The Hydralisk is a versatile Zerg ranged unit that can attack both air and ground targets using needle spines.  
+-- Interceptors are small flying attacking units built and transported by Carriers. 
+-- The player cannot control them; they are launched automatically when the Carrier 
+-- is given an attack command and quickly fly in roughly circular paths around the target attacking it.
 
 -- Our unit function table
 local this_unit = {}
@@ -8,7 +10,7 @@ local this_unit = {}
     -- Where we are and fast we move
     local x, y, dx, dy
     -- Our color
-    local color = "red"
+    local color = "green"
     -- Our style
     local style = "unit"
     -- Size of a clock tick msec
@@ -18,16 +20,17 @@ local this_unit = {}
     local me = unit.self()
 
     -- and now for something completely different
-    local label = "medium_ground"
-    local hitpoints,shield = 80,0
-    local ground_damage,air_damage = 10,10
-    local ground_cooldown, air_cooldown = 0.63,0.63
+    local label = "small_air"
+    local armor = 0
+    local hitpoints,shield = 40,40
+    local ground_damage,air_damage = 6,6
+    local ground_cooldown, air_cooldown = 1.554,1.554
     local ground_range, air_range = 4,4
-    local sight = 6
-    local supply = 1
-    local cooldown = 18
-    local gold = 75
-    local weed = 25
+    local sight = 0
+    local supply = 0
+    local cooldown = 13
+    local gold = 25
+    local weed = 0
 
     -- The size of the region
     local xsize,ysize = region.size()
