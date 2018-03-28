@@ -19,15 +19,15 @@ local this_unit = {}
 
     -- and now for something completely different
     local label = "small_air"
-    local hitpoints,shield = 80,1
-    local ground_damage,air_damage = 0,0
-    local ground_cooldown,air_cooldown = 0,0
-    local ground_range,air_range = 0,0
-    local sight = 10
+    local hitpoints,shield = 120,0
+    local ground_damage,air_damage = 0,9
+    local ground_cooldown,air_cooldown = 0,1.26
+    local ground_range,air_range = 0,3
+    local sight = 7
     local supply = 2
-    local cooldown = 32
-    local gold = 50
-    local weed = 150
+    local cooldown = 25
+    local gold = 100
+    local weed = 100
 
     -- The size of the region
     local xsize,ysize = region.size()
