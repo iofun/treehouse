@@ -1,4 +1,4 @@
--- The Hydralisk is a versatile Zerg ranged unit that can attack both air and ground targets using needle spines.  
+-- The Zealot is the Protoss first tier melee unit. Zealots only deal damage to ground units, so are vulnerable to air attack units.
 
 -- Our unit function table
 local this_unit = {}
@@ -8,7 +8,7 @@ local this_unit = {}
     -- Where we are and fast we move
     local x, y, dx, dy
     -- Our color
-    local color = "red"
+    local color = "green"
     -- Our style
     local style = "unit"
     -- Size of a clock tick msec
@@ -18,16 +18,17 @@ local this_unit = {}
     local me = unit.self()
 
     -- and now for something completely different
-    local label = "medium_ground"
-    local hitpoints,shield = 80,0
-    local ground_damage,air_damage = 10,10
-    local ground_cooldown, air_cooldown = 0.63,0.63
-    local ground_range, air_range = 4,4
-    local sight = 6
-    local supply = 1
-    local cooldown = 18
-    local gold = 75
-    local weed = 25
+    local label = "small_ground"
+    local armor = 1
+    local hitpoints,shield = 100,60
+    local ground_damage,air_damage = 8,0
+    local ground_cooldown, air_cooldown = 0.924,0
+    local ground_range, air_range = 1,0
+    local sight = 7
+    local supply = 2
+    local cooldown = 25
+    local gold = 100
+    local weed = 0
 
     -- The size of the region
     local xsize,ysize = region.size()
