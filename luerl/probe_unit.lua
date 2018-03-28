@@ -1,4 +1,4 @@
--- The Hydralisk is a versatile Zerg ranged unit that can attack both air and ground targets using needle spines.  
+-- The Probe is the Protoss worker. It harvests Resources, has a low-powered ranged attack (with a range of one), and can build any Protoss building. 
 
 -- Our unit function table
 local this_unit = {}
@@ -8,7 +8,7 @@ local this_unit = {}
     -- Where we are and fast we move
     local x, y, dx, dy
     -- Our color
-    local color = "red"
+    local color = "green"
     -- Our style
     local style = "unit"
     -- Size of a clock tick msec
@@ -18,16 +18,17 @@ local this_unit = {}
     local me = unit.self()
 
     -- and now for something completely different
-    local label = "medium_ground"
-    local hitpoints,shield = 80,0
-    local ground_damage,air_damage = 10,10
-    local ground_cooldown, air_cooldown = 0.63,0.63
-    local ground_range, air_range = 4,4
-    local sight = 6
+    local label = "small_ground"
+    local armor = 0
+    local hitpoints,shield = 20,20
+    local ground_damage,air_damage = 5,0
+    local ground_cooldown, air_cooldown = 0.924,0
+    local ground_range, air_range = 1,0
+    local sight = 8
     local supply = 1
-    local cooldown = 18
-    local gold = 75
-    local weed = 25
+    local cooldown = 13
+    local gold = 50
+    local weed = 0
 
     -- The size of the region
     local xsize,ysize = region.size()
