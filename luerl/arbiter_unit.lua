@@ -1,4 +1,5 @@
--- The Hydralisk is a versatile Zerg ranged unit that can attack both air and ground targets using needle spines.  
+-- The Arbiter is one of the highest technology units in the Protoss arsenal.
+-- It's a support unit with a passive ability which cloaks any units underneath it.
 
 -- Our unit function table
 local this_unit = {}
@@ -8,7 +9,7 @@ local this_unit = {}
     -- Where we are and fast we move
     local x, y, dx, dy
     -- Our color
-    local color = "red"
+    local color = "green"
     -- Our style
     local style = "unit"
     -- Size of a clock tick msec
@@ -18,16 +19,17 @@ local this_unit = {}
     local me = unit.self()
 
     -- and now for something completely different
-    local label = "medium_ground"
-    local hitpoints,shield = 80,0
+    local label = "large_air"
+    local armor = 1
+    local hitpoints,shield = 200,150
     local ground_damage,air_damage = 10,10
-    local ground_cooldown, air_cooldown = 0.63,0.63
-    local ground_range, air_range = 4,4
-    local sight = 6
-    local supply = 1
-    local cooldown = 18
-    local gold = 75
-    local weed = 25
+    local ground_cooldown, air_cooldown = 1.89,1.89
+    local ground_range, air_range = 5,5
+    local sight = 9
+    local supply = 4
+    local cooldown = 101
+    local gold = 100
+    local weed = 350
 
     -- The size of the region
     local xsize,ysize = region.size()
