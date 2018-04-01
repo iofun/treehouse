@@ -172,7 +172,6 @@ def main():
             (r'/nodes/page/(?P<page_num>\d+)/?', nodes.Handler),
             (r'/nodes/(?P<node_uuid>.+)/?', nodes.Handler),
             (r'/nodes/?', nodes.Handler),
-
         ],
         # system cache
         cache=cache,
