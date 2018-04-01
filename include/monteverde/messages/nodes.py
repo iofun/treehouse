@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
 '''
-    Treehouse node message models.
+    Monteverde node message models.
 '''
 
-# This file is part of treehouse.
+# This file is part of monteverde.
 
 # Distributed under the terms of the last AGPL License.
 # The full license is in the file LICENCE, distributed as part of this software.
@@ -16,7 +16,7 @@ import arrow
 from schematics import models
 from schematics import types
 from schematics.types import compound
-from treehouse.messages import Resource
+from monteverde.messages import Resource
 
 
 class Node(models.Model):

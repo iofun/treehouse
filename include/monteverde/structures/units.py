@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 '''
-    Treehouse Unit CRDT's structures.
+    Monteverde Unit CRDT's structures.
 '''
 
 # This file is part of aqueduct.

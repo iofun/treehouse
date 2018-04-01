@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
 '''
-    Treehouse HTTP event handlers.
+    Monteverde HTTP event handlers.
 '''
 
-# This file is part of Treehouse.
+# This file is part of Monteverde.
 
 # Distributed under the terms of the last AGPL License.
 # The full license is in the file LICENCE, distributed as part of this software.
@@ -16,11 +16,11 @@ import logging
 import ujson as json
 from tornado import gen
 from tornado import web
-from treehouse.messages import nodes as models
-from treehouse.system import nodes
+from monteverde.messages import nodes as models
+from monteverde.system import nodes
 from tornado import httpclient
-from treehouse.tools import errors, str2bool, check_json
-from treehouse.handlers import BaseHandler
+from monteverde.tools import errors, str2bool, check_json
+from monteverde.handlers import BaseHandler
 from collections import OrderedDict
 
 class Handler(nodes.Node, BaseHandler):

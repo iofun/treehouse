@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
 '''
-    Treehouse daemon configuration options.
+    Monteverde daemon configuration options.
 '''
 
-# This file is part of treehouse.
+# This file is part of monteverde.
 
 # Distributed under the terms of the last AGPL License.
 # The full license is in the file LICENCE, distributed as part of this software.
@@ -18,12 +18,12 @@ import tornado.options
 from tornado.options import parse_config_file
 
 
-config_path = 'treehouse.conf'
+config_path = 'monteverde.conf'
 
 
 def options():
     '''
-        Treehouse configuration options
+        Monteverde configuration options
     '''
     # Set config and stuff
     tornado.options.define('config',
@@ -42,7 +42,7 @@ def options():
         help=('Application domain, e.g. "example.com"'))
     # Erlang/OTP release
     tornado.options.define('erlang_release',
-        default='/opt/treehouse/_rel/treehouse_release/bin/treehouse_release',
+        default='/opt/monteverde/_rel/monteverde_release/bin/monteverde_release',
         type=str, help=('Erlang/OTP release'))
     # Server settings
     tornado.options.define('host',

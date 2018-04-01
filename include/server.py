@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 '''
-    The treehouse spontaneously generates units used to spawn your resources.
+    The monteverde spontaneously generates units used to spawn your resources.
 
     Nodes allow control of additional CPU and GPU units.
 
@@ -9,7 +9,7 @@
     As your forces grow in number, you must spawn more nodes to control them.
 '''
 
-# This file is part of treehouse.
+# This file is part of monteverde.
 
 # Distributed under the terms of the last AGPL License.
 # The full license is in the file LICENCE, distributed as part of this software.
@@ -84,8 +84,8 @@ from subprocess import Popen, PIPE
 from tornado.ioloop import PeriodicCallback as Cast
 from tornado import gen, web
 from tornado import httpclient
-from treehouse.tools import options, periodic
-from treehouse.handlers import units, nodes
+from monteverde.tools import options, periodic
+from monteverde.handlers import units, nodes
 
 
 httpclient.AsyncHTTPClient.configure('tornado.curl_httpclient.CurlAsyncHTTPClient')
@@ -117,15 +117,15 @@ def main():
     sql = queries.TornadoSession(uri=postgresql_uri)
     # key-value
     kvalue = riak.RiakClient(host=opts.riak_host, pb_port=8087)
-    # Set treehouse OTP release
+    # Set monteverde OTP release
     erlang_release = opts.erlang_release
 
     @gen.coroutine
     def check_alive_erlang_node():
         '''
-            Checks for an active Erlang/OTP treehouse node
+            Checks for an active Erlang/OTP monteverde node
         '''
-        os.environ['HOME'] = '/opt/treehouse/'
+        os.environ['HOME'] = '/opt/monteverde/'
         process = Popen([erlang_release, "ping", "."], stdout=PIPE)
         (output, err) = process.communicate()
         exit_code = process.wait()
@@ -150,7 +150,7 @@ def main():
                 logging.error('we crash circusd after trying {0} times!'.format(max_count))
 
     # logging system spawned
-    logging.info('Treehouse system {0} spawned'.format(system_uuid))
+    logging.info('Monteverde system {0} spawned'.format(system_uuid))
     # logging database hosts
     logging.info('PostgreSQL server: {0}:{1}'.format(opts.sql_host, opts.sql_port))
     # solr yokozuna
@@ -161,7 +161,7 @@ def main():
     cache_enabled = opts.cache_enabled
     if cache_enabled:
         logging.info('Memcached server: {0}:{1}'.format(opts.memcached_host, opts.memcached_port))
-    # treehouse application daemon
+    # monteverde application daemon
     application = web.Application(
         [
             # Units resource

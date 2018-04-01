@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
 '''
-    Treehouse system errors.
+    Monteverde system errors.
 '''
 
-# This file is part of treehouse.
+# This file is part of monteverde.
 
 # Distributed under the terms of the last AGPL License.
 # The full license is in the file LICENCE, distributed as part of this software.
@@ -27,7 +27,7 @@ class MissingHeartbeat(UserWarning):
 
 class Error(object):
     '''
-        Treehouse custom error class
+        Monteverde custom error class
     '''
 
     def __init__(self, error):

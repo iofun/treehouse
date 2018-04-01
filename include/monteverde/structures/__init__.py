@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 '''
-    The treehouse spontaneously generates units used to spawn your resources.
+    The monteverde spontaneously generates units used to spawn your resources.
 
     Nodes allow control of additional CPU and GPU units.
 
@@ -9,7 +9,7 @@
     As your forces grow in number, you must spawn more nodes to control them.
 '''
 
-# This file is part of treehouse.
+# This file is part of monteverde.
 
 # Distributed under the terms of the last AGPL License.
 # The full license is in the file LICENCE, distributed as part of this software.

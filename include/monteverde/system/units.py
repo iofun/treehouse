@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
 '''
-    Treehouse units system logic.
+    Monteverde units system logic.
 '''
 
-# This file is part of treehouse.
+# This file is part of monteverde.
 
 # Distributed under the terms of the last AGPL License.
 # The full license is in the file LICENCE, distributed as part of this software.
@@ -15,12 +15,12 @@ import logging
 import ujson as json
 from tornado import gen
 from schematics.types import compound
-from treehouse.messages import units
-from treehouse.messages import BaseResult
-from treehouse.structures.units import UnitMap
+from monteverde.messages import units
+from monteverde.messages import BaseResult
+from monteverde.structures.units import UnitMap
 from riak.datatypes import Map
-from treehouse.tools import clean_structure, clean_response
-from treehouse.tools import get_search_item, get_search_list
+from monteverde.tools import clean_structure, clean_response
+from monteverde.tools import get_search_item, get_search_list
 from tornado import httpclient as _http_client
 
 
@@ -44,7 +44,7 @@ class Unit(object):
         '''
             Get unit
         '''
-        search_index = 'treehouse_unit_index'
+        search_index = 'monteverde_unit_index'
         query = 'uuid_register:{0}'.format(unit_uuid)
         filter_query = 'account_register:{0}'.format(account.decode('utf-8'))
         # note where the hack change ' to %27 for the url string!
@@ -99,7 +99,7 @@ class Unit(object):
         '''
             Get unit list
         '''
-        search_index = 'treehouse_unit_index'
+        search_index = 'monteverde_unit_index'
         query = 'uuid_register:*'
         filter_query = 'account_register:{0}'.format(account.decode('utf-8'))
         # note where the hack change ' to %27 for the url string!
@@ -167,10 +167,10 @@ class Unit(object):
             New query event
         '''
         # currently we are changing this in two steps, first create de index with a structure file
-        search_index = 'treehouse_unit_index'
+        search_index = 'monteverde_unit_index'
         # on the riak database with riak-admin bucket-type create `bucket_type`
         # remember to activate it with riak-admin bucket-type activate
-        bucket_type = 'treehouse_unit'
+        bucket_type = 'monteverde_unit'
         # the bucket name can be dynamic
         bucket_name = 'units'
         try:
@@ -226,7 +226,7 @@ class Unit(object):
             Modify unit
         '''
         # riak search index
-        search_index = 'treehouse_unit_index'
+        search_index = 'monteverde_unit_index'
         # riak bucket type
         bucket_type = 'tsunami_unit'
         # riak bucket name
@@ -297,7 +297,7 @@ class Unit(object):
             Modify remove
         '''
         # riak search index
-        search_index = 'treehouse_unit_index'
+        search_index = 'monteverde_unit_index'
         # riak bucket type
         bucket_type = 'tsunami_unit'
         # riak bucket name

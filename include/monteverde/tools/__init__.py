@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
 '''
-    Treehouse system tool functions.
+    Monteverde system tool functions.
 '''
 
-# This file is part of treehouse.
+# This file is part of monteverde.
 
 # Distributed under the terms of the last AGPL License.
 # The full license is in the file LICENCE, distributed as part of this software.
@@ -16,7 +16,7 @@ import ujson as json
 import logging
 import uuid
 from tornado import gen
-from treehouse import errors
+from monteverde import errors
 
 
 def validate_uuid4(uuid_string):
