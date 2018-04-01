@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 '''
-    The monteverde spontaneously generates units used to spawn your resources.
+    The forest spontaneously generates units used to spawn your resources.
 
     Nodes allow control of additional CPU and GPU units.
 
@@ -109,7 +109,7 @@ def main():
     postgresql_uri = queries.uri(
         host=opts.sql_host,
         port=opts.sql_port,
-        dbname='cybernetics',
+        dbname='monteverde',
         user=opts.sql_user,
         password=None
     )
