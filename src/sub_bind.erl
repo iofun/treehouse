@@ -88,6 +88,9 @@ loop(State) ->
 process_pub([H|T]) ->
     lager:warning("Yo this head just spawn in here ~p \n", [H]),
     Payload = jiffy:decode([T], [return_maps]),
+    
+    %% lol?
+
     lager:warning(maps:get(<<"timestamp">>, Payload, "0000000000")),
     lager:warning(maps:get(<<"uuid">>, Payload, uuid:uuid_to_string(uuid:get_v4()))).
 
@@ -96,19 +99,16 @@ process_pub([H|T]) ->
     %%    [<<"">>, _] -> lager:error("wut")
     %%end.
 
-    %%http_client(),    ???
+    %%http_client(),    D= ???
 
-%%http_client() ->
-
-    %% so hackney is our http erlang client and we like it very much!
-    %%URL = <<"https://iofun.io">>,
-
-    %%Headers = [],
-    %%Payload = <<>>,
-    %%Options = [],
-
-    %%{ok, StatusCode, _, _} = hackney:request(Method, URL, Headers, Payload, Options),
-    %%{ok, StatusCode, _, _} = hackney:get(URL, Headers, Payload, Options),
-    %%{ok, StatusCode, RespHeaders, ClientRef} = hackney:get(URL, Headers, Payload, Options),
-
-    %%lager:warning("rare? ~p \n", [StatusCode]).
+http_client() ->
+    %% currently testing both hackney and gun!
+    URL = <<"https://api.nonsense.ws">>,
+    %% setting things up
+    Headers = [],
+    Payload = <<>>,
+    Options = [],
+    %% request response
+    {ok, StatusCode, RespHeaders, ClientRef} = hackney:get(URL, Headers, Payload, Options),
+    %% where are you?
+    lager:warning("rarely? ~p \n", [StatusCode]).
