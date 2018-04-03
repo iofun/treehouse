@@ -46,7 +46,7 @@ init() ->
     chumak:subscribe(Socket, Telecom),
     chumak:subscribe(Socket, Datacom),
     chumak:subscribe(Socket, Logging),
-    %% subscribe hypercube config
+    %% subscribe monteverde config
     econfig:subscribe(monteverde),
     Port = econfig:get_integer(monteverde, "zmq", "sub_bind"),
     Address = econfig:get_value(monteverde, "zmq", "address"),
@@ -59,7 +59,7 @@ init() ->
         X ->
             io:format("Unhandled reply for bind ~p \n", [X])
     end,
-    %% spawn external process that handle the zmq loop
+    %% Spawn BEAM process that handle the messaging loop
     spawn_link(fun () ->
             zmq_loop(Socket)
     end),
@@ -77,9 +77,11 @@ loop(State) ->
         {cast,From,{send_message,Message}} ->
             io:format("~w: ~p\n", [From,Message]),
             loop(State);
-        {cast,_From,stop} ->            % We're done
+        % We're done
+        {cast,_From,stop} ->
             ok;
-        _ ->                            % Ignore everything else
+        % Ignore everything else
+        _ ->
             loop(State)
     end.
 
