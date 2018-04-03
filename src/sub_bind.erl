@@ -36,7 +36,7 @@ init() ->
     {ok, Socket} = chumak:socket(sub),
     %% List of topics, put them in a list or something.
     Heartbt = <<"heartbt">>,
-    Torchup = <<"torchup">>
+    Torchup = <<"torchup">>,
     Telecom = <<"telecom">>,
     Datacom = <<"datacom">>,
     Logging = <<"logging">>,
