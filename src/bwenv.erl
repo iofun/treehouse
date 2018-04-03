@@ -96,7 +96,6 @@
          get_last_attacking_player/0,
          get_training_queue/0]).
 
-
 %% init our bwapi environment approximation
 game_type() ->
     Message = "game_type",
@@ -464,5 +463,3 @@ get_last_attacking_player() ->
 get_training_queue() -> 
     Message = "get_training_queue",
     lager:warning("execute bwapi ~p function \n", [Message]).
-
-
