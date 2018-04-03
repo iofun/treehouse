@@ -42,7 +42,7 @@ def options():
         help=('Application domain, e.g. "example.com"'))
     # Erlang/OTP release
     tornado.options.define('erlang_release',
-        default='/opt/monteverde/_rel/monteverde_release/bin/monteverde_release',
+        default='/opt/treehouse/_rel/treehouse_release/bin/treehouse_release',
         type=str, help=('Erlang/OTP release'))
     # Server settings
     tornado.options.define('host',

@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 '''
-    The monteverde spontaneously generates units, which are used to spawn your resources.
+    The forest spontaneously generates units used to spawn your resources.
 
     Nodes allow control of additional CPU and GPU units.
 
-    Nodes provide control for your cloud forest jungle.
+    Nodes provide control for your high-performance computing system infrastructure.
 
     As your forces grow in number, you must spawn more nodes to control them.
 '''

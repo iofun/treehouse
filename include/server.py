@@ -4,7 +4,7 @@
 
     Nodes allow control of additional CPU and GPU units.
 
-    Nodes provide control for your cloud forest.
+    Nodes provide control for your high-performance computing system infrastructure.
 
     As your forces grow in number, you must spawn more nodes to control them.
 '''
@@ -115,21 +115,22 @@ def main():
     )
     # Set SQL session
     sql = queries.TornadoSession(uri=postgresql_uri)
-    # key-value
+    # Riak key-value cluster database
     kvalue = riak.RiakClient(host=opts.riak_host, pb_port=8087)
-    # Set monteverde OTP release
+    # Set treehouse OTP release
     erlang_release = opts.erlang_release
 
     @gen.coroutine
-    def check_alive_erlang_node():
+    def check_erlang_node():
         '''
-            Checks for an active Erlang/OTP monteverde node
+            Check Erlang/OTP node
         '''
-        os.environ['HOME'] = '/opt/monteverde/'
+        # todo: can we get the paths from somewhere?
+        os.environ['HOME'] = '/opt/treehouse/'
         process = Popen([erlang_release, "ping", "."], stdout=PIPE)
         (output, err) = process.communicate()
         exit_code = process.wait()
-        # some local variables
+        # some closure variable state
         max_count,von_count,running = 5,0,False
         if b'not responding to pings' in output:
             logging.error(output)
@@ -144,17 +145,17 @@ def main():
         else:
             von_count += 1
             if von_count > max_count:
-                # Crash circusd monitor cuz why not! right?
+                # todo: get path from somewhere
                 circus = Popen(["/etc/init.d/circusd", "stop", "."], stdout=PIPE)
                 (output, err) = circus.communicate()
-                logging.error('we crash circusd after trying {0} times!'.format(max_count))
+                logging.error('Crashing circusd after {0} times!'.format(max_count))
 
     # logging system spawned
-    logging.info('Monteverde system {0} spawned'.format(system_uuid))
+    logging.info('Monteverde HPC system {0} spawned'.format(system_uuid))
     # logging database hosts
     logging.info('PostgreSQL server: {0}:{1}'.format(opts.sql_host, opts.sql_port))
-    # solr yokozuna
-    logging.info('Solr yokozuna: {0}'.format(opts.solr))
+    # solr 4.7 yokozuna
+    logging.info('Solr 4.7 yokozuna: {0}'.format(opts.solr))
     # logging riak settings
     logging.info('Riak server: {0}:{1}'.format(opts.riak_host, opts.riak_port))
     # system cache
@@ -191,8 +192,8 @@ def main():
         solr=opts.solr,
     )
     # Periodic Cast Functions
-    check_node_tree = Cast(check_alive_erlang_node, 5000)
-    check_node_tree.start()
+    check_node = Cast(check_erlang_node, 5000)
+    check_node.start()
     # Setting up daemon process
     application.listen(opts.port)
     logging.info('Listening on http://%s:%s' % (opts.host, opts.port))

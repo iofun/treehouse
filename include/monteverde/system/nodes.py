@@ -228,7 +228,7 @@ class Node(object):
         # riak search index
         search_index = 'monteverde_node_index'
         # riak bucket type
-        bucket_type = 'tsunami_node'
+        bucket_type = 'monteverde_node'
         # riak bucket name
         bucket_name = 'nodes'
         # solr query
@@ -299,7 +299,7 @@ class Node(object):
         # riak search index
         search_index = 'monteverde_node_index'
         # riak bucket type
-        bucket_type = 'tsunami_node'
+        bucket_type = 'monteverde_node'
         # riak bucket name
         bucket_name = 'nodes'
         # solr query

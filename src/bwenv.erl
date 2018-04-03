@@ -1,8 +1,5 @@
 -module(bwenv).
 
--export([start/3,start_link/3]).
--export([init/3]).
-
 %% bwapi init approximation functions (=
 -export([game_type/0,
          net_mode/0,
@@ -99,15 +96,6 @@
          get_last_attacking_player/0,
          get_training_queue/0]).
 
--export([lua_do/2,gc/1]).    % LuaLang commands
-
-%% Management API.
-
-start(X, Y, State) ->
-    proc_lib:start(?MODULE, init, [X,Y,State]).
-
-start_link(X, Y, State) ->
-    proc_lib:start_link(?MODULE, init, [X,Y,State]).
 
 %% init our bwapi environment approximation
 game_type() ->
@@ -477,57 +465,4 @@ get_training_queue() ->
     Message = "get_training_queue",
     lager:warning("execute bwapi ~p function \n", [Message]).
 
-% "do" any Lua command
-
-lua_do(Unit, Command) ->
-    call(Unit, {lua_do, Command}).
-
-gc(Unit) ->
-    call(Unit, gc).
-
-%% Main loop.
-
-init(X, Y, State0) ->
-    % Put us in some region
-    region:add_sector(X, Y, self()),
-    {_,State1} = luerl:call_function([this_unit,start], [], State0),
-    {_,State2} = luerl:call_function([this_unit,set_position], [X,Y], State1),
-    {_,State3} = luerl:call_function([this_unit,set_speed], [0,0], State2),
-    proc_lib:init_ack({ok,self()}),
-    % Start with dummy tick ref
-    loop(State3, infinity, make_ref(), 0).
-
-%% loop(LuerlState, Tick, TickRef, TickCount) -> no_return().
-
-loop(State0, Tick, Tref, Tc) ->
-    receive
-    {call,From,get_position} ->
-        {[X,Y],State1} = luerl:call_function([this_unit,get_position], [], State0),
-        reply(From, {X,Y}),
-        loop(State1, Tick, Tref, Tc);
-    {cast,From,{set_position,X,Y}} ->
-        %%  logging unused variable!
-        lager:warning("set_position From? ~p \n", [From]),
-        {_,State1} = luerl:call_function([this_unit,set_position],
-                      [float(X),float(Y)], State0),
-        loop(State1, Tick, Tref, Tc);
-    {call,From,get_speed} ->
-        {[Dx,Dy],State1} = luerl:call_function([this_unit,get_speed], [], State0),
-        reply(From, {Dx,Dy}),
-        loop(State1, Tick, Tref, Tc);
-    {cast,From,{set_speed,Dx,Dy}} ->
-        %%  logging unused variable!
-        lager:warning("set_speed From? ~p \n", [From]),
-        {_,State1} = luerl:call_function([this_unit,set_speed],
-                      [float(Dx),float(Dy)], State0),
-        loop(State1, Tick, Tref, Tc);
-    {call,From,{lua_do,Command}} ->     %"do" any Lua command
-        {Rs,State1} = luerl:do(Command, State0),
-        reply(From, {ok,Rs}),
-        loop(State1, Tick, Tref, Tc);
-    {call,From,gc} ->           %Gc the luerl state
-        State1 = luerl:gc(State0),
-        reply(From, ok),
-        loop(State1, Tick, Tref, Tc)
-    end.
 

@@ -228,7 +228,7 @@ class Unit(object):
         # riak search index
         search_index = 'monteverde_unit_index'
         # riak bucket type
-        bucket_type = 'tsunami_unit'
+        bucket_type = 'monteverde_unit'
         # riak bucket name
         bucket_name = 'units'
         # solr query
@@ -299,7 +299,7 @@ class Unit(object):
         # riak search index
         search_index = 'monteverde_unit_index'
         # riak bucket type
-        bucket_type = 'tsunami_unit'
+        bucket_type = 'monteverde_unit'
         # riak bucket name
         bucket_name = 'units'
         # solr query
