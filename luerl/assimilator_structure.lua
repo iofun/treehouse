@@ -3,8 +3,6 @@
 -- Our unit function table
 local this_unit = {}
 
-    -- The standard local variables
-    
     -- Where we are and fast we move
     local x, y, dx, dy
     -- Our color
@@ -14,8 +12,10 @@ local this_unit = {}
     -- Size of a clock tick msec
     local tick
     
-    -- This is the unit structure 
+    -- It's me, the unit structure 
     local me = unit.self()
+    
+    -- The standard local variables
     local label = "medium_structure"
     local armor = 1
     local hitpoints,shield = 450,450
