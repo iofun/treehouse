@@ -14,10 +14,8 @@ local this_unit = {}
     -- Size of a clock tick msec
     local tick
     
-    -- This is me              
+    -- This is the unit structure 
     local me = unit.self()
-
-    -- and now for something completely different
     local label = "medium_structure"
     local armor = 1
     local hitpoints,shield = 450,450
