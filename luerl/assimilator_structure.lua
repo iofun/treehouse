@@ -33,7 +33,6 @@ local this_unit = {}
     local xsize,ysize = region.size()
     
     -- The unit interface.
-    
     function this_unit.start() end
     
     function this_unit.get_position() return x,y end
