@@ -1,5 +1,5 @@
 # treehouse
-[![Build Status](https://travis-ci.org/nonsensews/treehouse.svg?branch=master)](https://travis-ci.org/nonsensews/treehouse)
+[![Build Status](https://travis-ci.org/spacebeam/treehouse.svg?branch=master)](https://travis-ci.org/spacebeam/treehouse)
 
 The treehouse spawn daemons over time, daemons are morphed into other units. 
 
