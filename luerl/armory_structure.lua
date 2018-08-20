@@ -1,9 +1,8 @@
---  The Armory is a building constructed by Terran to enable production of advanced units such as Valkyries and Goliaths. 
+-- Terran vehicle and aircraft research center. 
 
 -- Our unit function table
 local this_unit = {}                
 
-    -- The standard local variables
     -- Where we are and fast we move
     local x, y, dx, dy
     -- Our color               
@@ -12,13 +11,23 @@ local this_unit = {}
     local style = "structure"
     -- Size of a clock tick msec
     local tick
-    -- This is me              
+    
+    -- It's me, the unit structure
     local me = unit.self()
-    -- and now for something completely different
-    local hitpoints,shield = 750,1
-    local cooldown = 50
-    local gold = 100
-    local weed = 50
+    
+    -- The standard local variables 
+    local label = "medium_structure"
+    local armor = 1
+    local hitpoints,shield = 750,0
+    local ground_damage,air_damage = 0
+    local ground_cooldown,air_cooldown = 0
+    local ground_range,air_range = 0
+    local sight = 8
+    local supply = 0
+    local cooldown = 80
+    local mineral = 100
+    local gas = 50
+    local holdkey = "a"
 
     -- The size of the region
     local xsize,ysize = region.size()
