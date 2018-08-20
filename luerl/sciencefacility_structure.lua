@@ -1,9 +1,8 @@
---  The Science Facility is an advanced tech/late game building built by Terran following construction of the Starport.
+--  The Science Facility is built by Terran following construction of the Starport.
 
 -- Our unit function table
 local this_unit = {}                
 
-    -- The standard local variables
     -- Where we are and fast we move
     local x, y, dx, dy
     -- Our color               
@@ -12,13 +11,23 @@ local this_unit = {}
     local style = "structure"
     -- Size of a clock tick msec
     local tick
-    -- This is me              
+    
+    -- It's me, the unit structure
     local me = unit.self()
-    -- and now for something completely different
-    local hitpoints,shield = 850,1
-    local cooldown = 38
-    local gold = 100
-    local weed = 150
+    
+    -- The standard local variables
+    local label = "large_structure"
+    local armor = 1
+    local hitpoints,shield = 850,0
+    local ground_damage,air_damage = 0,0
+    local ground_cooldown,air_cooldown = 0,0
+    local ground_range,air_range = 0,0
+    local sight = 8
+    local supply = 0
+    local cooldown = 60
+    local mineral = 100
+    local gas = 150
+    local holdkey = "i"
 
     -- The size of the region
     local xsize,ysize = region.size()
