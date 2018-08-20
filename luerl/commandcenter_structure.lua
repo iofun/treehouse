@@ -3,7 +3,6 @@
 -- Our unit function table
 local this_unit = {}                
 
-    -- The standard local variables
     -- Where we are and fast we move
     local x, y, dx, dy
     -- Our color               
@@ -12,13 +11,23 @@ local this_unit = {}
     local style = "structure"
     -- Size of a clock tick msec
     local tick
-    -- This is me              
+    
+    -- It's me, the unit structure 
     local me = unit.self()
-    -- and now for something completely different
-    local hitpoints,shield = 1500,1
+    
+    -- The standard local variables
+    local label = "large_structure"
+    local armor = 1
+    local hitpoints,shield = 1500,0
+    local ground_damage,air_damage = 0,0
+    local ground_cooldown,air_cooldown = 0,0
+    local ground_range,air_range = 0,0
+    local sight = 8
+    local supply = 0
     local cooldown = 75
-    local gold = 400
-    local weed = 0
+    local mineral = 400
+    local gas = 0
+    local holdkey = "c"
 
     -- The size of the region
     local xsize,ysize = region.size()

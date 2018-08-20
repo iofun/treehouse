@@ -25,7 +25,7 @@ local this_unit = {}
     local sight = 8
     local supply = 0
     local cooldown = 25
-    local gold = 100
+    local mineral = 100
     local gas = 0
     local holdkey = "a"
 

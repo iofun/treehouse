@@ -1,9 +1,8 @@
---  As a rule of thumb, when walling, the Barracks should always be placed under the Supply Depot to properly wall.
+--  When walling, the Barracks should always be placed under the Supply Depot to properly wall.
 
 -- Our unit function table
 local this_unit = {}                
 
-    -- The standard local variables
     -- Where we are and fast we move
     local x, y, dx, dy
     -- Our color               
@@ -12,13 +11,23 @@ local this_unit = {}
     local style = "structure"
     -- Size of a clock tick msec
     local tick
-    -- This is me              
+    
+    -- It's me, the unit structure              
     local me = unit.self()
-    -- and now for something completely different
-    local hitpoints,shield = 1000,1
+    
+    -- The standard local variables
+    local label = "large_structure"
+    local armor = 1
+    local hitpoints,shield = 1000,0
+    local ground_damage,air_damage = 0,0
+    local ground_cooldown,air_cooldown = 0,0
+    local ground_range,air_range = 0,0
+    local sight = 8
+    local supply = 0
     local cooldown = 50
-    local gold = 150
-    local weed = 0
+    local mineral = 150
+    local gas = 0
+    local holdkey = "b"
 
     -- The size of the region
     local xsize,ysize = region.size()
