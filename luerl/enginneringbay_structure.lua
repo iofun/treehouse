@@ -1,10 +1,8 @@
--- Since it is relatively cheap and has the ability to lift off, 
--- is commonly used as a scouting building once Terrans do not need it for upgrades. 
+-- Commonly used as a scouting building once Terran do not need it for upgrades. 
 
 -- Our unit function table
 local this_unit = {}                
 
-    -- The standard local variables
     -- Where we are and fast we move
     local x, y, dx, dy
     -- Our color               
@@ -13,13 +11,23 @@ local this_unit = {}
     local style = "structure"
     -- Size of a clock tick msec
     local tick
-    -- This is me              
+
+    -- It's me, the unit structure              
     local me = unit.self()
-    -- and now for something completely different
-    local hitpoints,shield = 850,1
-    local cooldown = 38
-    local gold = 125
-    local weed = 0
+
+    -- The standard local variables
+    local label = "large_structure"
+    local armor = 1
+    local hitpoints,shield = 850,0
+    local ground_damage,air_damage = 0,0
+    local ground_cooldown,air_cooldown = 0,0
+    local ground_range,air_range = 0,0
+    local sight = 8
+    local supply = 0
+    local cooldown = 60
+    local mineral = 125
+    local gas = 0
+    local holdkey = "e"
 
     -- The size of the region
     local xsize,ysize = region.size()
