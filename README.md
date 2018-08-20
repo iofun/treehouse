@@ -7,4 +7,4 @@ Spawn more nodes to allow the network control of additional GPU and CPU's.
 
 Nodes provide granular unit control with in this tropical high-performance computing infrastructure.
 
-Remember, as your processing units grow in number, you must spawn more nodes to control them.
+Remember, as your computing units grow in number, you must spawn more nodes to control them.
