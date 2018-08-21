@@ -1,10 +1,8 @@
--- The Nexus? 
+-- Protoss foundation building.
 
 -- Our unit function table
 local this_unit = {}
 
-    -- The standard local variables
-    
     -- Where we are and fast we move
     local x, y, dx, dy
     -- Our color               
@@ -14,20 +12,22 @@ local this_unit = {}
     -- Size of a clock tick msec
     local tick
     
-    -- This is me              
+    -- It's me, the unit structure 
     local me = unit.self()
 
-    -- and now for something completely different
+    -- The standard local variables
     local label = "protoss_structure"
-    local hitpoints,shield = 200,1
+    local armor = 1
+    local hitpoints,shield = 750,750
     local ground_damage,air_damage = 0,0
     local ground_cooldown, air_cooldown = 0,0
     local ground_range, air_range = 0,0
     local sight = 10
-    local supply = 2
-    local cooldown = 50
-    local gold = 100
-    local weed = 225
+    local supply = 9
+    local cooldown = 120
+    local mineral = 400
+    local gas = 0
+    local holdkey = "n"
 
     -- The size of the region
     local xsize,ysize = region.size()
