@@ -1,4 +1,4 @@
--- Protoss robot warp-in.
+-- The citadel of Adun is a floaring meditation center for Protoss, they spar and meditate there. 
 
 -- Our unit function table
 local this_unit = {}
@@ -17,16 +17,16 @@ local this_unit = {}
 
     -- The standard local variables
     local armor = 1
-    local hitpoints,shield = 500,500
+    local hitpoints,shield = 450,450
     local ground_damage,air_damage = 0,0
     local ground_cooldown, air_cooldown = 0,0
     local ground_range, air_range = 0,0
     local sight = 8
     local supply = 0
-    local cooldown = 80
-    local mineral = 200
-    local gas = 200
-    local holdkey = "r"
+    local cooldown = 60
+    local mineral = 150
+    local gas = 100
+    local holdkey = "c"
 
     -- The size of the region
     local xsize,ysize = region.size()

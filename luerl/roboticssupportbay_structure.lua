@@ -7,8 +7,8 @@ local this_unit = {}
     local x, y, dx, dy
     -- Our color               
     local color = "green"
-    -- Our style           
-    local style = "structure"
+    -- Our label           
+    local label = "protoss_structure"
     -- Size of a clock tick msec
     local tick
     
@@ -16,7 +16,6 @@ local this_unit = {}
     local me = unit.self()
 
     -- The standard local variables
-    local label = "protoss_structure"
     local armor = 1
     local hitpoints,shield = 450,450
     local ground_damage,air_damage = 0,0

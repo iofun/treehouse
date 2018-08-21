@@ -1,4 +1,4 @@
--- Protoss robot warp-in.
+-- The Forge allows the Protoss to build Photon Cannons.
 
 -- Our unit function table
 local this_unit = {}
@@ -7,7 +7,7 @@ local this_unit = {}
     local x, y, dx, dy
     -- Our color               
     local color = "green"
-    -- Our label 
+    -- Our label           
     local label = "protoss_structure"
     -- Size of a clock tick msec
     local tick
@@ -17,16 +17,16 @@ local this_unit = {}
 
     -- The standard local variables
     local armor = 1
-    local hitpoints,shield = 500,500
+    local hitpoints,shield = 550,550
     local ground_damage,air_damage = 0,0
     local ground_cooldown, air_cooldown = 0,0
     local ground_range, air_range = 0,0
     local sight = 8
     local supply = 0
-    local cooldown = 80
-    local mineral = 200
-    local gas = 200
-    local holdkey = "r"
+    local cooldown = 40
+    local mineral = 150
+    local gas = 0
+    local holdkey = "f"
 
     -- The size of the region
     local xsize,ysize = region.size()
