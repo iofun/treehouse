@@ -27,8 +27,8 @@ local this_unit = {}
     local sight = 8
     local supply = 3
     local cooldown = 32
-    local gold = 250
-    local weed = 125
+    local mineral = 250
+    local gas = 125
 
     -- The size of the region
     local xsize,ysize = region.size()
