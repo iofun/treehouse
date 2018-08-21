@@ -17,8 +17,8 @@ local this_unit = {}
     -- and now for something completely different
     local hitpoints,shield = 400,0
     local cooldown = 12
-    local gold = 75
-    local weed = 0
+    local mineral = 75
+    local gas = 0
 
     -- The size of the region
     local xsize,ysize = region.size()
