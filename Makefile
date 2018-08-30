@@ -1,4 +1,4 @@
-PROJECT = treehouse
+PROJECT = daemons 
 PROJECT_DESCRIPTION = Spontaneous daemons spawning resources
 PROJECT_VERSION = 0.6.0
 DEPS = lager chumak luerl econfig uuid jsx gun meck
