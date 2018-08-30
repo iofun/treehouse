@@ -1,7 +1,7 @@
-# treehouse
+# daemons
 [![Build Status](https://travis-ci.org/spacebeam/treehouse.svg?branch=master)](https://travis-ci.org/spacebeam/treehouse)
 
-The treehouse spawn daemons over time, daemons are morphed into other units. 
+Spawn daemons over time and morphed them into other units. 
 
 Spawn more nodes to allow the network control of additional GPU and CPU's.
 
