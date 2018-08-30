@@ -1,5 +1,5 @@
 # daemons
-[![Build Status](https://travis-ci.org/spacebeam/treehouse.svg?branch=master)](https://travis-ci.org/spacebeam/treehouse)
+[![Build Status](https://travis-ci.org/spacebeam/daemons.svg?branch=master)](https://travis-ci.org/spacebeam/daemons)
 
 Spawn daemons over time and morphed them into other units.
 
