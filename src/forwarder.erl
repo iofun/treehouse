@@ -1,4 +1,4 @@
--module(sub_bind).
+-module(forwarder).
 
 -export([start_link/0,start/0,stop/0]).
 -export([init/0]).
