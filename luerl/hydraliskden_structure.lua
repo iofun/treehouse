@@ -1,12 +1,12 @@
 -- The doggo unit.
--- It reflects our lovely zergling style.
+-- It reflects our lovely zergling type.
 
 local this_unit = {}                -- Our unit function table
 
     -- The standard local variables
     local x, y, dx, dy                  -- Where we are and fast we move
     local color = "white"               -- Our color
-    local style = "unit"                -- Our style
+    local type = "unit"                -- Our type
     local tick                          -- Size of a clock tick msec
     local me = unit.self()              -- This is me
     local ammo,shield = 0,0

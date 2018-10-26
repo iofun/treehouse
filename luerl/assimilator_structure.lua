@@ -7,8 +7,8 @@ local this_unit = {}
     local x, y, dx, dy
     -- Our color
     local color = "green"
-    -- Our style
-    local style = "structure"
+    -- Our type
+    local type = "structure"
     -- Size of a clock tick msec
     local tick
     
