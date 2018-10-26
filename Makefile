@@ -6,4 +6,3 @@ ERLC_OPTS = +debug_info
 include erlang.mk
 # trying to ident with 4 spaces here.
 SP = 4
-
