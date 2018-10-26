@@ -1,4 +1,4 @@
-%% Some useful shell commands for testing.
+%% Some useful shell commands.
 
 -module(user_default).
 
