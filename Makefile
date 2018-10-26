@@ -1,6 +1,6 @@
 PROJECT = daemons 
 PROJECT_DESCRIPTION = Spontaneous daemons spawning resources
-PROJECT_VERSION = 0.6.0
+PROJECT_VERSION = 0.7.0
 DEPS = lfe luerl chumak econfig uuid jsx gun meck
 ERLC_OPTS = +debug_info
 include erlang.mk

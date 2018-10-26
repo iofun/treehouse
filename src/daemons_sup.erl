@@ -1,4 +1,4 @@
--module(treehouse_sup).
+-module(daemons_sup).
 -behaviour(supervisor).
 
 -export([start_link/0]).
