@@ -1,5 +1,5 @@
 PROJECT = daemons 
-PROJECT_DESCRIPTION = Spawn more water daemons! 
+PROJECT_DESCRIPTION = Live for the Swarm!
 PROJECT_VERSION = 0.8.0
 DEPS = luerl chumak econfig uuid jsx gun meck
 ERLC_OPTS = +debug_info
