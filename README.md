@@ -1,4 +1,4 @@
-# Daemons
+# daemons
 Spawn daemons over time and grow them into other units.
 
 Nodes provide granular unit control with in your clusters.
