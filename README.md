@@ -1,7 +1,7 @@
 # daemons
-Spawn daemons over time and evolve them into other units.
+Spawn daemons over time and grow them into other units.
 
-Nodes provide granular unit control with in your own high-performance computing infrastructure.
+Nodes provide granular unit control with in your clusters.
 
 Spawn more nodes to allow the network control of additional units.
 
