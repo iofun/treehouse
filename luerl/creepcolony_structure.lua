@@ -3,7 +3,6 @@
 
 -- Our unit function table
    local this_unit = {}
-
    -- Where we are and fast we move
    local x, y, dx, dy
    -- Our color               
@@ -12,10 +11,8 @@
    local label = "zerg_structure"
    -- Size of a clock tick msec
    local tick
-   
    -- It's me, the unit structure 
    local me = unit.self()
-
    -- The standard local variables
    local armor = 1
    local hitpoints,shield = 400,0
@@ -28,12 +25,10 @@
    local mineral = 75
    local gas = 0
    local holdkey = "c"
-
    -- The size of the region
    local xsize,ysize = region.size()
-   
+
    -- The unit interface.
-   
    function this_unit.start() end
    
    function this_unit.get_position() return x,y end
