@@ -1,5 +1,5 @@
--- The Hatchery allows the harvesting of resources 
--- and automatically creates Larvae over time.
+-- The Lair allows Zerg to build a Spire 
+-- as well as research Lurker ability at the Hydralisk Den. 
 
 -- Our unit function table
    local this_unit = {}
@@ -23,7 +23,7 @@
    local ground_cooldown, air_cooldown = 0,0
    local ground_range, air_range = 0,0
    local sight = 8
-   local supply = 1
+   local supply = 0
    local cooldown = 63
    local mineral = 150
    local gas = 100
