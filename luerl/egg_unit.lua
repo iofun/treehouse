@@ -1,4 +1,4 @@
--- The Egg is the unit the Zerg turn into during the morphing process 
+-- The Egg is the unit the old machines turn into during the morphing process 
 -- to another unit. An Egg has a very high armor value, making it hard to kill.  
 
 -- Our unit function table
