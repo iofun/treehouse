@@ -4,8 +4,6 @@
 -- Our unit function table
 local this_unit = {}
 
-    -- The standard local variables
-    
     -- Where we are and fast we move
     local x, y, dx, dy
     -- Our color
@@ -18,7 +16,8 @@ local this_unit = {}
     -- This is me              
     local me = unit.self()
 
-    -- and now for something completely different
+   -- The standard local variables
+
     local label = "medium_ground"
     local hitpoints,shield = 80,1
     local ground_damage,air_damage = 0,0

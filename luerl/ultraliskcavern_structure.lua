@@ -11,7 +11,7 @@ local color = "red"
 -- Our label           
 local label = "zerg_structure"
 -- Our category
-local category = "advanced_building"
+local category = "advanced_medium"
 -- Size of a clock tick msec
 local tick
 -- It's me, the unit structure 
