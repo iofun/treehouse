@@ -1,40 +1,37 @@
--- The Queen is a quick-flying Zerg air unit with the ability to cast multiple spells.
--- The Queen has a variety of abilities that can be researched, and its armor, or Carapace, can be upgraded at the Spire.
+-- The Queen is a quick-flying air unit with the ability to cast multiple spells.
 
 -- Our unit function table
 local this_unit = {}
-
--- The standard local variables
-
 -- Where we are and fast we move
 local x, y, dx, dy
 -- Our color
 local color = "red"
--- Our type
-local type = "unit"
+-- Our label
+local label = "zerg_unit"
+-- Our category
+local category = "medium_air"
 -- Size of a clock tick msec
 local tick
-
--- This is me              
+-- It's me, the unit structure            
 local me = unit.self()
-
--- and now for something completely different
-local label = "medium_air"
+-- The standard local variables
+local armor = 0
 local hitpoints,shield = 120,0
 local ground_damage,air_damage = 0,0
 local ground_cooldown,air_cooldown = 0,0
 local ground_range,air_range = 0,0
 local sight = 10
+local speed = 4.963
 local supply = 2
 local cooldown = 32
 local mineral = 100
 local gas = 100
+local holdkey = "q"
 
 -- The size of the region
 local xsize,ysize = region.size()
 
 -- The unit interface.
-
 function this_unit.start() end
 
 function this_unit.get_position() return x,y end
