@@ -18,10 +18,11 @@ local me = unit.self()
 -- The standard local variables
 local armor = 0
 local hitpoints,shield = 40,0
-local ground_damage,air_damage = 5,0
+local ground_damage,air_damage = 5.411,0
 local ground_cooldown, air_cooldown = 0.924,0
 local ground_range, air_range = 1,0
 local sight = 7
+local speed = 3.720
 local supply = 1
 local cooldown = 13
 local mineral = 50
