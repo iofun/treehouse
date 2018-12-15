@@ -1,33 +1,32 @@
--- The Hydralisk is a versatile Zerg ranged unit that can attack both air and ground targets using needle spines.  
+-- The Hydralisk is a versatile ranged unit that can attack both air and ground targets.  
 
 -- Our unit function table
 local this_unit = {}
-
--- The standard local variables
-
 -- Where we are and fast we move
 local x, y, dx, dy
 -- Our color
 local color = "red"
--- Our type
-local type = "unit"
+-- Our label
+local label = "zerg_unit"
+-- Our category
+local category = "medium_ground"
 -- Size of a clock tick msec
 local tick
-
--- This is me              
+-- It's me, the unit structure              
 local me = unit.self()
-
--- and now for something completely different
-local label = "medium_ground"
+-- The standard local variables
+local armor = 0
 local hitpoints,shield = 80,0
 local ground_damage,air_damage = 10,10
 local ground_cooldown, air_cooldown = 0.63,0.63
 local ground_range, air_range = 4,4
 local sight = 6
+local speed = 2.760
 local supply = 1
 local cooldown = 18
 local mineral = 75
 local gas = 25
+local holdkey = "h"
 
 -- The size of the region
 local xsize,ysize = region.size()
