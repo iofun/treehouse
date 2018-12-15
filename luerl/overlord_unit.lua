@@ -1,4 +1,4 @@
--- The Overlord is a multi-purpose Zerg unit that provides the Zerg player with eight Control. 
+-- A multi-purpose unit that provides the system with eight Control. 
 -- It has a long sight range and is a detector.
 
 -- Our unit function table
