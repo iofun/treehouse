@@ -1,5 +1,6 @@
--- The Guardian is a Zerg Hive-tech flying siege unit. 
--- Guardians are morphed from Mutalisks, via the Cocoon, after the required Greater Spire structure has been constructed. 
+-- The Guardian is a Hive-tech flying siege unit. 
+-- Guardians are morphed from Mutalisks, via the Cocoon, 
+-- after the required Greater Spire structure has been constructed. 
 
 -- Our unit function table
 local this_unit = {}
