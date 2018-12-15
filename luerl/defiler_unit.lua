@@ -8,7 +8,7 @@ local x, y, dx, dy
 -- Our color
 local color = "red"
 -- Our label
-local label = "unit"
+local label = "zerg_unit"
 -- Our category
 local category = "medium_ground"
 -- Size of a clock tick msec
