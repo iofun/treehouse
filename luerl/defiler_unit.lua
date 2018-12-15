@@ -1,33 +1,33 @@
--- The Defiler is a Zerg Hive tech unit. It is one of the Zerg's most powerful spell casters. 
+-- Hive-tech unit. It is one of the most powerful spell casters. 
 -- A support unit, it is most well known for its Dark Swarm and Plague abilities.
 
 -- Our unit function table
 local this_unit = {}
-
 -- Where we are and fast we move
 local x, y, dx, dy
 -- Our color
 local color = "red"
--- Our type
-local type = "unit"
+-- Our label
+local label = "unit"
+-- Our category
+local category = "medium_ground"
 -- Size of a clock tick msec
 local tick
-
--- This is me              
+-- It's me, the unit structure            
 local me = unit.self()
-
 -- The standard local variables
-
-local label = "medium_ground"
-local hitpoints,shield = 80,1
+local armor = 1
+local hitpoints,shield = 80,0
 local ground_damage,air_damage = 0,0
 local ground_cooldown,air_cooldown = 0,0
 local ground_range,air_range = 0,0
 local sight = 10
+local speed = 2.976
 local supply = 2
 local cooldown = 32
 local mineral = 50
 local gas = 150
+local holdkey = "f"
 
 -- The size of the region
 local xsize,ysize = region.size()
