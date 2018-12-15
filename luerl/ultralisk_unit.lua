@@ -1,42 +1,37 @@
--- The Ultralisk is a late-game Hive-tech unit that is only available once
--- the Zerg player has an Ultralisk Cavern.
--- It is very expensive with 200 Vespene Gas but has a great deal of health
--- and Zergling-like after upgrades.
+-- Hive-tech unit that is only available once the system has an Ultralisk Cavern.
 
 -- Our unit function table
 local this_unit = {}
-
--- The standard local variables
-
 -- Where we are and fast we move
 local x, y, dx, dy
 -- Our color
 local color = "red"
--- Our type
-local type = "unit"
+-- Our label
+local label = "zerg_unit"
+-- Our category
+local category = "large_ground"
 -- Size of a clock tick msec
 local tick
-
--- This is me              
+-- It's me, the unit structure             
 local me = unit.self()
-
--- and now for something completely different
-local label = "large_ground"
-local hitpoints,shield = 400,1
+-- The standard local variables
+local armor = 1
+local hitpoints,shield = 400,0
 local ground_damage,air_damage = 20,0
 local ground_cooldown,air_cooldown = 0.63,0
 local ground_range,air_range = 0,1
 local sight = 7
+local speed = 4.1
 local supply = 4
 local cooldown = 38
 local mineral = 200
 local gas = 200
+local holdkey = "u"
 
 -- The size of the region
 local xsize,ysize = region.size()
 
 -- The unit interface.
-
 function this_unit.start() end
 
 function this_unit.get_position() return x,y end
