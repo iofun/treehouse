@@ -1,34 +1,32 @@
--- The Zergling is the earliest attack unit the Zerg player has access to. 
 -- Zerglings can be morphed after construction of the Spawning Pool. 
 
 -- Our unit function table
 local this_unit = {}
-
--- The standard local variables
-
 -- Where we are and fast we move
 local x, y, dx, dy
 -- Our color
 local color = "red"
--- Our type
-local type = "unit"
+-- Our label
+local label = "zerg_unit"
+-- Our category
+local category = "small_ground"
 -- Size of a clock tick msec
 local tick
-
--- This is me              
+-- It's me, the unit structure             
 local me = unit.self()
-
--- and now for something completely different
-local label = "small_ground"
+-- The standard local variables
+local armor = 0
 local hitpoints,shield = 35,0
 local ground_damage,air_damage = 5,0
 local ground_cooldown, air_cooldown = 0.336,0
 local ground_range, air_range = 1,0
 local sight = 5
+local speed = 4.144
 local supply = 0.5
 local cooldown = 18
 local mineral = 25
 local gas = 0
+local holdkey = "z"
 
 -- The size of the region
 local xsize,ysize = region.size()
