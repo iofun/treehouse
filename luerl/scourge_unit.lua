@@ -12,7 +12,7 @@ local label = "zerg_unit"
 local category = "small_air"
 -- Size of a clock tick msec
 local tick
--- It's me, the unit structure           
+-- It's me, the unit structure          
 local me = unit.self()
 -- The standard local variables
 local armor = 0

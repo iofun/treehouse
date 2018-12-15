@@ -3,32 +3,31 @@
 
 -- Our unit function table
 local this_unit = {}
-
--- The standard local variables
-
 -- Where we are and fast we move
 local x, y, dx, dy
 -- Our color
 local color = "red"
--- Our type
-local type = "unit"
+-- Our label
+local label = "zerg_unit"
+-- Our category
+local category = "large_air"
 -- Size of a clock tick msec
 local tick
-
--- This is me              
+-- It's me, the unit structure             
 local me = unit.self()
-
--- and now for something completely different
-local label = "large_air"
-local hitpoints,shield = 150,2
+-- The standard local variables
+local armor = 2
+local hitpoints,shield = 150,0
 local ground_damage,air_damage = 20,0
 local ground_cooldown,air_cooldown = 1.26,0
 local ground_range,air_range = 8,0
 local sight = 11
+local speed = 1.86
 local supply = 2
 local cooldown = 50
 local mineral = 150
 local gas = 200
+local holdkey = "g"
 
 -- The size of the region
 local xsize,ysize = region.size()
