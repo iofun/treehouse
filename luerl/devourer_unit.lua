@@ -1,42 +1,38 @@
--- The Devourer is a Hive-tech air-to-air unit that requires a Greater Spire
+-- Hive-tech air-to-air unit that requires a Greater Spire 
 -- to morph from a Mutalisk, through a Cocoon.
--- Spores add a point of damage to every attack and slows attacks its target makes,
--- making them extremely powerful with Zerg Mutalisks which bounce attacks thrice. 
 
 -- Our unit function table
 local this_unit = {}
-
--- The standard local variables
-
 -- Where we are and fast we move
 local x, y, dx, dy
 -- Our color
 local color = "red"
--- Our type
-local type = "unit"
+-- Our label
+local label = "zerg_unit"
+-- Our category
+local category = "large_air"
 -- Size of a clock tick msec
 local tick
-
--- This is me              
+-- It's me, the unit structure               
 local me = unit.self()
-
--- and now for something completely different
-local label = "large_air"
-local hitpoints,shield = 250,2
+-- The standard local variables
+local armor = 2
+local hitpoints,shield = 250,0
 local ground_damage,air_damage = 0,25
 local ground_cooldown,air_cooldown = 0,4.2
 local ground_range,air_range = 0,6
 local sight = 10
+local speed = 3.720
 local supply = 2
 local cooldown = 50
 local mineral = 250
 local gas = 150
+local holdkey = "d"
 
 -- The size of the region
 local xsize,ysize = region.size()
 
 -- The unit interface.
-
 function this_unit.start() end
 
 function this_unit.get_position() return x,y end
