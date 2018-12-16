@@ -1,40 +1,38 @@
--- The Infested is a Zerg suicide unit produced from the Infested Command,
+-- A suicide unit produced from the Infested Command,
 -- which is created by Queens from damaged Command Centers.
 
 -- Our unit function table
 local this_unit = {}
-
--- The standard local variables
-
 -- Where we are and fast we move
 local x, y, dx, dy
 -- Our color
 local color = "red"
--- Our type
-local type = "unit"
+-- Our label
+local label = "zerg_unit"
+-- Our category
+local category = "small_ground"
 -- Size of a clock tick msec
 local tick
-
--- This is me              
+-- It's me, the unit structure       
 local me = unit.self()
-
--- and now for something completely different
-local label = "small_ground"
+-- The standard local variables
+local armor = 0
 local hitpoints,shield = 60,0
 local ground_damage,air_damage = 500,0
-local ground_cooldown, air_cooldown = 0,0
-local ground_range, air_range = 1,0
+local ground_cooldown,air_cooldown = 0,0
+local ground_range,air_range = 1,0
 local sight = 5
+local speed = 4.464
 local supply = 1
 local cooldown = 25
 local mineral = 100
 local gas = 50
+local holdkey = "i"
 
 -- The size of the region
 local xsize,ysize = region.size()
 
 -- The unit interface.
-
 function this_unit.start() end
 
 function this_unit.get_position() return x,y end
