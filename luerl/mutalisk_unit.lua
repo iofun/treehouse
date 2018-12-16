@@ -1,39 +1,37 @@
--- The Mutalisk is a fast moving air unit that requires a Spire and thus Lair-tech to be spawned.
+-- Fast moving air unit that requires a Spire and thus Lair-tech to be spawned.
 
 -- Our unit function table
 local this_unit = {}
-
--- The standard local variables
-
 -- Where we are and fast we move
 local x, y, dx, dy
 -- Our color
 local color = "red"
--- Our type
-local type = "unit"
+-- Our label
+local label = "zerg_unit"
+-- Our category
+local category = "small_air"
 -- Size of a clock tick msec
 local tick
-
--- This is me              
+-- It's me, the unit structure      
 local me = unit.self()
-
--- and now for something completely different
-local label = "small_air"
+-- The standard local variables
+local armor = 0
 local hitpoints,shield = 120,0
 local ground_damage,air_damage = 0,9
 local ground_cooldown,air_cooldown = 0,1.26
 local ground_range,air_range = 0,3
 local sight = 7
+local speed = 4.963
 local supply = 2
 local cooldown = 25
 local mineral = 100
 local gas = 100
+local holdkey = "m"
 
 -- The size of the region
 local xsize,ysize = region.size()
 
 -- The unit interface.
-
 function this_unit.start() end
 
 function this_unit.get_position() return x,y end
