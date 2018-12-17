@@ -1,34 +1,33 @@
--- The Larva is a Zerg unit that automatically spawns on average every 342 frames, 
--- directly below every Hatchery, Lair, and Hive, with a maximum of 3 Larvae at any one of these buildings. 
+-- A unit that automatically spawns on average every 342 frames, 
+-- below every Hatchery, Lair, and Hive, with a maximum of 3. 
 
 -- Our unit function table
 local this_unit = {}
-
--- The standard local variables
-
 -- Where we are and fast we move
 local x, y, dx, dy
 -- Our color
 local color = "red"
--- Our type
-local type = "unit"
+-- Our label
+local label = "zerg_unit"
+-- Our category
+local category = "small_ground"
 -- Size of a clock tick msec
 local tick
-
--- This is me              
+-- It's me, the unit structure            
 local me = unit.self()
-
--- and now for something completely different
-local label = "small_ground"
-local hitpoints,shield = 25,10
+-- The standard local variables
+local armor = 10
+local hitpoints,shield = 25,0
 local ground_damage,air_damage = 0,0
 local ground_cooldown, air_cooldown = 0,0
 local ground_range, air_range = 0,0
 local sight = 4
+local speed = 0.3
 local supply = 0
 local cooldown = 14
 local mineral = 0
 local gas = 0
+local holdkey = nil
 
 -- The size of the region
 local xsize,ysize = region.size()

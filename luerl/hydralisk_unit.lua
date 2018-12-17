@@ -1,4 +1,5 @@
--- The Hydralisk is a versatile ranged unit that can attack both air and ground targets.  
+-- The Hydralisk is a versatile ranged unit 
+-- that can attack both air and ground targets.  
 
 -- Our unit function table
 local this_unit = {}
