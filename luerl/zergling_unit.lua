@@ -18,8 +18,8 @@ local me = unit.self()
 local armor = 0
 local hitpoints,shield = 35,0
 local ground_damage,air_damage = 5,0
-local ground_cooldown, air_cooldown = 0.336,0
-local ground_range, air_range = 1,0
+local ground_cooldown,air_cooldown = 0.336,0
+local ground_range,air_range = 1,0
 local sight = 5
 local speed = 4.144
 local supply = 0.5
@@ -32,7 +32,6 @@ local holdkey = "z"
 local xsize,ysize = region.size()
 
 -- The unit interface.
-
 function this_unit.start() end
 
 function this_unit.get_position() return x,y end
