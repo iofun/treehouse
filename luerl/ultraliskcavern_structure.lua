@@ -1,5 +1,5 @@
 -- Allows research of Ultralisk and two upgrades for them:
--- Anabolic Synthesis to provide faster Ultralisk movement speed 
+-- Anabolic Synthesis to provide faster movement speed 
 -- and Chitinous Plating for improved Ultralisk armor.
 
 -- Our unit function table
@@ -11,7 +11,7 @@ local color = "red"
 -- Our label           
 local label = "zerg_structure"
 -- Our category
-local category = "advanced_medium"
+local category = "advanced_building"
 -- Size of a clock tick msec
 local tick
 -- It's me, the unit structure 
@@ -20,9 +20,10 @@ local me = unit.self()
 local armor = 1
 local hitpoints,shield = 600,0
 local ground_damage,air_damage = 0,0
-local ground_cooldown, air_cooldown = 0,0
-local ground_range, air_range = 0,0
+local ground_cooldown,air_cooldown = 0,0
+local ground_range,air_range = 0,0
 local sight = 10
+local speed = 0
 local supply = 0
 local cooldown = 50
 local mineral = 150

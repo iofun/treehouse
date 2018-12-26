@@ -1,5 +1,5 @@
 -- The Defiler Mound is an essential high-tech building for the Zerg. 
--- The Defiler Mound requires a Hive to be existing before it can be morphed. 
+-- requires a Hive to exist before it can be morphed. 
 
 -- Our unit function table
 local this_unit = {}                
