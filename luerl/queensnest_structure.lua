@@ -25,8 +25,8 @@ local sight = 10
 local speed = 0
 local supply = 0
 local cooldown = 38
-local mineral = 100
-local gas = 150
+local mineral = 150
+local gas = 100
 local holdkey = "q"
 
 -- The size of the region
