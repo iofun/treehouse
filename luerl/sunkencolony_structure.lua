@@ -9,6 +9,8 @@ local x, y, dx, dy
 local color = "red"
 -- Our label           
 local label = "zerg_structure"
+-- Our category
+local category = "basic_building"
 -- Size of a clock tick msec
 local tick
 -- It's me, the unit structure 
@@ -20,11 +22,13 @@ local ground_damage,air_damage = 40,0
 local ground_cooldown, air_cooldown = 1.344,0
 local ground_range, air_range = 7,0
 local sight = 10
+local speed = 0
 local supply = 0
 local cooldown = 12
 local mineral = 50
 local gas = 0
 local holdkey = "u"
+
 -- The size of the region
 local xsize,ysize = region.size()
 

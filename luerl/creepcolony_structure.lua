@@ -10,7 +10,7 @@ local color = "red"
 -- Our label           
 local label = "zerg_structure"
 -- Our category
-local category = "basic_small"
+local category = "basic_building"
 -- Size of a clock tick msec
 local tick
 -- It's me, the unit structure 
@@ -19,9 +19,10 @@ local me = unit.self()
 local armor = 1
 local hitpoints,shield = 400,0
 local ground_damage,air_damage = 0,0
-local ground_cooldown, air_cooldown = 0,0
-local ground_range, air_range = 0,0
+local ground_cooldown,air_cooldown = 0,0
+local ground_range,air_range = 0,0
 local sight = 8
+local speed = 0
 local supply = 0
 local cooldown = 12
 local mineral = 75
