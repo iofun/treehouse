@@ -1,7 +1,6 @@
 # daemons
-This automated system train information models provided for the convenience of our visitors, spawning daemons over time and grow them into other units.
 
-Nodes provide granular unit control with in your clusters, spawn more nodes to allow the network control of additional units.
+This [Luerl](https://luerl.org) system train information models provided for convenience, spawning daemons over time and grow them into other units. Nodes provide granular unit control with in your clusters, spawn more nodes to allow control of additional units.
 
     ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░╔░Ñß╠░░░░░░░░░░░░░░░░░░░░░░░»░░░░░░░░░░░░░░░░░░░░░
     ░░µ▄▄▄»░╔▄░░▄▄▄▄▄▄▄▄░░░ú░░░░░░░╔φm╫▒░╔▄░░▄░░▄╔░»▄▄»░░░░░µ░░▄▄▄▄▄▄▄▄▄▄▄▄░░▄░░▄H░░
@@ -53,5 +52,4 @@ Nodes provide granular unit control with in your clusters, spawn more nodes to a
     »░h½█▀░╜██▀K»Ü»░░░»╨h░»▀▀█▀█▀▀▀▀▀▀▀▀╩╩▀▀H»▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀»░╨hh░»»/╠░╚ñ║▀▀▀M░░░
     »»»╨╚╙╨░╙╙░╨"!╙░╙╚░╩^^╨^░"h░░""░Ü"░░░^╚"╚╨░»»░░░»░»»░░»»░░»░»»░»»»»»»»»»»░░░░░»»
 
-Remember, as your systems grow in number, you must spawn more nodes to control them.
-
+Remember, as your system grow in number, you must spawn more nodes to control it.
