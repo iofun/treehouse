@@ -52,4 +52,4 @@ This [Luerl](https://luerl.org) system train information models provided for con
     »░h½█▀░╜██▀K»Ü»░░░»╨h░»▀▀█▀█▀▀▀▀▀▀▀▀╩╩▀▀H»▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀»░╨hh░»»/╠░╚ñ║▀▀▀M░░░
     »»»╨╚╙╨░╙╙░╨"!╙░╙╚░╩^^╨^░"h░░""░Ü"░░░^╚"╚╨░»»░░░»░»»░░»»░░»░»»░»»»»»»»»»»░░░░░»»
 
-Remember, as your system grow in number, you must spawn more nodes to control it.
+Feel free to [explore](https://github.com/spacebeam) and remember; as your system grow in number, you must spawn more nodes to control it.
