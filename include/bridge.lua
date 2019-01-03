@@ -1,4 +1,4 @@
--- th ophelia.lua [-t $hostname] [-p $port]
+-- th bridge.lua [-t $hostname] [-p $port]
 local DEBUG = 0 -- can take values 0, 1, 2 (from no output to most verbose)
 local MICRO_MODE = false -- set to false for normal maps!
 require 'torch'
