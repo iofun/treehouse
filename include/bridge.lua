@@ -17,10 +17,10 @@ local hostname = args.hostname or ""
 print("hostname:", hostname)
 print("port:", port)
 
-require 'progressbar'
-local progress = ProgressBar(-1)
-progress.mutex = {lock = function() end, unlock = function() end} -- hack
-progress:singleThreaded()
+--require 'progressbar'
+--local progress = ProgressBar(-1)
+--progress.mutex = {lock = function() end, unlock = function() end} -- hack
+--progress:singleThreaded()
 
 local tc = require 'torchcraft'
 tc.DEBUG = DEBUG
@@ -80,13 +80,13 @@ while total_battles < 40 do
 
     local tm = torch.Timer()
     while not tc.state.game_ended do
-        progress:add('Loop', nloop, '%5d')
-        progress:add('FPS', 1 / tm:time().real, '%5d')
-        progress:add('WR', battles_won / (battles_game+1E-6), '%1.3f')
-        progress:add('#Wins', battles_won, '%4d')
-        progress:add('#Bttls', battles_game, '%4d')
-        progress:add('Tot Bttls', total_battles, '%4d')
-        progress:push()
+        --progress:add('Loop', nloop, '%5d')
+        --progress:add('FPS', 1 / tm:time().real, '%5d')
+        --progress:add('WR', battles_won / (battles_game+1E-6), '%1.3f')
+        --progress:add('#Wins', battles_won, '%4d')
+        --progress:add('#Bttls', battles_game, '%4d')
+        --progress:add('Tot Bttls', total_battles, '%4d')
+        --progress:push()
         tm:reset()
 
         update = tc:receive()
@@ -180,7 +180,7 @@ while total_battles < 40 do
                     actions = {tc.command(tc.quit)}
                     nrestarts = nrestarts + 1
                 end
-                progress:pop()
+                --progress:pop()
             end
         end
 
@@ -194,7 +194,7 @@ while total_battles < 40 do
     tc:close()
     sys.sleep(0.5)
     print()
-    progress:reset()
+    --progress:reset()
     print("")
     collectgarbage()
     collectgarbage()
