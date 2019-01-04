@@ -1,6 +1,6 @@
 # daemons
 
-This [luerl](https://luerl.org) system train information models provided for convenience it spawn daemons over time and grow them into other units. Nodes provide granular unit control with in your computer clusters, spawn more nodes to allow control of additional units.
+This [luerl](https://luerl.org) system train information models provided for convenience spawning daemons over time that grow into other units. Nodes provide granular unit control with in your clusters, spawn more nodes to allow control of additional units.
 
     ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░╔░Ñß╠░░░░░░░░░░░░░░░░░░░░░░░»░░░░░░░░░░░░░░░░░░░░░
     ░░µ▄▄▄»░╔▄░░▄▄▄▄▄▄▄▄░░░ú░░░░░░░╔φm╫▒░╔▄░░▄░░▄╔░»▄▄»░░░░░µ░░▄▄▄▄▄▄▄▄▄▄▄▄░░▄░░▄H░░
