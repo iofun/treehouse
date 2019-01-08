@@ -1,21 +1,23 @@
 #!/usr/bin/env luajit
 --
--- new old th bridge.lua [-t $hostname] [-p $port]
+-- Bridge between daemons and TorchCraft 1.3 .lua prototype
 --
 local argparse = require("argparse")
 local socket = require("socket")
 local uuid = require("uuid")
+require("torch")
+torch.setdefaulttensortype('torch.FloatTensor')
+require("sys")
+local tc = require("torchcraft")
+-- Debug mode
+local DEBUG = 0 -- can take values 0, 1, 2 (from no output to most verbose)
+tc.DEBUG = DEBUG
+local utils = require("torchcraft.utils")
 -- gen random seed
 uuid.randomseed(socket.gettime()*10000)
 -- Spawn UUID
 local spawn_uuid = uuid()
--- Debug mode
-local DEBUG = 0 -- can take values 0, 1, 2 (from no output to most verbose)
-require 'torch'
-torch.setdefaulttensortype('torch.FloatTensor')
-require 'sys'
-local skip_frames = 7
-
+-- CLI argument parser
 local parser = argparse() {
     name = "bridge",
     description = "",
@@ -23,16 +25,15 @@ local parser = argparse() {
 }
 parser:option("-t --hostname", "Give hostname / ip pointing to VM", "127.0.0.1")
 parser:option("-p --port", "Port for TorchCraft", 11111)
-
-local tc = require 'torchcraft'
-tc.DEBUG = DEBUG
-local utils = require 'torchcraft.utils'
-
+-- Your system variables
+local nrestarts = -1
+-- Skip bwapi frames
+local skip_frames = 7
 -- Parse your arguments
 local args = parser:parse()
 local hostname = args['hostname']
 local port = args['port'] 
-
+-- Do your own stuff
 local function get_closest(position, unitsTable)
     local min_d = 1E30
     local closest_uid = nil
@@ -45,22 +46,17 @@ local function get_closest(position, unitsTable)
     end
     return closest_uid
 end
-
-local nrestarts = -1
-
+-- main system loop 
 while nrestarts < 10 do
-
+    nrestarts = nrestarts + 1
+    tc:init(hostname, port)
     local frames_in_battle = 1
     local nloop = 1
-    nrestarts = nrestarts + 1
-
-    tc:init(hostname, port)
     local update = tc:connect(port)
     if DEBUG > 1 then
         print('Received init: ', update)
     end
     assert(tc.state.replay == false)
-
     -- first message to BWAPI's side is setting up variables
     local setup = {
         tc.command(tc.set_speed, 0), tc.command(tc.set_gui, 1),
@@ -71,9 +67,11 @@ while nrestarts < 10 do
     local built_spool = 0
 
     local tm = torch.Timer()
+    -- main battle loop
     while not tc.state.game_ended do
+        -- reset timer
         tm:reset()
-
+        -- receive update from game engine
         update = tc:receive()
         if DEBUG > 1 then
             print('Received update: ', update)
@@ -144,10 +142,10 @@ while nrestarts < 10 do
                     actions = {tc.command(tc.quit)}
                     nrestarts = nrestarts + 1
                 end
-                --progress:pop()
+                print("progress:pop()!")
             end
         end
-
+        -- if debug make some noise!
         if DEBUG > 1 then
             print("")
             print("Sending actions:")
@@ -157,7 +155,6 @@ while nrestarts < 10 do
     end
     tc:close()
     sys.sleep(0.5)
-    --progress:reset()
     collectgarbage()
     print("")
     collectgarbage()
