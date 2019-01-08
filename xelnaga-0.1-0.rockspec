@@ -1,8 +1,8 @@
-package = "daemon"
+package = "xelnaga"
 version = "0.1-0"
 
 source = {
-  url = "git://github.com/spacebeam/daemon",
+  url = "git://github.com/spacebeam/xelnaga",
   tag = "0.1.0",
 }
 
@@ -23,9 +23,9 @@ dependencies = {
 build = {
   type = 'builtin',
   modules = {
-    ['daemon.macro'] = "include/macro.lua",
-    ['daemon.meta'] = "include/meta.lua",
-    ['daemon.micro'] = "include/micro.lua",
-    ['daemon.tools'] = "include/tools.lua"
+    ['xelnaga.macro'] = "include/macro.lua",
+    ['xelnaga.meta'] = "include/meta.lua",
+    ['xelnaga.micro'] = "include/micro.lua",
+    ['xelnaga.tools'] = "include/tools.lua"
   }
 }
