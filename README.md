@@ -1,4 +1,4 @@
-# daemon engine
+# xel'naga
 
 The daemon engine system train information models provided for convenience spawning daemons over time that grow into other units. Nodes provide granular unit control with in your clusters, spawn more nodes to allow control of additional units.
 
