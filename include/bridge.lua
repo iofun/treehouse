@@ -9,10 +9,10 @@ require("torch")
 torch.setdefaulttensortype('torch.FloatTensor')
 require("sys")
 local tc = require("torchcraft")
--- Debug mode
-local DEBUG = 0 -- can take values 0, 1, 2 (from no output to most verbose)
-tc.DEBUG = DEBUG
 local utils = require("torchcraft.utils")
+-- Debug can take values 0, 1, 2 (from no output to most verbose) 
+local DEBUG = 0 
+tc.DEBUG = DEBUG
 -- gen random seed
 uuid.randomseed(socket.gettime()*10000)
 -- Spawn UUID
@@ -142,7 +142,6 @@ while nrestarts < 10 do
                     actions = {tc.command(tc.quit)}
                     nrestarts = nrestarts + 1
                 end
-                print("progress:pop()!")
             end
         end
         -- if debug make some noise!
@@ -154,9 +153,9 @@ while nrestarts < 10 do
         tc:send({table.concat(actions, ':')})
     end
     tc:close()
+    collectgarbage()
     sys.sleep(0.5)
     collectgarbage()
-    print("")
-    collectgarbage()
 end
-print("")
+print("So Long, and Thanks for All the Fish!")
+
