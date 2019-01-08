@@ -21,7 +21,7 @@ local parser = argparse() {
     description = "",
     epilog = ""
 }
-parser:option("-t --hostname", "Give hostname / ip pointing to SCI-F", "")
+parser:option("-t --hostname", "Give hostname / ip pointing to VM", "127.0.0.1")
 parser:option("-p --port", "Port for TorchCraft", 11111)
 
 local tc = require 'torchcraft'
@@ -46,22 +46,12 @@ local function get_closest(position, unitsTable)
     return closest_uid
 end
 
-local battles_won = 0
-local battles_game = 0
-local total_battles = 0
-
--- no ',' accepted in map names!
--- All paths must be relative to C:/StarCraft
-local maps = {'Maps/BroodWar/Aztec 2.1_iCCup.scx',}
-
 local nrestarts = -1
 
-while total_battles < 40 do
+while nrestarts < 10 do
 
     local frames_in_battle = 1
     local nloop = 1
-    battles_won = 0
-    battles_game = 0
     nrestarts = nrestarts + 1
 
     tc:init(hostname, port)
@@ -78,17 +68,10 @@ while total_battles < 40 do
     }
     tc:send({table.concat(setup, ':')})
 
-    local built_barracks = 0
+    local built_spool = 0
 
     local tm = torch.Timer()
     while not tc.state.game_ended do
-        --progress:add('Loop', nloop, '%5d')
-        --progress:add('FPS', 1 / tm:time().real, '%5d')
-        --progress:add('WR', battles_won / (battles_game+1E-6), '%1.3f')
-        --progress:add('#Wins', battles_won, '%4d')
-        --progress:add('#Bttls', battles_game, '%4d')
-        --progress:add('Tot Bttls', total_battles, '%4d')
-        --progress:push()
         tm:reset()
 
         update = tc:receive()
@@ -111,8 +94,8 @@ while total_battles < 40 do
                         end
                     elseif tc:isworker(ut.type) then
                         if tc.state.resources_myself.ore >= 150
-                            and tc.state.frame_from_bwapi - built_barracks > 240 then -- tests building
-                            built_barracks = tc.state.frame_from_bwapi
+                            and tc.state.frame_from_bwapi - built_spool > 240 then -- tests building
+                            built_spool = tc.state.frame_from_bwapi
                             local _, pos = next(tc:filter_type(
                             tc.state.units_myself,
                             {tc.unittypes.Zerg_Hatchery}))
@@ -175,8 +158,8 @@ while total_battles < 40 do
     tc:close()
     sys.sleep(0.5)
     --progress:reset()
-    print("an orchestral interlude")
     collectgarbage()
+    print("")
     collectgarbage()
 end
 print("")
