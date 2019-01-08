@@ -1,30 +1,37 @@
--- th bridge.lua [-t $hostname] [-p $port]
+#!/usr/bin/env luajit
+--
+-- new old th bridge.lua [-t $hostname] [-p $port]
+--
+local argparse = require("argparse")
+local socket = require("socket")
+local uuid = require("uuid")
+-- gen random seed
+uuid.randomseed(socket.gettime()*10000)
+-- Spawn UUID
+local spawn_uuid = uuid()
+-- Debug mode
 local DEBUG = 0 -- can take values 0, 1, 2 (from no output to most verbose)
-local MICRO_MODE = false -- set to false for normal maps!
 require 'torch'
 torch.setdefaulttensortype('torch.FloatTensor')
 require 'sys'
-local lapp = require 'pl.lapp'
-local args = lapp [[
-Baselines for Starcraft
-    -t,--hostname       (default "")    Give hostname / ip pointing to VM
-    -p,--port           (default 11111) Port for torchcraft.
-]]
-
 local skip_frames = 7
-local port = args.port
-local hostname = args.hostname or ""
-print("hostname:", hostname)
-print("port:", port)
 
---require 'progressbar'
---local progress = ProgressBar(-1)
---progress.mutex = {lock = function() end, unlock = function() end} -- hack
---progress:singleThreaded()
+local parser = argparse() {
+    name = "bridge",
+    description = "",
+    epilog = ""
+}
+parser:option("-t --hostname", "Give hostname / ip pointing to SCI-F", "")
+parser:option("-p --port", "Port for TorchCraft", 11111)
 
 local tc = require 'torchcraft'
 tc.DEBUG = DEBUG
 local utils = require 'torchcraft.utils'
+
+-- Parse your arguments
+local args = parser:parse()
+local hostname = args['hostname']
+local port = args['port'] 
 
 local function get_closest(position, unitsTable)
     local min_d = 1E30
@@ -47,14 +54,9 @@ local total_battles = 0
 -- All paths must be relative to C:/StarCraft
 local maps = {'Maps/BroodWar/Aztec 2.1_iCCup.scx',}
 
-tc.micro_battles = MICRO_MODE
 local nrestarts = -1
 
 while total_battles < 40 do
-
-    print("")
-    print("CTRL-C to stop")
-    print("")
 
     local frames_in_battle = 1
     local nloop = 1
@@ -98,27 +100,6 @@ while total_battles < 40 do
         local actions = {}
         if tc.state.game_ended then
             break
-        elseif tc.state.battle_just_ended then
-            if DEBUG > 0 then
-                print("BATTLE ENDED")
-            end
-            if tc.state.battle_won then -- we won (in micro battles)
-                battles_won = battles_won + 1
-            end
-            battles_game = battles_game + 1
-            total_battles = total_battles + 1
-            frames_in_battle = 0
-            if battles_game >= 10 then
-                actions = {
-                    tc.command(tc.set_map, maps[(nrestarts % #maps) + 1]),
-                    tc.command(tc.restart),
-                }
-            end
-        elseif tc.state.waiting_for_restart then
-            -- a battle finished, waiting for the next one to start!
-            if DEBUG > 0 then
-                print("WAITING FOR RESTART")
-            end
         else
             if tc.state.battle_frame_count % skip_frames == 0 then
                 for uid, ut in pairs(tc.state.units_myself) do
@@ -134,7 +115,7 @@ while total_battles < 40 do
                             built_barracks = tc.state.frame_from_bwapi
                             local _, pos = next(tc:filter_type(
                             tc.state.units_myself,
-                            {tc.unittypes.Terran_Command_Center}))
+                            {tc.unittypes.Zerg_Hatchery}))
                             if pos ~= nil then pos = pos.position end
                             if pos ~= nil and not utils.is_in(ut.order,
                                 tc.command2order[tc.unitcommandtypes.Build])
@@ -143,7 +124,7 @@ while total_battles < 40 do
                                 table.insert(actions,
                                 tc.command(tc.command_unit, uid,
                                 tc.cmd.Build, -1,
-                                pos[1], pos[2] + 8, tc.unittypes.Terran_Barracks))
+                                pos[1], pos[2] + 8, tc.unittypes.Zerg_Spawning_Pool))
                             end
                         else -- tests gathering
                             if not utils.is_in(ut.order,
@@ -193,9 +174,8 @@ while total_battles < 40 do
     end
     tc:close()
     sys.sleep(0.5)
-    print()
     --progress:reset()
-    print("")
+    print("an orchestral interlude")
     collectgarbage()
     collectgarbage()
 end
