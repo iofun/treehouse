@@ -1,8 +1,8 @@
-package = "xelnaga"
+package = "ghosts"
 version = "0.1-0"
 
 source = {
-  url = "git://github.com/spacebeam/xelnaga",
+  url = "git://github.com/spacebeam/ghosts",
   tag = "0.1.0",
 }
 
@@ -23,9 +23,9 @@ dependencies = {
 build = {
   type = 'builtin',
   modules = {
-    ['xelnaga.macro'] = "include/lua/macro.lua",
-    ['xelnaga.meta'] = "include/lua/meta.lua",
-    ['xelnaga.micro'] = "include/lua/micro.lua",
-    ['xelnaga.tools'] = "include/lua/tools.lua"
+    ['ghosts.macro'] = "include/lua/macro.lua",
+    ['ghosts.meta'] = "include/lua/meta.lua",
+    ['ghosts.micro'] = "include/lua/micro.lua",
+    ['ghosts.tools'] = "include/lua/tools.lua"
   }
 }
