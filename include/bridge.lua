@@ -33,7 +33,7 @@ local skip_frames = 7
 local args = parser:parse()
 local hostname = args['hostname']
 local port = args['port'] 
--- Do your own stuff
+-- Do your things 
 local function get_closest(position, unitsTable)
     local min_d = 1E30
     local closest_uid = nil
@@ -46,7 +46,7 @@ local function get_closest(position, unitsTable)
     end
     return closest_uid
 end
--- main system loop 
+-- main loop 
 while nrestarts < 10 do
     nrestarts = nrestarts + 1
     tc:init(hostname, port)
@@ -67,7 +67,7 @@ while nrestarts < 10 do
     local built_spool = 0
 
     local tm = torch.Timer()
-    -- main battle loop
+    -- game loop
     while not tc.state.game_ended do
         -- reset timer
         tm:reset()
