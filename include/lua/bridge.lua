@@ -35,11 +35,10 @@ local args = parser:parse()
 local hostname = args['hostname']
 local port = args['port'] 
 -- Do your main loop 
-while restarts < 10 do
+while restarts < 7 do
     restarts = restarts + 1
     tc:init(hostname, port)
-    local frames_in_battle = 1
-    local nloop = 1
+    local loops = 1
     local update = tc:connect(port)
     if DEBUG > 1 then
         print('Received init: ', update)
@@ -53,6 +52,7 @@ while restarts < 10 do
     tc:send({table.concat(setup, ':')})
     local built_spool = 0
     local tm = torch.Timer()
+    tools.this_is()
     -- game loop
     while not tc.state.game_ended do
         -- reset timer
@@ -62,7 +62,7 @@ while restarts < 10 do
         if DEBUG > 1 then
             print('Received update: ', update)
         end
-        nloop = nloop + 1
+        loops = loops + 1
         local actions = {}
         if tc.state.game_ended then
             break
@@ -122,10 +122,6 @@ while restarts < 10 do
                             tc.cmd.Attack_Unit, target))
                         end
                     end
-                end
-                if frames_in_battle > 2*60*24 then -- quit after ~ 2 hours
-                    actions = {tc.command(tc.quit)}
-                    restarts = restarts + 1
                 end
             end
         end
