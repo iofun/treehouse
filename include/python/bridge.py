@@ -1,3 +1,7 @@
+#
+# Bridge between TorchCraft 1.4 (python prototype)
+#
+
 import argparse
 import torchcraft as tc
 import torchcraft.Constants as tcc
