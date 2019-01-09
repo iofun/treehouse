@@ -20,8 +20,8 @@ local spawn_uuid = uuid()
 -- CLI argument parser
 local parser = argparse() {
     name = "bridge",
-    description = "",
-    epilog = ""
+    description = "Bridge between StarCraft and TorchCraft",
+    epilog = "(lua prototype)"
 }
 parser:option("-t --hostname", "Give hostname / ip pointing to VM", "127.0.0.1")
 parser:option("-p --port", "Port for TorchCraft", 11111)
