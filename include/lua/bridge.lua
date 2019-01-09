@@ -27,7 +27,7 @@ local parser = argparse() {
 parser:option("-t --hostname", "Give hostname/ip to VM", "127.0.0.1")
 parser:option("-p --port", "Port for TorchCraft", 11111)
 -- Your system variables
-local nrestarts = -1
+local restarts = -1
 -- Skip bwapi frames
 local skip_frames = 7
 -- Parse your arguments
