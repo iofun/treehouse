@@ -35,4 +35,4 @@ MirrorURL: http://ftp.us.debian.org/debian/
 
 %startscript
     . /opt/torch/install/bin/torch-activate
-    th /opt/xelnaga/include/bridge.lua -t 127.0.0.1
+    th /opt/xelnaga/include/lua/bridge.lua -t 127.0.0.1

@@ -23,9 +23,9 @@ dependencies = {
 build = {
   type = 'builtin',
   modules = {
-    ['xelnaga.macro'] = "include/macro.lua",
-    ['xelnaga.meta'] = "include/meta.lua",
-    ['xelnaga.micro'] = "include/micro.lua",
-    ['xelnaga.tools'] = "include/tools.lua"
+    ['xelnaga.macro'] = "include/lua/macro.lua",
+    ['xelnaga.meta'] = "include/lua/meta.lua",
+    ['xelnaga.micro'] = "include/lua/micro.lua",
+    ['xelnaga.tools'] = "include/lua/tools.lua"
   }
 }
