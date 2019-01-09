@@ -101,7 +101,7 @@ while restarts < 10 do
                                   tc.command2order[tc.unitcommandtypes.Right_Click_Position]) then
                                 -- avoid spamming the order is the unit is already
                                 -- following the right order or building!
-                                local target = get_closest(ut.position,
+                                local target = tools.get_closest(ut.position,
                                     tc:filter_type(tc.state.units_neutral,
                                         {tc.unittypes.Resource_Mineral_Field,
                                          tc.unittypes.Resource_Mineral_Field_Type_2,
@@ -114,7 +114,7 @@ while restarts < 10 do
                             end
                         end
                     else -- attacks closest
-                        local target = get_closest(ut.position,
+                        local target = tools.get_closest(ut.position,
                                                    tc.state.units_enemy)
                         if target ~= nil then
                             table.insert(actions,
