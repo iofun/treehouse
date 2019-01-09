@@ -50,6 +50,6 @@
     »░h½█▀░╜██▀K»Ü»░░░»╨h░»▀▀█▀█▀▀▀▀▀▀▀▀╩╩▀▀H»▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀»░╨hh░»»/╠░╚ñ║▀▀▀M░░░
     »»»╨╚╙╨░╙╙░╨"!╙░╙╚░╩^^╨^░"h░░""░Ü"░░░^╚"╚╨░»»░░░»░»»░░»»░░»░»»░»»»»»»»»»»░░░░░»»
 
-This distributed system train information models provided for convenience spawning unix-like daemons over time that grow into other units. Nodes provide granular unit control with in your clusters, spawn more nodes to allow control of additional units.
+This distributed system train information models provided for convenience spawning *nix daemons over time that grow into other units. Nodes provide granular unit control with in your clusters, spawn more nodes to allow control of additional units.
 
 Feel free to [explore](https://github.com/spacebeam) and remember; as your system grow in number, you must spawn more nodes to control it.
