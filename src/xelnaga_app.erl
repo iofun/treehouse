@@ -1,4 +1,4 @@
--module(daemons_app).
+-module(xelnaga_app).
 -behaviour(application).
 
 -export([start/2]).
@@ -6,9 +6,9 @@
 
 start(_Type, _Args) ->
     application:ensure_all_started(econfig),
-    econfig:register_config(engine, ["../daemons.conf"], [autoreload]),
+    econfig:register_config(engine, ["../xelnaga.conf"], [autoreload]),
     econfig:subscribe(engine),
-    daemons_sup:start_link().
+    xelnaga_sup:start_link().
 
 stop(_State) ->
     ok.

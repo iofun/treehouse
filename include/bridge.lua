@@ -1,6 +1,6 @@
 #!/usr/bin/env luajit
 --
--- Bridge between daemons and TorchCraft 1.3 .lua prototype
+-- Bridge between TorchCraft 1.3 (lua prototype)
 --
 local argparse = require("argparse")
 local socket = require("socket")
@@ -158,4 +158,3 @@ while nrestarts < 10 do
     collectgarbage()
 end
 print("So Long, and Thanks for All the Fish!")
-

@@ -28,11 +28,11 @@ MirrorURL: http://ftp.us.debian.org/debian/
     cd /opt/TorchCraft && git checkout v1.3-0
     git submodule update --init --recursive
     luarocks install *.rockspec
-    git clone https://github.com/spacebeam/daemon.git /opt/daemon
+    git clone https://github.com/spacebeam/xelnaga.git /opt/xelnaga
 
 %runscript
     echo 'Go ahead HQ.'
 
 %startscript
     . /opt/torch/install/bin/torch-activate
-    th /opt/daemon/include/bridge.lua -t 127.0.0.1
+    th /opt/xelnaga/include/bridge.lua -t 127.0.0.1
