@@ -1,6 +1,12 @@
+--
+--
+--
+
 local utils = require("torchcraft.utils")
 
-local function get_closest(position, units)
+local tools = {}
+
+function tools.get_closest(position, units)
     local min_d = 1E30
     local closest_uid = nil
     for uid, ut in pairs(units) do
@@ -12,3 +18,5 @@ local function get_closest(position, units)
     end
     return closest_uid
 end
+
+return tools
