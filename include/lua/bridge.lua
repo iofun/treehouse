@@ -23,7 +23,7 @@ local parser = argparse() {
     description = "Bridge between StarCraft and TorchCraft",
     epilog = "(lua prototype)"
 }
-parser:option("-t --hostname", "Give hostname / ip pointing to VM", "127.0.0.1")
+parser:option("-t --hostname", "Give hostname/ip to VM", "127.0.0.1")
 parser:option("-p --port", "Port for TorchCraft", 11111)
 -- Your system variables
 local nrestarts = -1
@@ -33,22 +33,9 @@ local skip_frames = 7
 local args = parser:parse()
 local hostname = args['hostname']
 local port = args['port'] 
--- Do your things 
-local function get_closest(position, unitsTable)
-    local min_d = 1E30
-    local closest_uid = nil
-    for uid, ut in pairs(unitsTable) do
-        local tmp_d = utils.distance(position, ut['position'])
-        if tmp_d < min_d then
-            min_d = tmp_d
-            closest_uid = uid
-        end
-    end
-    return closest_uid
-end
--- main loop 
-while nrestarts < 10 do
-    nrestarts = nrestarts + 1
+-- Do your main loop 
+while restarts < 10 do
+    restarts = restarts + 1
     tc:init(hostname, port)
     local frames_in_battle = 1
     local nloop = 1
@@ -63,9 +50,7 @@ while nrestarts < 10 do
         tc.command(tc.set_cmd_optim, 1),
     }
     tc:send({table.concat(setup, ':')})
-
     local built_spool = 0
-
     local tm = torch.Timer()
     -- game loop
     while not tc.state.game_ended do
@@ -76,7 +61,6 @@ while nrestarts < 10 do
         if DEBUG > 1 then
             print('Received update: ', update)
         end
-
         nloop = nloop + 1
         local actions = {}
         if tc.state.game_ended then
@@ -140,7 +124,7 @@ while nrestarts < 10 do
                 end
                 if frames_in_battle > 2*60*24 then -- quit after ~ 2 hours
                     actions = {tc.command(tc.quit)}
-                    nrestarts = nrestarts + 1
+                    restarts = restarts + 1
                 end
             end
         end
