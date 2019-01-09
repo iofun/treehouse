@@ -10,6 +10,7 @@ torch.setdefaulttensortype('torch.FloatTensor')
 require("sys")
 local tc = require("torchcraft")
 local utils = require("torchcraft.utils")
+local tools = require("xelnaga.tools")
 -- Debug can take values 0, 1, 2 (from no output to most verbose) 
 local DEBUG = 0 
 tc.DEBUG = DEBUG
