@@ -18,10 +18,11 @@ tc.DEBUG = DEBUG
 uuid.randomseed(socket.gettime()*10000)
 -- Spawn UUID
 local spawn_uuid = uuid()
+print("Starting bridge 1.3 " .. spawn_uuid)
 -- CLI argument parser
 local parser = argparse() {
     name = "bridge",
-    description = "Bridge between StarCraft and TorchCraft",
+    description = "Bridge between StarCraft 1.16.1 and TorchCraft 1.3",
     epilog = "(lua prototype)"
 }
 parser:option("-t --hostname", "Give hostname/ip to VM", "127.0.0.1")
