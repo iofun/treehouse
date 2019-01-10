@@ -55,3 +55,27 @@ Feel free to [explore](https://github.com/spacebeam) and remember; as your syste
 
 ## Goal 
 The goal of `ghosts` application is to provide up-to-date information models for convenience consumption.
+
+## Install
+
+You can install `ghosts` from [hex.pm](https://hex.pm/packages/ghosts) by including the following in your `rebar.config`:
+
+```
+{deps,[
+	{ghosts, "X.Y.Z"}
+]}.
+```
+where _X.Y.Z_ is one of the [release versions](https://github.com/spacebeam/ghosts/releases).
+
+For more info on rebar3 dependencies see the [rebar3 docs](http://www.rebar3.org/docs/dependencies).
+
+## Architecture
+[Architecture](docs/architecture.md) describes the system structure.
+
+## Help Wanted
+
+Would you like to help with the project? Pick any of the issues tagged [help wanted](https://github.com/spacebeam/ghosts/labels/help%20wanted) and contribute!
+
+## Contributing
+
+See  [Contributing](CONTRIBUTING.md).
