@@ -14,7 +14,7 @@ local tools = require("ghosts.tools")
 -- Debug can take values 0, 1, 2 (from no output to most verbose) 
 local DEBUG = 0 
 tc.DEBUG = DEBUG
--- gen random seed
+-- Gen random seed
 uuid.randomseed(socket.gettime()*10000)
 -- Spawn UUID
 local spawn_uuid = uuid()
@@ -70,7 +70,8 @@ while restarts < 7 do
         else
             if tc.state.battle_frame_count % skip_frames == 0 then
                 for uid, ut in pairs(tc.state.units_myself) do
-                    if tc:isbuilding(ut.type) then -- tests production
+                    if tc:isbuilding(ut.type) then
+                        -- tests production
                         if ut.type == tc.unittypes.Terran_Barracks then
                             table.insert(actions,
                             tc.command(tc.command_unit, uid, tc.cmd.Train,
@@ -78,7 +79,8 @@ while restarts < 7 do
                         end
                     elseif tc:isworker(ut.type) then
                         if tc.state.resources_myself.ore >= 150
-                            and tc.state.frame_from_bwapi - built_spool > 240 then -- tests building
+                            and tc.state.frame_from_bwapi - built_spool > 240 then
+                            -- tests building
                             built_spool = tc.state.frame_from_bwapi
                             local _, pos = next(tc:filter_type(
                             tc.state.units_myself,
@@ -93,7 +95,8 @@ while restarts < 7 do
                                 tc.cmd.Build, -1,
                                 pos[1], pos[2] + 8, tc.unittypes.Zerg_Spawning_Pool))
                             end
-                        else -- tests gathering
+                        else
+                            -- tests gathering
                             if not utils.is_in(ut.order,
                                   tc.command2order[tc.unitcommandtypes.Gather])
                                   and not utils.is_in(ut.order,
@@ -114,7 +117,8 @@ while restarts < 7 do
                                 end
                             end
                         end
-                    else -- attacks closest
+                    else
+                        -- attacks closest
                         local target = tools.get_closest(ut.position,
                                                    tc.state.units_enemy)
                         if target ~= nil then
