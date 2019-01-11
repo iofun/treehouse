@@ -62,7 +62,7 @@ You can install `ghosts` from [hex.pm](https://hex.pm/packages/ghosts) by includ
 
 ```
 {deps,[
-	{ghost, "X.Y.Z"}
+	{ghosts, "X.Y.Z"}
 ]}.
 ```
 where _X.Y.Z_ is one of the [release versions](https://github.com/spacebeam/ghosts/releases).
