@@ -1,6 +1,6 @@
 # ghosts
 
-![ghosts](https://i.imgur.com/vzr09Jm.gif)
+![ghosts](http://www.pacman.com/en/wp-content/themes/PACMAN/images/uploads/PAC-MAN_wallpaper03b.jpg)
 
 ## What is ghosts?
 This distributed system train information models provided for convenience spawning *nix daemons over time that grow into other units. Nodes provide granular unit control with in your clusters, spawn more nodes to allow control of additional units.
