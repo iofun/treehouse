@@ -1,6 +1,6 @@
 # ghosts
 
-![ghosts](https://img2.goodfon.com/wallpaper/big/0/a2/pakman-pacman-ghost.jpg)
+![ghosts](https://img2.goodfon.com/original/800x480/0/a2/pakman-pacman-ghost.jpg)
 
 This distributed system train information models provided for convenience spawning *nix daemons over time that grow into other units. Nodes provide granular unit control with in your clusters, spawn more nodes to allow control of additional units.
 
