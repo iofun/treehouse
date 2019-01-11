@@ -1,8 +1,8 @@
 # ghosts
 
-![ghosts](https://img2.goodfon.com/original/1024x600/0/a2/pakman-pacman-ghost.jpg)
+## What is ghosts?
 
-This distributed system train information models provided for convenience spawning *nix daemons over time that grow into other units. Nodes provide granular unit control with in your clusters, spawn more nodes to allow control of additional units.
+`ghosts` is a distributed system written in [Erlang](https://erlang.org). It train information models provided for convenience spawning *nix daemons over time that grow into other units. Nodes provide granular unit control with in your clusters, spawn more nodes to allow control of additional units.
 
 Feel free to [explore](https://github.com/spacebeam) and remember; as your system grow in number, you must spawn more nodes to control it.
 
