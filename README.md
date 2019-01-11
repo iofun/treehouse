@@ -1,5 +1,5 @@
 # ghosts
-
+![go](https://unixtitan.net/images/cherries-clipart-pacman-6.png)
 ## What is ghosts?
 
 `ghosts` is a distributed system written in [luerl](https://luerl.org). It train information models provided for convenience spawning *nix daemons over time that grow into other units. Nodes provide granular unit control with in your clusters, spawn more nodes to allow control of additional units.
