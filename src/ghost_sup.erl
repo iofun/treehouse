@@ -1,4 +1,4 @@
--module(ghosts_sup).
+-module(ghost_sup).
 -behaviour(supervisor).
 
 -export([start_link/0]).

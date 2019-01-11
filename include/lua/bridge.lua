@@ -10,7 +10,7 @@ torch.setdefaulttensortype('torch.FloatTensor')
 require("sys")
 local tc = require("torchcraft")
 local utils = require("torchcraft.utils")
-local tools = require("ghosts.tools")
+local tools = require("ghost.tools")
 -- Debug can take values 0, 1, 2 (from no output to most verbose) 
 local DEBUG = 0 
 tc.DEBUG = DEBUG
@@ -72,10 +72,10 @@ while restarts < 7 do
                 for uid, ut in pairs(tc.state.units_myself) do
                     if tc:isbuilding(ut.type) then
                         -- tests production
-                        if ut.type == tc.unittypes.Terran_Barracks then
+                        if ut.type == tc.unittypes.Zerg_Hatchery then
                             table.insert(actions,
-                            tc.command(tc.command_unit, uid, tc.cmd.Train,
-                            tc.unittypes.Terran_Marine))
+                            tc.command(tc.command_unit, uid, tc.cmd.Morph,
+                            tc.unittypes.Zerg_Drone))
                         end
                     elseif tc:isworker(ut.type) then
                         if tc.state.resources_myself.ore >= 150

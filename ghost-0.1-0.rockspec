@@ -1,8 +1,8 @@
-package = "ghosts"
+package = "ghost"
 version = "0.1-0"
 
 source = {
-  url = "git://github.com/spacebeam/ghosts",
+  url = "git://github.com/spacebeam/ghost",
   tag = "0.1.0",
 }
 
@@ -23,9 +23,9 @@ dependencies = {
 build = {
   type = 'builtin',
   modules = {
-    ['ghosts.macro'] = "include/lua/macro.lua",
-    ['ghosts.meta'] = "include/lua/meta.lua",
-    ['ghosts.micro'] = "include/lua/micro.lua",
-    ['ghosts.tools'] = "include/lua/tools.lua"
+    ['ghost.macro'] = "include/lua/macro.lua",
+    ['ghost.meta'] = "include/lua/meta.lua",
+    ['ghost.micro'] = "include/lua/micro.lua",
+    ['ghost.tools'] = "include/lua/tools.lua"
   }
 }
