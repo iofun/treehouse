@@ -1,4 +1,4 @@
--module(ghost_app).
+-module(ghosts_app).
 -behaviour(application).
 
 -export([start/2]).
@@ -6,9 +6,9 @@
 
 start(_Type, _Args) ->
     application:ensure_all_started(econfig),
-    econfig:register_config(engine, ["../ghost.conf"], [autoreload]),
+    econfig:register_config(engine, ["../ghosts.conf"], [autoreload]),
     econfig:subscribe(engine),
-    ghost_sup:start_link().
+    ghosts_sup:start_link().
 
 stop(_State) ->
     ok.

@@ -1,3 +1,3 @@
--name ghost@127.0.0.1
--setcookie ghost 
+-name ghosts@127.0.0.1
+-setcookie ghosts 
 -heart
