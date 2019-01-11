@@ -1,6 +1,6 @@
 # ghosts
 
-[sd](https://art.pixilart.com/350a88ab371f1bb.png)
+![ghosts](https://art.pixilart.com/350a88ab371f1bb.png)
 
 ## What is ghosts?
 This distributed system train information models provided for convenience spawning *nix daemons over time that grow into other units. Nodes provide granular unit control with in your clusters, spawn more nodes to allow control of additional units.
