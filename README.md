@@ -2,7 +2,7 @@
 ![ghosts](https://unixtitan.net/images/cherries-clipart-pacman-6.png)
 ## What is ghosts?
 
-`ghosts` is a distributed system for applied AI research and online StarCraft bot competition based on TorchCraft a bridge between *Torch and StarCraft that sends StarCraft data out over a [ZMQ](http://zeromq.org) connection and certain [luerl](https://luerl.org) simulation engine that train information models provided for convenience spawning *nix daemons over time that grow into other units; nodes provide granular unit control with in `ghosts` clusters, spawn more nodes to allow control of additional units.
+`ghosts` is a distributed system for applied AI research and online StarCraft bot competition based on TorchCraft a bridge between *Torch and StarCraft that sends data out over a [ZMQ](http://zeromq.org) connection and certain [luerl](https://luerl.org) simulation engine that train information models provided for convenience spawning *nix daemons over time that grow into other units; nodes provide granular unit control with in `ghosts` clusters, spawn more nodes to allow control of additional units.
 
 Feel free to [explore](https://github.com/spacebeam) and remember; as your system grow in number, you must spawn more nodes to control it.
 
