@@ -10,7 +10,7 @@ torch.setdefaulttensortype('torch.FloatTensor')
 require("sys")
 local tc = require("torchcraft")
 local utils = require("torchcraft.utils")
-local tools = require("ghost.tools")
+local tools = require("ghosts.tools")
 -- Debug can take values 0, 1, 2 (from no output to most verbose) 
 local DEBUG = 0 
 tc.DEBUG = DEBUG
@@ -36,7 +36,7 @@ local args = parser:parse()
 local hostname = args['hostname']
 local port = args['port'] 
 -- Do your main loop 
-while restarts < 7 do
+while restarts < 5 do
     restarts = restarts + 1
     tc:init(hostname, port)
     local loops = 1
@@ -74,7 +74,7 @@ while restarts < 7 do
                         -- tests production
                         if ut.type == tc.unittypes.Zerg_Hatchery then
                             table.insert(actions,
-                            tc.command(tc.command_unit, uid, tc.cmd.Morph,
+                            tc.command(tc.command_unit, uid, tc.cmd.Train,
                             tc.unittypes.Zerg_Drone))
                         end
                     elseif tc:isworker(ut.type) then
@@ -118,6 +118,7 @@ while restarts < 7 do
                             end
                         end
                     else
+                        print(ut.type)
                         -- attacks closest
                         local target = tools.get_closest(ut.position,
                                                    tc.state.units_enemy)
