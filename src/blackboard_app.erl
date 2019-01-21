@@ -1,4 +1,4 @@
--module(ghosts_app).
+-module(blackboard_app).
 -behaviour(application).
 
 -export([start/2]).
@@ -6,9 +6,9 @@
 
 start(_Type, _Args) ->
     application:ensure_all_started(econfig),
-    econfig:register_config(engine, ["../ghosts.conf"], [autoreload]),
+    econfig:register_config(engine, ["../blackboard.conf"], [autoreload]),
     econfig:subscribe(engine),
-    ghosts_sup:start_link().
+    blackboard_sup:start_link().
 
 stop(_State) ->
     ok.

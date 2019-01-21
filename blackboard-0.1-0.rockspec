@@ -1,8 +1,8 @@
-package = "ghosts"
+package = "blackboard"
 version = "0.1-0"
 
 source = {
-  url = "git://github.com/spacebeam/ghosts",
+  url = "git://github.com/spacebeam/blackboard",
   tag = "0.1.0",
 }
 
@@ -23,9 +23,9 @@ dependencies = {
 build = {
   type = 'builtin',
   modules = {
-    ['ghosts.macro'] = "include/lua/macro.lua",
-    ['ghosts.meta'] = "include/lua/meta.lua",
-    ['ghosts.micro'] = "include/lua/micro.lua",
-    ['ghosts.tools'] = "include/lua/tools.lua"
+    ['blackboard.macro'] = "include/lua/macro.lua",
+    ['blackboard.meta'] = "include/lua/meta.lua",
+    ['blackboard.micro'] = "include/lua/micro.lua",
+    ['blackboard.tools'] = "include/lua/tools.lua"
   }
 }
