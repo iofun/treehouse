@@ -1,38 +1,43 @@
+#!/usr/bin/env luajit
 --[[
--- This is a replay dumper test / example. Simply set your starcraft to open a
--- replay. Then, run
+-- This is a replay dumper. Simply set your starcraft to open a replay.
+-- Then, run
 --  th dump_replay -t $SC_IP
 ]]
-require 'torch'
-torch.setdefaulttensortype('torch.FloatTensor')
-require 'sys'
-local lapp = require 'pl.lapp'
-local params = lapp [[
-Tests replay dumping / reloading
--t,--hostname       (default "")    Give hostname / ip pointing to VM
--p,--port           (default 11111) Port for torchcraft. Do 0 to grab vm from cloud
--o,--out            (default "/tmp") Where to save the replay
-]]
-
+require("torch")
+torch.setdefaulttensortype("torch.FloatTensor")
+require("sys")
+local argparse = require("argparse")
+local socket = require("socket")
+local uuid = require("uuid")
+-- Gen random seed
+uuid.randomseed(socket.gettime()*10000)
+-- Spawn execution uuid
+local spawn_uuid = uuid()
+print("Starting replay dumper "..spawn_uuid)
+-- CLI argument parser
+local parser = argparse() {
+    name = "dump_replay",
+    description = "Simply set your StarCraft to dump a replay.",
+    epilog = "(lua prototype)"
+}
+parser:option("-t --hostname", "Give hostname / ip pointing to VM", "127.0.0.1")
+parser:option("-p --port", "Port for TorchCraft", 11111)
+parser:option("-o --out", "Where to save the replay", "/tmp")
+-- Parse your arguments
+local args = parser:parse()
+local hostname = args['hostname']
+local port = args['port']
+local out = args['out']
+local replayer = require("torchcraft.replayer")
+local tc = require("torchcraft")
+-- Skip BWAPI frames
 local skip_frames = 3
-local port = params.port
-local hostname = params.hostname or ""
-print("hostname:", hostname)
-print("port:", port)
-
-local torch = require 'torch'
-local threads = require 'threads'
-
-local p = require 'pl.path'
-local replayer = require 'torchcraft.replayer'
-local tc = require 'torchcraft'
-
+-- Give some time to load the replay
 sys.sleep(5.0)
-
-tc:init(params.hostname, params.port)
-
+tc:init(hostname, port)
 print("Doing replay...")
-local map = tc:connect(params.hostname, params.port)
+local map = tc:connect(hostname, port)
 assert(tc.state.replay, "This game isn't a replay")
 tc:send({table.concat({
   tc.command(tc.set_speed, 0), tc.command(tc.set_gui, 0),
@@ -41,20 +46,18 @@ tc:send({table.concat({
 }, ":")})
 tc:receive()
 map = tc.state
-
+-- Game this replay
 local game = replayer.newReplayer()
 game:setMap(map)
 print("Dumping "..map.map_name)
-
 local is_ok, err = false, nil
 while not tc.state.game_ended do
   is_ok, err = pcall(function () return tc:receive() end)
   if not is_ok then break end
   game:push(tc.state.frame)
 end
-
 print("Game ended....")
-local savePath = params.out.."/"..map.map_name..".tcr"
+local savePath = out.."/"..map.map_name..".tcr"
 if not is_ok then
   print("Encountered an error: ", err)
 else
@@ -64,6 +67,4 @@ else
   print("Done dumping replay")
   tc:send({table.concat({tc.command(tc.quit)}, ":")})
 end
-
 tc:close()
-print("BEAM me up Erlang")
