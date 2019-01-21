@@ -1,7 +1,7 @@
 #!/usr/bin/env luajit
---
+--[[
 -- Bridge between TorchCraft 1.3 (lua prototype)
---
+]]
 local argparse = require("argparse")
 local socket = require("socket")
 local uuid = require("uuid")
@@ -10,7 +10,7 @@ torch.setdefaulttensortype('torch.FloatTensor')
 require("sys")
 local tc = require("torchcraft")
 local utils = require("torchcraft.utils")
-local tools = require("ghosts.tools")
+local tools = require("blackboard.tools")
 -- Debug can take values 0, 1, 2 (from no output to most verbose) 
 local DEBUG = 0 
 tc.DEBUG = DEBUG
