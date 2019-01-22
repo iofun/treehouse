@@ -11,7 +11,7 @@ The goal of `blackboard` application is to provide up-to-date information models
 
 ## Install
 
-You can install `blackboard` from [hex.pm](https://hex.pm/packages/blackboard by including the following in your `rebar.config`:
+You can install `blackboard` from [hex.pm](https://hex.pm/packages/blackboard) by including the following in your `rebar.config`:
 
 ```
 {deps,[
