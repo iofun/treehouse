@@ -1,7 +1,5 @@
 # blackboard
 
-## What blackboard?
-
 The`blackboard` is a distributed system for applied AI research that train information models provided for convenience spawning *nix daemons over time that grow into other units; nodes provide granular unit control with in `blackboard` clusters, spawn more nodes to allow control of additional units.
 
 Feel free to [explore](https://github.com/spacebeam) and remember; as your system grow in number, you must spawn more nodes to control it.
