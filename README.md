@@ -6,9 +6,6 @@ The`blackboard` is a distributed system for applied AI research that train infor
 
 Feel free to [explore](https://github.com/spacebeam) and remember; as your system grow in number, you must spawn more nodes to control it.
 
-## Goal 
-The goal of `blackboard` application is to provide up-to-date information models for (!) convenience consumption.
-
 ## Install
 
 You can install `blackboard` from [hex.pm](https://hex.pm/packages/blackboard) by including the following in your `rebar.config`:
