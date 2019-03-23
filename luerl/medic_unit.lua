@@ -10,8 +10,8 @@ local this_unit = {}
 local x, y, dx, dy
 -- Our color               
 local color = "blue"
--- Our type           
-local type = "unit"
+-- Our BWAPI unit type           
+local type = 34
 -- Size of a clock tick msec
 local tick
 

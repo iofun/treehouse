@@ -12,7 +12,10 @@ local x, y, dx, dy
 local color = "blue"
 -- Our BWAPI unit type           
 local type = 5
--- Note: tank turrent (probably a tank in seage mode?) is type 6
+
+-- Note1: tank turrent (probably a tank in seage mode?) is type 6
+
+-- Note2: no a tank siege mode is type 30-31 the last one also called "turrent".
 
 -- Size of a clock tick msec
 local tick
