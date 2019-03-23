@@ -10,7 +10,7 @@ local x, y, dx, dy
 -- Our color
 local color = "blue"
 -- Our type
-local type = "unit"
+local type = 2 
 -- Size of a clock tick msec
 local tick
 

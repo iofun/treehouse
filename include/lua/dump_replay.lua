@@ -7,9 +7,11 @@
 require("torch")
 torch.setdefaulttensortype("torch.FloatTensor")
 require("sys")
+local replayer = require("torchcraft.replayer")
 local argparse = require("argparse")
 local socket = require("socket")
 local uuid = require("uuid")
+local tc = require("torchcraft")
 -- Gen random seed
 uuid.randomseed(socket.gettime()*10000)
 -- Spawn execution uuid
@@ -29,8 +31,6 @@ local args = parser:parse()
 local hostname = args['hostname']
 local port = args['port']
 local out = args['out']
-local replayer = require("torchcraft.replayer")
-local tc = require("torchcraft")
 -- Skip BWAPI frames
 local skip_frames = 3
 -- Give some time to load the replay

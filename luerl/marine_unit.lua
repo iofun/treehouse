@@ -1,4 +1,5 @@
--- The Marine is the base Terran combat unit. It deals 6 normal damage to both air and ground targets. 
+-- The Marine is the base Terran combat unit. 
+-- It deals 6 normal damage to both air and ground targets. 
 
 -- Our unit function table
 local this_unit = {}                
@@ -9,8 +10,8 @@ local this_unit = {}
 local x, y, dx, dy
 -- Our color               
 local color = "blue"
--- Our type           
-local type = "unit"
+-- Our BWAPI unit type          
+local type = 0
 -- Size of a clock tick msec
 local tick
 

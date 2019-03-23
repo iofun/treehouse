@@ -1,79 +1,42 @@
+#!/usr/bin/env luajit
 --[[
--- This is a replay dumper test / example. Simply set your starcraft to open a
--- replay. Then, run
---  th dump_replay -t $SC_IP
+-- This is a replay runner. Just, run
+--  th run_replay -r $replay_id
 ]]
-require 'torch'
-torch.setdefaulttensortype('torch.FloatTensor')
-require 'sys'
-require 'sys'
-local lapp = require 'pl.lapp'
-local params = lapp [[
-Tests replay dumping / reloading
--t,--hostname       (default "")    Give hostname / ip pointing to VM
--p,--port           (default 11111) Port for torchcraft. Do 0 to grab vm from cloud
--o,--out            (default "/tmp") Where to save the replay
-]]
+require("torch")
+torch.setdefaulttensortype("torch.FloatTensor")
+require("sys")
+local replayer = require("torchcraft.replayer")
+local argparse = require("argparse")
+local socket = require("socket")
+local uuid = require("uuid")
+local tc = require("torchcraft")
+-- Gen random seed
+uuid.randomseed(socket.gettime()*10000)
+-- Spawn execution uuid
+local spawn_uuid = uuid()
+print("Starting replayer "..spawn_uuid)
+-- CLI argument parser
+local parser = argparse() {
+    name = "run_replay",
+    description = "Run a StarCraft replay.",
+    epilog = "(lua prototype)"
+}
+parser:option("-r --replay", "Give replay name, uuid or hash", 42)
+parser:option("-o --out", "Where the replays are saved", "/tmp")
+-- Parse your arguments
+local args = parser:parse()
+local replay = args['replay']
+local out = args['out']
 
-local skip_frames = 3
-local port = params.port
-local hostname = params.hostname or ""
-print("hostname:", hostname)
-print("port:", port)
-
-local torch = require 'torch'
-local threads = require 'threads'
-
-local p = require 'pl.path'
-local replayer = require 'torchcraft.replayer'
-local tc = require 'torchcraft'
-tc:init(params.hostname, params.port)
-
-
-print("Doing replay...")
-local map = tc:connect(params.hostname, params.port)
-assert(tc.state.replay, "This game isn't a replay")
-tc:send({table.concat({
-  tc.command(tc.set_speed, 0), tc.command(tc.set_gui, 0),
-  tc.command(tc.set_combine_frames, skip_frames),
-  tc.command(tc.set_frameskip, 1000), tc.command(tc.set_log, 0),
-}, ':')})
-tc:receive()
-map = tc.state
-
-local game = replayer.newReplayer()
-game:setMap(map)
-print('Dumping '..map.map_name)
-
-local is_ok, err = false, nil
-while not tc.state.game_ended do
-  is_ok, err = pcall(function () return tc:receive() end)
-  if not is_ok then break end
-  game:push(tc.state.frame)
-end
-
-print("Game ended....")
-local savePath = params.out.."/"..map.map_name..".tcr"
-if not is_ok then
-  print('Encountered an error: ', err)
-else
-  print("Saving to " .. savePath)
-  game:setKeyFrame(-1)
-  game:save(savePath, true)
-  print('Done dumping replay')
-  tc:send({table.concat({tc.command(tc.quit)}, ":")})
-end
-
-tc:close()
-
-
+local savePath = out.."/"..replay..".tcr"
+print(savePath)
 local savedRep = replayer.loadReplayer(savePath)
+
 walkmap, heightmap, buildmap, startloc = savedRep:getMap()
 
-function checkMap(ret, correct, desc, outname)
-  if ret:ne(correct):sum() ~= 0 then
-    print(desc .. " map doesn't match!, replayer is bugged!")
-  end
+function checkMap(ret, desc, outname)
+  print("Checking "..desc.." from replay!")
   local mf = io.open(outname, 'w')
   local max = ret:max()
   mf:write("P2 " .. walkmap:size(2) .. " " .. walkmap:size(1) .. " " .. max .. "\n")
@@ -84,43 +47,15 @@ function checkMap(ret, correct, desc, outname)
     mf:write('\n')
   end
 end
-checkMap(walkmap, map.walkable_data, "Walkability", "/tmp/walkmap.pgm")
-checkMap(heightmap, map.ground_height_data, "Ground Height", "/tmp/heightmap.pgm")
-checkMap(buildmap, map.buildable_data, "Buildability", "/tmp/buildmap.pgm")
 
-if #startloc ~= #map.start_locations then
-  print("Not the same number of start locations, replayer is bugged")
+checkMap(walkmap, "Walkability", out.."/walkmap.pgm")
+checkMap(heightmap, "Ground Height", out.."/heightmap.pgm")
+checkMap(buildmap, "Buildability", out.."/buildmap.pgm")
+
+for i=1, savedRep:getNumFrames() do
+  local f = savedRep:getFrame(i)
+  --local units = f:getUnits()
+  local resources = f:toTable()
+  --print(units)
+  print(resources)
 end
-saw = {}
-for i, _ in ipairs(startloc) do saw[i] = false end
-for _, p in ipairs(startloc) do
-  found = false
-  for i, p2 in ipairs(map.start_locations) do
-    if p.x == p2.x and p.y == p2.y and saw[i] == false then
-      saw[i] = true
-      found = true
-    end
-  end
-  if not found then
-    print("Start location ("..p.x..","..p.y..") is incorrect, replayer is bugged!")
-    return
-  end
-end
-local first = game:getFrame(1)
-for i=1, game:getNumFrames() do
-  local f1 = game:getFrame(i)
-  local f2 = savedRep:getFrame(i)
-  local good = f1:deepEq(f2)
-  if not good then
-    print("Saving failed! Frame " .. i .. " doesn't match replay")
-    return
-  end
-  if i > 240 then
-    local eq = f1:deepEq(first, false) -- false suppresses debug info
-    if eq then
-      print("Why is frame " .. i .. " the exact same as frame 1?")
-      return
-    end
-  end
-end
-print("Saving succeeded!")

@@ -10,8 +10,10 @@ local this_unit = {}
 local x, y, dx, dy
 -- Our color               
 local color = "blue"
--- Our type           
-local type = "unit"
+-- Our BWAPI unit type           
+local type = 5
+-- Note: tank turrent (probably a tank in seage mode?) is type 6
+
 -- Size of a clock tick msec
 local tick
 
