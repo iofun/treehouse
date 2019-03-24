@@ -10,6 +10,8 @@ local this_unit = {}
 local x, y, dx, dy
 -- Our color
 local color = "red"
+-- Our BWAPI unit type
+local type = 141
 -- Our label
 local label = "zerg_structure"
 -- Our category
