@@ -7,6 +7,8 @@ local this_unit = {}
 local x, y, dx, dy
 -- Our color               
 local color = "green"
+-- Our BWAPI unit type
+local type = 171
 -- Our label           
 local label = "protoss_structure"
 -- Size of a clock tick msec
