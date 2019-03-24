@@ -1,4 +1,4 @@
--- The Command Center can be lifted and flown around, albeit very slowly. 
+-- The Command Center can be lifted very slowly. 
 
 -- Our unit function table
 local this_unit = {}                
@@ -7,8 +7,8 @@ local this_unit = {}
 local x, y, dx, dy
 -- Our color               
 local color = "blue"
--- Our type           
-local type = "structure"
+-- Our BWAPI unit type 
+local type = 106
 -- Size of a clock tick msec
 local tick
 
