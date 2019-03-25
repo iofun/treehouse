@@ -1,35 +1,37 @@
--- The Hydralisk Den does not produce units directly, 
--- but rather enable Hydralisk morphing at the Hatchery.
+-- The Nydus Canal allows the Zerg to transport
+-- ground units between the two linked Nydus Canals. 
 
 -- Our unit function table
 local this_unit = {}
 -- Where we are and fast we move
 local x, y, dx, dy
+-- Our name
+local name = "Zerg_Nydus_Canal"
 -- Our color               
 local color = "red"
 -- Our BWAPI unit type
-local type = 135
+local type = 134
 -- Our label           
 local label = "zerg_structure"
 -- Our category
-local category = "basic_building"
+local category = "advanced_building"
 -- Size of a clock tick msec
 local tick
 -- It's me, the unit structure 
 local me = unit.self()
 -- The standard local variables
 local armor = 1
-local hitpoints,shield = 850,0
+local hitpoints,shield = 250,0
 local ground_damage,air_damage = 0,0
 local ground_cooldown,air_cooldown = 0,0
 local ground_range,air_range = 0,0
-local sight = 8
+local sight = 10
 local speed = 0
 local supply = 0
 local cooldown = 25
-local mineral = 100
-local gas = 50
-local holdkey = "d"
+local mineral = 150
+local gas = 0
+local holdkey = "n"
 
 -- The size of the region
 local xsize,ysize = region.size()

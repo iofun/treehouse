@@ -1,14 +1,19 @@
--- The Nydus Canal allows the Zerg to transport
--- ground units between the two linked Nydus Canals. 
+-- Morphed from the Zerg Spire and requires a Hive to be morphed.
+-- It allows the Zerg's Mutalisks to morph into Guardians and Devourers.
+
+-- Also allows the research of two upgrades: Flyer Carapace
+-- for air unit armor and Flyer Attack for air unit attack. 
 
 -- Our unit function table
 local this_unit = {}
 -- Where we are and fast we move
 local x, y, dx, dy
+-- Our name
+local name = "Zerg_Greater_Spire"
 -- Our color               
 local color = "red"
 -- Our BWAPI unit type
-local type = 134
+local type = 137
 -- Our label           
 local label = "zerg_structure"
 -- Our category
@@ -19,17 +24,17 @@ local tick
 local me = unit.self()
 -- The standard local variables
 local armor = 1
-local hitpoints,shield = 250,0
+local hitpoints,shield = 1000,0
 local ground_damage,air_damage = 0,0
 local ground_cooldown,air_cooldown = 0,0
 local ground_range,air_range = 0,0
 local sight = 10
 local speed = 0
 local supply = 0
-local cooldown = 25
-local mineral = 150
-local gas = 0
-local holdkey = "n"
+local cooldown = 75
+local mineral = 100
+local gas = 150
+local holdkey = "g"
 
 -- The size of the region
 local xsize,ysize = region.size()
