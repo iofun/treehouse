@@ -1,14 +1,16 @@
---  Terran surveillance add-on
+--  Each Supply Depot raises the Terran's population limit by eight.
 
 -- Our unit function table
 local this_unit = {}                
 
 -- Where we are and fast we move
 local x, y, dx, dy
+-- Our name
+local name = "Terran_Supply_Depot"
 -- Our color               
 local color = "blue"
 -- Our BWAPI unit type           
-local type = 107 
+local type = 109
 -- Size of a clock tick msec
 local tick
 
@@ -16,18 +18,18 @@ local tick
 local me = unit.self()
 
 -- The standard local variables
-local label = "small_structure"
+local label = "medium_structure"
 local armor = 1
-local hitpoints,shield = 750,0
+local hitpoints,shield = 500,0
 local ground_damage,air_damage = 0,0
 local ground_cooldown,air_cooldown = 0,0
-local ground_range,air_range =  0,0
+local ground_range,air_range = 0,0
 local sight = 8
-local supply = 0
+local supply = 8
 local cooldown = 40
-local mineral = 50
-local gas = 50
-local holdkey = "c"
+local mineral = 100
+local gas = 0
+local holdkey = "s"
 
 -- The size of the region
 local xsize,ysize = region.size()

@@ -1,14 +1,16 @@
--- Vespene gas Terran refinery
+--  Terran surveillance add-on
 
 -- Our unit function table
 local this_unit = {}                
 
 -- Where we are and fast we move
 local x, y, dx, dy
+-- Our name
+local name = "Terran_Comsat_Station"
 -- Our color               
 local color = "blue"
 -- Our BWAPI unit type           
-local type = 110
+local type = 107 
 -- Size of a clock tick msec
 local tick
 
@@ -16,7 +18,7 @@ local tick
 local me = unit.self()
 
 -- The standard local variables
-local label = "medium_structure"
+local label = "small_structure"
 local armor = 1
 local hitpoints,shield = 750,0
 local ground_damage,air_damage = 0,0
@@ -25,9 +27,9 @@ local ground_range,air_range =  0,0
 local sight = 8
 local supply = 0
 local cooldown = 40
-local mineral = 100
-local gas = 0
-local holdkey = "r"
+local mineral = 50
+local gas = 50
+local holdkey = "c"
 
 -- The size of the region
 local xsize,ysize = region.size()
