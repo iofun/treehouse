@@ -1,18 +1,17 @@
--- Allows the Zerg to create Mutalisks and Scourge,
--- both of which are built at the Hatchery.
-
--- Also allows the research of two upgrades: Flyer Carapace
--- for air unit armor and Flyer Attack for air unit attack. 
+-- Even if no Queens are morphed, the building allow 
+-- Hive-tech units and abilities such as Dark Swarm and Cracklings.  
 
 -- Our unit function table
 local this_unit = {}
 -- Where we are and fast we move
 local x, y, dx, dy
--- Our color
+-- Our name
+local name = "Zerg_Queens_Nest"
+-- Our color               
 local color = "red"
 -- Our BWAPI unit type
-local type = 141
--- Our label
+local type = 138
+-- Our label           
 local label = "zerg_structure"
 -- Our category
 local category = "advanced_building"
@@ -22,17 +21,17 @@ local tick
 local me = unit.self()
 -- The standard local variables
 local armor = 1
-local hitpoints,shield = 600,0
+local hitpoints,shield = 850,0
 local ground_damage,air_damage = 0,0
 local ground_cooldown,air_cooldown = 0,0
 local ground_range,air_range = 0,0
 local sight = 10
 local speed = 0
 local supply = 0
-local cooldown = 75
-local mineral = 200
-local gas = 150
-local holdkey = "s"
+local cooldown = 38
+local mineral = 150
+local gas = 100
+local holdkey = "q"
 
 -- The size of the region
 local xsize,ysize = region.size()

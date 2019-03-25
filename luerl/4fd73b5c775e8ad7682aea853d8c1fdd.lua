@@ -1,55 +1,55 @@
--- Allows Zerg to morph Creep Colonies into Spore Colonies,
--- which act as detectors and anti-air defensive buildings. 
-
--- Also allows upgrades to ground units' melee and ranged weapons, 
--- as well as carapace, the Zerg armor.
+-- Allows research of Ultralisk and two upgrades for them:
+-- Anabolic Synthesis to provide faster movement speed 
+-- and Chitinous Plating for improved Ultralisk armor.
 
 -- Our unit function table
 local this_unit = {}
 -- Where we are and fast we move
 local x, y, dx, dy
+-- Our name
+local name = "Zerg_Ultralisk_Cavern"
 -- Our color               
 local color = "red"
 -- Our BWAPI unit type
-local type = 139
+local type = 135
 -- Our label           
 local label = "zerg_structure"
 -- Our category
-local category = "basic_building"
+local category = "advanced_building"
 -- Size of a clock tick msec
 local tick
 -- It's me, the unit structure 
 local me = unit.self()
 -- The standard local variables
 local armor = 1
-local hitpoints,shield = 750,0
+local hitpoints,shield = 600,0
 local ground_damage,air_damage = 0,0
 local ground_cooldown,air_cooldown = 0,0
 local ground_range,air_range = 0,0
 local sight = 10
 local speed = 0
 local supply = 0
-local cooldown = 25
-local mineral = 75
-local gas = 0
-local holdkey = "v"
+local cooldown = 50
+local mineral = 150
+local gas = 200
+local holdkey = "u"
 
 -- The size of the region
 local xsize,ysize = region.size()
 
 -- The unit interface.
 function this_unit.start() end
-
+   
 function this_unit.get_position() return x,y end
-
+   
 function this_unit.set_position(a1, a2) x,y = a1,a2 end
-
+   
 function this_unit.get_speed() return dx,dy end
-
+   
 function this_unit.set_speed(a1, a2) dx,dy = a1,a2 end
-
+   
 function this_unit.set_tick(a1) tick = a1 end
-
+   
 local function move_xy_bounce(x, y, dx, dy, valid_x, valid_y)
    local nx = x + dx
    local ny = y + dy
@@ -65,10 +65,10 @@ local function move_xy_bounce(x, y, dx, dy, valid_x, valid_y)
    end
    return nx, ny, dx, dy
 end
-
+   
 local function move(x, y, dx, dy)
    local nx,ny,ndx,ndy = move_xy_bounce(x, y, dx, dy,
-               region.valid_x, region.valid_y)
+      region.valid_x, region.valid_y)
    -- Where we were and where we are now.
    local osx,osy = region.sector(x, y)
    local nsx,nsy = region.sector(nx, ny)
@@ -79,15 +79,15 @@ local function move(x, y, dx, dy)
    end
    return nx,ny,ndx,ndy
 end
-
+   
 function this_unit.tick()
    x,y,dx,dy = move(x, y, dx, dy)
 end
-
+   
 function this_unit.attack()
    -- The unit has been zapped and will die
    region.rem_sector(x, y)
 end
-
+   
 -- Return the unit table
 return this_unit
