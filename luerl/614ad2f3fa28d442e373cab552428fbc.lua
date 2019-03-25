@@ -1,40 +1,44 @@
--- The Lurker attacks while burrowed with linear splash spikes. 
+-- Upon being infested, the Command Center is set back to full HP.
+-- It retains its ability to lift-off and can be landed on Zerg creep. 
 
 -- Our unit function table
-local this_unit = {}
+local this_unit = {}                
+
 -- Where we are and fast we move
 local x, y, dx, dy
--- Our color
+-- Our name
+local name = "Zerg_Infested_Command_Center"
+-- Our color               
 local color = "red"
 -- Our BWAPI unit type
-local type = 103
--- Our label
-local label = "zerg_unit"
+local type = 130
+-- Our label 
+local label = "zerg_structure"
 -- Our category
-local category = "medium_ground"
+local category = "advanced_building"
 -- Size of a clock tick msec
 local tick
--- It's me, the unit structure             
+-- It's me, the unit structure 
 local me = unit.self()
 -- The standard local variables
 local armor = 1
-local hitpoints,shield = 125,0
-local ground_damage,air_damage = 20,0
-local ground_cooldown,air_cooldown = 1.554,0
-local ground_range,air_range = 6,0
+local hitpoints,shield = 1500,0
+local ground_damage,air_damage = 0,0
+local ground_cooldown,air_cooldown = 0,0
+local ground_range,air_range = 0,0
 local sight = 8
-local speed = 4.464
-local supply = 2
-local cooldown = 43
-local mineral = 125
-local gas = 125
-local holdkey = "l"
+local supply = 0
+local cooldown = 3
+-- The infested command center does not cost mineral or gas
+-- Its the result of one of the Queen's spells.
+local mineral = nil
+local gas = nil
+local holdkey = nil 
 
 -- The size of the region
 local xsize,ysize = region.size()
 
 -- The unit interface.
-
 function this_unit.start() end
 
 function this_unit.get_position() return x,y end

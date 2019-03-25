@@ -1,40 +1,43 @@
--- Hive-tech air-to-air unit that requires a Greater Spire 
--- to morph from a Mutalisk, through a Cocoon.
+-- The Cocoon is the unit Mutalisks turn into during the morphing process to Guardians or Devourers.
+-- This morphing process takes 40 seconds at normal game speed, effectively the life span of the Cocoon.
+-- Although the Cocoon has 200 hit points of health, it does not have ten armor like the Zerg Egg.
 
 -- Our unit function table
 local this_unit = {}
+
+-- The standard local variables
+
 -- Where we are and fast we move
 local x, y, dx, dy
+-- Our name
+local name = "Zerg_Cocoon"
 -- Our color
 local color = "red"
 -- Our BWAPI unit type
-local type = 62
--- Our label
-local label = "zerg_unit"
--- Our category
-local category = "large_air"
+local type = 59
 -- Size of a clock tick msec
 local tick
--- It's me, the unit structure               
+
+-- This is me              
 local me = unit.self()
--- The standard local variables
-local armor = 2
-local hitpoints,shield = 250,0
-local ground_damage,air_damage = 0,25
-local ground_cooldown,air_cooldown = 0,4.2
-local ground_range,air_range = 0,6
-local sight = 10
-local speed = 3.720
-local supply = 2
-local cooldown = 50
-local mineral = 250
-local gas = 150
-local holdkey = "d"
+
+-- and now for something completely different
+local label = "large_air"
+local hitpoints,shield = 200,0
+local ground_damage,air_damage = 0,0
+local ground_cooldown, air_cooldown = 0,0
+local ground_range, air_range = 0,0
+local sight = 4
+local supply = 0
+local cooldown = 40
+local mineral = 0
+local gas = 0
 
 -- The size of the region
 local xsize,ysize = region.size()
 
 -- The unit interface.
+
 function this_unit.start() end
 
 function this_unit.get_position() return x,y end

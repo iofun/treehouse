@@ -1,35 +1,36 @@
--- The Cocoon is the transitional Zerg unit Mutalisks turn into during the morphing process to Guardians or Devourers.
--- This morphing process takes 40 seconds at normal game speed, effectively the life span of the Cocoon.
--- Although the Cocoon has 200 hit points of health, it does not have ten armor like the Zerg Egg.
+-- The Lurker attacks while burrowed with linear splash spikes. 
 
 -- Our unit function table
 local this_unit = {}
-
--- The standard local variables
-
 -- Where we are and fast we move
 local x, y, dx, dy
+-- Our name
+local name = "Zerg_Lurker"
 -- Our color
 local color = "red"
 -- Our BWAPI unit type
-local type = 59
+local type = 103
+-- Our label
+local label = "zerg_unit"
+-- Our category
+local category = "medium_ground"
 -- Size of a clock tick msec
 local tick
-
--- This is me              
+-- It's me, the unit structure             
 local me = unit.self()
-
--- and now for something completely different
-local label = "large_air"
-local hitpoints,shield = 200,0
-local ground_damage,air_damage = 0,0
-local ground_cooldown, air_cooldown = 0,0
-local ground_range, air_range = 0,0
-local sight = 4
-local supply = 0
-local cooldown = 40
-local mineral = 0
-local gas = 0
+-- The standard local variables
+local armor = 1
+local hitpoints,shield = 125,0
+local ground_damage,air_damage = 20,0
+local ground_cooldown,air_cooldown = 1.554,0
+local ground_range,air_range = 6,0
+local sight = 8
+local speed = 4.464
+local supply = 2
+local cooldown = 43
+local mineral = 125
+local gas = 125
+local holdkey = "l"
 
 -- The size of the region
 local xsize,ysize = region.size()
