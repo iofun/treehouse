@@ -1,36 +1,36 @@
--- The Guardian is a Hive-tech flying siege unit. 
--- Guardians are morphed from Mutalisks, via the Cocoon, 
--- after the required Greater Spire structure has been constructed. 
+-- The Queen is a quick-flying air unit with the ability to cast multiple spells.
 
 -- Our unit function table
 local this_unit = {}
 -- Where we are and fast we move
 local x, y, dx, dy
+-- Our name
+local name = "Zerg_Queen"
 -- Our color
 local color = "red"
 -- Our BWAPI unit type
-local type = 44
+local type = 45
 -- Our label
 local label = "zerg_unit"
 -- Our category
-local category = "large_air"
+local category = "medium_air"
 -- Size of a clock tick msec
 local tick
--- It's me, the unit structure             
+-- It's me, the unit structure        
 local me = unit.self()
 -- The standard local variables
-local armor = 2
-local hitpoints,shield = 150,0
-local ground_damage,air_damage = 20,0
-local ground_cooldown,air_cooldown = 1.26,0
-local ground_range,air_range = 8,0
-local sight = 11
-local speed = 1.86
+local armor = 0
+local hitpoints,shield = 120,0
+local ground_damage,air_damage = 0,0
+local ground_cooldown,air_cooldown = 0,0
+local ground_range,air_range = 0,0
+local sight = 10
+local speed = 4.963
 local supply = 2
-local cooldown = 50
-local mineral = 150
-local gas = 200
-local holdkey = "g"
+local cooldown = 32
+local mineral = 100
+local gas = 100
+local holdkey = "q"
 
 -- The size of the region
 local xsize,ysize = region.size()
