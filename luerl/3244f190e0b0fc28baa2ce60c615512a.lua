@@ -5,6 +5,8 @@
 local this_unit = {}
 -- Where we are and fast we move
 local x, y, dx, dy
+-- Our name
+local name = "Zerg_Drone"
 -- Our color
 local color = "red"
 -- Our BWAPI unit type
