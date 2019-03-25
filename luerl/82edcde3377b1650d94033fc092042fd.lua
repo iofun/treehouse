@@ -1,33 +1,35 @@
---  The Starport primarily serves to construct Terran air units.
+--  The Academy is a Terran building that can be built after Barracks are constructed. 
 
 -- Our unit function table
 local this_unit = {}                
 
 -- Where we are and fast we move
 local x, y, dx, dy
+-- Our name
+local name = "Terran_Academy"
 -- Our color               
 local color = "blue"
--- Our BWAPI unit type
-local type = 114
+-- Our BWAPI unit type           
+local type = 112
 -- Size of a clock tick msec
 local tick
 
--- It's me, the unit structure              
+-- It's me, the unit structure 
 local me = unit.self()
 
 -- The standard local variables
-local label = "large_structure"
+local label = "medium_structure"
 local armor = 1
-local hitpoints,shield = 1300,0
+local hitpoints,shield = 600,0
 local ground_damage,air_damage = 0,0
 local ground_cooldown,air_cooldown = 0,0
-local ground_range,air_range =  0,0
+local ground_range,air_range = 0,0
 local sight = 8
 local supply = 0
-local cooldown = 70
+local cooldown = 80
 local mineral = 150
-local gas = 100
-local holdkey = "s"
+local gas = 0
+local holdkey = "a"
 
 -- The size of the region
 local xsize,ysize = region.size()
