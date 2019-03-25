@@ -1,17 +1,24 @@
--- The Valkyrie is a Terran air-to-air unit that is available to be built 
--- from a Starport once both an Armory and a Control Tower are on the field.
+-- The Siege Tank, or simply Tank, is a Terran mechanical unit. 
+-- Tanks are built from the Factory once it has an attached Machine Shop. 
 
 -- Our unit function table
-local this_unit = {}                
+local this_unit = {}
 
 -- The standard local variables
 
 -- Where we are and fast we move
 local x, y, dx, dy
+-- Our name
+local name = "Terran_Siege_Tank_Tank_Mode"
 -- Our color               
 local color = "blue"
--- Our type           
-local type = "unit"
+-- Our BWAPI unit type           
+local type = 5
+
+-- Note1: tank turrent (probably a tank in seage mode?) is type 6
+
+-- Note2: no a tank siege mode is type 30-31 the last one also called "turrent".
+
 -- Size of a clock tick msec
 local tick
 
@@ -19,16 +26,16 @@ local tick
 local me = unit.self()
 
 -- and now for something completely different
-local label = "large_air"
-local hitpoints,shield = 200,2
-local ground_damage,air_damage = 0,8
-local ground_cooldown, air_cooldown = 0,2.688
-local ground_range, air_range = 0,6
-local sight = 8
-local supply = 3
+local label = "large_ground"
+local hitpoints,shield = 150,1
+local ground_damage,air_damage = 30,0
+local ground_cooldown, air_cooldown = 1.554,0
+local ground_range, air_range = 7,0
+local sight = 10
+local supply = 2
 local cooldown = 32
-local mineral = 250
-local gas = 125
+local mineral = 150
+local gas = 100
 
 -- The size of the region
 local xsize,ysize = region.size()
