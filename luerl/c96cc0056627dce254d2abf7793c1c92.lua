@@ -1,4 +1,4 @@
--- The Goliath is a Terran unit that is constructed by a Factory after the construction of an Armory. 
+--  The Wraith is the initial Terran air unit which can be built from the Starport without any addons.
 
 -- Our unit function table
 local this_unit = {}                
@@ -7,12 +7,12 @@ local this_unit = {}
 
 -- Where we are and fast we move
 local x, y, dx, dy
--- Our color
+-- Our name
+local name = "Terran_Wraith"
+-- Our color               
 local color = "blue"
 -- Our BWAPI unit type           
-local type = 3 
--- Note: Goliath turrets are type 4!
-
+local type = 8
 -- Size of a clock tick msec
 local tick
 
@@ -20,16 +20,16 @@ local tick
 local me = unit.self()
 
 -- and now for something completely different
-local label = "large_ground"
-local hitpoints,shield = 125,1
-local ground_damage,air_damage = 12,10
-local ground_cooldown, air_cooldown = 0.924,0.924
-local ground_range, air_range = 6,5
-local sight = 8
+local label = "large_air"
+local hitpoints,shield = 120,0
+local ground_damage,air_damage = 8,20
+local ground_cooldown, air_cooldown = 1.26,0.924
+local ground_range, air_range = 5,0
+local sight = 7
 local supply = 2
-local cooldown = 25
-local mineral = 100
-local gas = 50
+local cooldown = 38
+local mineral = 150
+local gas = 100
 
 -- The size of the region
 local xsize,ysize = region.size()

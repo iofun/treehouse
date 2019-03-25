@@ -1,5 +1,4 @@
--- The Marine is the base Terran combat unit. 
--- It deals 6 normal damage to both air and ground targets. 
+-- The Goliath is a Terran unit that is constructed by a Factory after the construction of an Armory. 
 
 -- Our unit function table
 local this_unit = {}                
@@ -8,10 +7,14 @@ local this_unit = {}
 
 -- Where we are and fast we move
 local x, y, dx, dy
--- Our color               
+-- Our name
+local name = "Terran_Goliath"
+-- Our color
 local color = "blue"
--- Our BWAPI unit type          
-local type = 0
+-- Our BWAPI unit type           
+local type = 3 
+-- Note: Goliath turrets are type 4!
+
 -- Size of a clock tick msec
 local tick
 
@@ -19,16 +22,16 @@ local tick
 local me = unit.self()
 
 -- and now for something completely different
-local label = "small_ground"
-local hitpoints,shield = 40,0
-local ground_damage,air_damage = 6,6
-local ground_cooldown, air_cooldown = 0.63,0.63
-local ground_range, air_range = 4,4
-local sight = 7
-local supply = 1
-local cooldown = 15
-local mineral = 50
-local gas = 0
+local label = "large_ground"
+local hitpoints,shield = 125,1
+local ground_damage,air_damage = 12,10
+local ground_cooldown, air_cooldown = 0.924,0.924
+local ground_range, air_range = 6,5
+local sight = 8
+local supply = 2
+local cooldown = 25
+local mineral = 100
+local gas = 50
 
 -- The size of the region
 local xsize,ysize = region.size()

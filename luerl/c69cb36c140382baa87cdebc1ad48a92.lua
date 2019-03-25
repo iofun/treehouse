@@ -1,32 +1,35 @@
--- The Vulture is an extremely mobile and dangerous Terran unit produced from the Factory.
+-- The Marine is the base Terran combat unit. 
+-- It deals 6 normal damage to both air and ground targets. 
 
 -- Our unit function table
-local this_unit = {}
+local this_unit = {}                
 
 -- The standard local variables
 
 -- Where we are and fast we move
 local x, y, dx, dy
--- Our color
+-- Our name
+local name = "Terran_Marine"
+-- Our color               
 local color = "blue"
--- Our type
-local type = 2 
+-- Our BWAPI unit type          
+local type = 0
 -- Size of a clock tick msec
 local tick
 
--- This is me
+-- This is me              
 local me = unit.self()
 
 -- and now for something completely different
-local label = "medium_ground"
-local hitpoints,shield = 80,0
-local ground_damage,air_damage = 20,0
-local ground_cooldown, air_cooldown = 1.26,0
-local ground_range, air_range = 5,0
-local sight = 8
-local supply = 2
-local cooldown = 19
-local mineral = 75
+local label = "small_ground"
+local hitpoints,shield = 40,0
+local ground_damage,air_damage = 6,6
+local ground_cooldown, air_cooldown = 0.63,0.63
+local ground_range, air_range = 4,4
+local sight = 7
+local supply = 1
+local cooldown = 15
+local mineral = 50
 local gas = 0
 
 -- The size of the region

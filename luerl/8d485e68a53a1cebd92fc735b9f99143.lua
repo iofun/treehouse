@@ -1,33 +1,35 @@
---  The Wraith is the initial Terran air unit which can be built from the Starport without any addons.
+-- The Vulture is an extremely mobile and dangerous Terran unit produced from the Factory.
 
 -- Our unit function table
-local this_unit = {}                
+local this_unit = {}
 
 -- The standard local variables
 
 -- Where we are and fast we move
 local x, y, dx, dy
--- Our color               
+-- Our name
+local name = "Terran_Vulture"
+-- Our color
 local color = "blue"
--- Our BWAPI unit type           
-local type = 8
+-- Our type
+local type = 2 
 -- Size of a clock tick msec
 local tick
 
--- This is me              
+-- This is me
 local me = unit.self()
 
 -- and now for something completely different
-local label = "large_air"
-local hitpoints,shield = 120,0
-local ground_damage,air_damage = 8,20
-local ground_cooldown, air_cooldown = 1.26,0.924
+local label = "medium_ground"
+local hitpoints,shield = 80,0
+local ground_damage,air_damage = 20,0
+local ground_cooldown, air_cooldown = 1.26,0
 local ground_range, air_range = 5,0
-local sight = 7
+local sight = 8
 local supply = 2
-local cooldown = 38
-local mineral = 150
-local gas = 100
+local cooldown = 19
+local mineral = 75
+local gas = 0
 
 -- The size of the region
 local xsize,ysize = region.size()
