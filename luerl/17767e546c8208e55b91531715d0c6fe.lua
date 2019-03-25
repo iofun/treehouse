@@ -1,14 +1,16 @@
--- The Lair allows Zerg to build a Spire 
--- as well as research Lurker ability at the Hydralisk Den. 
+-- The Hive originates from morphing of the Lair 
+-- and is the last stage of the Hatchery tech tree.
 
 -- Our unit function table
 local this_unit = {}
 -- Where we are and fast we move
 local x, y, dx, dy
+-- Our name
+local name = "Zerg_Hive"
 -- Our color               
 local color = "red"
 -- Our BWAPI unit type
-local type = 132
+local type = 133
 -- Our label           
 local label = "zerg_structure"
 -- Our category
@@ -19,17 +21,17 @@ local tick
 local me = unit.self()
 -- The standard local variables
 local armor = 1
-local hitpoints,shield = 1800,0
+local hitpoints,shield = 2500,0
 local ground_damage,air_damage = 0,0
 local ground_cooldown,air_cooldown = 0,0
 local ground_range,air_range = 0,0
 local sight = 8
 local speed = 0
 local supply = 0
-local cooldown = 63
-local mineral = 150
-local gas = 100
-local holdkey = "l"
+local cooldown = 75
+local mineral = 200
+local gas = 150
+local holdkey = "h"
 
 -- The size of the region
 local xsize,ysize = region.size()

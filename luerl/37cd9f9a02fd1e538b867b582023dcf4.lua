@@ -1,34 +1,36 @@
--- The Hive originates from morphing of the Lair 
--- and is the last stage of the Hatchery tech tree.
+-- The Hatchery allows the harvesting of resources 
+-- and automatically creates Larvae over time.
 
 -- Our unit function table
 local this_unit = {}
 -- Where we are and fast we move
 local x, y, dx, dy
+-- Our name
+local name = "Zerg_Hatchery"
 -- Our color               
 local color = "red"
 -- Our BWAPI unit type
-local type = 133
+local type = 131
 -- Our label           
 local label = "zerg_structure"
 -- Our category
-local category = "advanced_building"
+local category = "basic_building"
 -- Size of a clock tick msec
 local tick
 -- It's me, the unit structure 
 local me = unit.self()
 -- The standard local variables
 local armor = 1
-local hitpoints,shield = 2500,0
+local hitpoints,shield = 1250,0
 local ground_damage,air_damage = 0,0
 local ground_cooldown,air_cooldown = 0,0
 local ground_range,air_range = 0,0
 local sight = 8
 local speed = 0
-local supply = 0
+local supply = 0 
 local cooldown = 75
-local mineral = 200
-local gas = 150
+local mineral = 300
+local gas = 0
 local holdkey = "h"
 
 -- The size of the region
@@ -85,6 +87,6 @@ function this_unit.attack()
    -- The unit has been zapped and will die
    region.rem_sector(x, y)
 end
-
+    
 -- Return the unit table
 return this_unit
