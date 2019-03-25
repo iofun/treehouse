@@ -1,4 +1,5 @@
--- The Battlecruiser is one of the strongest air units in the game and perhaps the strongest unit in the Terran arsenal. 
+-- The Medic is a biological Terran unit produced from the Barracks with an 
+-- Academy built which has its primary function healing friendly biological units.
 
 -- Our unit function table
 local this_unit = {}                
@@ -7,10 +8,12 @@ local this_unit = {}
 
 -- Where we are and fast we move
 local x, y, dx, dy
+-- Our name
+local name = "Terran_Medic"
 -- Our color               
 local color = "blue"
 -- Our BWAPI unit type           
-local type = 12
+local type = 34
 -- Size of a clock tick msec
 local tick
 
@@ -18,16 +21,16 @@ local tick
 local me = unit.self()
 
 -- and now for something completely different
-local label = "large_air"
-local hitpoints,shield = 500,3
-local ground_damage,air_damage = 25,25
-local ground_cooldown, air_cooldown = 1.26,1.26
-local ground_range, air_range = 6,6
-local sight = 11
-local supply = 6
-local cooldown = 84
-local mineral = 400
-local gas = 300
+local label = "small_ground"
+local hitpoints,shield = 60,1
+local ground_damage,air_damage = 0,0
+local ground_cooldown, air_cooldown = 0.63,0.63
+local ground_range, air_range = 0,0
+local sight = 9
+local supply = 1
+local cooldown = 19
+local mineral = 50
+local gas = 25
 
 -- The size of the region
 local xsize,ysize = region.size()
