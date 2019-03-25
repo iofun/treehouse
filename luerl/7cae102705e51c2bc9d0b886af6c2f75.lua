@@ -1,30 +1,32 @@
--- The Egg is the unit the old machines turn into during the morphing process 
--- to another unit. An Egg has a very high armor value, making it hard to kill.  
+-- Two Broodlings spawned when a Queen casts Spawn Broodling on a target.
+-- Upon their creation, they have a fixed amount of "energy" that represents their life span.
 
 -- Our unit function table
 local this_unit = {}
 -- Where we are and fast we move
 local x, y, dx, dy
+-- Our name
+local name = "Zerg_Broodling"
 -- Our color
 local color = "red"
 -- Our BWAPI unit type
-local type = 36
+local type = 40
 -- Our label
 local label = "zerg_unit"
 -- Our category
-local category = "medium_ground"
+local category = "small_ground"
 -- Size of a clock tick msec
 local tick
 -- It's me, the unit structure           
 local me = unit.self()
 -- The standard local variables
-local armor = 10
-local hitpoints,shield = 200,0
-local ground_damage,air_damage = 0,0
-local ground_cooldown, air_cooldown = 0,0
-local ground_range, air_range = 0,0
-local sight = 4
-local speed = 0
+local armor = 0
+local hitpoints,shield = 30,0
+local ground_damage,air_damage = 4,0
+local ground_cooldown, air_cooldown = 0.63,0
+local ground_range, air_range = 1,0
+local sight = 5
+local speed = 4.494
 local supply = 0
 local cooldown = 0
 local mineral = 0

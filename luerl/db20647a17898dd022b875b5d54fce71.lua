@@ -1,34 +1,37 @@
--- Zerglings can be morphed after construction of the Spawning Pool. 
+-- The Egg is the unit the old machines turn into during the morphing process 
+-- to another unit. An Egg has a very high armor value, making it hard to kill.  
 
 -- Our unit function table
 local this_unit = {}
 -- Where we are and fast we move
 local x, y, dx, dy
+-- Our name
+local name = "Zerg_Egg"
 -- Our color
 local color = "red"
 -- Our BWAPI unit type
-local type = 37
+local type = 36
 -- Our label
 local label = "zerg_unit"
 -- Our category
-local category = "small_ground"
+local category = "medium_ground"
 -- Size of a clock tick msec
 local tick
--- It's me, the unit structure             
+-- It's me, the unit structure           
 local me = unit.self()
 -- The standard local variables
-local armor = 0
-local hitpoints,shield = 35,0
-local ground_damage,air_damage = 5,0
-local ground_cooldown,air_cooldown = 0.336,0
-local ground_range,air_range = 1,0
-local sight = 5
-local speed = 4.144
-local supply = 0.5
-local cooldown = 18
-local mineral = 25
+local armor = 10
+local hitpoints,shield = 200,0
+local ground_damage,air_damage = 0,0
+local ground_cooldown, air_cooldown = 0,0
+local ground_range, air_range = 0,0
+local sight = 4
+local speed = 0
+local supply = 0
+local cooldown = 0
+local mineral = 0
 local gas = 0
-local holdkey = "z"
+local holdkey = nil
 
 -- The size of the region
 local xsize,ysize = region.size()

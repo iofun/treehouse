@@ -1,34 +1,37 @@
--- Hive-tech unit that is only available once the system has an Ultralisk Cavern.
+-- The Hydralisk is a versatile ranged unit 
+-- that can attack both air and ground targets.  
 
 -- Our unit function table
 local this_unit = {}
 -- Where we are and fast we move
 local x, y, dx, dy
+-- Our name
+local name = "Zerg_Hydralisk"
 -- Our color
 local color = "red"
 -- Our BWAPI unit type
-local type = 39
+local type = 38
 -- Our label
 local label = "zerg_unit"
 -- Our category
-local category = "large_ground"
+local category = "medium_ground"
 -- Size of a clock tick msec
 local tick
--- It's me, the unit structure             
+-- It's me, the unit structure              
 local me = unit.self()
 -- The standard local variables
-local armor = 1
-local hitpoints,shield = 400,0
-local ground_damage,air_damage = 20,0
-local ground_cooldown,air_cooldown = 0.63,0
-local ground_range,air_range = 0,1
-local sight = 7
-local speed = 4.1
-local supply = 4
-local cooldown = 38
-local mineral = 200
-local gas = 200
-local holdkey = "u"
+local armor = 0
+local hitpoints,shield = 80,0
+local ground_damage,air_damage = 10,10
+local ground_cooldown,air_cooldown = 0.63,0.63
+local ground_range,air_range = 4,4
+local sight = 6
+local speed = 2.760
+local supply = 1
+local cooldown = 18
+local mineral = 75
+local gas = 25
+local holdkey = "h"
 
 -- The size of the region
 local xsize,ysize = region.size()

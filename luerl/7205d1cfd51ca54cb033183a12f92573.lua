@@ -1,40 +1,43 @@
--- Two Broodlings spawned when a Queen casts Spawn Broodling on a target.
--- Upon their creation, they have a fixed amount of "energy" that represents their life span.
+-- A multi-purpose unit that provides the system with eight Control. 
+-- It has a long sight range and is a detector.
 
 -- Our unit function table
 local this_unit = {}
 -- Where we are and fast we move
 local x, y, dx, dy
+-- Our name
+local name = "Zerg_Overlord"
 -- Our color
 local color = "red"
 -- Our BWAPI unit type
-local type = 40
+local type = 42
 -- Our label
 local label = "zerg_unit"
 -- Our category
-local category = "small_ground"
+local category = "large_air"
 -- Size of a clock tick msec
 local tick
--- It's me, the unit structure           
+-- It's me, the unit structure            
 local me = unit.self()
 -- The standard local variables
-local armor = 0
-local hitpoints,shield = 30,0
-local ground_damage,air_damage = 4,0
-local ground_cooldown, air_cooldown = 0.63,0
-local ground_range, air_range = 1,0
-local sight = 5
-local speed = 4.494
+local armor = 2
+local hitpoints,shield = 200,0
+local ground_damage,air_damage = 0,0
+local ground_cooldown,air_cooldown = 0,0
+local ground_range,air_range = 0,0
+local sight = 9
+local speed = 0.618
 local supply = 0
-local cooldown = 0
-local mineral = 0
+local cooldown = 25
+local mineral = 100
 local gas = 0
-local holdkey = nil
+local holdkey = "o"
 
 -- The size of the region
 local xsize,ysize = region.size()
 
 -- The unit interface.
+
 function this_unit.start() end
 
 function this_unit.get_position() return x,y end
