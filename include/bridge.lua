@@ -10,8 +10,9 @@ require("sys")
 local tc = require("torchcraft")
 local utils = require("torchcraft.utils")
 -- This are from our custom blackboard
-local tools = require("blackboard.tools")
-local macro = require("blackboard.macro")
+local macro = require("spaceboard.macro")
+local meta = require("spaceboard.meta")
+local micro = require("spaceboard.micro")
 
 -- Set default float tensor type
 torch.setdefaulttensortype('torch.FloatTensor')
@@ -45,6 +46,7 @@ while restarts < 5 do
     restarts = restarts + 1
     tc:init(hostname, port)
     local loops = 1
+    local actions = {}
     local update = tc:connect(port)
     if tc.DEBUG > 1 then
         print('Received init: ', update)
@@ -56,13 +58,10 @@ while restarts < 5 do
         tc.command(tc.set_cmd_optim, 1),
     }
     tc:send({table.concat(setup, ':')})
-    -- TBD: torch.Timer?
+    -- measure execution timer 
     local tm = torch.Timer()
-    
-    tools.this_is()
     -- game loop
     while not tc.state.game_ended do
-        -- reset timer
         tm:reset()
         -- receive update from game engine
         update = tc:receive()
@@ -70,7 +69,6 @@ while restarts < 5 do
             print('Received update: ', update)
         end
         loops = loops + 1
-        local actions = {}
         
         if tc.state.battle_frame_count % skip_frames == 0 then
             actions = macro.manage_economy(actions, tc)
@@ -83,15 +81,13 @@ while restarts < 5 do
         print('Time elapsed ' .. tm:time().real .. ' seconds')
         -- if debug make some noise!
         if tc.DEBUG > 1 then
-            print("")
-            print("Sending actions:")
-            print(actions)
+            print("Sending actions: " .. actions)
         end
         tc:send({table.concat(actions, ':')})
     end
     tc:close()
     collectgarbage()
     sys.sleep(0.5)
+    print("So Long, and Thanks for All the Fish!")
     collectgarbage()
 end
-print("So Long, and Thanks for All the Fish!")
