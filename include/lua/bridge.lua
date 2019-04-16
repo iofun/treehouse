@@ -9,7 +9,9 @@ require("torch")
 require("sys")
 local tc = require("torchcraft")
 local utils = require("torchcraft.utils")
+-- This are from our custom blackboard
 local tools = require("blackboard.tools")
+local macro = require("blackboard.macro")
 
 -- Set default float tensor type
 torch.setdefaulttensortype('torch.FloatTensor')
@@ -54,8 +56,9 @@ while restarts < 5 do
         tc.command(tc.set_cmd_optim, 1),
     }
     tc:send({table.concat(setup, ':')})
-    local built_spool = 0
+    -- TBD: torch.Timer?
     local tm = torch.Timer()
+    
     tools.this_is()
     -- game loop
     while not tc.state.game_ended do
@@ -70,79 +73,14 @@ while restarts < 5 do
         local actions = {}
         
         if tc.state.battle_frame_count % skip_frames == 0 then
-            for uid, ut in pairs(tc.state.units_myself) do
-				if tc:isbuilding(ut.type) then
-
-					-- tests production
-					
-					if ut.type == tc.unittypes.Zerg_Hatchery then
-						
-						table.insert(actions,
-						tc.command(tc.command_unit, uid, tc.cmd.Train,
-						0, 0, 0, tc.unittypes.Zerg_Drone))
-						
-					end
-				elseif tc:isworker(ut.type) then
-					if tc.state.resources_myself.ore >= 190
-						and tc.state.frame_from_bwapi - built_spool > 200 then
-						
-						-- tests building
-						
-						built_spool = tc.state.frame_from_bwapi
-						local _, pos = next(tc:filter_type(
-						tc.state.units_myself,
-						{tc.unittypes.Zerg_Hatchery}))
-						if pos ~= nil then pos = pos.position end
-						if pos ~= nil and not utils.is_in(ut.order,
-							tc.command2order[tc.unitcommandtypes.Build])
-							and not utils.is_in(ut.order,
-							tc.command2order[tc.unitcommandtypes.Right_Click_Position]) then
-							table.insert(actions,
-							tc.command(tc.command_unit, uid,
-							tc.cmd.Build, -1,
-							pos[1], pos[2] + 16, tc.unittypes.Zerg_Spawning_Pool))
-						end
-					else
-						-- tests gathering
-						-- TBD: HOW WE GAS?
-						if not utils.is_in(ut.order,
-							  tc.command2order[tc.unitcommandtypes.Gather])
-							  and not utils.is_in(ut.order,
-							  tc.command2order[tc.unitcommandtypes.Build])
-							  and not utils.is_in(ut.order,
-							  tc.command2order[tc.unitcommandtypes.Right_Click_Position]) then
-							-- avoid spamming the order is the unit is already
-							-- following the right order or building!
-							local target = tools.get_closest(ut.position,
-								tc:filter_type(tc.state.units_neutral,
-									{tc.unittypes.Resource_Mineral_Field,
-									 tc.unittypes.Resource_Mineral_Field_Type_2,
-									 tc.unittypes.Resource_Mineral_Field_Type_3,
-									 tc.unittypes.Resorce_Mineral_Field_Type_4,
-									 tc.unittypes.Resorce_Mineral_Field_Type_5,}))
-							if target ~= nil then
-								table.insert(actions,
-								tc.command(tc.command_unit_protected, uid,
-								tc.cmd.Right_Click_Unit, target))
-							end
-						end
-					end
-				else
-					-- attacks closest
-					local target = tools.get_closest(ut.position,
-											   tc.state.units_enemy)
-					if target ~= nil then
-						table.insert(actions,
-						tc.command(tc.command_unit_protected, uid,
-						tc.cmd.Attack_Unit, target))
-					end
-				end
-			end
+            actions = macro.manage_economy(actions, tc)
         elseif tc.state.game_ended then
             break
         else
             -- skip frame do nothing
         end
+        -- testing timer
+        print('Time elapsed ' .. tm:time().real .. ' seconds')
         -- if debug make some noise!
         if tc.DEBUG > 1 then
             print("")
