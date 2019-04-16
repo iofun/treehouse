@@ -6,13 +6,38 @@ local tools = require("spaceboard.tools")
 
 local macro = {}
 
-local spawning_pool = 0
-
 local powering = true
 
 local spawning_overlord = false
 
+local spawning_pool = 0
+
+local hydralisk_den = 0
+
+local queen_nest = 0
+
+local evolution_chamber = 0
+
+local spire = 0
+
 local has_spool = false
+
+local has_hden = false
+
+local has_qnest = false
+
+local has_echamber = false
+
+local has_spire = false
+
+-- Early, Make/defend a play & send colonies to one or two bases.
+local early_stage = true
+-- Middle, Core units, make/defend pressure & take a base.
+local middle_stage = false
+-- Late, Matured core units, multi-pronged tactics & take many bases.
+local late_stage = false
+-- Final, The watcher observes, the fog collapses an event resolves.
+local final_stage = false
 
 function macro.manage_economy(actions, tc)
     -- What exactly is macro, anyway? 
@@ -113,7 +138,7 @@ function macro.manage_economy(actions, tc)
             end
         end
     end
-    
+
     if #workers == 9 and powering == true then
         spawning_overlord = true
         powering = false
