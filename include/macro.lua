@@ -15,15 +15,20 @@ local spawning_overlord = false
 local has_spool = false
 
 function macro.manage_economy(actions, tc)
-
+    -- What exactly is macro, anyway? 
+    -- this interpretation includes 'powering'.
+    -- powering is when computer switch to primarily
+    -- economics, making drones and new gas patches.
 	local workers = {}
-	
-	local overlords = {}
-
+	-- Spawn more overlords!
+    local overlords = {}
+	-- Timing to expand is key and can be extracted
+    -- from datasets of competitive players.
 	local buildings = {}
-
+    -- Set your units into 4 groups, collapse each on
+    -- different sides of the enemy for maximum effectiveness.
 	local offence = {}
-
+    -- Defense powerful but immobile, offence mobile but weak
 	local defence = {}
     
     for uid, ut in pairs(tc.state.units_myself) do
@@ -119,7 +124,7 @@ function macro.manage_economy(actions, tc)
     end
 
 	if #workers >= 13 then
-		powering = false
+	    powering = false
 	end
 	
 	return actions
