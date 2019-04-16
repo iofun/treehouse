@@ -23,9 +23,7 @@ function macro.manage_economy(actions, tc)
 
     for uid, ut in pairs(tc.state.units_myself) do
 		if tc:isbuilding(ut.type) then
-
 			-- tests stuff within buildings: train, upgrade, rally!
-			
 			if ut.type == tc.unittypes.Zerg_Hatchery then
 						
 				if powering == true then
@@ -36,6 +34,7 @@ function macro.manage_economy(actions, tc)
 					print('more than 13?')
 				end
                 if #workers == 9 and powering == true then
+                    table.insert(actions,
 					tc.command(tc.command_unit, uid, tc.cmd.Train,
 					0, 0, 0, tc.unittypes.Zerg_Overlord))
                 end
