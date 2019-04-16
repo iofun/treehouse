@@ -1,8 +1,8 @@
-package = "blackboard"
+package = "spaceboard"
 version = "0.1-0"
 
 source = {
-  url = "git://github.com/spacebeam/blackboard",
+  url = "git://github.com/spacebeam/spaceboard",
   tag = "0.1.0",
 }
 
@@ -23,9 +23,9 @@ dependencies = {
 build = {
   type = 'builtin',
   modules = {
-    ['blackboard.macro'] = "include/lua/macro.lua",
-    ['blackboard.meta'] = "include/lua/meta.lua",
-    ['blackboard.micro'] = "include/lua/micro.lua",
-    ['blackboard.tools'] = "include/lua/tools.lua"
+    ['spaceboard.macro'] = "include/macro.lua",
+    ['spaceboard.meta'] = "include/meta.lua",
+    ['spaceboard.micro'] = "include/micro.lua",
+    ['spaceboard.tools'] = "include/tools.lua"
   }
 }
