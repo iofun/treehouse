@@ -65,13 +65,10 @@ function macro.manage_economy(actions, tc)
                 end
             end
             if ut.type == tc.unittypes.Zerg_Hatchery then
-                        
                 if powering == true then
                     table.insert(actions,
                     tc.command(tc.command_unit, uid, tc.cmd.Train,
                     0, 0, 0, tc.unittypes.Zerg_Drone))
-                else
-                    print('more than 13?')
                 end
                 if spawning_overlord == true and powering == false then
                     table.insert(actions,
@@ -100,6 +97,7 @@ function macro.manage_economy(actions, tc)
                     tc.command(tc.command_unit, uid,
                     tc.cmd.Build, -1,
                     pos[1], pos[2] + 16, tc.unittypes.Zerg_Spawning_Pool))
+                    print('starting location: x ' .. pos[1] .. ' y ' .. pos[2])
                 end
             else
                 -- tests gathering
