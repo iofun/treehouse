@@ -2,7 +2,7 @@
 -- What macro means in the context of brood war?
 --
 local utils = require("torchcraft.utils")
-local tools = require("blackboard.tools")
+local tools = require("spaceboard.tools")
 
 local macro = {}
 
