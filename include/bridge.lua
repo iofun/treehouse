@@ -49,7 +49,6 @@ while restarts < 0 do
         print('Received init: ', update)
     end
     assert(tc.state.replay == false)
-    -- first message to BWAPI's side is setting up variables
     local setup = {
         tc.command(tc.set_speed, 0), tc.command(tc.set_gui, 1),
         tc.command(tc.set_cmd_optim, 1),
