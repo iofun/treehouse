@@ -123,11 +123,11 @@ function macro.manage_economy(actions, tc)
         powering = true
     end
 
-	if #workers >= 13 then
-	    powering = false
-	end
-	
-	return actions
+    if #workers >= 13 then
+        powering = false
+    end
+
+    return actions
 end
 
 return macro
