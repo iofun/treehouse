@@ -10,12 +10,15 @@ local spawning_pool = 0
 
 local powering = true
 
-local spawn_more_overlords = false
+local spawning_overlord = false
 
+local has_spool = false
 
 function macro.manage_economy(actions, tc)
 
 	local workers = {}
+	
+	local overlords = {}
 
 	local buildings = {}
 
@@ -23,10 +26,14 @@ function macro.manage_economy(actions, tc)
 
 	local defence = {}
     
-
     for uid, ut in pairs(tc.state.units_myself) do
 		if tc:isbuilding(ut.type) then
 			-- tests stuff within buildings: train, upgrade, rally!
+			if ut.type == tc.unittypes.Zerg_Spawning_Pool then
+				if has_spool == false then
+					has_spool = true
+				end
+			end
 			if ut.type == tc.unittypes.Zerg_Hatchery then
 						
 				if powering == true then
@@ -36,16 +43,19 @@ function macro.manage_economy(actions, tc)
 				else
 					print('more than 13?')
 				end
-                if spawn_more_overlords == true then
+                if spawning_overlord == true and powering == false then
                     table.insert(actions,
 					tc.command(tc.command_unit, uid, tc.cmd.Train,
 					0, 0, 0, tc.unittypes.Zerg_Overlord))
+					spawning_overlord = false
                 end
 			end
+        elseif ut.type == tc.unittypes.Zerg_Overlord then
+            table.insert(overlords, uid)
 		elseif tc:isworker(ut.type) then		
 			table.insert(workers, uid)
-			if tc.state.resources_myself.ore >= 180
-				and tc.state.frame_from_bwapi - spawning_pool > 192 then
+			if has_spool == false and tc.state.resources_myself.ore >= 200
+				and tc.state.frame_from_bwapi - spawning_pool > 190 then
 				-- tests building		
 				spawning_pool = tc.state.frame_from_bwapi
 				local _, pos = next(tc:filter_type(
@@ -100,16 +110,16 @@ function macro.manage_economy(actions, tc)
 	end
 	
     if #workers == 9 and powering == true then
-        spawn_more_overlords = true
-    else
-        spawn_more_overlords = false
-        print(spawn_more_overlords)
+        spawning_overlord = true
+        powering = false
+    end
+    
+    if #overlords >= 2 and powering == false then
+        powering = true
     end
 
 	if #workers >= 13 then
 		powering = false
-	else
-		powering = true
 	end
 	
 	return actions

@@ -42,7 +42,7 @@ local hostname = args['hostname']
 local port = args['port'] 
 
 -- Do your main loop 
-while restarts < 5 do
+while restarts < 0 do
     restarts = restarts + 1
     tc:init(hostname, port)
     local loops = 1
@@ -90,3 +90,4 @@ while restarts < 5 do
     print("So Long, and Thanks for All the Fish!")
     collectgarbage()
 end
+print("2 + 2 = 5")
