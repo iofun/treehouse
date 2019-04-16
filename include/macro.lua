@@ -8,7 +8,7 @@ local macro = {}
 
 local spawning_pool = 0
 
-local paused_economy = false
+local powering = true
 
 
 function macro.manage_economy(actions, tc)
@@ -28,27 +28,23 @@ function macro.manage_economy(actions, tc)
 			
 			if ut.type == tc.unittypes.Zerg_Hatchery then
 						
-				if paused_economy ~= true then
-					-- test build 13 workers and stop
+				if powering == true then
 					table.insert(actions,
 					tc.command(tc.command_unit, uid, tc.cmd.Train,
 					0, 0, 0, tc.unittypes.Zerg_Drone))
 				else
 					print('more than 13?')
 				end
-
+                if #workers == 9 and powering == true then
+					tc.command(tc.command_unit, uid, tc.cmd.Train,
+					0, 0, 0, tc.unittypes.Zerg_Overlord))
+                end
 			end
-		elseif tc:isworker(ut.type) then
-		
-			print('is worker?')
-		
+		elseif tc:isworker(ut.type) then		
 			table.insert(workers, uid)
-		
 			if tc.state.resources_myself.ore >= 180
 				and tc.state.frame_from_bwapi - spawning_pool > 192 then
-				
-				-- tests building
-				
+				-- tests building		
 				spawning_pool = tc.state.frame_from_bwapi
 				local _, pos = next(tc:filter_type(
 				tc.state.units_myself,
@@ -104,9 +100,9 @@ function macro.manage_economy(actions, tc)
 	print('102 ' .. #workers)
 	
 	if #workers >= 13 then
-		paused_economy = true
+		powering = false
 	else
-		paused_economy = false
+		powering = true
 	end
 	
 	return actions
