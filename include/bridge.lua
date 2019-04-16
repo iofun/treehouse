@@ -74,7 +74,7 @@ while restarts < 0 do
             -- skip frame do nothing
         end
         -- testing timer
-        print('Time elapsed ' .. tm:time().real .. ' seconds')
+        --print('Time elapsed ' .. tm:time().real .. ' seconds')
         -- if debug make some noise!
         if tc.DEBUG > 1 then
             print("Sending actions: " .. actions)
