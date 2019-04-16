@@ -46,7 +46,6 @@ while restarts < 5 do
     restarts = restarts + 1
     tc:init(hostname, port)
     local loops = 1
-    local actions = {}
     local update = tc:connect(port)
     if tc.DEBUG > 1 then
         print('Received init: ', update)
@@ -69,7 +68,7 @@ while restarts < 5 do
             print('Received update: ', update)
         end
         loops = loops + 1
-        
+        local actions = {}
         if tc.state.battle_frame_count % skip_frames == 0 then
             actions = macro.manage_economy(actions, tc)
         elseif tc.state.game_ended then

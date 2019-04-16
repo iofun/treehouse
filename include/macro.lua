@@ -10,6 +10,8 @@ local spawning_pool = 0
 
 local powering = true
 
+local spawn_more_overlords = false
+
 
 function macro.manage_economy(actions, tc)
 
@@ -20,6 +22,7 @@ function macro.manage_economy(actions, tc)
 	local offence = {}
 
 	local defence = {}
+    
 
     for uid, ut in pairs(tc.state.units_myself) do
 		if tc:isbuilding(ut.type) then
@@ -33,7 +36,7 @@ function macro.manage_economy(actions, tc)
 				else
 					print('more than 13?')
 				end
-                if #workers == 9 and powering == true then
+                if spawn_more_overlords == true then
                     table.insert(actions,
 					tc.command(tc.command_unit, uid, tc.cmd.Train,
 					0, 0, 0, tc.unittypes.Zerg_Overlord))
@@ -96,8 +99,13 @@ function macro.manage_economy(actions, tc)
 		end
 	end
 	
-	print('102 ' .. #workers)
-	
+    if #workers == 9 and powering == true then
+        spawn_more_overlords = true
+    else
+        spawn_more_overlords = false
+        print(spawn_more_overlords)
+    end
+
 	if #workers >= 13 then
 		powering = false
 	else
