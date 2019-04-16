@@ -8,8 +8,6 @@ local uuid = require("uuid")
 require("torch")
 require("sys")
 local tc = require("torchcraft")
-local utils = require("torchcraft.utils")
--- This are from our custom blackboard
 local macro = require("spaceboard.macro")
 local meta = require("spaceboard.meta")
 local micro = require("spaceboard.micro")
@@ -18,7 +16,7 @@ local micro = require("spaceboard.micro")
 torch.setdefaulttensortype('torch.FloatTensor')
 -- Debug can take values 0, 1, 2 (from no output to most verbose)
 tc.DEBUG = 0
--- Gen random seed
+-- Set random seed
 uuid.randomseed(socket.gettime()*10000)
 -- Spawn UUID
 local spawn_uuid = uuid()
@@ -32,7 +30,7 @@ local parser = argparse() {
 parser:option("-t --hostname", "Give hostname/ip to VM", "127.0.0.1")
 parser:option("-p --port", "Port for TorchCraft", 11111)
 
--- Bridge system variables
+-- System variables
 local restarts = -1
 -- Skip bwapi frames
 local skip_frames = 7
