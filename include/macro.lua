@@ -47,6 +47,16 @@ function macro.manage_economy(actions, tc)
     local workers = {}
     -- Spawn more overlords!
     local overlords = {}
+    
+    -- experimental colonies of wtf 
+    local colonies = {}
+    colonies[1] = 0
+    colonies[2] = 0
+    colonies[3] = 0
+    colonies[4] = 0
+    colonies[5] = 0
+    colonies[6] = 0
+    
     -- Timing to expand is key and can be extracted
     -- from datasets of competitive players.
     local buildings = {}
@@ -98,6 +108,17 @@ function macro.manage_economy(actions, tc)
                     tc.cmd.Build, -1,
                     pos[1], pos[2] + 16, tc.unittypes.Zerg_Spawning_Pool))
                     print('starting location: x ' .. pos[1] .. ' y ' .. pos[2])
+                end
+            elseif tc.state.resources_myself.ore >= 300 and tc.state.frame_from_bwapi - colonies[2] > 200 then
+                colonies[2] = tc.state.frame_from_bwapi
+                if not utils.is_in(ut.order,
+                    tc.command2order[tc.unitcommandtypes.Build])
+                    and not utils.is_in(ut.order,
+                    tc.command2order[tc.unitcommandtypes.Right_Click_Position]) then
+                    table.insert(actions,
+                    tc.command(tc.command_unit, uid,
+                    tc.cmd.Build, -1,
+                    56, 152, tc.unittypes.Zerg_Hatchery))
                 end
             else
                 -- tests gathering
