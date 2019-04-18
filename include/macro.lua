@@ -48,7 +48,7 @@ function macro.manage_economy(actions, tc)
     -- Spawn more overlords!
     local overlords = {}
     
-    -- experimental colonies of wtf 
+    -- macro colonies 
     local colonies = {}
     colonies[1] = 0
     colonies[2] = 0
