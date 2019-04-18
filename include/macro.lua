@@ -47,7 +47,6 @@ function macro.manage_economy(actions, tc)
     local workers = {}
     -- Spawn more overlords!
     local overlords = {}
-    
     -- macro colonies 
     local colonies = {}
     colonies[1] = 0
@@ -56,7 +55,6 @@ function macro.manage_economy(actions, tc)
     colonies[4] = 0
     colonies[5] = 0
     colonies[6] = 0
-    
     -- Timing to expand is key and can be extracted
     -- from datasets of competitive players.
     local buildings = {}
@@ -157,20 +155,20 @@ function macro.manage_economy(actions, tc)
             end
         end
     end
-
+    -- 
     if #workers == 9 and powering == true then
         spawning_overlord = true
         powering = false
     end
-    
+    -- 
     if #overlords >= 2 and powering == false then
         powering = true
     end
-
+    -- 
     if #workers >= 13 then
         powering = false
     end
-
+    -- So long and thanks for all the fish!
     return actions
 end
 
