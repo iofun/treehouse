@@ -107,7 +107,8 @@ function macro.manage_economy(actions, tc)
                     pos[1], pos[2] + 16, tc.unittypes.Zerg_Spawning_Pool))
                     print('starting location: x ' .. pos[1] .. ' y ' .. pos[2])
                 end
-            elseif tc.state.resources_myself.ore >= 300 and tc.state.frame_from_bwapi - colonies[2] > 200 then
+            elseif tc.state.resources_myself.ore >= 300 
+                and tc.state.frame_from_bwapi - colonies[2] > 200 then
                 colonies[2] = tc.state.frame_from_bwapi
                 if not utils.is_in(ut.order,
                     tc.command2order[tc.unitcommandtypes.Build])
