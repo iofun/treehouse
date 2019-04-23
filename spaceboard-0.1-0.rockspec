@@ -24,7 +24,7 @@ build = {
   type = 'builtin',
   modules = {
     ['spaceboard.macro'] = "include/macro.lua",
-    ['spaceboard.meta'] = "include/meta.lua",
+    ['spaceboard.mecha'] = "include/mecha.lua",
     ['spaceboard.micro'] = "include/micro.lua",
     ['spaceboard.tools'] = "include/tools.lua"
   }
