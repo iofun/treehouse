@@ -1,3 +1,3 @@
--name blackboard@127.0.0.1
--setcookie blackboard 
+-name spaceboard@127.0.0.1
+-setcookie spaceboard 
 -heart
