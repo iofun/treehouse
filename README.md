@@ -1,6 +1,6 @@
 # spaceboard
 
-The`spaceboard` is a distributed AI system provided for convenience spawning Linux® daemons and Erlang processes over time that grow into other units; nodes provide granular unit control with in `spaceboard` clusters, spawn more nodes to allow control of additional units.
+The`spaceboard` is a distributed blackboard system provided for convenience spawning Linux® daemons and Erlang processes over time that grow into other units; nodes provide granular unit control with in `spaceboard` clusters, spawn more nodes to allow control of additional units.
 
 Feel free to [explore](https://github.com/spacebeam) and remember; as the system grow in number, you must spawn more nodes to control it.
 
