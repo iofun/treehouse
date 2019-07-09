@@ -1,6 +1,6 @@
 # spaceboard
 
-The spaceboard is a distributed blackboard spawning Linux® processes running inside [Singularity](https://github.com/sylabs/singularity) container instances and [Luerl](https://github.com/rvirding/luerl) that over time grow into other units; nodes provide granular unit control with in `spaceboard` clusters. 
+The spaceboard is a distributed blackboard spawning Linux® daemons running inside [Singularity](https://github.com/sylabs/singularity) container instances and [Luerl](https://github.com/rvirding/luerl) processes over time that grow into other units; nodes provide granular unit control with in `spaceboard` clusters. 
 
 Feel free to [explore](https://github.com/spacebeam) and remember; spawn more nodes to allow control of additional units.
 
