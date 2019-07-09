@@ -1,8 +1,6 @@
 # spaceboard
 
-The`spaceboard` is a distributed blackboard provided for convenience spawning Linux® daemons and [Luerl](https://github.com/rvirding/luerl) processes over time that grow into other units; nodes provide granular unit control with in `spaceboard` clusters, spawn more nodes to allow control of additional units.
-
-Feel free to [explore](https://github.com/spacebeam) and remember; as the system grow in number, you must spawn more nodes to control it.
+The`spaceboard` is a distributed blackboard provided for convenience spawning Linux® daemons and [Luerl](https://github.com/rvirding/luerl) processes over time that grow into other units; nodes provide granular unit control with in `spaceboard` clusters, spawn more nodes to allow control of additional units. Feel free to [explore](https://github.com/spacebeam) and remember; as the system grow in number, spawn more nodes to control it.
 
 ## Help wanted
 
