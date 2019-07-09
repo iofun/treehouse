@@ -1,6 +1,6 @@
 # spaceboard
 
-The`spaceboard` is a distributed blackboard spawning Linux® daemons and [Luerl](https://github.com/rvirding/luerl) processes over time that grow into other units; nodes provide granular unit control with in `spaceboard` clusters, spawn more nodes to allow control of additional units. Remember; as the system grow in number, spawn more nodes to control it.
+The`spaceboard` is a distributed blackboard spawning Linux® daemons running inside a SIF ([Singularity](https://github.com/sylabs/singularity) Image Format) and [Luerl](https://github.com/rvirding/luerl) processes over time that grow into other units; nodes provide granular unit control with in `spaceboard` clusters, spawn more nodes to allow control of additional units. Remember; as the system grow in number, spawn more nodes to control it.
 
 ## Help wanted
 
