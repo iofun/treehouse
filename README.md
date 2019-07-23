@@ -4,6 +4,10 @@ The spaceboard is a distributed blackboard spawning Linux® daemons running insi
 
 Feel free to [explore](https://github.com/spacebeam) and remember; spawn more nodes to allow control of additional units.
 
+## Community
+
+Spacebeam is an open-source community that enables end users easily build computational clusters, grid endpoints and visualization tiled-displays.
+
 ## Help wanted
 
 Would you like to help with the project? Pick any of the issues tagged [help wanted](https://github.com/spacebeam/spaceboard/labels/help%20wanted) and contribute!
