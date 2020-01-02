@@ -1,0 +1,11 @@
+tornado
+cython
+futures
+schematics
+numpy
+scipy
+pyzmq
+arrow
+pycurl
+ujson
+pytest
