@@ -86,24 +86,22 @@ loop(State) ->
     end.
 
 process_pub([H|T]) ->
-    lager:warning("Yo this head just spawn in here ~p \n", [H]),
+    logger:warning("A head just spawn in here ~p \n", [H]),
     Payload = jiffy:decode([T], [return_maps]),
     
-    %% lol?
-
-    lager:warning(maps:get(<<"timestamp">>, Payload, "0000000000")),
-    lager:warning(maps:get(<<"uuid">>, Payload, uuid:uuid_to_string(uuid:get_v4()))).
+    logger:warning(maps:get(<<"timestamp">>, Payload, "0000000000")),
+    logger:warning(maps:get(<<"uuid">>, Payload, uuid:uuid_to_string(uuid:get_v4()))).
 
     %%case binary:split(Stuff, [<<" ">>], []) of
-    %%    [<<"heartbeat">>, _] -> lager:error(_);
-    %%    [<<"">>, _] -> lager:error("wut")
+    %%    [<<"heartbeat">>, _] -> logger:error(_);
+    %%    [<<"">>, _] -> logger:error("wut")
     %%end.
 
     %%http_client(),    D= ???
 
 http_client() ->
     %% currently testing both hackney and gun!
-    URL = <<"https://api.nonsense.ws">>,
+    URL = <<"https://api.torchup.net">>,
     %% setting things up
     Headers = [],
     Payload = <<>>,
@@ -111,4 +109,4 @@ http_client() ->
     %% request response
     {ok, StatusCode, RespHeaders, ClientRef} = hackney:get(URL, Headers, Payload, Options),
     %% where are you?
-    lager:warning("rarely? ~p \n", [StatusCode]).
+    logger:warning("rarely? ~p \n", [StatusCode]).
