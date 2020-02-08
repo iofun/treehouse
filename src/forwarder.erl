@@ -46,8 +46,8 @@ init() ->
     chumak:subscribe(Socket, Telecom),
     chumak:subscribe(Socket, Datacom),
     chumak:subscribe(Socket, Logging),
-    %% subscribe space config
-    econfig:subscribe(space),
+    %% subscribe spaceboard config
+    econfig:subscribe(spaceboard),
     Port = econfig:get_integer(spaceboard, "zmq", "sub_bind"),
     Address = econfig:get_value(spaceboard, "zmq", "address"),
     %% ZeroMQ bind this for me please.
