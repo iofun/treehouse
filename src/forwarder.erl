@@ -35,22 +35,22 @@ cast(Message) ->
 init() ->
     {ok, Socket} = chumak:socket(sub),
     %% List of topics, put them in a list or something.
-    Heartbt = <<"heartbt">>,
-    Torchup = <<"torchup">>,
+    Heartbeat = <<"heartbeat">>,
+    TorchUp = <<"torch-up">>,
     Telecom = <<"telecom">>,
     Datacom = <<"datacom">>,
     Logging = <<"logging">>,
     %% ZeroMQ subscribe socket and topics!
-    chumak:subscribe(Socket, Heartbt),
-    chumak:subscribe(Socket, Torchup),
+    chumak:subscribe(Socket, Heartbeat),
+    chumak:subscribe(Socket, TorchUp),
     chumak:subscribe(Socket, Telecom),
     chumak:subscribe(Socket, Datacom),
     chumak:subscribe(Socket, Logging),
-    %% subscribe monteverde config
-    econfig:subscribe(monteverde),
-    Port = econfig:get_integer(monteverde, "zmq", "sub_bind"),
-    Address = econfig:get_value(monteverde, "zmq", "address"),
-    %% Yo, chumak blind this for me please.
+    %% subscribe space config
+    econfig:subscribe(space),
+    Port = econfig:get_integer(spaceboard, "zmq", "sub_bind"),
+    Address = econfig:get_value(spaceboard, "zmq", "address"),
+    %% ZeroMQ bind this for me please.
     case chumak:bind(Socket, tcp, Address, Port) of
         {ok, _BindPid} ->
             io:format("Binding OK with Pid: ~p\n", [Socket]);
