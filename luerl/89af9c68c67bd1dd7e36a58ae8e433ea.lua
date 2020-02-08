@@ -4,11 +4,11 @@ local this_unit = {}
 -- Where we are and fast we move
 local x, y, dx, dy
 -- Our name
-local name = "Protoss_Arbiter_Tribunal"
--- Our color              
+local name = "Protoss_Fleet_Beacon"
+-- Our color
 local color = "yellow"
--- Our BWAPI unit type          
-local type = 170
+-- Our BWAPI unit type
+local type = 169
 -- Size of a clock tick msec
 local tick
 
@@ -25,10 +25,10 @@ local ground_range,air_range = 0,0
 local sight = 320
 local supply = 0
 local build_time = 900
-local build_score = 450
-local destroy_score = 1350
-local mineral = 200
-local gas = 150
+local build_score = 350
+local destroy_score = 1050
+local mineral = 300
+local gas = 200
 local holdkey = ""
 
 -- The size of the region
