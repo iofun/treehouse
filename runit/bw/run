@@ -1,4 +1,3 @@
 #!/bin/ksh -e
 exec 2>&1
 exec chpst -u sloth python3 /opt/bw/include/server/server.py 
-
