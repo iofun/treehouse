@@ -1,4 +1,3 @@
 #!/bin/ksh -e
 exec 2>&1
-exec chpst -u sloth echo "hell is about time"
-
+exec singularity exec --writable /opt/sandbox/mango python3 /opt/mango/server.py --config=/etc/mango.conf
