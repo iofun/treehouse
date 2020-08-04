@@ -1,4 +1,2 @@
 #!/bin/ksh -e
-exec 2>&1
-exec chpst -u sloth echo "hell is about time"
-
+exec singularity exec -w /opt/sandbox/openresty /usr/local/openresty/nginx/sbin/nginx -g "daemon off;"
