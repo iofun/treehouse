@@ -1,0 +1,4 @@
+#!/bin/ksh -e
+exec 2>&1
+exec chpst -u sloth echo "hell is about time"
+
