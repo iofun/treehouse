@@ -56,8 +56,7 @@ init({Xsize,Ysize,N}) ->
     process_flag(trap_exit, true),
     {ok,_} = esdl_server:start_link(Xsize, Ysize),
     {ok,_} = sim_renderer:start_link(Xsize, Ysize),
-    {ok,_} = sim_sound:start_link(),
-    {ok,_} = universe:start_link(Xsize, Ysize), %Start the universe
+    {ok,_} = map:start_link(Xsize, Ysize), %Start the map 
     random:seed(now()),                         %Seed the RNG
     Arr = ets:new(?TABLE, [named_table,protected]),
     St = init_lua(),                            %Get the Lua state
