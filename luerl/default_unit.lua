@@ -1,37 +1,36 @@
--- The default ship.
--- It reflects from the edge.
+-- The default unit reflects from the edge.
 
-local this_ship = {}		-- Our ship function table
+local this_unit = {}		    -- Our unit function table
 
 -- The standard local variables
-local x, y, dx, dy		-- Where we are and fast we move
-local colour = "white"		-- Our colour
-local type = "ship"		-- Our type
-local tick			-- Size of a clock tick msec
-local me = ship.self()		-- This is me
+local x, y, dx, dy		        -- Where we are and fast we move
+local colour = "white"		    -- Our colour
+local type = "unit"	    	    -- Our type
+local tick			            -- Size of a clock tick msec
+local me = unit.self()		    -- This is me
 local ammo,shield = 0,0
 
-local xsize,ysize = universe.size()	-- The size of the universe
+local xsize,ysize = map.size()	-- The size of the map 
 
--- The default ship interface.
+-- The default unit interface.
 
-function this_ship.start() end
+function this_unit.start() end
 
-function this_ship.get_pos() return x,y end
+function this_unit.get_pos() return x,y end
 
-function this_ship.set_pos(a1, a2) x,y = a1,a2 end
+function this_unit.set_pos(a1, a2) x,y = a1,a2 end
 
-function this_ship.get_speed() return dx,dy end
+function this_unit.get_speed() return dx,dy end
 
-function this_ship.set_speed(a1, a2) dx,dy = a1,a2 end
+function this_unit.set_speed(a1, a2) dx,dy = a1,a2 end
 
-function this_ship.set_tick(a1) tick = a1 end
+function this_unit.set_tick(a1) tick = a1 end
 
 local function move_xy_bounce(x, y, dx, dy, valid_x, valid_y)
    local nx = x + dx
    local ny = y + dy
 
-   if (not valid_x(nx)) then	-- Bounce off the edge
+   if (not valid_x(nx)) then    -- Bounce off the edge
       nx = x - dx
       dx = -dx
    end
@@ -44,28 +43,27 @@ end
 
 local function move(x, y, dx, dy)
    local nx,ny,ndx,ndy = move_xy_bounce(x, y, dx, dy,
-					universe.valid_x, universe.valid_y)
+					map.valid_x, map.valid_y)
    -- Where we were and where we are now.
-   local osx,osy = universe.sector(x, y)
-   local nsx,nsy = universe.sector(nx, ny)
+   local osx,osy = map.sector(x, y)
+   local nsx,nsy = map.sector(nx, ny)
    if (osx ~= nsx or osy ~= nsy) then
       -- In new sector, move us to the right sector
-      universe.rem_sector(x, y)
-      universe.add_sector(nx, ny)
+      map.rem_sector(x, y)
+      map.add_sector(nx, ny)
       -- and draw us
-      esdl_server.set_ship(type, colour, nx, ny)
+      esdl_server.set_unit(type, colour, nx, ny)
    end
    return nx,ny,ndx,ndy
 end
 
-function this_ship.tick()
+function this_unit.tick()
    x,y,dx,dy = move(x, y, dx, dy)
 end
 
-function this_ship.zap()	-- The ship has been zapped and will die
-   esdl_server.set_ship("explosion", colour, x, y)
-   sound.make_sound("boom")
-   universe.rem_sector(x, y)
+function this_unit.attack()	-- The unit has been attacked and will die
+   esdl_server.set_unit("explosion", colour, x, y)
+   map.rem_sector(x, y)
 end
 
-return this_ship		-- Return the ship table
+return this_unit		-- Return the unit table
