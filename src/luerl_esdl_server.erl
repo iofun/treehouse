@@ -15,24 +15,24 @@ install(St) ->
 %% Caller will convert this list to the correct format.
 
 table() ->
-    [{<<"add_ship">>,#erl_func{code=fun add_ship/2}},
-     {<<"del_ship">>,#erl_func{code=fun del_ship/2}},
-     {<<"set_ship">>,#erl_func{code=fun set_ship/2}}
+    [{<<"add_unit">>,#erl_func{code=fun add_unit/2}},
+     {<<"del_unit">>,#erl_func{code=fun del_unit/2}},
+     {<<"set_unit">>,#erl_func{code=fun set_unit/2}}
     ].
 
-add_ship([], St) ->
-    esdl_server:add_ship(),
+add_unit([], St) ->
+    esdl_server:add_unit(),
     {[],St};
-add_ship(As, St) -> badarg_error(add_ship, As, St).
+add_unit(As, St) -> badarg_error(add_unit, As, St).
 
-del_ship([], St) ->
-    esdl_server:del_ship(),
+del_unit([], St) ->
+    esdl_server:del_unit(),
     {[],St};
-del_ship(As, St) -> badarg_error(del_ship, As, St).
+del_unit(As, St) -> badarg_error(del_unit, As, St).
 
-%% set_ship([Style,Colour,X,Y|_], State) -> {[],State}.
+%% set_unit([Style,Colour,X,Y|_], State) -> {[],State}.
 
-set_ship([S,C,X,Y], St) when is_number(X), is_number(Y) ->
+set_unit([S,C,X,Y], St) when is_number(X), is_number(Y) ->
     %% Convert coulour names to RGB.
     Colour = case C of
 		 %% Colourless colours
@@ -56,19 +56,19 @@ set_ship([S,C,X,Y], St) when is_number(X), is_number(Y) ->
 		 _ -> {255,255,255}		%Default colour white
 	     end,
     %% Convert style names to atoms.
-    Style = ship_style(S),
-    esdl_server:set_ship(Style, Colour, X, Y),
+    Style = unit_style(S),
+    esdl_server:set_unit(Style, Colour, X, Y),
     {[],St};
-set_ship(As, St) ->
+set_unit(As, St) ->
     case luerl_lib:conv_list(As, [lua_string,integer,integer,integer,
 				  integer,integer]) of
 	[S,R,G,B,X,Y] ->
-	    Style = ship_style(S),
-	    esdl_server:set_ship(Style, {R,G,B}, X, Y);
-	_ -> badarg_error(set_ship, As, St)
+	    Style = unit_style(S),
+	    esdl_server:set_unit(Style, {R,G,B}, X, Y);
+	_ -> badarg_error(set_unit, As, St)
     end.
 
-ship_style(<<"extra">>) -> extra;
-ship_style(<<"ship">>) -> ship;
-ship_style(<<"explosion">>) -> explosion;
-ship_style(_) -> ship.				%The default
+unit_style(<<"extra">>) -> extra;
+unit_style(<<"unit">>) -> unit;
+unit_style(<<"explosion">>) -> explosion;
+unit_style(_) -> unit.				%The default

@@ -2,7 +2,7 @@
 
 -export([start_link/2,start/2]).
 -export([init/2]).
--export([add_ship/0,del_ship/0,set_ship/4]).
+-export([add_unit/0,del_unit/0,set_unit/4]).
 
 %% Server state.
 -record(st, {w,r,tab}).
@@ -17,15 +17,15 @@ start_link(Xsize, Ysize) ->
 
 %% User API.
 
-add_ship() ->
-    call(add_ship).
+add_unit() ->
+    call(add_unit).
 
-del_ship() ->
-    call(del_ship).
+del_unit() ->
+    call(del_unit).
 
-set_ship(Style, Col, X, Y) ->
-    Sec = universe:sector(X, Y),		%Which sector?
-    cast({set_ship,Style,Col,Sec}).
+set_unit(Style, Col, X, Y) ->
+    Sec = map:sector(X, Y),		%Which sector?
+    cast({set_unit,Style,Col,Sec}).
 
 %% Internal protocol functions.
 
@@ -47,21 +47,21 @@ reply(To, Rep) ->
 
 init(Xsize, Ysize) ->
     register(esdl_server, self()),
-    T = ets:new(esdl_ship_array, [named_table,protected]),
+    T = ets:new(esdl_unit_array, [named_table,protected]),
     proc_lib:init_ack({ok,self()}),
     loop(#st{tab=T}).
 
 loop(St) ->
     receive
-	{call,From,add_ship} ->
+	{call,From,add_unit} ->
 	    ets:insert(St#st.tab, {From,null,null,null}),
 	    reply(From, ok),
 	    loop(St);
-	{call,From,del_ship} ->
+	{call,From,del_unit} ->
 	    ets:delete(St#st.tab, From),
 	    reply(From, ok),
 	    loop(St);
-	{cast,From,{set_ship,Style,Col,Sector}} ->
+	{cast,From,{set_unit,Style,Col,Sector}} ->
 	    ets:insert(St#st.tab, {From,Style,Col,Sector}),
 	    loop(St)
     end.

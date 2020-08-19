@@ -5,10 +5,8 @@
 -export([get_window/0,get_renderer/0]).
 -export([set_tick/1]).
 
-%%-define(WINDOW_NAME, "Universe").		%Older esdl2
-%%-define(WINDOW_TITLE, "Universe").
--define(WINDOW_NAME, <<"Universe">>).		%Newer esdl2
--define(WINDOW_TITLE, <<"Universe">>).
+-define(WINDOW_NAME, <<"Spaceboard">>).		%Newer esdl2
+-define(WINDOW_TITLE, <<"Spaceboard">>).
 
 -define(DEFAULT_TICK, 20).			%Default render tick
 
@@ -69,7 +67,7 @@ init(Xsize0, Ysize0) ->
     %% Clear screen
     ok = sdl_renderer:set_draw_color(R, 0, 0, 0, 0),
     ok = sdl_renderer:clear(R),
-    T = esdl_ship_array,
+    T = esdl_unit_array,
     Tick = ?DEFAULT_TICK,
     proc_lib:init_ack({ok,self()}),
     erlang:send_after(Tick, self(), render),
@@ -96,17 +94,17 @@ loop(St, Tick) ->
 render(#st{r=Ren,tab=Tab}=St) ->
     ok = sdl_renderer:set_draw_color(Ren, 0, 0, 0, 0),
     ok = sdl_renderer:clear(Ren),
-    %% Draw the ships.
+    %% Draw the units.
     %% We don't need the Acc here, but there is no foreach.
     Draw = fun ({_,null,_,_}, Acc) -> Acc;
 	       ({S,Style,Col,Sec}, Acc) ->
-		   draw_ship(S, Style, Col, Sec, St),
+		   draw_unit(S, Style, Col, Sec, St),
 		   Acc
 	   end,
     ets:foldl(Draw, null, Tab),
     ok = sdl_renderer:present(Ren).
 
-draw_ship(_Ship, explosion, _, {X,Y},#st{xsize=Xsize,ysize=Ysize,r=Ren}) ->
+draw_unit(_Unit, explosion, _, {X,Y},#st{xsize=Xsize,ysize=Ysize,r=Ren}) ->
     Sx = limit(2*X, 3, Xsize-6),		%Shift point to fit
     Sy = limit(2*Y, 3, Ysize-6),
     R1 = #{x=>Sx,y=>Sy,w=>2,h=>2},
@@ -116,12 +114,10 @@ draw_ship(_Ship, explosion, _, {X,Y},#st{xsize=Xsize,ysize=Ysize,r=Ren}) ->
     sdl_renderer:draw_rect(Ren, R3),
     sdl_renderer:set_draw_color(Ren, 255, 255, 0, 255),
     sdl_renderer:draw_rects(Ren, [R1,R2]);
-draw_ship(_Ship, _Style, {R,G,B}, {X,Y},#st{xsize=Xsize,ysize=Ysize,r=Ren}) ->
+draw_unit(_Unit, _Style, {R,G,B}, {X,Y},#st{xsize=Xsize,ysize=Ysize,r=Ren}) ->
     Sx = limit(2*X, 0, Xsize-1),		%Shift point to fit
     Sy = limit(2*Y, 0, Ysize-1),
     sdl_renderer:set_draw_color(Ren, R, G, B, 255),
-    %%S = [#{x=>Sx,y=>Sy},#{x=>Sx,y=>Sy+1},#{x=>Sx+1,y=>Sy},#{x=>Sx+1,y=>Sy+1}],
-    %%sdl_renderer:draw_points(Ren, S).
     S = #{x=>Sx-1,y=>Sy-1,w=>4,h=>4},
     sdl_renderer:draw_rect(Ren, S).
 

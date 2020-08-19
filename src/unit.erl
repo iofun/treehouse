@@ -2,7 +2,7 @@
 
 -export([start/3,start_link/3]).
 -export([init/3]).
--export([set_tick/2,get_pos/1,set_pos/3,get_speed/1,set_speed/3,zap/1]).
+-export([set_tick/2,get_pos/1,set_pos/3,get_speed/1,set_speed/3,attack/1]).
 -export([get_state/1,get_tc/1]).
 -export([set_unit/2,lua_do/2,gc/1]).			%Lua commands
 
@@ -31,8 +31,8 @@ get_speed(Unit) ->
 set_speed(Unit, Dx, Dy) ->
     cast(Unit, {set_speed,Dx,Dy}).
 
-zap(Unit) ->
-    cast(Unit, zap).
+attack(Unit) ->
+    cast(Unit, attack).
 
 get_state(Unit) ->
     call(Unit, get_state).
@@ -67,7 +67,7 @@ reply(To, Rep) ->
 %% Main loop.
 
 init(X, Y, St0) ->
-    universe:add_sector(X, Y, self()),		%Put us in the universe
+    map:add_sector(X, Y, self()),		%Put us in the map 
     esdl_server:add_unit(),			%Add us to SDL
     {_,St1} = luerl:call_function([this_unit,start], [], St0),
     {_,St2} = luerl:call_function([this_unit,set_pos], [X,Y], St1),
@@ -110,13 +110,13 @@ loop(St0, Tick, Tref, Tc) ->
 	    {_,St1} = luerl:call_function([this_unit,set_speed],
 					  [float(Dx),float(Dy)], St0),
 	    loop(St1, Tick, Tref, Tc);
-	{cast,From,zap} ->
-	    {_,_} = luerl:call_function([this_unit,zap], [], St0),
+	{cast,From,attack} ->
+	    {_,_} = luerl:call_function([this_unit,attack], [], St0),
 	    timer:sleep(1500),
 	    %% Remove ourselves from databases and die
 	    esdl_server:del_unit(),
-	    universe:del_unit(),
-	    exit(zapped);
+	    map:del_unit(),
+	    exit(killed);
 	{call,From,get_state} ->		%Get the luerl state
 	    reply(From, {ok,St0}),
 	    loop(St0, Tick, Tref, Tc);
