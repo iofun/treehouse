@@ -55,5 +55,5 @@ set_units(Unit, Uis) ->
 set_units(Unit, From, To) ->
     set_units(Unit, lists:seq(From, To)).
 
-set_unit(Unit, From, To, Incr) ->
+set_units(Unit, From, To, Incr) ->
     set_units(Unit, lists:seq(From, To, Incr)).

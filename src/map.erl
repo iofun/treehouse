@@ -1,10 +1,10 @@
--module(universe).
+-module(map).
 
 -export([start/2,start_link/2]).
 -export([init/2]).
 -export([sector/2,get_sector/2,add_sector/3,rem_sector/3]).
 -export([size/0,valid_x/1,valid_y/1]).
--export([find_ship/1,del_ship/0,del_ship/1]).
+-export([find_unit/1,del_unit/0,del_unit/1]).
 
 %% Server state.
 -record(st, {xsize,ysize}).
@@ -20,7 +20,7 @@ start_link(Xsize, Ysize) ->
 %% User API.
 
 size() ->
-    [{size,X,Y}] = ets:lookup(universe, size),
+    [{size,X,Y}] = ets:lookup(map, size),
     {X,Y}.
 
 %% size() -> call(size).
@@ -44,22 +44,22 @@ add_sector(X, Y, What) ->
 rem_sector(X, Y, What) ->
     call({rem_sector,X,Y,What}).
 
-find_ship(S) ->
-    call({find_ship,S}).
+find_unit(U) ->
+    call({find_unit,U}).
 
-del_ship() -> del_ship(self()).
+del_unit() -> del_unit(self()).
 
-del_ship(S) ->
-    cast({del_ship,S}).
+del_unit(U) ->
+    cast({del_unit,U}).
 
 %% Internal protocol functions.
 
 cast(Msg) ->
-    universe ! {cast,self(),Msg},
+    map ! {cast,self(),Msg},
     ok.
 
 call(Msg) ->
-    U = whereis(universe),
+    U = whereis(map),
     U ! {call,self(),Msg},
     receive
 	{reply,U,Rep} -> Rep
@@ -71,10 +71,10 @@ reply(To, Rep) ->
 %% Initialise it all.
 
 init(Xsize, Ysize) ->
-    register(universe, self()),
-    %% Create the universe.
-    ets:new(universe, [named_table,duplicate_bag,protected]),
-    ets:insert(universe, {size,Xsize,Ysize}),
+    register(map, self()),
+    %% Create the map.
+    ets:new(map, [named_table,duplicate_bag,protected]),
+    ets:insert(map, {size,Xsize,Ysize}),
     St = #st{xsize=Xsize,ysize=Ysize},
     proc_lib:init_ack({ok,self()}),
     loop(St).
@@ -89,20 +89,20 @@ loop(St) ->
 	    loop(St);
 	{call,From,{get_sector,X,Y}} ->
 	    Sector = sector(X, Y),
-	    reply(From, ets:lookup(universe, Sector)),
+	    reply(From, ets:lookup(map, Sector)),
 	    loop(St);
 	{call,From,{add_sector,X,Y,What}} ->
 	    Sector = sector(X, Y),
-	    reply(From, ets:insert(universe, {Sector,What})),
+	    reply(From, ets:insert(map, {Sector,What})),
 	    loop(St);
 	{call,From,{rem_sector,X,Y,What}} ->
 	    Sector = sector(X, Y),
-	    reply(From, ets:delete_object(universe, {Sector,What})),
+	    reply(From, ets:delete_object(map, {Sector,What})),
 	    loop(St);
-	{call,From,{find_ship,S}} ->
-	    reply(From, ets:select(universe, [{{'$1',S},[],['$1']}])),
+	{call,From,{find_unit,U}} ->
+	    reply(From, ets:select(map, [{{'$1',U},[],['$1']}])),
 	    loop(St);
-	{cast,From,{del_ship,S}} ->
-	    reply(From, ets:delete_object(universe, {'_',S})),
+	{cast,From,{del_unit,U}} ->
+	    reply(From, ets:delete_object(map, {'_',U})),
 	    loop(St)
     end.
